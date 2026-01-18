@@ -6,10 +6,8 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 /// In Production sollten diese Werte aus Environment-Variablen geladen werden
 class AppConfig {
   // Appwrite Configuration
-  static String get appwriteEndpoint =>
-      dotenv.env['APPWRITE_ENDPOINT'] ?? 'https://fra.cloud.appwrite.io/v1';
-  static String get appwriteProjectId =>
-      dotenv.env['APPWRITE_PROJECT_ID'] ?? '';
+  static String get appwriteEndpoint => dotenv.env['APPWRITE_ENDPOINT'] ?? 'https://fra.cloud.appwrite.io/v1';
+  static String get appwriteProjectId => dotenv.env['APPWRITE_PROJECT_ID'] ?? '696befd00018180d10ff';
 
   // Database IDs (werden nach Appwrite-Setup ausgefüllt)
   static const String databaseId =
