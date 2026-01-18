@@ -1,5 +1,3 @@
-import 'core/app_config.dart';
-
 /// Zentrale Datenquelle für die gesamte App
 /// Diese Datei enthält alle Kursdaten, die sowohl im MBSR-Bereich
 /// als auch im Gastbereich verwendet werden

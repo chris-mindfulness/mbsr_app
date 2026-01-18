@@ -26,6 +26,7 @@ class AudioService {
   AudioServiceStatus _status = AudioServiceStatus.idle;
   String? _currentAppwriteId;
   String? _currentTitle;
+  Map<String, String>? _currentAudio;
   
   // Streams für die UI
   final _statusController = StreamController<AudioServiceStatus>.broadcast();
@@ -94,15 +95,15 @@ class AudioService {
     // Clean Swap: Altes Audio stoppen
     _updateStatus(AudioServiceStatus.loading);
     try {
-      await _player.stop();
-      
-      _currentAppwriteId = appwriteId;
-      _currentTitle = title;
-      
-      // Reset 80%-Tracking für neues Audio
+      // WICHTIG: Setze Tracking-Status zurück, bevor wir das neue Audio laden
       _hasTracked80Percent = false;
       _sessionStartPosition = null;
       _sessionStartTime = null;
+      _currentAppwriteId = null; // Verhindert Tracking während des Ladens
+      _currentTitle = null;
+      _currentAudio = null;
+
+      await _player.stop();
 
       // Optimierte AudioSource für Appwrite (Unterstützt Seeking & Range Requests)
       final source = AudioSource.uri(
@@ -115,16 +116,18 @@ class AudioService {
         source,
         preload: true, // Lädt Metadaten (Dauer) sofort
       );
-      
+
+      // Erst nach dem Laden die Informationen setzen
+      _currentAppwriteId = appwriteId;
+      _currentTitle = title;
+      _currentAudio = audio;
+
       await _player.play();
-      
+
       _updateStatus(AudioServiceStatus.playing);
-      
+
       // Starte 80%-Tracking
       _startTracking();
-      
-      // Tracking: Zuletzt gehört speichern
-      await NutzungsTracker.speichereZuletztGehoert(audio);
     } catch (e) {
       if (kDebugMode) debugPrint("AudioService Error beim Laden/Abspielen: $e");
       _updateStatus(AudioServiceStatus.error);
@@ -165,40 +168,53 @@ class AudioService {
 
   /// Prüft, ob 80% des Audios erreicht wurden
   void _check80PercentThreshold(Duration currentPosition) {
-    // Bereits getrackt? Dann nichts tun
-    if (_hasTracked80Percent) return;
-    
+    if (_hasTracked80Percent || _currentTitle == null) return;
+
     final totalDuration = _player.duration;
     if (totalDuration == null || totalDuration.inSeconds == 0) return;
-    
+
+    // Sicherheits-Check: Falls die Position vom vorherigen (längeren) Audio stammt
+    if (currentPosition.inSeconds > totalDuration.inSeconds + 2) return;
+
     // Berechne, ob 80% erreicht wurden
     final threshold = totalDuration.inSeconds * 0.8;
     final currentSeconds = currentPosition.inSeconds;
-    
+
     if (currentSeconds >= threshold) {
-      if (kDebugMode) {
-        debugPrint('✅ 80%-Schwelle erreicht: $currentSeconds / ${totalDuration.inSeconds} Sekunden');
-      }
-      
-      // Markiere als getrackt
-      _hasTracked80Percent = true;
-      
-      // Speichere in Statistiken (nur die tatsächlich gehörten Sekunden)
-      if (_currentTitle != null) {
-        // Berechne tatsächliche Hörzeit (nicht die Position im Audio)
-        final actualListeningTime = _sessionStartTime != null
-            ? DateTime.now().difference(_sessionStartTime!).inSeconds
-            : currentSeconds;
-        
-        // Verhindere unrealistische Werte (z.B. bei schnellem Vorspulen)
-        final realisticTime = actualListeningTime > totalDuration.inSeconds
-            ? totalDuration.inSeconds
-            : actualListeningTime;
-        
-        if (kDebugMode) {
-          debugPrint('📊 Speichere Statistik: $_currentTitle - $realisticTime Sekunden');
-        }
-        
+      _performTracking('80%-Schwelle');
+    }
+  }
+
+  /// Führt das eigentliche Tracking aus (Zuletzt gehört & Statistiken)
+  void _performTracking(String trigger) {
+    if (_hasTracked80Percent || _currentTitle == null || _currentAudio == null) {
+      return;
+    }
+
+    _hasTracked80Percent = true;
+
+    if (kDebugMode) {
+      debugPrint('✅ Tracking ausgelöst ($trigger): $_currentTitle');
+    }
+
+    // Tracking: Zuletzt gehört speichern
+    NutzungsTracker.speichereZuletztGehoert(_currentAudio!);
+
+    // Speichere in Statistiken (nur die tatsächlich gehörten Sekunden)
+    final totalDuration = _player.duration;
+    if (totalDuration != null) {
+      // Berechne tatsächliche Hörzeit (nicht die Position im Audio)
+      // Das verhindert, dass beim Vorspulen auf 80% die volle Zeit getrackt wird
+      final actualListeningTime = _sessionStartTime != null
+          ? DateTime.now().difference(_sessionStartTime!).inSeconds
+          : _player.position.inSeconds;
+
+      // Verhindere unrealistische Werte
+      final realisticTime = actualListeningTime > totalDuration.inSeconds
+          ? totalDuration.inSeconds
+          : actualListeningTime;
+
+      if (realisticTime > 0) {
         NutzungsTracker.speichereStatistik(
           audioTitle: _currentTitle!,
           gehoerteSekunden: realisticTime,
@@ -208,36 +224,25 @@ class AudioService {
   }
 
   void _saveCurrentStats() {
-    // Diese Methode wird beim Stop/Dispose aufgerufen
-    // Wenn 80% noch nicht erreicht wurden, speichern wir NICHTS
-    // (verhindert "Fake-Tracking" durch kurzes Anspielen)
-    
-    if (_hasTracked80Percent) {
-      if (kDebugMode) debugPrint('ℹ️ Statistik wurde bereits bei 80% gespeichert');
-      return;
-    }
-    
-    // Wenn Audio fast zu Ende ist (>95%), speichern wir trotzdem
+    // Diese Methode wird beim Stop/Dispose/Wechsel aufgerufen
+    if (_hasTracked80Percent || _currentTitle == null) return;
+
     final totalDuration = _player.duration;
     final currentPosition = _player.position;
-    
-    if (totalDuration != null && 
-        currentPosition.inSeconds >= totalDuration.inSeconds * 0.95) {
-      if (kDebugMode) debugPrint('✅ Audio fast zu Ende (>95%), speichere Statistik');
-      
-      if (_currentTitle != null) {
-        final actualListeningTime = _sessionStartTime != null
-            ? DateTime.now().difference(_sessionStartTime!).inSeconds
-            : currentPosition.inSeconds;
-        
-        NutzungsTracker.speichereStatistik(
-          audioTitle: _currentTitle!,
-          gehoerteSekunden: actualListeningTime,
-        );
-      }
-    } else {
-      if (kDebugMode) {
-        debugPrint('ℹ️ Audio wurde nicht weit genug gehört (<80%), keine Statistik gespeichert');
+
+    // Falls die 80% gerade erst beim Stoppen erreicht wurden
+    if (totalDuration != null && totalDuration.inSeconds > 0) {
+      final currentSeconds = currentPosition.inSeconds;
+      final threshold = totalDuration.inSeconds * 0.8;
+
+      if (currentSeconds >= threshold && currentSeconds <= totalDuration.inSeconds + 2) {
+        _performTracking('Final Check (>80%)');
+      } else {
+        if (kDebugMode) {
+          debugPrint(
+            'ℹ️ Audio wurde nicht weit genug gehört ($currentSeconds / ${totalDuration.inSeconds}s), kein Tracking.',
+          );
+        }
       }
     }
   }

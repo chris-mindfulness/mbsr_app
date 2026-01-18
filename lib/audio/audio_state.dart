@@ -1,15 +1,16 @@
 /// Audio-State-Management
-/// 
+///
 /// Trennt den Audio-Status von der Business-Logik
 /// Ermöglicht einfache Erweiterungen (z.B. Tempelglocke, Timer)
+library;
 
 /// Status des Audio-Players
 enum AudioServiceStatus {
-  idle,     // Kein Audio geladen
-  loading,  // Audio wird geladen
-  playing,  // Audio spielt
-  paused,   // Audio pausiert
-  error,    // Fehler beim Laden/Abspielen
+  idle, // Kein Audio geladen
+  loading, // Audio wird geladen
+  playing, // Audio spielt
+  paused, // Audio pausiert
+  error, // Fehler beim Laden/Abspielen
 }
 
 /// Repräsentiert den aktuellen Zustand eines Audio-Tracks
