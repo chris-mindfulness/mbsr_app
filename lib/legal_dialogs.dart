@@ -10,7 +10,7 @@ class LegalDialogs {
       'E-Mail: achtsamkeit@belight-leipzig.de';
 
   static const String datenschutzText =
-      'Diese App wird über Firebase gehostet. Es werden keine '
+      'Diese App wird über Appwrite/GitHub Pages gehostet. Es werden keine '
       'persönlichen Daten gespeichert. Die Verarbeitung beschränkt '
       'sich auf technisch notwendige Protokolldaten beim App-Aufruf.';
 
