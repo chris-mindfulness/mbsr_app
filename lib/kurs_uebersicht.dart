@@ -54,6 +54,203 @@ class _KursUebersichtState extends State<KursUebersicht> {
     super.dispose();
   }
 
+  /// Öffnet den Full-Screen Player im Headspace-Stil
+  void _showFullPlayer() {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: AppStyles.bgColor,
+      barrierColor: Colors.black.withOpacity(0.5),
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(40)),
+      ),
+      builder: (context) => DraggableScrollableSheet(
+        initialChildSize: 0.95,
+        minChildSize: 0.5,
+        maxChildSize: 0.95,
+        expand: false,
+        builder: (context, scrollController) => _buildFullPlayerContent(),
+      ),
+    );
+  }
+
+  Widget _buildFullPlayerContent() {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 32),
+      child: Column(
+        children: [
+          const SizedBox(height: 16),
+          // Handle/Indicator
+          Container(
+            width: 40,
+            height: 5,
+            decoration: BoxDecoration(
+              color: AppStyles.softBrown.withOpacity(0.2),
+              borderRadius: BorderRadius.circular(10),
+            ),
+          ),
+          const SizedBox(height: 48),
+          
+          // Cover/Icon Area
+          Expanded(
+            flex: 3,
+            child: Container(
+              width: double.infinity,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(40),
+                boxShadow: [
+                  BoxShadow(
+                    color: AppStyles.primaryOrange.withOpacity(0.1),
+                    blurRadius: 30,
+                    offset: const Offset(0, 15),
+                  ),
+                ],
+              ),
+              child: const Center(
+                child: Icon(
+                  Icons.self_improvement,
+                  size: 120,
+                  color: AppStyles.primaryOrange,
+                ),
+              ),
+            ),
+          ),
+          
+          const SizedBox(height: 48),
+          
+          // Title & Description
+          Text(
+            _audioService.currentTitle ?? 'Audio',
+            style: AppStyles.titleStyle.copyWith(fontSize: 24),
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 8),
+          Text(
+            "Achtsamkeitspraxis",
+            style: AppStyles.bodyStyle.copyWith(
+              color: AppStyles.softBrown.withOpacity(0.6),
+              letterSpacing: 1.2,
+            ),
+          ),
+          
+          const SizedBox(height: 48),
+          
+          // Progress Area
+          StreamBuilder<Duration>(
+            stream: _audioService.positionStream,
+            builder: (context, snapshot) {
+              final position = snapshot.data ?? Duration.zero;
+              final duration = _audioService.duration ?? Duration.zero;
+              
+              return Column(
+                children: [
+                  SliderTheme(
+                    data: SliderTheme.of(context).copyWith(
+                      trackHeight: 6,
+                      thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 8),
+                      overlayShape: const RoundSliderOverlayShape(overlayRadius: 20),
+                      activeTrackColor: AppStyles.primaryOrange,
+                      inactiveTrackColor: AppStyles.primaryOrange.withOpacity(0.1),
+                      thumbColor: AppStyles.primaryOrange,
+                    ),
+                    child: Slider(
+                      value: position.inSeconds.toDouble(),
+                      max: duration.inSeconds > 0 ? duration.inSeconds.toDouble() : 1.0,
+                      onChanged: (value) => _audioService.seek(Duration(seconds: value.toInt())),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(_formatDuration(position), style: AppStyles.bodyStyle.copyWith(fontSize: 12)),
+                        Text(_formatDuration(duration), style: AppStyles.bodyStyle.copyWith(fontSize: 12)),
+                      ],
+                    ),
+                  ),
+                ],
+              );
+            },
+          ),
+          
+          const SizedBox(height: 32),
+          
+          // Controls Area
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              // Back 10s
+              IconButton(
+                icon: const Icon(Icons.replay_10),
+                iconSize: 36,
+                color: AppStyles.softBrown,
+                onPressed: () {
+                  final newPos = _audioService.position - const Duration(seconds: 10);
+                  _audioService.seek(newPos < Duration.zero ? Duration.zero : newPos);
+                },
+              ),
+              const SizedBox(width: 24),
+              // Play/Pause Large
+              StreamBuilder<AudioServiceStatus>(
+                stream: _audioService.statusStream,
+                builder: (context, snapshot) {
+                  final isPlaying = _audioService.status == AudioServiceStatus.playing;
+                  return Container(
+                    decoration: BoxDecoration(
+                      color: AppStyles.primaryOrange,
+                      shape: BoxShape.circle,
+                      boxShadow: [
+                        BoxShadow(
+                          color: AppStyles.primaryOrange.withOpacity(0.3),
+                          blurRadius: 20,
+                          offset: const Offset(0, 10),
+                        ),
+                      ],
+                    ),
+                    child: IconButton(
+                      icon: Icon(isPlaying ? Icons.pause : Icons.play_arrow),
+                      iconSize: 56,
+                      color: Colors.white,
+                      onPressed: () {
+                        if (isPlaying) {
+                          _audioService.pause();
+                        } else {
+                          if (_audioService.currentAppwriteId != null) {
+                            _audioService.play({
+                              'appwrite_id': _audioService.currentAppwriteId!,
+                              'title': _audioService.currentTitle!,
+                            });
+                          }
+                        }
+                      },
+                    ),
+                  );
+                },
+              ),
+              const SizedBox(width: 24),
+              // Forward 30s
+              IconButton(
+                icon: const Icon(Icons.forward_30),
+                iconSize: 36,
+                color: AppStyles.softBrown,
+                onPressed: () {
+                  final newPos = _audioService.position + const Duration(seconds: 30);
+                  final duration = _audioService.duration ?? Duration.zero;
+                  _audioService.seek(newPos > duration ? duration : newPos);
+                },
+              ),
+            ],
+          ),
+          
+          const Spacer(),
+          const SizedBox(height: 48),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final List<Widget> pages = [
@@ -68,10 +265,7 @@ class _KursUebersichtState extends State<KursUebersicht> {
     return Scaffold(
       backgroundColor: AppStyles.bgColor,
       appBar: AppBar(
-        title: Text(
-          "MBSR Kurs",
-          style: AppStyles.headingStyle,
-        ),
+        title: Text("MBSR Kurs", style: AppStyles.headingStyle),
         backgroundColor: Colors.transparent,
         elevation: 0,
         centerTitle: true,
@@ -122,7 +316,7 @@ class _KursUebersichtState extends State<KursUebersicht> {
             ],
           ),
           
-          // Globaler Player-Balken
+          // Globaler Mini-Player-Balken
           StreamBuilder<AudioServiceStatus>(
             stream: _audioService.statusStream,
             builder: (context, snapshot) {
@@ -131,7 +325,10 @@ class _KursUebersichtState extends State<KursUebersicht> {
                 left: 20,
                 right: 20,
                 bottom: 110,
-                child: _buildGlobalPlayerBar(),
+                child: GestureDetector(
+                  onTap: _showFullPlayer, // Öffnet den großen Player
+                  child: _buildMiniPlayerBar(),
+                ),
               );
             },
           ),
@@ -148,30 +345,55 @@ class _KursUebersichtState extends State<KursUebersicht> {
     );
   }
 
-  Widget _buildGlobalPlayerBar() {
+  Widget _buildMiniPlayerBar() {
     return Container(
       decoration: BoxDecoration(
-        color: const Color(0xFFFBF7F2),
-        borderRadius: BorderRadius.circular(30),
-        border: Border.all(color: AppStyles.primaryOrange.withOpacity(0.2), width: 1.5),
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(24),
         boxShadow: [
-          BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 15, offset: const Offset(0, 5)),
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            blurRadius: 20,
+            offset: const Offset(0, 8),
+          ),
         ],
       ),
-      padding: const EdgeInsets.fromLTRB(20, 16, 20, 16),
+      padding: const EdgeInsets.all(12),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           Row(
             children: [
+              // Kleines Vorschaubild/Icon
+              Container(
+                width: 48,
+                height: 48,
+                decoration: BoxDecoration(
+                  color: AppStyles.primaryOrange.withOpacity(0.1),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: const Icon(Icons.self_improvement, color: AppStyles.primaryOrange),
+              ),
+              const SizedBox(width: 16),
+              // Titel
               Expanded(
-                child: Text(
-                  _audioService.currentTitle ?? '',
-                  style: AppStyles.subTitleStyle.copyWith(fontSize: 15),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      _audioService.currentTitle ?? '',
+                      style: AppStyles.subTitleStyle.copyWith(fontSize: 14, fontWeight: FontWeight.bold),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    Text(
+                      "Tippen für Details",
+                      style: AppStyles.bodyStyle.copyWith(fontSize: 11, color: AppStyles.softBrown.withOpacity(0.5)),
+                    ),
+                  ],
                 ),
               ),
+              // Play/Pause Mini
               StreamBuilder<AudioServiceStatus>(
                 stream: _audioService.statusStream,
                 builder: (context, snapshot) {
@@ -197,38 +419,32 @@ class _KursUebersichtState extends State<KursUebersicht> {
               ),
             ],
           ),
+          // Mini Progress Bar ganz unten
+          const SizedBox(height: 8),
           StreamBuilder<Duration>(
             stream: _audioService.positionStream,
             builder: (context, snapshot) {
               final position = snapshot.data ?? Duration.zero;
               final duration = _audioService.duration ?? Duration.zero;
-              return Column(
-                children: [
-                  SliderTheme(
-                    data: SliderTheme.of(context).copyWith(
-                      trackHeight: 4,
-                      thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 6),
-                      overlayShape: const RoundSliderOverlayShape(overlayRadius: 14),
-                    ),
-                    child: Slider(
-                      activeColor: AppStyles.primaryOrange,
-                      inactiveColor: AppStyles.primaryOrange.withOpacity(0.1),
-                      value: position.inSeconds.toDouble(),
-                      max: duration.inSeconds > 0 ? duration.inSeconds.toDouble() : 1.0,
-                      onChanged: (value) => _audioService.seek(Duration(seconds: value.toInt())),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(_formatDuration(position), style: const TextStyle(fontSize: 10)),
-                        Text(_formatDuration(duration), style: const TextStyle(fontSize: 10)),
-                      ],
+              final progress = duration.inSeconds > 0 ? position.inSeconds / duration.inSeconds : 0.0;
+              
+              return Container(
+                height: 3,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: AppStyles.primaryOrange.withOpacity(0.1),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: FractionallySizedBox(
+                  alignment: Alignment.centerLeft,
+                  widthFactor: progress.clamp(0.0, 1.0),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: AppStyles.primaryOrange,
+                      borderRadius: BorderRadius.circular(10),
                     ),
                   ),
-                ],
+                ),
               );
             },
           ),
@@ -284,7 +500,7 @@ class _KursUebersichtState extends State<KursUebersicht> {
         return MaterialPageRoute(
           builder: (context) => ListView(
             controller: _scrollController,
-            padding: const EdgeInsets.only(bottom: 150),
+            padding: const EdgeInsets.only(bottom: 180), // Mehr Platz für Mini-Player
             children: [
               _buildHeader(),
               Padding(
