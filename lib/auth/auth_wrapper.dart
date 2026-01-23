@@ -65,7 +65,7 @@ class _AuthWrapperState extends State<AuthWrapper> {
       }
     });
 
-    Future.delayed(const Duration(milliseconds: 2000), () {
+    Future.delayed(const Duration(milliseconds: 1200), () {
       if (mounted) setState(() => _splashFinished = true);
     });
   }
