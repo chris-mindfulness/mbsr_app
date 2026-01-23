@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'app_daten.dart';
 import 'audio_service.dart';
 import 'services/connectivity_service.dart';
 import 'constants/app_texts.dart';
 import 'core/app_styles.dart';
+import 'widgets/animated_play_button.dart';
 
 class MediathekSeite extends StatefulWidget {
   const MediathekSeite({super.key});
@@ -25,6 +27,9 @@ class _MediathekSeiteState extends State<MediathekSeite> {
   }
 
   void _play(Map<String, String> audio) async {
+    // Haptisches Feedback beim Start
+    HapticFeedback.lightImpact();
+    
     try {
       await _audioService.play(audio);
       if (mounted) setState(() {});
@@ -238,20 +243,16 @@ class _MediathekSeiteState extends State<MediathekSeite> {
                           child: Row(
                             children: [
                               // Play/Pause Button
-                              Container(
-                                width: 56,
-                                height: 56,
-                                decoration: BoxDecoration(
-                                  color: isPlaying
-                                      ? AppStyles.primaryOrange
-                                      : AppStyles.primaryOrange.withOpacity(
-                                          0.1,
-                                        ),
-                                  shape: BoxShape.circle,
-                                ),
-                                child: Center(
-                                  child: isLoading
-                                      ? const SizedBox(
+                              isLoading
+                                  ? Container(
+                                      width: 56,
+                                      height: 56,
+                                      decoration: BoxDecoration(
+                                        color: AppStyles.primaryOrange,
+                                        shape: BoxShape.circle,
+                                      ),
+                                      child: const Center(
+                                        child: SizedBox(
                                           width: 24,
                                           height: 24,
                                           child: CircularProgressIndicator(
@@ -261,18 +262,15 @@ class _MediathekSeiteState extends State<MediathekSeite> {
                                                   Colors.white,
                                                 ),
                                           ),
-                                        )
-                                      : Icon(
-                                          isPlaying
-                                              ? Icons.pause
-                                              : Icons.play_arrow,
-                                          color: isPlaying
-                                              ? Colors.white
-                                              : AppStyles.primaryOrange,
-                                          size: 32,
                                         ),
-                                ),
-                              ),
+                                      ),
+                                    )
+                                  : AnimatedPlayButton(
+                                      isPlaying: isPlaying,
+                                      size: 56,
+                                      showShadow: false,
+                                      onPressed: () => _play(audio),
+                                    ),
                               const SizedBox(width: 20),
                               // Title & Duration
                               Expanded(

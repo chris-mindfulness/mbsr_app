@@ -8,9 +8,11 @@ import 'app_daten.dart';
 import 'mediathek_seite.dart';
 import 'web_utils.dart' show setRoute;
 import 'services/connectivity_service.dart';
+import 'package:flutter/services.dart';
 import 'core/app_styles.dart';
 import 'audio_service.dart';
 import 'widgets/ambient_background.dart';
+import 'widgets/animated_play_button.dart';
 
 class KursUebersicht extends StatefulWidget {
   final String kursTyp;
@@ -181,7 +183,10 @@ class _KursUebersichtState extends State<KursUebersicht> {
                     child: Slider(
                       value: position.inSeconds.toDouble(),
                       max: duration.inSeconds > 0 ? duration.inSeconds.toDouble() : 1.0,
-                      onChanged: (value) => _audioService.seek(Duration(seconds: value.toInt())),
+                      onChanged: (value) {
+                        HapticFeedback.selectionClick();
+                        _audioService.seek(Duration(seconds: value.toInt()));
+                      },
                     ),
                   ),
                   Padding(
@@ -206,10 +211,11 @@ class _KursUebersichtState extends State<KursUebersicht> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               // Back 10s
-              IconButton(
-                icon: const Icon(Icons.replay_10),
+              AnimatedIconButton(
+                icon: Icons.replay_10,
                 iconSize: 36,
                 color: AppStyles.softBrown,
+                tooltip: '10 Sekunden zurück',
                 onPressed: () {
                   final newPos = _audioService.position - const Duration(seconds: 10);
                   _audioService.seek(newPos < Duration.zero ? Duration.zero : newPos);
@@ -221,44 +227,31 @@ class _KursUebersichtState extends State<KursUebersicht> {
                 stream: _audioService.statusStream,
                 builder: (context, snapshot) {
                   final isPlaying = _audioService.status == AudioServiceStatus.playing;
-                  return Container(
-                    decoration: BoxDecoration(
-                      color: AppStyles.primaryOrange,
-                      shape: BoxShape.circle,
-                      boxShadow: [
-                        BoxShadow(
-                          color: AppStyles.primaryOrange.withOpacity(0.3),
-                          blurRadius: 20,
-                          offset: const Offset(0, 10),
-                        ),
-                      ],
-                    ),
-                    child: IconButton(
-                      icon: Icon(isPlaying ? Icons.pause : Icons.play_arrow),
-                      iconSize: 56,
-                      color: Colors.white,
-                      onPressed: () {
-                        if (isPlaying) {
-                          _audioService.pause();
-                        } else {
-                          if (_audioService.currentAppwriteId != null) {
-                            _audioService.play({
-                              'appwrite_id': _audioService.currentAppwriteId!,
-                              'title': _audioService.currentTitle!,
-                            });
-                          }
+                  return AnimatedPlayButton(
+                    isPlaying: isPlaying,
+                    size: 56,
+                    onPressed: () {
+                      if (isPlaying) {
+                        _audioService.pause();
+                      } else {
+                        if (_audioService.currentAppwriteId != null) {
+                          _audioService.play({
+                            'appwrite_id': _audioService.currentAppwriteId!,
+                            'title': _audioService.currentTitle!,
+                          });
                         }
-                      },
-                    ),
+                      }
+                    },
                   );
                 },
               ),
               const SizedBox(width: 24),
               // Forward 30s
-              IconButton(
-                icon: const Icon(Icons.forward_30),
+              AnimatedIconButton(
+                icon: Icons.forward_30,
                 iconSize: 36,
                 color: AppStyles.softBrown,
+                tooltip: '30 Sekunden vor',
                 onPressed: () {
                   final newPos = _audioService.position + const Duration(seconds: 30);
                   final duration = _audioService.duration ?? Duration.zero;
@@ -428,10 +421,10 @@ class _KursUebersichtState extends State<KursUebersicht> {
                 stream: _audioService.statusStream,
                 builder: (context, snapshot) {
                   final isPlaying = _audioService.status == AudioServiceStatus.playing;
-                  return IconButton(
-                    icon: Icon(isPlaying ? Icons.pause_circle_filled : Icons.play_circle_filled),
-                    iconSize: 40,
-                    color: AppStyles.primaryOrange,
+                  return AnimatedPlayButton(
+                    isPlaying: isPlaying,
+                    size: 40,
+                    showShadow: false,
                     onPressed: () {
                       if (isPlaying) {
                         _audioService.pause();
