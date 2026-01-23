@@ -77,7 +77,10 @@ class _KursUebersichtState extends State<KursUebersicht> {
         expand: false,
         builder: (context, scrollController) => _buildFullPlayerContent(),
       ),
-    );
+    ).whenComplete(() {
+      // WICHTIG: Stoppe Audio, wenn Player geschlossen wird
+      _audioService.stop();
+    });
   }
 
   Widget _buildFullPlayerContent() {
@@ -108,11 +111,14 @@ class _KursUebersichtState extends State<KursUebersicht> {
             child: IconButton(
               icon: Icon(
                 Icons.close_rounded,
-                color: AppStyles.softBrown.withOpacity(0.6),
+                color: AppStyles.textDark.withOpacity(0.6),
                 size: 28,
               ),
-              onPressed: () => Navigator.of(context).pop(),
-              tooltip: 'Schließen',
+              onPressed: () {
+                _audioService.stop(); // Audio stoppen
+                Navigator.of(context).pop(); // Modal schließen
+              },
+              tooltip: 'Schließen & Stoppen',
             ),
           ),
           const SizedBox(height: 24),

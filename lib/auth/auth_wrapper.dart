@@ -6,6 +6,7 @@ import 'package:appwrite/models.dart' as models;
 import '../services/auth_service.dart';
 import '../core/appwrite_client.dart';
 import '../core/app_config.dart';
+import '../core/app_styles.dart';
 import '../splash_screen.dart';
 import '../login_screen.dart';
 import '../kurs_uebersicht.dart';
@@ -298,25 +299,25 @@ class _AuthWrapperState extends State<AuthWrapper> {
   /// Error-Screen bei Netzwerkproblemen
   Widget _buildErrorScreen(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFFAF8F5),
+      backgroundColor: AppStyles.bgColor,
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(32),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Icon(
+              Icon(
                 Icons.cloud_off,
                 size: 80,
-                color: Color(0xFFC97D60),
+                color: AppStyles.primaryOrange,
               ),
               const SizedBox(height: 24),
-              const Text(
+              Text(
                 'Verbindungsfehler',
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
-                  color: Color(0xFF8B7565),
+                  color: AppStyles.textDark,
                 ),
               ),
               const SizedBox(height: 12),
@@ -325,7 +326,7 @@ class _AuthWrapperState extends State<AuthWrapper> {
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 16,
-                  color: const Color(0xFF8B7565).withOpacity(0.7),
+                  color: AppStyles.textDark.withOpacity(0.7),
                 ),
               ),
               const SizedBox(height: 32),
@@ -337,7 +338,7 @@ class _AuthWrapperState extends State<AuthWrapper> {
                 icon: const Icon(Icons.refresh),
                 label: const Text('Erneut versuchen'),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFFA68B6F),
+                  backgroundColor: AppStyles.primaryOrange,
                   foregroundColor: Colors.white,
                   padding: const EdgeInsets.symmetric(
                     horizontal: 32,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'widgets/ambient_background.dart';
+import 'core/app_styles.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -30,9 +31,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(
-        0xFFFAF8F5,
-      ), // Warmes Beige (erdiges Farbschema)
+      backgroundColor: AppStyles.bgColor,
       body: AmbientBackground(
         child: Center(
         child: AnimatedOpacity(
@@ -47,31 +46,31 @@ class _SplashScreenState extends State<SplashScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 // Symbol / Logo-Ersatz
-                const Icon(
+                Icon(
                   Icons.spa_outlined,
                   size: 80,
-                  color: Color(0xFF8B7565), // Erdiger Braunton
+                  color: AppStyles.primaryOrange,
                 ),
                 const SizedBox(height: 20),
 
                 // Haupttitel
-                const Text(
+                Text(
                   "Achtsamkeitstraining",
                   style: TextStyle(
                     fontSize: 28,
                     fontWeight: FontWeight.w300,
-                    color: Color(0xFF8B7565), // Erdiger Braunton
+                    color: AppStyles.textDark,
                     letterSpacing: 1.2,
                   ),
                 ),
 
                 // Dein Name
-                const Text(
+                Text(
                   "Dr. Christian Hahn",
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w400,
-                    color: Color(0xFF7A8B6F), // Olivgrün
+                    color: AppStyles.successGreen,
                     letterSpacing: 1.0,
                   ),
                 ),
@@ -79,12 +78,12 @@ class _SplashScreenState extends State<SplashScreen> {
                 const SizedBox(height: 40),
 
                 // Die drei Begriffe (Unterschrift)
-                const Text(
+                Text(
                   "Präsenz • Verbundenheit • Mitgefühl",
                   style: TextStyle(
                     fontSize: 14,
                     fontStyle: FontStyle.italic,
-                    color: Color(0xFF8B7565), // Erdiger Braunton
+                    color: AppStyles.textDark.withOpacity(0.7),
                     letterSpacing: 0.5,
                   ),
                 ),

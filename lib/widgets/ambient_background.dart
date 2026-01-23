@@ -97,11 +97,11 @@ class _AmbientPainter extends CustomPainter {
       ..style = PaintingStyle.fill;
     
     final paint2 = Paint()
-      ..color = AppStyles.sageGreen.withOpacity(0.06)
+      ..color = AppStyles.successGreen.withOpacity(0.06)
       ..style = PaintingStyle.fill;
     
     final paint3 = Paint()
-      ..color = AppStyles.accentOrange.withOpacity(0.05)
+      ..color = AppStyles.accentPink.withOpacity(0.05)
       ..style = PaintingStyle.fill;
 
     // Blob 1 - Bewegt sich von links oben nach rechts unten

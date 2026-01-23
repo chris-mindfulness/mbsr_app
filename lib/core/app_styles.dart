@@ -2,17 +2,16 @@ import 'package:flutter/material.dart';
 import 'dart:ui';
 
 class AppStyles {
-  // Global Colors (Headspace Style)
-  static const Color bgColor = Color(0xFFFBF7F2); // Sanftes Off-White/Beige
-  static const Color primaryOrange = Color(0xFFC97D60); // Warmes Orange (Aktiv)
-  static const Color accentOrange = Color(0xFFE89B7A); // Hellere Nuance
-  static const Color sageGreen = Color(
-    0xFF7A8B6F,
-  ); // Ruhiges Salbeigrün (Abgeschlossen)
-  static const Color softBrown = Color(0xFF8B7565); // Sanftes Braun (Texte)
-  static const Color borderColor = Color(
-    0xFFE0E0E0,
-  ); // Sehr feine graue Umrandung
+  // Global Colors (Headspace Style - 2026 Modern)
+  static const Color bgColor = Color(0xFFFFFFFF); // Klares Weiß (modern)
+  static const Color primaryOrange = Color(0xFFFF6B35); // Kräftiges, lebendiges Orange
+  static const Color accentOrange = Color(0xFFFF8C42); // Warmes, helleres Orange
+  static const Color accentPink = Color(0xFFFF6B9D); // Warmes Pink (für Highlights)
+  static const Color successGreen = Color(0xFF4ECDC4); // Frisches Türkis (Abgeschlossen/Erfolg)
+  static const Color textDark = Color(0xFF2C3E50); // Modernes Dunkelgrau (Texte)
+  static const Color softBrown = textDark; // Alias für Rückwärtskompatibilität
+  static const Color sageGreen = successGreen; // Alias für Rückwärtskompatibilität
+  static const Color borderColor = Color(0xFFE0E0E0); // Sehr feine graue Umrandung
 
   // Border Radius
   static const double borderRadius = 28.0;
@@ -25,25 +24,25 @@ class AppStyles {
   static TextStyle get titleStyle => const TextStyle(
     fontSize: 28,
     fontWeight: FontWeight.bold,
-    color: softBrown,
+    color: textDark,
     height: 1.3,
   );
 
   static TextStyle get headingStyle => const TextStyle(
     fontSize: 22,
     fontWeight: FontWeight.bold,
-    color: softBrown,
+    color: textDark,
     height: 1.2,
   );
 
   static TextStyle get subTitleStyle => const TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.w600,
-    color: softBrown,
+    color: textDark,
   );
 
   static TextStyle get bodyStyle =>
-      const TextStyle(fontSize: 14, color: softBrown, height: 1.5);
+      const TextStyle(fontSize: 14, color: textDark, height: 1.5);
 
   // Glassmorphismus (Frosted Glass Effect) - 2026 Design
   static ImageFilter get glassBlur => ImageFilter.blur(sigmaX: 15, sigmaY: 15);

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'core/app_styles.dart';
 
 /// Zentrale Verwaltung für Impressum und Datenschutz-Dialoge
 /// Verhindert Code-Duplikation über mehrere Dateien hinweg
@@ -35,27 +36,27 @@ class LegalDialogs {
       builder: (context) => AlertDialog(
         title: Text(
           title,
-          style: const TextStyle(
-            color: Color(0xFF8B7565),
+          style: TextStyle(
+            color: AppStyles.textDark,
             fontWeight: FontWeight.bold,
           ),
         ),
         content: SingleChildScrollView(
           child: Text(
             content,
-            style: const TextStyle(color: Color(0xFF8B7565), height: 1.5),
+            style: TextStyle(color: AppStyles.textDark, height: 1.5),
           ),
         ),
-        backgroundColor: const Color(0xFFFAF8F5),
+        backgroundColor: AppStyles.bgColor,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: const Text(
+            child: Text(
               'Schließen',
-              style: TextStyle(color: Color(0xFFA68B6F)),
+              style: TextStyle(color: AppStyles.primaryOrange),
             ),
           ),
         ],
