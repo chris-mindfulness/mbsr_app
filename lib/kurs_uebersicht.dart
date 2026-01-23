@@ -68,7 +68,10 @@ class _KursUebersichtState extends State<KursUebersicht> {
     return Scaffold(
       backgroundColor: AppStyles.bgColor,
       appBar: AppBar(
-        title: const Text("MBSR Kurs", style: AppStyles.headingStyle),
+        title: Text(
+          "MBSR Kurs",
+          style: AppStyles.headingStyle,
+        ),
         backgroundColor: Colors.transparent,
         elevation: 0,
         centerTitle: true,
@@ -106,7 +109,7 @@ class _KursUebersichtState extends State<KursUebersicht> {
                       children: [
                         Icon(Icons.wifi_off, size: 18, color: Colors.orange.shade800),
                         const SizedBox(width: 8),
-                        const Text(
+                        Text(
                           'Keine Internetverbindung',
                           style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.orange.shade900),
                         ),
