@@ -10,6 +10,7 @@ import 'web_utils.dart' show setRoute;
 import 'services/connectivity_service.dart';
 import 'core/app_styles.dart';
 import 'audio_service.dart';
+import 'widgets/ambient_background.dart';
 
 class KursUebersicht extends StatefulWidget {
   final String kursTyp;
@@ -60,6 +61,8 @@ class _KursUebersichtState extends State<KursUebersicht> {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
+      isDismissible: true,
+      enableDrag: true,
       backgroundColor: AppStyles.bgColor,
       barrierColor: Colors.black.withOpacity(0.5),
       shape: const RoundedRectangleBorder(
@@ -76,21 +79,41 @@ class _KursUebersichtState extends State<KursUebersicht> {
   }
 
   Widget _buildFullPlayerContent() {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 32),
-      child: Column(
+    return AmbientBackground(
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 32),
+        child: Column(
         children: [
           const SizedBox(height: 16),
-          // Handle/Indicator
-          Container(
-            width: 40,
-            height: 5,
-            decoration: BoxDecoration(
-              color: AppStyles.softBrown.withOpacity(0.2),
-              borderRadius: BorderRadius.circular(10),
+          // Header mit Handle und Schließen-Button
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              // Handle/Indicator
+              Container(
+                width: 40,
+                height: 5,
+                decoration: BoxDecoration(
+                  color: AppStyles.softBrown.withOpacity(0.2),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+            ],
+          ),
+          // Schließen-Button oben rechts
+          Align(
+            alignment: Alignment.topRight,
+            child: IconButton(
+              icon: Icon(
+                Icons.close_rounded,
+                color: AppStyles.softBrown.withOpacity(0.6),
+                size: 28,
+              ),
+              onPressed: () => Navigator.of(context).pop(),
+              tooltip: 'Schließen',
             ),
           ),
-          const SizedBox(height: 48),
+          const SizedBox(height: 24),
           
           // Cover/Icon Area
           Expanded(
@@ -248,6 +271,7 @@ class _KursUebersichtState extends State<KursUebersicht> {
           const Spacer(),
           const SizedBox(height: 48),
         ],
+        ),
       ),
     );
   }
@@ -365,9 +389,9 @@ class _KursUebersichtState extends State<KursUebersicht> {
             ],
           ),
           padding: const EdgeInsets.all(12),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
           Row(
             children: [
               // Kleines Vorschaubild/Icon
@@ -454,7 +478,8 @@ class _KursUebersichtState extends State<KursUebersicht> {
               );
             },
           ),
-        ],
+            ],
+          ),
         ),
       ),
     );

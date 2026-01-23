@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
+import 'widgets/ambient_background.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -32,7 +33,8 @@ class _SplashScreenState extends State<SplashScreen> {
       backgroundColor: const Color(
         0xFFFAF8F5,
       ), // Warmes Beige (erdiges Farbschema)
-      body: Center(
+      body: AmbientBackground(
+        child: Center(
         child: AnimatedOpacity(
           opacity: _opacity,
           duration: const Duration(milliseconds: 1200),
@@ -89,6 +91,7 @@ class _SplashScreenState extends State<SplashScreen> {
               ],
             ),
           ),
+        ),
         ),
       ),
     );
