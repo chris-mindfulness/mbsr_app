@@ -5,6 +5,7 @@ import 'statistiken_seite.dart';
 import 'audio_service.dart';
 import 'legal_dialogs.dart';
 import 'core/app_styles.dart';
+import 'widgets/decorative_blobs.dart';
 
 class ProfilSeite extends StatelessWidget {
   const ProfilSeite({super.key});
@@ -101,9 +102,10 @@ class ProfilSeite extends StatelessWidget {
           onPressed: () => Navigator.pop(context),
         ),
       ),
-      body: ListView(
-        padding: const EdgeInsets.all(24),
-        children: [
+      body: DecorativeBlobs(
+        child: ListView(
+          padding: const EdgeInsets.all(24),
+          children: [
           // Profil-Header
           Center(
             child: Column(
@@ -242,6 +244,7 @@ class ProfilSeite extends StatelessWidget {
           ),
           const SizedBox(height: 40),
         ],
+        ),
       ),
     );
   }

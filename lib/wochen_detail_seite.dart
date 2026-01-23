@@ -4,6 +4,7 @@ import 'audio_service.dart';
 import 'services/connectivity_service.dart';
 import 'core/app_config.dart';
 import 'core/app_styles.dart';
+import 'widgets/decorative_blobs.dart';
 
 class WochenDetailSeite extends StatefulWidget {
   final String wochenNummer;
@@ -53,10 +54,11 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
           onPressed: () => Navigator.of(context).pop(),
         ),
       ),
-      body: Column(
-        children: [
-          // Offline-Banner
-          StreamBuilder<bool>(
+      body: DecorativeBlobs(
+        child: Column(
+          children: [
+            // Offline-Banner
+            StreamBuilder<bool>(
             stream: ConnectivityService.onlineStream,
             initialData: ConnectivityService.isOnline,
             builder: (context, snapshot) {
@@ -190,6 +192,7 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
             ),
           ),
         ],
+        ),
       ),
     );
   }

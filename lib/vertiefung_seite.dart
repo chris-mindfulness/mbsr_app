@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'literatur_seite.dart';
 import 'core/app_styles.dart';
+import 'widgets/decorative_blobs.dart';
 
 class VertiefungSeite extends StatelessWidget {
   final Map<String, dynamic> tagDerAchtsamkeit;
@@ -14,9 +15,10 @@ class VertiefungSeite extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      padding: const EdgeInsets.all(24),
-      children: [
+    return DecorativeBlobs(
+      child: ListView(
+        padding: const EdgeInsets.all(24),
+        children: [
         // Header
         Text(
           "Vertiefung",
@@ -129,7 +131,8 @@ class VertiefungSeite extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 100), // Platz für Floating Nav
-      ],
+        ],
+      ),
     );
   }
 

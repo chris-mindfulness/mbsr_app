@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'nutzungs_tracker.dart';
 import 'constants/app_texts.dart';
 import 'core/app_styles.dart';
+import 'widgets/decorative_blobs.dart';
 
 class StatistikenSeite extends StatefulWidget {
   const StatistikenSeite({super.key});
@@ -56,13 +57,14 @@ class _StatistikenSeiteState extends State<StatistikenSeite> {
           const SizedBox(width: 8),
         ],
       ),
-      body: _isLoading
-          ? const Center(
-              child: CircularProgressIndicator(color: AppStyles.primaryOrange),
-            )
-          : ListView(
-              padding: const EdgeInsets.all(24),
-              children: [
+      body: DecorativeBlobs(
+        child: _isLoading
+            ? const Center(
+                child: CircularProgressIndicator(color: AppStyles.primaryOrange),
+              )
+            : ListView(
+                padding: const EdgeInsets.all(24),
+                children: [
                 // Datenschutz-Hinweis (prominent)
                 Container(
                   padding: const EdgeInsets.all(20),
@@ -163,6 +165,7 @@ class _StatistikenSeiteState extends State<StatistikenSeite> {
                 const SizedBox(height: 100), // Platz für Floating Nav
               ],
             ),
+      ),
     );
   }
 

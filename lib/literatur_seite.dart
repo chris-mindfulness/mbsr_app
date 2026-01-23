@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'core/app_styles.dart';
+import 'widgets/decorative_blobs.dart';
 
 class LiteraturSeite extends StatelessWidget {
   const LiteraturSeite({super.key});
@@ -135,9 +136,10 @@ class LiteraturSeite extends StatelessWidget {
           onPressed: () => Navigator.pop(context),
         ),
       ),
-      body: ListView(
-        padding: const EdgeInsets.all(24),
-        children: [
+      body: DecorativeBlobs(
+        child: ListView(
+          padding: const EdgeInsets.all(24),
+          children: [
           _buildSectionHeader("BÜCHER"),
           const SizedBox(height: 16),
           ...buecher.map((buch) => _buildBookCard(buch)),
@@ -147,6 +149,7 @@ class LiteraturSeite extends StatelessWidget {
           ...artikel.map((art) => _buildArticleCard(art)),
           const SizedBox(height: 40),
         ],
+        ),
       ),
     );
   }

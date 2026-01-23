@@ -608,18 +608,8 @@ class _KursUebersichtState extends State<KursUebersicht> {
   }
 
   Widget _buildWochenCard(BuildContext context, Map<String, dynamic> woche, int index) {
-    // Rotiere durch die Blob-Farben für jeden Card
-    final colors = [
-      AppStyles.successGreen,
-      AppStyles.primaryOrange,
-      AppStyles.accentPink,
-      AppStyles.accentCyan,
-      AppStyles.accentCoral,
-      AppStyles.accentOrange,
-      AppStyles.successGreen,
-      AppStyles.primaryOrange,
-    ];
-    final cardColor = colors[index % colors.length];
+    // Einheitlicher Grünton für alle Wochen-Karten
+    final cardColor = AppStyles.successGreen;
     
     return Card(
       margin: const EdgeInsets.only(bottom: 16),

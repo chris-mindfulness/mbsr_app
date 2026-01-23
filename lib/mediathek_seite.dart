@@ -6,6 +6,7 @@ import 'services/connectivity_service.dart';
 import 'constants/app_texts.dart';
 import 'core/app_styles.dart';
 import 'widgets/animated_play_button.dart';
+import 'widgets/decorative_blobs.dart';
 
 class MediathekSeite extends StatefulWidget {
   const MediathekSeite({super.key});
@@ -98,8 +99,9 @@ class _MediathekSeiteState extends State<MediathekSeite> {
 
     return Scaffold(
       backgroundColor: Colors.transparent,
-      body: Column(
-        children: [
+      body: DecorativeBlobs(
+        child: Column(
+          children: [
           // Header mit Info-Button
           Padding(
             padding: const EdgeInsets.fromLTRB(24, 16, 16, 8),
@@ -339,6 +341,7 @@ class _MediathekSeiteState extends State<MediathekSeite> {
             ),
           ),
         ],
+        ),
       ),
     );
   }
