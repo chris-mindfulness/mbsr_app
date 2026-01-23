@@ -97,7 +97,7 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
           ),
           Expanded(
             child: ListView(
-              padding: const EdgeInsets.fromLTRB(24, 8, 24, 120), // Platz für Player & Floating Nav
+              padding: const EdgeInsets.fromLTRB(24, 8, 24, 150), // Platz für globalen Player
               children: [
                 Text(
                   widget.titel,
@@ -105,7 +105,7 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
                 ),
                 const SizedBox(height: 32),
 
-                // NEU: Wochenaufgaben Sektion
+                // Wochenaufgaben Sektion
                 if (widget.wochenAufgaben.isNotEmpty) ...[
                   Container(
                     padding: const EdgeInsets.all(24),
@@ -193,13 +193,7 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
           ),
         ],
       ),
-      bottomNavigationBar: StreamBuilder<AudioServiceStatus>(
-        stream: _audioService.statusStream,
-        builder: (context, snapshot) {
-          final isVisible = _audioService.currentAppwriteId != null;
-          return isVisible ? _playerBar() : const SizedBox.shrink();
-        },
-      ),
+    );
     );
   }
 

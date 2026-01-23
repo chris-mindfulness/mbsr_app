@@ -200,8 +200,8 @@ class _MediathekSeiteState extends State<MediathekSeite> {
                 24,
                 8,
                 24,
-                120,
-              ), // Platz für Player & Floating Nav
+                150,
+              ), // Mehr Platz für den globalen Player
               itemBuilder: (context, i) {
                 final audio = audios[i];
                 final String audioId = audio['appwrite_id'] ?? '';
@@ -342,143 +342,7 @@ class _MediathekSeiteState extends State<MediathekSeite> {
           ),
         ],
       ),
-      bottomNavigationBar: StreamBuilder<AudioServiceStatus>(
-        stream: _audioService.statusStream,
-        builder: (context, snapshot) {
-          if (_audioService.currentAppwriteId == null) {
-            return const SizedBox.shrink();
-          }
-          return _playerBar();
-        },
-      ),
     );
-  }
-
-  Widget _playerBar() {
-    return Container(
-      margin: const EdgeInsets.fromLTRB(
-        20,
-        0,
-        20,
-        100,
-      ), // Schwebend über BottomNav
-      decoration: BoxDecoration(
-        color: AppStyles.bgColor,
-        borderRadius: BorderRadius.circular(30),
-        border: Border.all(
-          color: AppStyles.primaryOrange.withOpacity(0.2),
-          width: 1.5,
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.05),
-            blurRadius: 15,
-            offset: const Offset(0, 5),
-          ),
-        ],
-      ),
-      padding: const EdgeInsets.fromLTRB(20, 16, 20, 16),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Row(
-            children: [
-              Expanded(
-                child: Text(
-                  _audioService.currentTitle ?? '',
-                  style: AppStyles.subTitleStyle.copyWith(fontSize: 15),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ),
-              StreamBuilder<AudioServiceStatus>(
-                stream: _audioService.statusStream,
-                builder: (context, snapshot) {
-                  final isPlaying =
-                      _audioService.status == AudioServiceStatus.playing;
-                  return IconButton(
-                    icon: Icon(
-                      isPlaying
-                          ? Icons.pause_circle_filled
-                          : Icons.play_circle_filled,
-                    ),
-                    iconSize: 40,
-                    color: AppStyles.primaryOrange,
-                    onPressed: () {
-                      if (isPlaying) {
-                        _audioService.pause();
-                      } else {
-                        if (_audioService.currentAppwriteId != null) {
-                          _audioService.play({
-                            'appwrite_id': _audioService.currentAppwriteId!,
-                            'title': _audioService.currentTitle!,
-                          });
-                        }
-                      }
-                    },
-                  );
-                },
-              ),
-            ],
-          ),
-          StreamBuilder<Duration>(
-            stream: _audioService.positionStream,
-            builder: (context, snapshot) {
-              final position = snapshot.data ?? Duration.zero;
-              final duration = _audioService.duration ?? Duration.zero;
-              return Column(
-                children: [
-                  SliderTheme(
-                    data: SliderTheme.of(context).copyWith(
-                      trackHeight: 4,
-                      thumbShape: const RoundSliderThumbShape(
-                        enabledThumbRadius: 6,
-                      ),
-                      overlayShape: const RoundSliderOverlayShape(
-                        overlayRadius: 14,
-                      ),
-                    ),
-                    child: Slider(
-                      activeColor: AppStyles.primaryOrange,
-                      inactiveColor: AppStyles.primaryOrange.withOpacity(0.1),
-                      value: position.inSeconds.toDouble(),
-                      max: duration.inSeconds > 0
-                          ? duration.inSeconds.toDouble()
-                          : 1.0,
-                      onChanged: (value) {
-                        _audioService.seek(Duration(seconds: value.toInt()));
-                      },
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          _formatDuration(position),
-                          style: const TextStyle(fontSize: 10),
-                        ),
-                        Text(
-                          _formatDuration(duration),
-                          style: const TextStyle(fontSize: 10),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              );
-            },
-          ),
-        ],
-      ),
-    );
-  }
-
-  String _formatDuration(Duration d) {
-    final min = d.inMinutes.remainder(60);
-    final sec = d.inSeconds.remainder(60).toString().padLeft(2, '0');
-    return "$min:$sec";
   }
 
   /// Zeigt Tracking-Info-Dialog
