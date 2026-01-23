@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:ui';
 
 class AppStyles {
   // Global Colors (Headspace Style)
@@ -43,4 +44,9 @@ class AppStyles {
 
   static TextStyle get bodyStyle =>
       const TextStyle(fontSize: 14, color: softBrown, height: 1.5);
+
+  // Glassmorphismus (Frosted Glass Effect) - 2026 Design
+  static ImageFilter get glassBlur => ImageFilter.blur(sigmaX: 15, sigmaY: 15);
+  static Color get glassBackground => Colors.white.withOpacity(0.6);
+  static Color get glassBorder => Colors.white.withOpacity(0.2);
 }

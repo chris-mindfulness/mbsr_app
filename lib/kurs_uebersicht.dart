@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:ui';
 import 'wochen_detail_seite.dart';
 import 'vertiefung_seite.dart';
 import 'profil_seite.dart';
@@ -346,19 +347,24 @@ class _KursUebersichtState extends State<KursUebersicht> {
   }
 
   Widget _buildMiniPlayerBar() {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(24),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.1),
-            blurRadius: 20,
-            offset: const Offset(0, 8),
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(24),
+      child: BackdropFilter(
+        filter: AppStyles.glassBlur,
+        child: Container(
+          decoration: BoxDecoration(
+            color: AppStyles.glassBackground,
+            borderRadius: BorderRadius.circular(24),
+            border: Border.all(color: AppStyles.glassBorder, width: 1.5),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.08),
+                blurRadius: 20,
+                offset: const Offset(0, 8),
+              ),
+            ],
           ),
-        ],
-      ),
-      padding: const EdgeInsets.all(12),
+          padding: const EdgeInsets.all(12),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -449,6 +455,7 @@ class _KursUebersichtState extends State<KursUebersicht> {
             },
           ),
         ],
+        ),
       ),
     );
   }
@@ -460,23 +467,28 @@ class _KursUebersichtState extends State<KursUebersicht> {
   }
 
   Widget _buildFloatingBottomNav() {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(35),
-        boxShadow: [
-          BoxShadow(color: Colors.black.withOpacity(0.08), blurRadius: 20, offset: const Offset(0, 10)),
-        ],
-      ),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(35),
-        child: BottomNavigationBar(
-          currentIndex: _currentIndex,
-          onTap: (index) {
-            setState(() => _currentIndex = index);
-            _updateUrl(index);
-          },
-          backgroundColor: Colors.white,
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(35),
+      child: BackdropFilter(
+        filter: AppStyles.glassBlur,
+        child: Container(
+          decoration: BoxDecoration(
+            color: AppStyles.glassBackground,
+            borderRadius: BorderRadius.circular(35),
+            border: Border.all(color: AppStyles.glassBorder, width: 1.5),
+            boxShadow: [
+              BoxShadow(color: Colors.black.withOpacity(0.08), blurRadius: 20, offset: const Offset(0, 10)),
+            ],
+          ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(35),
+            child: BottomNavigationBar(
+              currentIndex: _currentIndex,
+              onTap: (index) {
+                setState(() => _currentIndex = index);
+                _updateUrl(index);
+              },
+              backgroundColor: Colors.transparent,
           selectedItemColor: AppStyles.primaryOrange,
           unselectedItemColor: AppStyles.softBrown.withOpacity(0.4),
           showSelectedLabels: true,
@@ -488,6 +500,8 @@ class _KursUebersichtState extends State<KursUebersicht> {
             BottomNavigationBarItem(icon: Icon(Icons.library_music_outlined), label: 'Mediathek'),
             BottomNavigationBarItem(icon: Icon(Icons.self_improvement), label: 'Vertiefung'),
           ],
+            ),
+          ),
         ),
       ),
     );
