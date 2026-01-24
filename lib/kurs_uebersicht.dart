@@ -14,6 +14,7 @@ import 'widgets/ambient_background.dart';
 import 'widgets/animated_play_button.dart';
 import 'widgets/decorative_blobs.dart';
 import 'widgets/subtle_divider.dart';
+import 'widgets/subtle_divider.dart';
 
 class KursUebersicht extends StatefulWidget {
   final String kursTyp;
@@ -638,6 +639,17 @@ class _KursUebersichtState extends State<KursUebersicht> {
           ),
         ),
         title: Text(woche['t'], style: AppStyles.subTitleStyle),
+        subtitle: Padding(
+          padding: EdgeInsets.only(top: AppStyles.spacingXS),
+          child: Text(
+            woche['teaser'] ?? '',
+            style: AppStyles.bodyStyle.copyWith(
+              fontSize: 13,
+              color: AppStyles.textDark.withOpacity(0.7),
+            ),
+            // maxLines entfernt für dynamische Höhe
+          ),
+        ),
         trailing: Icon(Icons.chevron_right, color: AppStyles.borderColor, size: AppStyles.iconSizeM),
         onTap: () => Navigator.of(context).push(
           MaterialPageRoute(
@@ -647,6 +659,12 @@ class _KursUebersichtState extends State<KursUebersicht> {
               audios: const [], 
               pdfs: List<Map<String, String>>.from(woche['pdfs']),
               wochenAufgaben: List<String>.from(woche['wochenAufgaben'] ?? []),
+              fokus: woche['fokus'],
+              zitat: woche['zitat'],
+              zitatAutor: woche['zitatAutor'],
+              alltagsTipp: woche['alltagsTipp'],
+              reflexionsFragen: woche['reflexionsFragen'] != null ? List<String>.from(woche['reflexionsFragen']) : null,
+              audioRefs: woche['audioRefs'] != null ? List<String>.from(woche['audioRefs']) : null,
             ),
           ),
         ),

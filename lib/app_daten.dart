@@ -81,6 +81,16 @@ class AppDaten {
     {
       'n': '1',
       't': 'Was ist Achtsamkeit (nicht)?',
+      'teaser': 'Zum Auftakt geht es darum, im Kurs anzukommen und erste Erfahrungen mit Achtsamkeit zu sammeln. Wir erkunden, was es bedeutet, den Autopiloten zu bemerken und dem eigenen Erleben im Moment Aufmerksamkeit zu schenken. Der Körper dient dabei als erster Anker.',
+      'fokus': 'Vom Tun ins Sein kommen.',
+      'zitat': 'Du kannst die Wellen nicht stoppen, aber du kannst lernen zu surfen.',
+      'zitatAutor': 'Jon Kabat-Zinn',
+      'alltagsTipp': 'Nimm heute 3 bewusste Atemzüge, bevor du morgens aufstehst.',
+      'reflexionsFragen': [
+        'Wann warst du heute im Autopiloten unterwegs?',
+        'In welchen Momenten warst du ganz präsent?',
+      ],
+      'audioRefs': ['Ankommen', 'Body-Scan (kurz)'],
       'pdfs': [
         {
           'title': 'Kursunterlagen Woche 1',
@@ -97,6 +107,16 @@ class AppDaten {
     {
       'n': '2',
       't': 'Wie wir die Welt wahrnehmen',
+      'teaser': 'In diesem Termin vertiefen wir die Aufmerksamkeit für den Körper und erforschen, wie Wahrnehmung durch Bewertungen und Gewohnheiten geprägt ist. Durch praktische Übungen wird erfahrbar, wie schnell wir interpretieren – und was sich verändert, wenn wir offener wahrnehmen.',
+      'fokus': 'Wahrnehmung vs. Interpretation',
+      'zitat': 'Wir sehen die Dinge nicht, wie sie sind, wir sehen sie, wie wir sind.',
+      'zitatAutor': 'Anaïs Nin',
+      'alltagsTipp': 'Achte heute beim Essen darauf, wie der erste Bissen wirklich schmeckt, bevor du ihn bewertest.',
+      'reflexionsFragen': [
+        'Wann hast du heute etwas bewertet, statt es nur wahrzunehmen?',
+        'Wie fühlt sich dein Körper an, wenn du gestresst bist?',
+      ],
+      'audioRefs': ['Ankommen', 'Body-Scan (kurz)'],
       'pdfs': [
         {
           'title': 'Kursunterlagen Woche 2',
@@ -113,6 +133,16 @@ class AppDaten {
     {
       'n': '3',
       't': 'Im Körper beheimatet sein',
+      'teaser': 'Achtsame Bewegung eröffnet einen weiteren Zugang zum eigenen Erleben und zu persönlichen Grenzen. Gleichzeitig richten wir den Blick auf angenehme Erfahrungen im Alltag und darauf, wie sie bewusster wahrgenommen und verankert werden können.',
+      'fokus': 'Grenzen spüren und respektieren',
+      'zitat': 'Aufmerksamkeit ist der Weg zum Leben.',
+      'zitatAutor': 'Buddha',
+      'alltagsTipp': 'Spüre beim Gehen ganz bewusst den Kontakt deiner Füße zum Boden.',
+      'reflexionsFragen': [
+        'Wie gehst du mit deinen körperlichen Grenzen um?',
+        'Welche angenehmen Momente hast du heute erlebt?',
+      ],
+      'audioRefs': ['Ankommen', 'Achtsamkeit in Bewegung', 'Body-Scan (kurz)'],
       'pdfs': [
         {
           'title': 'Kursunterlagen Woche 3',
@@ -128,6 +158,16 @@ class AppDaten {
     {
       'n': '4',
       't': 'Dem Stress auf der Spur',
+      'teaser': 'Dieser Termin widmet sich unangenehmen Erfahrungen und der Frage, wie Stress entsteht. Wir untersuchen persönliche Stressmuster und nähern uns dem Zusammenhang von Wahrnehmung, Reaktion und Belastung.',
+      'fokus': 'Stressreaktion verstehen',
+      'zitat': 'Nicht die Dinge selbst beunruhigen die Menschen, sondern ihre Meinungen über die Dinge.',
+      'zitatAutor': 'Epiktet',
+      'alltagsTipp': 'Wenn du Stress spürst: Halte kurz inne und atme 3 Mal tief durch.',
+      'reflexionsFragen': [
+        'Was sind deine typischen Stressauslöser?',
+        'Wie reagierst du körperlich auf Stress?',
+      ],
+      'audioRefs': ['Ankommen', 'Sitzmeditation (kurz)', 'Body-Scan (kurz)', 'Achtsamkeit in Bewegung'],
       'pdfs': [
         {
           'title': 'Kursunterlagen Woche 4',
@@ -144,6 +184,16 @@ class AppDaten {
     {
       'n': '5',
       't': 'Achtsamkeit und ihre Wirkungsweise',
+      'teaser': 'Gedanken stehen heute im Mittelpunkt: Wie tragen sie zur Entstehung von Stress bei? Durch Achtsamkeit wird erfahrbar, dass zwischen Reiz und Reaktion ein Spielraum liegt, der neue Handlungsmöglichkeiten eröffnet.',
+      'fokus': 'Zwischen Reiz und Reaktion liegt ein Raum',
+      'zitat': 'Du bist nicht deine Gedanken.',
+      'zitatAutor': 'Jon Kabat-Zinn',
+      'alltagsTipp': 'Beobachte deine Gedanken wie Wolken am Himmel – lass sie ziehen.',
+      'reflexionsFragen': [
+        'Welche Gedankenmuster tauchen bei dir häufig auf?',
+        'Kannst du einen Schritt zurücktreten und deine Gedanken beobachten?',
+      ],
+      'audioRefs': ['Ankommen', 'Sitzmeditation (mittel)', 'Body-Scan (kurz)', 'Achtsamkeit in Bewegung'],
       'pdfs': [
         {
           'title': 'Kursunterlagen Woche 5',
@@ -159,6 +209,16 @@ class AppDaten {
     {
       'n': '6',
       't': 'Schwierige Kommunikation',
+      'teaser': 'Achtsamkeit wird nun auf zwischenmenschliche Situationen übertragen. Wir erforschen, wie wir in schwierigen Gesprächen reagieren, zuhören und sprechen – und welche Rolle innere Haltung und Präsenz dabei spielen.',
+      'fokus': 'Präsenz im Kontakt',
+      'zitat': 'Das kostbarste Geschenk, das wir einem anderen machen können, ist unsere Aufmerksamkeit.',
+      'zitatAutor': 'Thich Nhat Hanh',
+      'alltagsTipp': 'Höre heute in einem Gespräch nur zu, ohne sofort eine Antwort parat zu haben.',
+      'reflexionsFragen': [
+        'Wie verhältst du dich in schwierigen Gesprächen?',
+        'Kannst du zuhören, ohne zu unterbrechen?',
+      ],
+      'audioRefs': ['Ankommen', 'Sitzmeditation (mittel)', 'Body-Scan (kurz)', 'Achtsamkeit in Bewegung'],
       'pdfs': [
         {
           'title': 'Kursunterlagen Woche 6',
@@ -174,6 +234,16 @@ class AppDaten {
     {
       'n': '7',
       't': 'Selbstfürsorge',
+      'teaser': 'Dieser Termin lädt dazu ein, Selbstfürsorge als bewusste Haltung im Alltag zu betrachten. Wir erkunden, was uns nährt und was uns erschöpft, und wie Achtsamkeit helfen kann, stimmigere Entscheidungen zu treffen.',
+      'fokus': 'Was nährt mich, was zehrt an mir?',
+      'zitat': 'Sei gut zu dir selbst, damit du gut zu anderen sein kannst.',
+      'zitatAutor': 'Unbekannt',
+      'alltagsTipp': 'Tue heute bewusst etwas, das dir gut tut – nur für dich.',
+      'reflexionsFragen': [
+        'Was gibt dir Energie im Alltag?',
+        'Wo verlierst du unnötig Kraft?',
+      ],
+      'audioRefs': ['Ankommen', 'Sitzmeditation (lang)', 'Body-Scan (kurz)', 'Achtsamkeit in Bewegung'],
       'pdfs': [
         {
           'title': 'Kursunterlagen Woche 7',
@@ -189,6 +259,16 @@ class AppDaten {
     {
       'n': '8',
       't': 'Rückschau und Ausblick',
+      'teaser': 'Zum Abschluss schauen wir auf den gemeinsamen Weg zurück und darauf, was sich verändert hat. Der Fokus liegt auf Integration: Wie kann die Praxis nach Kursende weitergetragen und im Alltag verankert werden?',
+      'fokus': 'Der Weg geht weiter',
+      'zitat': 'Der Weg ist das Ziel.',
+      'zitatAutor': 'Konfuzius',
+      'alltagsTipp': 'Erinnere dich heute an einen Moment aus dem Kurs, der dich besonders berührt hat.',
+      'reflexionsFragen': [
+        'Was nimmst du aus den 8 Wochen mit?',
+        'Wie möchtest du Achtsamkeit weiter in dein Leben integrieren?',
+      ],
+      'audioRefs': ['Ankommen', 'Sitzmeditation (lang)', 'Body-Scan (kurz)', 'Achtsamkeit in Bewegung'],
       'pdfs': [
         {
           'title': 'Kursunterlagen Woche 8',

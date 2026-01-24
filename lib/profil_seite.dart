@@ -6,6 +6,7 @@ import 'audio_service.dart';
 import 'legal_dialogs.dart';
 import 'core/app_styles.dart';
 import 'widgets/decorative_blobs.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ProfilSeite extends StatelessWidget {
   const ProfilSeite({super.key});
@@ -241,6 +242,22 @@ class ProfilSeite extends StatelessWidget {
                 ),
               ),
             ],
+          ),
+          SizedBox(height: AppStyles.spacingXL + AppStyles.spacingS), // 40px
+          
+          // Website Link
+          Center(
+            child: GestureDetector(
+              onTap: () => launchUrl(Uri.parse('https://www.mindfulpractice.de')),
+              child: Text(
+                'Besuche uns auf mindfulpractice.de',
+                style: AppStyles.bodyStyle.copyWith(
+                  fontSize: 12,
+                  color: AppStyles.primaryOrange,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
           ),
           SizedBox(height: AppStyles.spacingXL + AppStyles.spacingS), // 40px
         ],

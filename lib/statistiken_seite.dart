@@ -4,6 +4,7 @@ import 'constants/app_texts.dart';
 import 'core/app_styles.dart';
 import 'widgets/decorative_blobs.dart';
 import 'widgets/subtle_divider.dart';
+import 'widgets/subtle_divider.dart';
 
 class StatistikenSeite extends StatefulWidget {
   const StatistikenSeite({super.key});

@@ -8,6 +8,7 @@ import 'core/app_styles.dart';
 import 'widgets/animated_play_button.dart';
 import 'widgets/decorative_blobs.dart';
 import 'widgets/subtle_divider.dart';
+import 'widgets/subtle_divider.dart';
 
 class MediathekSeite extends StatefulWidget {
   const MediathekSeite({super.key});
@@ -122,6 +123,7 @@ class _MediathekSeiteState extends State<MediathekSeite> {
               ],
             ),
           ),
+          const SubtleDivider(height: 1, verticalMargin: 0),
           const SubtleDivider(height: 1, verticalMargin: 0),
           // Offline-Banner
           StreamBuilder<bool>(
