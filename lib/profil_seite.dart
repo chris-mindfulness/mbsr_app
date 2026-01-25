@@ -7,6 +7,7 @@ import 'legal_dialogs.dart';
 import 'core/app_styles.dart';
 import 'widgets/decorative_blobs.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'downloads_seite.dart';
 
 class ProfilSeite extends StatelessWidget {
   const ProfilSeite({super.key});
@@ -187,6 +188,63 @@ class ProfilSeite extends StatelessWidget {
                           AppStyles.spacingXSBox,
                           Text(
                             "Deine Praxis im Überblick",
+                            style: AppStyles.bodyStyle.copyWith(fontSize: 13, color: AppStyles.softBrown.withOpacity(0.6)),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const Icon(Icons.chevron_right, color: AppStyles.borderColor),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          
+          // Downloads
+          Card(
+            margin: EdgeInsets.only(bottom: AppStyles.spacingM),
+            elevation: 0,
+            color: Colors.white,
+            shape: AppStyles.cardShape,
+            child: InkWell(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => DownloadsSeite(),
+                  ),
+                );
+              },
+              borderRadius: BorderRadius.circular(AppStyles.borderRadius),
+              child: Padding(
+                padding: AppStyles.cardPadding,
+                child: Row(
+                  children: [
+                    Container(
+                      width: 48,
+                      height: 48,
+                      decoration: BoxDecoration(
+                        color: AppStyles.primaryOrange.withOpacity(0.1),
+                        borderRadius: BorderRadius.circular(14),
+                      ),
+                      child: const Icon(
+                        Icons.file_download_outlined,
+                        color: AppStyles.primaryOrange,
+                        size: 24,
+                      ),
+                    ),
+                    SizedBox(width: AppStyles.spacingL - AppStyles.spacingS), // 20px
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Downloads",
+                            style: AppStyles.subTitleStyle,
+                          ),
+                          AppStyles.spacingXSBox,
+                          Text(
+                            "Alle Kursunterlagen & PDFs",
                             style: AppStyles.bodyStyle.copyWith(fontSize: 13, color: AppStyles.softBrown.withOpacity(0.6)),
                           ),
                         ],

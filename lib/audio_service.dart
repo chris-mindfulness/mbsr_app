@@ -18,6 +18,7 @@ class AudioService {
       if (kDebugMode) {
         debugPrint('AudioService: Player-Fehler (z.B. Seeking/Netzwerk): $e');
       }
+      _attemptRecoverPlayback('playbackEventStream error', error: e);
     });
     
     // Höre auf Player-State-Änderungen, um Status automatisch zu aktualisieren
@@ -36,10 +37,27 @@ class AudioService {
           _updateStatus(AudioServiceStatus.paused);
         }
       }
+
+      if (_shouldBePlaying) {
+        if (playerState.processingState == ProcessingState.buffering ||
+            playerState.processingState == ProcessingState.loading) {
+          _startBufferingTimer();
+        } else if (playerState.processingState == ProcessingState.ready && playerState.playing) {
+          _clearBufferingTimer();
+        }
+      } else {
+        _clearBufferingTimer();
+      }
     });
   }
 
   final AudioPlayer _player = AudioPlayer();
+  Timer? _bufferingTimer;
+  DateTime _lastRecoveryTime = DateTime.fromMillisecondsSinceEpoch(0);
+  int _recoveryAttempts = 0;
+  bool _shouldBePlaying = false;
+  bool _isRecovering = false;
+  Duration _lastKnownPosition = Duration.zero;
   
   AudioServiceStatus _status = AudioServiceStatus.idle;
   String? _currentAppwriteId;
@@ -78,6 +96,67 @@ class AudioService {
     _statusController.add(_status);
   }
 
+  static const Duration _bufferingTimeout = Duration(seconds: 8);
+  static const Duration _minRecoveryInterval = Duration(seconds: 3);
+  static const int _maxRecoveryAttempts = 3;
+
+  void _startBufferingTimer() {
+    if (_bufferingTimer != null) return;
+    _bufferingTimer = Timer(_bufferingTimeout, () {
+      if (_shouldBePlaying) {
+        _attemptRecoverPlayback('buffering timeout');
+      }
+    });
+  }
+
+  void _clearBufferingTimer() {
+    _bufferingTimer?.cancel();
+    _bufferingTimer = null;
+    _recoveryAttempts = 0;
+  }
+
+  Future<void> _attemptRecoverPlayback(String reason, {Object? error}) async {
+    if (_isRecovering || !_shouldBePlaying || _currentAppwriteId == null) return;
+
+    final now = DateTime.now();
+    if (now.difference(_lastRecoveryTime) < _minRecoveryInterval) return;
+
+    if (_recoveryAttempts >= _maxRecoveryAttempts) {
+      if (kDebugMode) {
+        debugPrint('AudioService: Recovery limit reached ($reason).');
+      }
+      _updateStatus(AudioServiceStatus.error);
+      return;
+    }
+
+    _isRecovering = true;
+    _lastRecoveryTime = now;
+    _recoveryAttempts += 1;
+
+    final resumePosition = _lastKnownPosition;
+    if (kDebugMode) {
+      debugPrint('AudioService: Recovery attempt $_recoveryAttempts ($reason).');
+      if (error != null) debugPrint('AudioService: Recovery error info: $error');
+    }
+
+    try {
+      await _player.stop();
+      final url = _constructAppwriteUrl(_currentAppwriteId!);
+      final source = AudioSource.uri(Uri.parse(url), tag: _currentTitle);
+      await _player.setAudioSource(source, preload: true);
+      if (resumePosition > Duration.zero) {
+        await _player.seek(resumePosition);
+      }
+      _updateStatus(AudioServiceStatus.loading);
+      await _player.play();
+      _updateStatus(AudioServiceStatus.playing);
+    } catch (e) {
+      if (kDebugMode) debugPrint('AudioService: Recovery failed: $e');
+    } finally {
+      _isRecovering = false;
+    }
+  }
+
   /// Hilfsmethode: Erstellt die Appwrite-URL aus der ID
   String _constructAppwriteUrl(String fileId) {
     return '${AppConfig.appwriteEndpoint}/storage/buckets/${AppConfig.audiosBucketId}/files/$fileId/view?project=${AppConfig.appwriteProjectId}';
@@ -102,8 +181,10 @@ class AudioService {
     // Wenn dasselbe Audio bereits spielt/lädt, mache nichts oder toggel Pause
     if (_currentAppwriteId == appwriteId) {
       if (_player.playing) {
+        _shouldBePlaying = false;
         await pause();
       } else {
+        _shouldBePlaying = true;
         // SOFORT Status auf "playing" setzen für schnelle UI-Reaktion
         _updateStatus(AudioServiceStatus.playing);
         _player.play(); // Nicht await - damit UI sofort reagiert
@@ -119,6 +200,9 @@ class AudioService {
     _currentTitle = title;
     _currentAudio = audio;
     
+    _shouldBePlaying = true;
+    _clearBufferingTimer();
+
     // Setze Status auf "loading" nur kurz, dann sofort optimistisch auf "playing"
     _updateStatus(AudioServiceStatus.loading);
     
@@ -158,16 +242,21 @@ class AudioService {
     } catch (e) {
       if (kDebugMode) debugPrint("AudioService Error beim Laden/Abspielen: $e");
       _updateStatus(AudioServiceStatus.error);
+      _shouldBePlaying = false;
       rethrow;
     }
   }
 
   Future<void> pause() async {
+    _shouldBePlaying = false;
+    _clearBufferingTimer();
     await _player.pause();
     _updateStatus(AudioServiceStatus.paused);
   }
 
   Future<void> stop() async {
+    _shouldBePlaying = false;
+    _clearBufferingTimer();
     _saveCurrentStats();
     await _player.stop();
     _currentAppwriteId = null;
@@ -189,6 +278,7 @@ class AudioService {
     
     // Überwache Position-Stream
     _positionSubscription = _player.positionStream.listen((position) {
+      _lastKnownPosition = position;
       _check80PercentThreshold(position);
     });
   }
@@ -277,6 +367,7 @@ class AudioService {
   void dispose() {
     _positionSubscription?.cancel();
     _playerStateSubscription?.cancel();
+    _bufferingTimer?.cancel();
     _saveCurrentStats();
     _player.dispose();
     _statusController.close();

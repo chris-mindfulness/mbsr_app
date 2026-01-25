@@ -14,7 +14,6 @@ import 'widgets/ambient_background.dart';
 import 'widgets/animated_play_button.dart';
 import 'widgets/decorative_blobs.dart';
 import 'widgets/subtle_divider.dart';
-import 'widgets/subtle_divider.dart';
 
 class KursUebersicht extends StatefulWidget {
   final String kursTyp;
@@ -34,8 +33,9 @@ class _KursUebersichtState extends State<KursUebersicht> {
   late int _currentIndex;
   final ScrollController _scrollController = ScrollController();
   final TextEditingController _searchController = TextEditingController();
-  
-  final GlobalKey<NavigatorState> _kursNavigatorKey = GlobalKey<NavigatorState>();
+
+  final GlobalKey<NavigatorState> _kursNavigatorKey =
+      GlobalKey<NavigatorState>();
   final AudioService _audioService = AudioService();
 
   @override
@@ -47,9 +47,15 @@ class _KursUebersichtState extends State<KursUebersicht> {
 
   void _updateUrl(int index) {
     switch (index) {
-      case 0: setRoute('/home'); break;
-      case 1: setRoute('/mediathek'); break;
-      case 2: setRoute('/vertiefung'); break;
+      case 0:
+        setRoute('/home');
+        break;
+      case 1:
+        setRoute('/mediathek');
+        break;
+      case 2:
+        setRoute('/vertiefung');
+        break;
     }
   }
 
@@ -90,188 +96,207 @@ class _KursUebersichtState extends State<KursUebersicht> {
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: AppStyles.spacingXL),
         child: Column(
-        children: [
-          AppStyles.spacingMBox,
-          // Header mit Handle und Schließen-Button
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              // Handle/Indicator
-              Container(
-                width: 40,
-                height: 5,
+          children: [
+            AppStyles.spacingMBox,
+            // Header mit Handle und Schließen-Button
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                // Handle/Indicator
+                Container(
+                  width: 40,
+                  height: 5,
+                  decoration: BoxDecoration(
+                    color: AppStyles.softBrown.withOpacity(0.2),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+              ],
+            ),
+            // Schließen-Button oben rechts
+            Align(
+              alignment: Alignment.topRight,
+              child: IconButton(
+                icon: Icon(
+                  Icons.close_rounded,
+                  color: AppStyles.textDark.withOpacity(0.6),
+                  size: AppStyles.iconSizeL,
+                ),
+                onPressed: () {
+                  _audioService.stop(); // Audio stoppen
+                  Navigator.of(context).pop(); // Modal schließen
+                },
+                tooltip: 'Schließen & Stoppen',
+              ),
+            ),
+            AppStyles.spacingLBox,
+
+            // Cover/Icon Area
+            Expanded(
+              flex: 3,
+              child: Container(
+                width: double.infinity,
                 decoration: BoxDecoration(
-                  color: AppStyles.softBrown.withOpacity(0.2),
-                  borderRadius: BorderRadius.circular(10),
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(40),
+                  boxShadow: [
+                    BoxShadow(
+                      color: AppStyles.primaryOrange.withOpacity(0.1),
+                      blurRadius: 30,
+                      offset: const Offset(0, 15),
+                    ),
+                  ],
+                ),
+                child: const Center(
+                  child: Icon(
+                    Icons.self_improvement,
+                    size: 120,
+                    color: AppStyles.primaryOrange,
+                  ),
                 ),
               ),
-            ],
-          ),
-          // Schließen-Button oben rechts
-          Align(
-            alignment: Alignment.topRight,
-            child: IconButton(
-              icon: Icon(
-                Icons.close_rounded,
-                color: AppStyles.textDark.withOpacity(0.6),
-                size: AppStyles.iconSizeL,
+            ),
+
+            AppStyles.spacingXXLBox,
+
+            // Title & Description
+            Text(
+              _audioService.currentTitle ?? 'Audio',
+              style: AppStyles.titleStyle.copyWith(fontSize: 24),
+              textAlign: TextAlign.center,
+            ),
+            AppStyles.spacingSBox,
+            Text(
+              "Achtsamkeitspraxis",
+              style: AppStyles.bodyStyle.copyWith(
+                color: AppStyles.softBrown.withOpacity(0.6),
+                letterSpacing: 1.2,
               ),
-              onPressed: () {
-                _audioService.stop(); // Audio stoppen
-                Navigator.of(context).pop(); // Modal schließen
+            ),
+
+            AppStyles.spacingXXLBox,
+
+            // Progress Area
+            StreamBuilder<Duration>(
+              stream: _audioService.positionStream,
+              builder: (context, snapshot) {
+                final position = snapshot.data ?? Duration.zero;
+                final duration = _audioService.duration ?? Duration.zero;
+
+                return Column(
+                  children: [
+                    SliderTheme(
+                      data: SliderTheme.of(context).copyWith(
+                        trackHeight: 6,
+                        thumbShape: const RoundSliderThumbShape(
+                          enabledThumbRadius: 8,
+                        ),
+                        overlayShape: const RoundSliderOverlayShape(
+                          overlayRadius: 20,
+                        ),
+                        activeTrackColor: AppStyles.primaryOrange,
+                        inactiveTrackColor: AppStyles.primaryOrange.withOpacity(
+                          0.1,
+                        ),
+                        thumbColor: AppStyles.primaryOrange,
+                      ),
+                      child: Slider(
+                        value: position.inSeconds.toDouble(),
+                        max: duration.inSeconds > 0
+                            ? duration.inSeconds.toDouble()
+                            : 1.0,
+                        onChanged: (value) {
+                          HapticFeedback.selectionClick();
+                          _audioService.seek(Duration(seconds: value.toInt()));
+                        },
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            _formatDuration(position),
+                            style: AppStyles.bodyStyle.copyWith(fontSize: 12),
+                          ),
+                          Text(
+                            _formatDuration(duration),
+                            style: AppStyles.bodyStyle.copyWith(fontSize: 12),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                );
               },
-              tooltip: 'Schließen & Stoppen',
             ),
-          ),
-          AppStyles.spacingLBox,
-          
-          // Cover/Icon Area
-          Expanded(
-            flex: 3,
-            child: Container(
-              width: double.infinity,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(40),
-                boxShadow: [
-                  BoxShadow(
-                    color: AppStyles.primaryOrange.withOpacity(0.1),
-                    blurRadius: 30,
-                    offset: const Offset(0, 15),
-                  ),
-                ],
-              ),
-              child: const Center(
-                child: Icon(
-                  Icons.self_improvement,
-                  size: 120,
-                  color: AppStyles.primaryOrange,
+
+            AppStyles.spacingXLBox,
+
+            // Controls Area
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                // Back 10s
+                AnimatedIconButton(
+                  icon: Icons.replay_10,
+                  iconSize: 36,
+                  color: AppStyles.softBrown,
+                  tooltip: '10 Sekunden zurück',
+                  onPressed: () {
+                    final newPos =
+                        _audioService.position - const Duration(seconds: 10);
+                    _audioService.seek(
+                      newPos < Duration.zero ? Duration.zero : newPos,
+                    );
+                  },
                 ),
-              ),
-            ),
-          ),
-          
-          AppStyles.spacingXXLBox,
-          
-          // Title & Description
-          Text(
-            _audioService.currentTitle ?? 'Audio',
-            style: AppStyles.titleStyle.copyWith(fontSize: 24),
-            textAlign: TextAlign.center,
-          ),
-          AppStyles.spacingSBox,
-          Text(
-            "Achtsamkeitspraxis",
-            style: AppStyles.bodyStyle.copyWith(
-              color: AppStyles.softBrown.withOpacity(0.6),
-              letterSpacing: 1.2,
-            ),
-          ),
-          
-          AppStyles.spacingXXLBox,
-          
-          // Progress Area
-          StreamBuilder<Duration>(
-            stream: _audioService.positionStream,
-            builder: (context, snapshot) {
-              final position = snapshot.data ?? Duration.zero;
-              final duration = _audioService.duration ?? Duration.zero;
-              
-              return Column(
-                children: [
-                  SliderTheme(
-                    data: SliderTheme.of(context).copyWith(
-                      trackHeight: 6,
-                      thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 8),
-                      overlayShape: const RoundSliderOverlayShape(overlayRadius: 20),
-                      activeTrackColor: AppStyles.primaryOrange,
-                      inactiveTrackColor: AppStyles.primaryOrange.withOpacity(0.1),
-                      thumbColor: AppStyles.primaryOrange,
-                    ),
-                    child: Slider(
-                      value: position.inSeconds.toDouble(),
-                      max: duration.inSeconds > 0 ? duration.inSeconds.toDouble() : 1.0,
-                      onChanged: (value) {
-                        HapticFeedback.selectionClick();
-                        _audioService.seek(Duration(seconds: value.toInt()));
-                      },
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(_formatDuration(position), style: AppStyles.bodyStyle.copyWith(fontSize: 12)),
-                        Text(_formatDuration(duration), style: AppStyles.bodyStyle.copyWith(fontSize: 12)),
-                      ],
-                    ),
-                  ),
-                ],
-              );
-            },
-          ),
-          
-          AppStyles.spacingXLBox,
-          
-          // Controls Area
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              // Back 10s
-              AnimatedIconButton(
-                icon: Icons.replay_10,
-                iconSize: 36,
-                color: AppStyles.softBrown,
-                tooltip: '10 Sekunden zurück',
-                onPressed: () {
-                  final newPos = _audioService.position - const Duration(seconds: 10);
-                  _audioService.seek(newPos < Duration.zero ? Duration.zero : newPos);
-                },
-              ),
-              AppStyles.spacingLHorizontal,
-              // Play/Pause Large
-              StreamBuilder<AudioServiceStatus>(
-                stream: _audioService.statusStream,
-                builder: (context, snapshot) {
-                  final isPlaying = _audioService.status == AudioServiceStatus.playing;
-                  return AnimatedPlayButton(
-                    isPlaying: isPlaying,
-                    size: 56,
-                    onPressed: () {
-                      if (isPlaying) {
-                        _audioService.pause();
-                      } else {
-                        if (_audioService.currentAppwriteId != null) {
-                          _audioService.play({
-                            'appwrite_id': _audioService.currentAppwriteId!,
-                            'title': _audioService.currentTitle!,
-                          });
+                AppStyles.spacingLHorizontal,
+                // Play/Pause Large
+                StreamBuilder<AudioServiceStatus>(
+                  stream: _audioService.statusStream,
+                  builder: (context, snapshot) {
+                    final isPlaying =
+                        _audioService.status == AudioServiceStatus.playing;
+                    return AnimatedPlayButton(
+                      isPlaying: isPlaying,
+                      size: 56,
+                      onPressed: () {
+                        if (isPlaying) {
+                          _audioService.pause();
+                        } else {
+                          if (_audioService.currentAppwriteId != null) {
+                            _audioService.play({
+                              'appwrite_id': _audioService.currentAppwriteId!,
+                              'title': _audioService.currentTitle!,
+                            });
+                          }
                         }
-                      }
-                    },
-                  );
-                },
-              ),
-              AppStyles.spacingLHorizontal,
-              // Forward 30s
-              AnimatedIconButton(
-                icon: Icons.forward_30,
-                iconSize: 36,
-                color: AppStyles.softBrown,
-                tooltip: '30 Sekunden vor',
-                onPressed: () {
-                  final newPos = _audioService.position + const Duration(seconds: 30);
-                  final duration = _audioService.duration ?? Duration.zero;
-                  _audioService.seek(newPos > duration ? duration : newPos);
-                },
-              ),
-            ],
-          ),
-          
-          const Spacer(),
-          AppStyles.spacingXXLBox,
-        ],
+                      },
+                    );
+                  },
+                ),
+                AppStyles.spacingLHorizontal,
+                // Forward 30s
+                AnimatedIconButton(
+                  icon: Icons.forward_30,
+                  iconSize: 36,
+                  color: AppStyles.softBrown,
+                  tooltip: '30 Sekunden vor',
+                  onPressed: () {
+                    final newPos =
+                        _audioService.position + const Duration(seconds: 30);
+                    final duration = _audioService.duration ?? Duration.zero;
+                    _audioService.seek(newPos > duration ? duration : newPos);
+                  },
+                ),
+              ],
+            ),
+
+            const Spacer(),
+            AppStyles.spacingXXLBox,
+          ],
         ),
       ),
     );
@@ -297,7 +322,11 @@ class _KursUebersichtState extends State<KursUebersicht> {
         centerTitle: true,
         actions: [
           IconButton(
-            icon: Icon(Icons.person_outline, color: AppStyles.softBrown, size: AppStyles.iconSizeL),
+            icon: Icon(
+              Icons.person_outline,
+              color: AppStyles.softBrown,
+              size: AppStyles.iconSizeL,
+            ),
             onPressed: () => Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => const ProfilSeite()),
@@ -318,8 +347,14 @@ class _KursUebersichtState extends State<KursUebersicht> {
                   if (isOnline) return const SizedBox.shrink();
                   return Container(
                     width: double.infinity,
-                    margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                    padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
+                    margin: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 8,
+                    ),
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 10,
+                      horizontal: 16,
+                    ),
                     decoration: BoxDecoration(
                       color: Colors.orange.shade100,
                       borderRadius: BorderRadius.circular(16),
@@ -327,11 +362,19 @@ class _KursUebersichtState extends State<KursUebersicht> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.wifi_off, size: 18, color: Colors.orange.shade800),
+                        Icon(
+                          Icons.wifi_off,
+                          size: 18,
+                          color: Colors.orange.shade800,
+                        ),
                         const SizedBox(width: 8),
                         Text(
                           'Keine Internetverbindung',
-                          style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.orange.shade900),
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.orange.shade900,
+                          ),
                         ),
                       ],
                     ),
@@ -341,12 +384,13 @@ class _KursUebersichtState extends State<KursUebersicht> {
               Expanded(child: pages[_currentIndex]),
             ],
           ),
-          
+
           // Globaler Mini-Player-Balken
           StreamBuilder<AudioServiceStatus>(
             stream: _audioService.statusStream,
             builder: (context, snapshot) {
-              if (_audioService.currentAppwriteId == null) return const SizedBox.shrink();
+              if (_audioService.currentAppwriteId == null)
+                return const SizedBox.shrink();
               return Positioned(
                 left: 20,
                 right: 20,
@@ -393,92 +437,105 @@ class _KursUebersichtState extends State<KursUebersicht> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-          Row(
-            children: [
-              // Kleines Vorschaubild/Icon
-              Container(
-                width: 48,
-                height: 48,
-                decoration: BoxDecoration(
-                  color: AppStyles.primaryOrange.withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Icon(Icons.self_improvement, color: AppStyles.primaryOrange, size: AppStyles.iconSizeM),
-              ),
-              AppStyles.spacingMHorizontal,
-              // Titel
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      _audioService.currentTitle ?? '',
-                      style: AppStyles.subTitleStyle.copyWith(fontSize: 14, fontWeight: FontWeight.bold),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
+              Row(
+                children: [
+                  // Kleines Vorschaubild/Icon
+                  Container(
+                    width: 48,
+                    height: 48,
+                    decoration: BoxDecoration(
+                      color: AppStyles.primaryOrange.withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(12),
                     ),
-                    Text(
-                      "Tippen für Details",
-                      style: AppStyles.bodyStyle.copyWith(fontSize: 11, color: AppStyles.softBrown.withOpacity(0.5)),
+                    child: Icon(
+                      Icons.self_improvement,
+                      color: AppStyles.primaryOrange,
+                      size: AppStyles.iconSizeM,
                     ),
-                  ],
-                ),
-              ),
-              // Play/Pause Mini
-              StreamBuilder<AudioServiceStatus>(
-                stream: _audioService.statusStream,
-                builder: (context, snapshot) {
-                  final isPlaying = _audioService.status == AudioServiceStatus.playing;
-                  return AnimatedPlayButton(
-                    isPlaying: isPlaying,
-                    size: 40,
-                    showShadow: false,
-                    onPressed: () {
-                      if (isPlaying) {
-                        _audioService.pause();
-                      } else {
-                        if (_audioService.currentAppwriteId != null) {
-                          _audioService.play({
-                            'appwrite_id': _audioService.currentAppwriteId!,
-                            'title': _audioService.currentTitle!,
-                          });
-                        }
-                      }
+                  ),
+                  AppStyles.spacingMHorizontal,
+                  // Titel
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          _audioService.currentTitle ?? '',
+                          style: AppStyles.subTitleStyle.copyWith(
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        Text(
+                          "Tippen für Details",
+                          style: AppStyles.bodyStyle.copyWith(
+                            fontSize: 11,
+                            color: AppStyles.softBrown.withOpacity(0.5),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  // Play/Pause Mini
+                  StreamBuilder<AudioServiceStatus>(
+                    stream: _audioService.statusStream,
+                    builder: (context, snapshot) {
+                      final isPlaying =
+                          _audioService.status == AudioServiceStatus.playing;
+                      return AnimatedPlayButton(
+                        isPlaying: isPlaying,
+                        size: 40,
+                        showShadow: false,
+                        onPressed: () {
+                          if (isPlaying) {
+                            _audioService.pause();
+                          } else {
+                            if (_audioService.currentAppwriteId != null) {
+                              _audioService.play({
+                                'appwrite_id': _audioService.currentAppwriteId!,
+                                'title': _audioService.currentTitle!,
+                              });
+                            }
+                          }
+                        },
+                      );
                     },
+                  ),
+                ],
+              ),
+              // Mini Progress Bar ganz unten
+              AppStyles.spacingSBox,
+              StreamBuilder<Duration>(
+                stream: _audioService.positionStream,
+                builder: (context, snapshot) {
+                  final position = snapshot.data ?? Duration.zero;
+                  final duration = _audioService.duration ?? Duration.zero;
+                  final progress = duration.inSeconds > 0
+                      ? position.inSeconds / duration.inSeconds
+                      : 0.0;
+
+                  return Container(
+                    height: 3,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      color: AppStyles.primaryOrange.withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: FractionallySizedBox(
+                      alignment: Alignment.centerLeft,
+                      widthFactor: progress.clamp(0.0, 1.0),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: AppStyles.primaryOrange,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                    ),
                   );
                 },
               ),
-            ],
-          ),
-          // Mini Progress Bar ganz unten
-          AppStyles.spacingSBox,
-          StreamBuilder<Duration>(
-            stream: _audioService.positionStream,
-            builder: (context, snapshot) {
-              final position = snapshot.data ?? Duration.zero;
-              final duration = _audioService.duration ?? Duration.zero;
-              final progress = duration.inSeconds > 0 ? position.inSeconds / duration.inSeconds : 0.0;
-              
-              return Container(
-                height: 3,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: AppStyles.primaryOrange.withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: FractionallySizedBox(
-                  alignment: Alignment.centerLeft,
-                  widthFactor: progress.clamp(0.0, 1.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: AppStyles.primaryOrange,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                ),
-              );
-            },
-          ),
             ],
           ),
         ),
@@ -503,7 +560,11 @@ class _KursUebersichtState extends State<KursUebersicht> {
             borderRadius: BorderRadius.circular(35),
             border: Border.all(color: AppStyles.glassBorder, width: 1.5),
             boxShadow: [
-              BoxShadow(color: Colors.black.withOpacity(0.08), blurRadius: 20, offset: const Offset(0, 10)),
+              BoxShadow(
+                color: Colors.black.withOpacity(0.08),
+                blurRadius: 20,
+                offset: const Offset(0, 10),
+              ),
             ],
           ),
           child: ClipRRect(
@@ -515,17 +576,26 @@ class _KursUebersichtState extends State<KursUebersicht> {
                 _updateUrl(index);
               },
               backgroundColor: Colors.transparent,
-          selectedItemColor: AppStyles.primaryOrange,
-          unselectedItemColor: AppStyles.softBrown.withOpacity(0.4),
-          showSelectedLabels: true,
-          showUnselectedLabels: false,
-          elevation: 0,
-          type: BottomNavigationBarType.fixed,
-          items: const [
-            BottomNavigationBarItem(icon: Icon(Icons.format_list_numbered), label: 'Kurs'),
-            BottomNavigationBarItem(icon: Icon(Icons.library_music_outlined), label: 'Mediathek'),
-            BottomNavigationBarItem(icon: Icon(Icons.self_improvement), label: 'Vertiefung'),
-          ],
+              selectedItemColor: AppStyles.primaryOrange,
+              unselectedItemColor: AppStyles.softBrown.withOpacity(0.4),
+              showSelectedLabels: true,
+              showUnselectedLabels: false,
+              elevation: 0,
+              type: BottomNavigationBarType.fixed,
+              items: const [
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.format_list_numbered),
+                  label: 'Kurs',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.library_music_outlined),
+                  label: 'Mediathek',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.self_improvement),
+                  label: 'Vertiefung',
+                ),
+              ],
             ),
           ),
         ),
@@ -541,7 +611,9 @@ class _KursUebersichtState extends State<KursUebersicht> {
           builder: (context) => DecorativeBlobs(
             child: ListView(
               controller: _scrollController,
-              padding: const EdgeInsets.only(bottom: 180), // Mehr Platz für Mini-Player
+              padding: const EdgeInsets.only(
+                bottom: 180,
+              ), // Mehr Platz für Mini-Player
               children: [
                 _buildHeader(),
                 Padding(
@@ -571,7 +643,12 @@ class _KursUebersichtState extends State<KursUebersicht> {
 
   Widget _buildHeader() {
     return Container(
-      padding: EdgeInsets.fromLTRB(AppStyles.spacingL, AppStyles.spacingM, AppStyles.spacingL, AppStyles.spacingXL),
+      padding: EdgeInsets.fromLTRB(
+        AppStyles.spacingL,
+        AppStyles.spacingM,
+        AppStyles.spacingL,
+        AppStyles.spacingXL,
+      ),
       child: Column(
         children: [
           Container(
@@ -587,7 +664,11 @@ class _KursUebersichtState extends State<KursUebersicht> {
             ),
           ),
           SizedBox(height: AppStyles.spacingL + AppStyles.spacingS), // 20px
-          Text("Dein MBSR-Kurs", style: AppStyles.titleStyle, textAlign: TextAlign.center),
+          Text(
+            "Dein MBSR-Kurs",
+            style: AppStyles.titleStyle,
+            textAlign: TextAlign.center,
+          ),
           AppStyles.spacingSBox,
           Text(
             "8-Wochen-Achtsamkeitsprogramm",
@@ -603,22 +684,35 @@ class _KursUebersichtState extends State<KursUebersicht> {
 
   Widget _buildFilterRow() {
     return Padding(
-      padding: EdgeInsets.only(left: AppStyles.spacingS, bottom: AppStyles.spacingS),
-      child: Text("Wochen", style: AppStyles.headingStyle.copyWith(fontSize: 18)),
+      padding: EdgeInsets.only(
+        left: AppStyles.spacingS,
+        bottom: AppStyles.spacingS,
+      ),
+      child: Text(
+        "Wochen",
+        style: AppStyles.headingStyle.copyWith(fontSize: 18),
+      ),
     );
   }
 
-  Widget _buildWochenCard(BuildContext context, Map<String, dynamic> woche, int index) {
+  Widget _buildWochenCard(
+    BuildContext context,
+    Map<String, dynamic> woche,
+    int index,
+  ) {
     // Einheitlicher Grünton für alle Wochen-Karten
     final cardColor = AppStyles.successGreen;
-    
+
     return Card(
       margin: EdgeInsets.only(bottom: AppStyles.spacingM),
       shape: AppStyles.cardShape,
       elevation: 0,
       color: Colors.white,
       child: ListTile(
-        contentPadding: EdgeInsets.symmetric(horizontal: AppStyles.spacingL, vertical: AppStyles.spacingM - AppStyles.spacingS),
+        contentPadding: EdgeInsets.symmetric(
+          horizontal: AppStyles.spacingL,
+          vertical: AppStyles.spacingM - AppStyles.spacingS,
+        ),
         leading: Container(
           width: 48,
           height: 48,
@@ -629,7 +723,7 @@ class _KursUebersichtState extends State<KursUebersicht> {
           ),
           child: Center(
             child: Text(
-              woche['n'], 
+              woche['n'],
               style: TextStyle(
                 color: cardColor,
                 fontWeight: FontWeight.bold,
@@ -650,21 +744,29 @@ class _KursUebersichtState extends State<KursUebersicht> {
             // maxLines entfernt für dynamische Höhe
           ),
         ),
-        trailing: Icon(Icons.chevron_right, color: AppStyles.borderColor, size: AppStyles.iconSizeM),
+        trailing: Icon(
+          Icons.chevron_right,
+          color: AppStyles.borderColor,
+          size: AppStyles.iconSizeM,
+        ),
         onTap: () => Navigator.of(context).push(
           MaterialPageRoute(
             builder: (context) => WochenDetailSeite(
               wochenNummer: "Woche ${woche['n']}",
               titel: woche['t'],
-              audios: const [], 
+              audios: const [],
               pdfs: List<Map<String, String>>.from(woche['pdfs']),
               wochenAufgaben: List<String>.from(woche['wochenAufgaben'] ?? []),
               fokus: woche['fokus'],
               zitat: woche['zitat'],
               zitatAutor: woche['zitatAutor'],
               alltagsTipp: woche['alltagsTipp'],
-              reflexionsFragen: woche['reflexionsFragen'] != null ? List<String>.from(woche['reflexionsFragen']) : null,
-              audioRefs: woche['audioRefs'] != null ? List<String>.from(woche['audioRefs']) : null,
+              reflexionsFragen: woche['reflexionsFragen'] != null
+                  ? List<String>.from(woche['reflexionsFragen'])
+                  : null,
+              audioRefs: woche['audioRefs'] != null
+                  ? List<String>.from(woche['audioRefs'])
+                  : null,
             ),
           ),
         ),
@@ -684,7 +786,10 @@ class _KursUebersichtState extends State<KursUebersicht> {
       elevation: 0,
       color: AppStyles.accentPink.withOpacity(0.08),
       child: ListTile(
-        contentPadding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 24,
+          vertical: 12,
+        ),
         leading: Container(
           width: 48,
           height: 48,
@@ -712,9 +817,16 @@ class _KursUebersichtState extends State<KursUebersicht> {
             fontWeight: FontWeight.bold,
           ),
         ),
-        trailing: Icon(Icons.chevron_right, color: AppStyles.accentPink, size: AppStyles.iconSizeM),
+        trailing: Icon(
+          Icons.chevron_right,
+          color: AppStyles.accentPink,
+          size: AppStyles.iconSizeM,
+        ),
         onTap: () => Navigator.of(context).push(
-          MaterialPageRoute(builder: (context) => TagDerAchtsamkeitSeite(daten: AppDaten.tagDerAchtsamkeit)),
+          MaterialPageRoute(
+            builder: (context) =>
+                TagDerAchtsamkeitSeite(daten: AppDaten.tagDerAchtsamkeit),
+          ),
         ),
       ),
     );

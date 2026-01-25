@@ -4,7 +4,6 @@ import 'constants/app_texts.dart';
 import 'core/app_styles.dart';
 import 'widgets/decorative_blobs.dart';
 import 'widgets/subtle_divider.dart';
-import 'widgets/subtle_divider.dart';
 
 class StatistikenSeite extends StatefulWidget {
   const StatistikenSeite({super.key});
@@ -47,7 +46,11 @@ class _StatistikenSeiteState extends State<StatistikenSeite> {
         elevation: 0,
         centerTitle: true,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios_new, color: AppStyles.softBrown, size: 20),
+          icon: const Icon(
+            Icons.arrow_back_ios_new,
+            color: AppStyles.softBrown,
+            size: 20,
+          ),
           onPressed: () => Navigator.pop(context),
         ),
         actions: [
@@ -62,113 +65,124 @@ class _StatistikenSeiteState extends State<StatistikenSeite> {
       body: DecorativeBlobs(
         child: _isLoading
             ? const Center(
-                child: CircularProgressIndicator(color: AppStyles.primaryOrange),
+                child: CircularProgressIndicator(
+                  color: AppStyles.primaryOrange,
+                ),
               )
             : ListView(
                 padding: AppStyles.listPadding,
                 children: [
-                // Datenschutz-Hinweis (prominent)
-                Container(
-                  padding: EdgeInsets.all(AppStyles.spacingL - AppStyles.spacingS), // 20px
-                  decoration: BoxDecoration(
-                    color: AppStyles.sageGreen.withOpacity(0.05),
-                    borderRadius: BorderRadius.circular(24),
-                    border: Border.all(
-                      color: AppStyles.sageGreen.withOpacity(0.1),
-                      width: 1.5,
-                    ),
-                  ),
-                  child: Row(
-                    children: [
-                      const Icon(
-                        Icons.lock_outline,
-                        color: AppStyles.sageGreen,
-                        size: 24,
+                  // Datenschutz-Hinweis (prominent)
+                  Container(
+                    padding: EdgeInsets.all(
+                      AppStyles.spacingL - AppStyles.spacingS,
+                    ), // 20px
+                    decoration: BoxDecoration(
+                      color: AppStyles.sageGreen.withOpacity(0.05),
+                      borderRadius: BorderRadius.circular(24),
+                      border: Border.all(
+                        color: AppStyles.sageGreen.withOpacity(0.1),
+                        width: 1.5,
                       ),
-                      AppStyles.spacingMHorizontal,
-                      Expanded(
-                        child: Text(
-                          'Deine Statistiken sind privat und nur für dich sichtbar. Sie werden lokal gespeichert.',
-                          style: AppStyles.bodyStyle.copyWith(
-                            fontSize: 13,
-                            color: AppStyles.sageGreen,
-                            fontWeight: FontWeight.w500,
+                    ),
+                    child: Row(
+                      children: [
+                        const Icon(
+                          Icons.lock_outline,
+                          color: AppStyles.sageGreen,
+                          size: 24,
+                        ),
+                        AppStyles.spacingMHorizontal,
+                        Expanded(
+                          child: Text(
+                            'Deine Statistiken sind privat und nur für dich sichtbar. Sie werden lokal gespeichert.',
+                            style: AppStyles.bodyStyle.copyWith(
+                              fontSize: 13,
+                              color: AppStyles.sageGreen,
+                              fontWeight: FontWeight.w500,
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-                
-                AppStyles.spacingXLBox,
-                
-                // Streak-Anzeige
-                if ((_statistiken['streak'] ?? 0) > 0)
-                  _buildStreakCard(streak: _statistiken['streak'] ?? 0),
-                
-                AppStyles.spacingLBox,
-                
-                // Wochenübersicht
-                _buildWochenUebersicht(wochenDaten: _statistiken['wochenDaten'] ?? {}),
-                
-                const SpacingDivider(),
-                
-                // Stat-Karten Grid-like
-                _buildStatCard(
-                  icon: Icons.timer_outlined,
-                  title: "Gehörte Minuten",
-                  value: "${_statistiken['gesamtMinuten'] ?? 0}",
-                  subtitle: "Insgesamt",
-                  color: AppStyles.sageGreen,
-                ),
-                AppStyles.spacingMBox,
-                
-                if ((_statistiken['durchschnittsSitzung'] ?? 0) > 0)
-                  _buildStatCard(
-                    icon: Icons.access_time,
-                    title: "Ø Sitzungslänge",
-                    value: "${_statistiken['durchschnittsSitzung']} Min",
-                    subtitle: "Durchschnitt",
-                    color: AppStyles.primaryOrange,
+
+                  AppStyles.spacingXLBox,
+
+                  // Streak-Anzeige
+                  if ((_statistiken['streak'] ?? 0) > 0)
+                    _buildStreakCard(streak: _statistiken['streak'] ?? 0),
+
+                  AppStyles.spacingLBox,
+
+                  // Wochenübersicht
+                  _buildWochenUebersicht(
+                    wochenDaten: _statistiken['wochenDaten'] ?? {},
                   ),
-                
-                AppStyles.spacingMBox,
-                
-                _buildStatCard(
-                  icon: Icons.library_music_outlined,
-                  title: "Gehörte Übungen",
-                  value: "${_statistiken['anzahlGehoerte'] ?? 0}",
-                  subtitle: "Verschiedene Audios",
-                  color: AppStyles.softBrown,
-                ),
-                AppStyles.spacingMBox,
-                
-                if (_statistiken['lieblingsUebung'] != null)
-                  _buildStatCard(
-                    icon: Icons.favorite_outline,
-                    title: "Lieblingsübung",
-                    value: _statistiken['lieblingsUebung'],
-                    subtitle: "Häufigste Wahl",
-                    color: AppStyles.primaryOrange,
-                  ),
-                
-                AppStyles.spacingLBox,
-                
-                // Übungsverteilung
-                if ((_statistiken['uebungsVerteilung'] as Map?)?.isNotEmpty ?? false) ...[
+
                   const SpacingDivider(),
-                  _buildUebungsVerteilung(
-                    verteilung: _statistiken['uebungsVerteilung'] as Map<String, int>,
+
+                  // Stat-Karten Grid-like
+                  _buildStatCard(
+                    icon: Icons.timer_outlined,
+                    title: "Gehörte Minuten",
+                    value: "${_statistiken['gesamtMinuten'] ?? 0}",
+                    subtitle: "Insgesamt",
+                    color: AppStyles.sageGreen,
                   ),
+                  AppStyles.spacingMBox,
+
+                  if ((_statistiken['durchschnittsSitzung'] ?? 0) > 0)
+                    _buildStatCard(
+                      icon: Icons.access_time,
+                      title: "Ø Sitzungslänge",
+                      value: "${_statistiken['durchschnittsSitzung']} Min",
+                      subtitle: "Durchschnitt",
+                      color: AppStyles.primaryOrange,
+                    ),
+
+                  AppStyles.spacingMBox,
+
+                  _buildStatCard(
+                    icon: Icons.library_music_outlined,
+                    title: "Gehörte Übungen",
+                    value: "${_statistiken['anzahlGehoerte'] ?? 0}",
+                    subtitle: "Verschiedene Audios",
+                    color: AppStyles.softBrown,
+                  ),
+                  AppStyles.spacingMBox,
+
+                  if (_statistiken['lieblingsUebung'] != null)
+                    _buildStatCard(
+                      icon: Icons.favorite_outline,
+                      title: "Lieblingsübung",
+                      value: _statistiken['lieblingsUebung'],
+                      subtitle: "Häufigste Wahl",
+                      color: AppStyles.primaryOrange,
+                    ),
+
+                  AppStyles.spacingLBox,
+
+                  // Übungsverteilung
+                  if ((_statistiken['uebungsVerteilung'] as Map?)?.isNotEmpty ??
+                      false) ...[
+                    const SpacingDivider(),
+                    _buildUebungsVerteilung(
+                      verteilung:
+                          _statistiken['uebungsVerteilung'] as Map<String, int>,
+                    ),
+                  ],
+
+                  SizedBox(
+                    height: AppStyles.spacingXL + AppStyles.spacingS,
+                  ), // 40px
+                  // Motivations-Text
+                  _buildMotivationBox(),
+                  const SizedBox(
+                    height: 100,
+                  ), // Platz für Floating Nav (spezifischer Wert)
                 ],
-                
-                SizedBox(height: AppStyles.spacingXL + AppStyles.spacingS), // 40px
-                
-                // Motivations-Text
-                _buildMotivationBox(),
-                const SizedBox(height: 100), // Platz für Floating Nav (spezifischer Wert)
-              ],
-            ),
+              ),
       ),
     );
   }
@@ -196,16 +210,34 @@ class _StatistikenSeiteState extends State<StatistikenSeite> {
               color: Colors.white.withOpacity(0.2),
               shape: BoxShape.circle,
             ),
-            child: const Icon(Icons.local_fire_department, color: Colors.white, size: 36),
+            child: const Icon(
+              Icons.local_fire_department,
+              color: Colors.white,
+              size: 36,
+            ),
           ),
           SizedBox(width: AppStyles.spacingL - AppStyles.spacingS), // 20px
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text('Deine Serie', style: TextStyle(color: Colors.white70, fontSize: 14, fontWeight: FontWeight.w600)),
+                const Text(
+                  'Deine Serie',
+                  style: TextStyle(
+                    color: Colors.white70,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
                 AppStyles.spacingXSBox,
-                Text('$streak ${streak == 1 ? "Tag" : "Tage"}', style: const TextStyle(color: Colors.white, fontSize: 32, fontWeight: FontWeight.bold)),
+                Text(
+                  '$streak ${streak == 1 ? "Tag" : "Tage"}',
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 32,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ],
             ),
           ),
@@ -232,24 +264,46 @@ class _StatistikenSeiteState extends State<StatistikenSeite> {
                 final minuten = wochenDaten[day] ?? 0;
                 final hasActivity = minuten > 0;
                 final isToday = _isToday(day);
-                
+
                 return Column(
                   children: [
-                    Text(day, style: AppStyles.bodyStyle.copyWith(
-                      fontSize: 12, 
-                      fontWeight: isToday ? FontWeight.bold : FontWeight.normal,
-                      color: isToday ? AppStyles.primaryOrange : AppStyles.softBrown.withOpacity(0.5),
-                    )),
-                    SizedBox(height: AppStyles.spacingM - AppStyles.spacingS), // 12px
+                    Text(
+                      day,
+                      style: AppStyles.bodyStyle.copyWith(
+                        fontSize: 12,
+                        fontWeight: isToday
+                            ? FontWeight.bold
+                            : FontWeight.normal,
+                        color: isToday
+                            ? AppStyles.primaryOrange
+                            : AppStyles.softBrown.withOpacity(0.5),
+                      ),
+                    ),
+                    SizedBox(
+                      height: AppStyles.spacingM - AppStyles.spacingS,
+                    ), // 12px
                     Container(
                       width: 32,
                       height: 32,
                       decoration: BoxDecoration(
-                        color: hasActivity ? AppStyles.sageGreen : AppStyles.bgColor,
+                        color: hasActivity
+                            ? AppStyles.sageGreen
+                            : AppStyles.bgColor,
                         shape: BoxShape.circle,
-                        border: isToday ? Border.all(color: AppStyles.primaryOrange, width: 2) : null,
+                        border: isToday
+                            ? Border.all(
+                                color: AppStyles.primaryOrange,
+                                width: 2,
+                              )
+                            : null,
                       ),
-                      child: hasActivity ? const Icon(Icons.check, color: Colors.white, size: 16) : null,
+                      child: hasActivity
+                          ? const Icon(
+                              Icons.check,
+                              color: Colors.white,
+                              size: 16,
+                            )
+                          : null,
                     ),
                   ],
                 );
@@ -261,13 +315,21 @@ class _StatistikenSeiteState extends State<StatistikenSeite> {
     );
   }
 
-  Widget _buildStatCard({required IconData icon, required String title, required String value, required String subtitle, required Color color}) {
+  Widget _buildStatCard({
+    required IconData icon,
+    required String title,
+    required String value,
+    required String subtitle,
+    required Color color,
+  }) {
     return Card(
       elevation: 0,
       color: Colors.white,
       shape: AppStyles.cardShape,
       child: Padding(
-        padding: EdgeInsets.all(AppStyles.spacingL - AppStyles.spacingS), // 20px
+        padding: EdgeInsets.all(
+          AppStyles.spacingL - AppStyles.spacingS,
+        ), // 20px
         child: Row(
           children: [
             Container(
@@ -284,9 +346,21 @@ class _StatistikenSeiteState extends State<StatistikenSeite> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(title, style: AppStyles.bodyStyle.copyWith(fontSize: 13, color: AppStyles.softBrown.withOpacity(0.6))),
+                  Text(
+                    title,
+                    style: AppStyles.bodyStyle.copyWith(
+                      fontSize: 13,
+                      color: AppStyles.softBrown.withOpacity(0.6),
+                    ),
+                  ),
                   const SizedBox(height: 4),
-                  Text(value, style: AppStyles.subTitleStyle.copyWith(fontSize: 18, color: color)),
+                  Text(
+                    value,
+                    style: AppStyles.subTitleStyle.copyWith(
+                      fontSize: 18,
+                      color: color,
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -297,7 +371,8 @@ class _StatistikenSeiteState extends State<StatistikenSeite> {
   }
 
   Widget _buildUebungsVerteilung({required Map<String, int> verteilung}) {
-    final sortedEntries = verteilung.entries.toList()..sort((a, b) => b.value.compareTo(a.value));
+    final sortedEntries = verteilung.entries.toList()
+      ..sort((a, b) => b.value.compareTo(a.value));
 
     return Card(
       elevation: 0,
@@ -310,30 +385,47 @@ class _StatistikenSeiteState extends State<StatistikenSeite> {
           children: [
             Text('Übungsverteilung', style: AppStyles.subTitleStyle),
             const SizedBox(height: 24),
-            ...sortedEntries.map((entry) => Padding(
-              padding: const EdgeInsets.only(bottom: 16),
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(child: Text(entry.key, style: AppStyles.bodyStyle.copyWith(fontWeight: FontWeight.w500))),
-                      Text('${entry.value}%', style: AppStyles.bodyStyle.copyWith(fontWeight: FontWeight.bold, color: AppStyles.sageGreen)),
-                    ],
-                  ),
-                  const SizedBox(height: 8),
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
-                    child: LinearProgressIndicator(
-                      value: entry.value / 100,
-                      minHeight: 8,
-                      backgroundColor: AppStyles.bgColor,
-                      valueColor: const AlwaysStoppedAnimation<Color>(AppStyles.sageGreen),
+            ...sortedEntries.map(
+              (entry) => Padding(
+                padding: const EdgeInsets.only(bottom: 16),
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Expanded(
+                          child: Text(
+                            entry.key,
+                            style: AppStyles.bodyStyle.copyWith(
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ),
+                        Text(
+                          '${entry.value}%',
+                          style: AppStyles.bodyStyle.copyWith(
+                            fontWeight: FontWeight.bold,
+                            color: AppStyles.sageGreen,
+                          ),
+                        ),
+                      ],
                     ),
-                  ),
-                ],
+                    const SizedBox(height: 8),
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: LinearProgressIndicator(
+                        value: entry.value / 100,
+                        minHeight: 8,
+                        backgroundColor: AppStyles.bgColor,
+                        valueColor: const AlwaysStoppedAnimation<Color>(
+                          AppStyles.sageGreen,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            )),
+            ),
           ],
         ),
       ),
@@ -346,13 +438,19 @@ class _StatistikenSeiteState extends State<StatistikenSeite> {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(28),
-        border: Border.all(color: AppStyles.primaryOrange.withOpacity(0.1), width: 1.5),
+        border: Border.all(
+          color: AppStyles.primaryOrange.withOpacity(0.1),
+          width: 1.5,
+        ),
       ),
       child: Column(
         children: [
           const Icon(Icons.spa_outlined, size: 40, color: AppStyles.sageGreen),
           const SizedBox(height: 16),
-          Text("Jeder Moment zählt", style: AppStyles.headingStyle.copyWith(fontSize: 18)),
+          Text(
+            "Jeder Moment zählt",
+            style: AppStyles.headingStyle.copyWith(fontSize: 18),
+          ),
           const SizedBox(height: 12),
           Text(
             "Deine tägliche Praxis ist ein Geschenk an dich selbst. Bleib dran, auch wenn es nur wenige Minuten sind.",
@@ -368,14 +466,23 @@ class _StatistikenSeiteState extends State<StatistikenSeite> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text(AppTexts.trackingInfoTitle, style: AppStyles.headingStyle.copyWith(fontSize: 20)),
+        title: Text(
+          AppTexts.trackingInfoTitle,
+          style: AppStyles.headingStyle.copyWith(fontSize: 20),
+        ),
         content: Text(AppTexts.trackingInfoText, style: AppStyles.bodyStyle),
         backgroundColor: AppStyles.bgColor,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(28)),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: Text("Verstanden", style: AppStyles.bodyStyle.copyWith(fontWeight: FontWeight.bold, color: AppStyles.primaryOrange)),
+            child: Text(
+              "Verstanden",
+              style: AppStyles.bodyStyle.copyWith(
+                fontWeight: FontWeight.bold,
+                color: AppStyles.primaryOrange,
+              ),
+            ),
           ),
         ],
       ),

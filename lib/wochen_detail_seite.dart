@@ -7,7 +7,6 @@ import 'widgets/decorative_blobs.dart';
 import 'app_daten.dart';
 import 'audio_service.dart';
 import 'widgets/animated_play_button.dart';
-import 'widgets/subtle_divider.dart';
 import 'package:flutter/services.dart';
 
 class WochenDetailSeite extends StatefulWidget {
@@ -65,7 +64,9 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
   @override
   Widget build(BuildContext context) {
     // Navigation Logic
-    final currentWeekIndex = int.tryParse(widget.wochenNummer.replaceAll(RegExp(r'[^0-9]'), '')) ?? 1;
+    final currentWeekIndex =
+        int.tryParse(widget.wochenNummer.replaceAll(RegExp(r'[^0-9]'), '')) ??
+        1;
     final hasPrev = currentWeekIndex > 1;
     final hasNext = currentWeekIndex < 8;
 
@@ -90,13 +91,21 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
         actions: [
           if (hasPrev)
             IconButton(
-              icon: const Icon(Icons.chevron_left, color: AppStyles.softBrown, size: 32),
+              icon: const Icon(
+                Icons.chevron_left,
+                color: AppStyles.softBrown,
+                size: 32,
+              ),
               onPressed: () => _navigateToWeek(-1),
               tooltip: "Vorherige Woche",
             ),
           if (hasNext)
             IconButton(
-              icon: const Icon(Icons.chevron_right, color: AppStyles.softBrown, size: 32),
+              icon: const Icon(
+                Icons.chevron_right,
+                color: AppStyles.softBrown,
+                size: 32,
+              ),
               onPressed: () => _navigateToWeek(1),
               tooltip: "Nächste Woche",
             ),
@@ -188,7 +197,11 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
                       ),
                       child: Column(
                         children: [
-                          const Icon(Icons.format_quote, color: AppStyles.softBrown, size: 32),
+                          const Icon(
+                            Icons.format_quote,
+                            color: AppStyles.softBrown,
+                            size: 32,
+                          ),
                           AppStyles.spacingSBox,
                           Text(
                             widget.zitat!,
@@ -215,7 +228,8 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
                   ],
 
                   // PRAXIS (AUDIOS)
-                  if (widget.audioRefs != null && widget.audioRefs!.isNotEmpty) ...[
+                  if (widget.audioRefs != null &&
+                      widget.audioRefs!.isNotEmpty) ...[
                     _buildSectionHeader("DEINE PRAXIS DIESE WOCHE"),
                     AppStyles.spacingMBox,
                     if (widget.wochenNummer.contains("1")) ...[
@@ -232,7 +246,11 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Icon(Icons.info_outline, color: AppStyles.infoBlue, size: 24),
+                            const Icon(
+                              Icons.info_outline,
+                              color: AppStyles.infoBlue,
+                              size: 24,
+                            ),
                             AppStyles.spacingMHorizontal,
                             Expanded(
                               child: Text(
@@ -247,7 +265,9 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
                         ),
                       ),
                     ],
-                    ..._getAudiosForWeek().map((audio) => _buildAudioCard(audio)),
+                    ..._getAudiosForWeek().map(
+                      (audio) => _buildAudioCard(audio),
+                    ),
                     AppStyles.spacingXLBox,
                   ],
 
@@ -267,7 +287,11 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Icon(Icons.lightbulb_outline, color: AppStyles.successGreen, size: 28),
+                          const Icon(
+                            Icons.lightbulb_outline,
+                            color: AppStyles.successGreen,
+                            size: 28,
+                          ),
                           AppStyles.spacingMHorizontal,
                           Expanded(
                             child: Text(
@@ -285,25 +309,34 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
                   ],
 
                   // REFLEXION
-                  if (widget.reflexionsFragen != null && widget.reflexionsFragen!.isNotEmpty) ...[
+                  if (widget.reflexionsFragen != null &&
+                      widget.reflexionsFragen!.isNotEmpty) ...[
                     _buildSectionHeader("REFLEXION"),
                     AppStyles.spacingMBox,
-                    ...widget.reflexionsFragen!.map((frage) => Padding(
-                      padding: EdgeInsets.only(bottom: AppStyles.spacingM),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Icon(Icons.edit_note, color: AppStyles.accentPink, size: 24),
-                          AppStyles.spacingMHorizontal,
-                          Expanded(
-                            child: Text(
-                              frage,
-                              style: AppStyles.bodyStyle.copyWith(fontStyle: FontStyle.italic),
+                    ...widget.reflexionsFragen!.map(
+                      (frage) => Padding(
+                        padding: EdgeInsets.only(bottom: AppStyles.spacingM),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Icon(
+                              Icons.edit_note,
+                              color: AppStyles.accentPink,
+                              size: 24,
                             ),
-                          ),
-                        ],
+                            AppStyles.spacingMHorizontal,
+                            Expanded(
+                              child: Text(
+                                frage,
+                                style: AppStyles.bodyStyle.copyWith(
+                                  fontStyle: FontStyle.italic,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                    )),
+                    ),
                     AppStyles.spacingXLBox,
                   ],
 
@@ -415,13 +448,17 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
   List<Map<String, String>> _getAudiosForWeek() {
     if (widget.audioRefs == null) return [];
     final allAudios = AppDaten.getAlleAudios();
-    return allAudios.where((audio) => widget.audioRefs!.contains(audio['title'])).toList();
+    return allAudios
+        .where((audio) => widget.audioRefs!.contains(audio['title']))
+        .toList();
   }
 
   void _navigateToWeek(int direction) {
-    final currentWeekIndex = int.tryParse(widget.wochenNummer.replaceAll(RegExp(r'[^0-9]'), '')) ?? 1;
+    final currentWeekIndex =
+        int.tryParse(widget.wochenNummer.replaceAll(RegExp(r'[^0-9]'), '')) ??
+        1;
     final nextWeekIndex = currentWeekIndex + direction;
-    
+
     if (nextWeekIndex < 1 || nextWeekIndex > 8) return;
 
     final nextWeekData = AppDaten.wochenDaten.firstWhere(
@@ -438,13 +475,19 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
           titel: nextWeekData['t'],
           audios: const [],
           pdfs: List<Map<String, String>>.from(nextWeekData['pdfs']),
-          wochenAufgaben: List<String>.from(nextWeekData['wochenAufgaben'] ?? []),
+          wochenAufgaben: List<String>.from(
+            nextWeekData['wochenAufgaben'] ?? [],
+          ),
           fokus: nextWeekData['fokus'],
           zitat: nextWeekData['zitat'],
           zitatAutor: nextWeekData['zitatAutor'],
           alltagsTipp: nextWeekData['alltagsTipp'],
-          reflexionsFragen: nextWeekData['reflexionsFragen'] != null ? List<String>.from(nextWeekData['reflexionsFragen']) : null,
-          audioRefs: nextWeekData['audioRefs'] != null ? List<String>.from(nextWeekData['audioRefs']) : null,
+          reflexionsFragen: nextWeekData['reflexionsFragen'] != null
+              ? List<String>.from(nextWeekData['reflexionsFragen'])
+              : null,
+          audioRefs: nextWeekData['audioRefs'] != null
+              ? List<String>.from(nextWeekData['audioRefs'])
+              : null,
         ),
       ),
     );
@@ -467,13 +510,15 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
 
   Widget _buildAudioCard(Map<String, String> audio) {
     final String audioId = audio['appwrite_id'] ?? '';
-    
+
     return StreamBuilder<AudioServiceStatus>(
       stream: _audioService.statusStream,
       builder: (context, snapshot) {
         final bool isCurrent = _audioService.currentAppwriteId == audioId;
-        final bool isPlaying = isCurrent && _audioService.status == AudioServiceStatus.playing;
-        final bool isLoading = isCurrent && _audioService.status == AudioServiceStatus.loading;
+        final bool isPlaying =
+            isCurrent && _audioService.status == AudioServiceStatus.playing;
+        final bool isLoading =
+            isCurrent && _audioService.status == AudioServiceStatus.loading;
 
         return Card(
           margin: EdgeInsets.only(bottom: AppStyles.spacingM),
@@ -481,7 +526,9 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
           color: Colors.white,
           shape: AppStyles.cardShape.copyWith(
             side: BorderSide(
-              color: isCurrent ? AppStyles.primaryOrange.withOpacity(0.5) : Colors.grey.withOpacity(0.15),
+              color: isCurrent
+                  ? AppStyles.primaryOrange.withOpacity(0.5)
+                  : Colors.grey.withOpacity(0.15),
               width: isCurrent ? 2 : 1.5,
             ),
           ),
@@ -506,7 +553,9 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
                               height: 24,
                               child: CircularProgressIndicator(
                                 strokeWidth: 2.5,
-                                valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                                valueColor: AlwaysStoppedAnimation<Color>(
+                                  Colors.white,
+                                ),
                               ),
                             ),
                           ),
@@ -525,17 +574,25 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
                         Text(
                           audio['title']!,
                           style: AppStyles.subTitleStyle.copyWith(
-                            color: isCurrent ? AppStyles.primaryOrange : AppStyles.softBrown,
+                            color: isCurrent
+                                ? AppStyles.primaryOrange
+                                : AppStyles.softBrown,
                           ),
                         ),
                         AppStyles.spacingXSBox,
                         Row(
                           children: [
-                            Icon(Icons.access_time, size: 14, color: AppStyles.softBrown.withOpacity(0.5)),
+                            Icon(
+                              Icons.access_time,
+                              size: 14,
+                              color: AppStyles.softBrown.withOpacity(0.5),
+                            ),
                             AppStyles.spacingXSHorizontal,
                             Text(
                               audio['duration'] ?? '',
-                              style: AppStyles.smallTextStyle.copyWith(color: AppStyles.softBrown.withOpacity(0.6)),
+                              style: AppStyles.smallTextStyle.copyWith(
+                                color: AppStyles.softBrown.withOpacity(0.6),
+                              ),
                             ),
                           ],
                         ),

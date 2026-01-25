@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'literatur_seite.dart';
+import 'glossar_faq_seite.dart';
 import 'core/app_styles.dart';
 import 'widgets/decorative_blobs.dart';
 
@@ -73,6 +74,61 @@ class VertiefungSeite extends StatelessWidget {
           ),
         ),
 
+        AppStyles.spacingMBox,
+        
+        Card(
+          elevation: 0,
+          color: Colors.white,
+          shape: AppStyles.cardShape,
+          child: InkWell(
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const GlossarFaqSeite()),
+            ),
+            borderRadius: BorderRadius.circular(28),
+            child: Padding(
+              padding: AppStyles.cardPadding,
+              child: Row(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(12),
+                    decoration: BoxDecoration(
+                      color: AppStyles.accentCyan.withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(14),
+                    ),
+                    child: const Icon(
+                      Icons.help_outline,
+                      color: AppStyles.accentCyan,
+                      size: 24,
+                    ),
+                  ),
+                  SizedBox(width: AppStyles.spacingL - AppStyles.spacingS), // 20px
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Wissen & Hilfe",
+                          style: AppStyles.subTitleStyle,
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          "Glossar und häufige Fragen",
+                          style: AppStyles.bodyStyle.copyWith(fontSize: 13, color: AppStyles.softBrown.withOpacity(0.6)),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const Icon(
+                    Icons.chevron_right,
+                    color: AppStyles.borderColor,
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+        
         SizedBox(height: AppStyles.spacingXL + AppStyles.spacingS), // 40px
 
         _buildSectionHeader("LITERATUR & FORSCHUNG"),

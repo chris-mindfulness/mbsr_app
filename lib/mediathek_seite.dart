@@ -8,7 +8,6 @@ import 'core/app_styles.dart';
 import 'widgets/animated_play_button.dart';
 import 'widgets/decorative_blobs.dart';
 import 'widgets/subtle_divider.dart';
-import 'widgets/subtle_divider.dart';
 
 class MediathekSeite extends StatefulWidget {
   const MediathekSeite({super.key});
@@ -32,7 +31,7 @@ class _MediathekSeiteState extends State<MediathekSeite> {
   void _play(Map<String, String> audio) async {
     // Haptisches Feedback beim Start
     HapticFeedback.lightImpact();
-    
+
     try {
       await _audioService.play(audio);
       if (mounted) setState(() {});
@@ -48,6 +47,131 @@ class _MediathekSeiteState extends State<MediathekSeite> {
         );
       }
     }
+  }
+
+  void _showSOSDialog(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: AppStyles.bgColor,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(32)),
+      ),
+      builder: (context) => Padding(
+        padding: const EdgeInsets.fromLTRB(32, 16, 32, 48),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Center(
+              child: Container(
+                width: 40,
+                height: 4,
+                decoration: BoxDecoration(
+                  color: AppStyles.softBrown.withOpacity(0.2),
+                  borderRadius: BorderRadius.circular(2),
+                ),
+              ),
+            ),
+            const SizedBox(height: 32),
+            Row(
+              children: [
+                Icon(Icons.support_agent, color: AppStyles.errorRed, size: 32),
+                const SizedBox(width: 16),
+                Text(
+                  "Notfall-Koffer",
+                  style: AppStyles.headingStyle.copyWith(
+                    color: AppStyles.errorRed,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 24),
+            Text(
+              "Erste Hilfe bei akutem Stress",
+              style: AppStyles.subTitleStyle,
+            ),
+            const SizedBox(height: 16),
+            _buildSOSItem(
+              icon: Icons.timer,
+              title: "3-Minuten-Atemraum",
+              description: "Eine kurze Pause, um dich zu sammeln.",
+              onTap: () {
+                Navigator.pop(context);
+                // Suche nach "Ankommen" Audio (als Platzhalter für Atemraum)
+                final audio = AppDaten.getAlleAudios().firstWhere(
+                  (a) => a['title'] == 'Ankommen',
+                  orElse: () => {},
+                );
+                if (audio.isNotEmpty) _play(audio);
+              },
+            ),
+            const SizedBox(height: 16),
+            _buildSOSItem(
+              icon: Icons.accessibility_new,
+              title: "Körper spüren",
+              description:
+                  "Spüre deine Füße auf dem Boden. Nimm 3 tiefe Atemzüge.",
+              onTap: null, // Nur Info
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSOSItem({
+    required IconData icon,
+    required String title,
+    required String description,
+    VoidCallback? onTap,
+  }) {
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(16),
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: AppStyles.errorRed.withOpacity(0.05),
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(color: AppStyles.errorRed.withOpacity(0.1)),
+        ),
+        child: Row(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                shape: BoxShape.circle,
+              ),
+              child: Icon(icon, color: AppStyles.errorRed, size: 24),
+            ),
+            const SizedBox(width: 16),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    style: AppStyles.subTitleStyle.copyWith(fontSize: 16),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    description,
+                    style: AppStyles.bodyStyle.copyWith(fontSize: 13),
+                  ),
+                ],
+              ),
+            ),
+            if (onTap != null)
+              Icon(
+                Icons.play_circle_outline,
+                color: AppStyles.errorRed,
+                size: 32,
+              ),
+          ],
+        ),
+      ),
+    );
   }
 
   void _showAudioInfo(Map<String, String> audio) {
@@ -104,245 +228,283 @@ class _MediathekSeiteState extends State<MediathekSeite> {
       body: DecorativeBlobs(
         child: Column(
           children: [
-          // Header mit Info-Button
-          Padding(
-            padding: EdgeInsets.fromLTRB(AppStyles.spacingL, AppStyles.spacingM, AppStyles.spacingM, AppStyles.spacingS),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text('Mediathek', style: AppStyles.headingStyle),
-                IconButton(
-                  icon: Icon(
-                    Icons.info_outline,
-                    color: AppStyles.softBrown,
-                    size: AppStyles.iconSizeM,
-                  ),
-                  onPressed: () => _showTrackingInfo(context),
-                  tooltip: 'Über das Tracking',
-                ),
-              ],
-            ),
-          ),
-          const SubtleDivider(height: 1, verticalMargin: 0),
-          const SubtleDivider(height: 1, verticalMargin: 0),
-          // Offline-Banner
-          StreamBuilder<bool>(
-            stream: ConnectivityService.onlineStream,
-            initialData: ConnectivityService.isOnline,
-            builder: (context, snapshot) {
-              final isOnline = snapshot.data ?? true;
-              if (isOnline) return const SizedBox.shrink();
-
-              return Container(
-                width: double.infinity,
-                margin: EdgeInsets.symmetric(horizontal: AppStyles.spacingL, vertical: AppStyles.spacingS),
-                padding: EdgeInsets.symmetric(
-                  vertical: 10, // Spezifischer Wert für Banner
-                  horizontal: AppStyles.spacingM,
-                ),
-                decoration: BoxDecoration(
-                  color: Colors.orange.shade100,
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.wifi_off,
-                      size: 18,
-                      color: Colors.orange.shade800,
-                    ),
-                    AppStyles.spacingSHorizontal,
-                    Text(
-                      'Offline - Audios können nicht geladen werden',
-                      style: TextStyle(
-                        fontSize: 13,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.orange.shade900,
-                      ),
-                    ),
-                  ],
-                ),
-              );
-            },
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: AppStyles.spacingL, vertical: AppStyles.spacingM),
-            child: TextField(
-              controller: _searchController,
-              style: AppStyles.bodyStyle,
-              decoration: InputDecoration(
-                hintText: "Suchen...",
-                hintStyle: AppStyles.bodyStyle.copyWith(
-                  color: AppStyles.softBrown.withOpacity(0.5),
-                ),
-                prefixIcon: const Icon(
-                  Icons.search,
-                  color: AppStyles.softBrown,
-                ),
-                filled: true,
-                fillColor: Colors.white,
-                contentPadding: AppStyles.inputPadding,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20),
-                  borderSide: BorderSide(color: Colors.grey.withOpacity(0.2)),
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20),
-                  borderSide: BorderSide(color: Colors.grey.withOpacity(0.1)),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20),
-                  borderSide: const BorderSide(
-                    color: AppStyles.primaryOrange,
-                    width: 1.5,
-                  ),
-                ),
-              ),
-              onChanged: (v) => setState(() => _searchQuery = v),
-            ),
-          ),
-          Expanded(
-            child: ListView.builder(
-              itemCount: audios.length,
+            // Header mit Info-Button
+            Padding(
               padding: EdgeInsets.fromLTRB(
                 AppStyles.spacingL,
+                AppStyles.spacingM,
+                AppStyles.spacingM,
                 AppStyles.spacingS,
-                AppStyles.spacingL,
-                150, // Spezifischer Wert für Player-Platz
-              ), // Mehr Platz für den globalen Player
-              itemBuilder: (context, i) {
-                final audio = audios[i];
-                final String audioId = audio['appwrite_id'] ?? '';
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text('Mediathek', style: AppStyles.headingStyle),
+                  Row(
+                    children: [
+                      // SOS-Button
+                      IconButton(
+                        icon: Icon(
+                          Icons.support_agent,
+                          color: AppStyles.errorRed,
+                          size: AppStyles.iconSizeM,
+                        ),
+                        onPressed: () => _showSOSDialog(context),
+                        tooltip: 'Notfall-Koffer',
+                      ),
+                      IconButton(
+                        icon: Icon(
+                          Icons.info_outline,
+                          color: AppStyles.softBrown,
+                          size: AppStyles.iconSizeM,
+                        ),
+                        onPressed: () => _showTrackingInfo(context),
+                        tooltip: 'Über das Tracking',
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            const SubtleDivider(height: 1, verticalMargin: 0),
+            const SubtleDivider(height: 1, verticalMargin: 0),
+            // Offline-Banner
+            StreamBuilder<bool>(
+              stream: ConnectivityService.onlineStream,
+              initialData: ConnectivityService.isOnline,
+              builder: (context, snapshot) {
+                final isOnline = snapshot.data ?? true;
+                if (isOnline) return const SizedBox.shrink();
 
-                return StreamBuilder<AudioServiceStatus>(
-                  stream: _audioService.statusStream,
-                  builder: (context, snapshot) {
-                    final bool isCurrent =
-                        _audioService.currentAppwriteId == audioId;
-                    final bool isPlaying =
-                        isCurrent &&
-                        _audioService.status == AudioServiceStatus.playing;
-                    final bool isLoading =
-                        isCurrent &&
-                        _audioService.status == AudioServiceStatus.loading;
-
-                    return Card(
-                      margin: const EdgeInsets.only(bottom: 16),
-                      elevation: 0,
-                      color: Colors.white,
-                      shape: AppStyles.cardShape.copyWith(
-                        side: BorderSide(
-                          color: isCurrent
-                              ? AppStyles.primaryOrange.withOpacity(0.5)
-                              : Colors.grey.withOpacity(0.15),
-                          width: isCurrent ? 2 : 1.5,
+                return Container(
+                  width: double.infinity,
+                  margin: EdgeInsets.symmetric(
+                    horizontal: AppStyles.spacingL,
+                    vertical: AppStyles.spacingS,
+                  ),
+                  padding: EdgeInsets.symmetric(
+                    vertical: 10, // Spezifischer Wert für Banner
+                    horizontal: AppStyles.spacingM,
+                  ),
+                  decoration: BoxDecoration(
+                    color: Colors.orange.shade100,
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.wifi_off,
+                        size: 18,
+                        color: Colors.orange.shade800,
+                      ),
+                      AppStyles.spacingSHorizontal,
+                      Text(
+                        'Offline - Audios können nicht geladen werden',
+                        style: TextStyle(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.orange.shade900,
                         ),
                       ),
-                      child: InkWell(
-                        onTap: () => _play(audio),
-                        borderRadius: BorderRadius.circular(28),
-                        child: Padding(
-                          padding: EdgeInsets.all(AppStyles.spacingL - AppStyles.spacingS), // 20px
-                          child: Row(
-                            children: [
-                              // Play/Pause Button
-                              isLoading
-                                  ? Container(
-                                      width: 56,
-                                      height: 56,
-                                      decoration: BoxDecoration(
-                                        color: AppStyles.primaryOrange,
-                                        shape: BoxShape.circle,
-                                      ),
-                                      child: const Center(
-                                        child: SizedBox(
-                                          width: 24,
-                                          height: 24,
-                                          child: CircularProgressIndicator(
-                                            strokeWidth: 2.5,
-                                            valueColor:
-                                                AlwaysStoppedAnimation<Color>(
-                                                  Colors.white,
-                                                ),
-                                          ),
-                                        ),
-                                      ),
-                                    )
-                                  : AnimatedPlayButton(
-                                      isPlaying: isPlaying,
-                                      size: 56,
-                                      showShadow: false,
-                                      onPressed: () => _play(audio),
-                                    ),
-                              SizedBox(width: AppStyles.spacingL - AppStyles.spacingS), // 20px
-                              // Title & Duration
-                              Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      audio['title']!,
-                                      style: AppStyles.subTitleStyle.copyWith(
-                                        color: isCurrent
-                                            ? AppStyles.primaryOrange
-                                            : AppStyles.softBrown,
-                                      ),
-                                    ),
-                                    SizedBox(height: AppStyles.spacingM - AppStyles.spacingS - AppStyles.spacingXS), // 6px
-                                    Row(
-                                      children: [
-                                        Icon(
-                                          Icons.access_time,
-                                          size: 14,
-                                          color: AppStyles.softBrown
-                                              .withOpacity(0.5),
-                                        ),
-                                        AppStyles.spacingXSHorizontal,
-                                        Text(
-                                          '• ${audio['duration'] ?? ''}',
-                                          style: AppStyles.bodyStyle.copyWith(
-                                            color: AppStyles.softBrown
-                                                .withOpacity(0.6),
-                                            fontWeight: FontWeight.w600,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              // Info Button
-                              if (audio['description'] != null &&
-                                  audio['description']!.isNotEmpty)
-                                IconButton(
-                                  icon: Icon(
-                                    Icons.info_outline,
-                                    color: AppStyles.softBrown.withOpacity(0.4),
-                                  ),
-                                  onPressed: () => _showAudioInfo(audio),
-                                ),
-                              // Indicator for playing
-                              if (isPlaying)
-                                Container(
-                                  width: 10,
-                                  height: 10,
-                                  decoration: const BoxDecoration(
-                                    color: AppStyles.primaryOrange,
-                                    shape: BoxShape.circle,
-                                  ),
-                                ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    );
-                  },
+                    ],
+                  ),
                 );
               },
             ),
-          ),
-        ],
+            Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: AppStyles.spacingL,
+                vertical: AppStyles.spacingM,
+              ),
+              child: TextField(
+                controller: _searchController,
+                style: AppStyles.bodyStyle,
+                decoration: InputDecoration(
+                  hintText: "Suchen...",
+                  hintStyle: AppStyles.bodyStyle.copyWith(
+                    color: AppStyles.softBrown.withOpacity(0.5),
+                  ),
+                  prefixIcon: const Icon(
+                    Icons.search,
+                    color: AppStyles.softBrown,
+                  ),
+                  filled: true,
+                  fillColor: Colors.white,
+                  contentPadding: AppStyles.inputPadding,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20),
+                    borderSide: BorderSide(color: Colors.grey.withOpacity(0.2)),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20),
+                    borderSide: BorderSide(color: Colors.grey.withOpacity(0.1)),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20),
+                    borderSide: const BorderSide(
+                      color: AppStyles.primaryOrange,
+                      width: 1.5,
+                    ),
+                  ),
+                ),
+                onChanged: (v) => setState(() => _searchQuery = v),
+              ),
+            ),
+            Expanded(
+              child: ListView.builder(
+                itemCount: audios.length,
+                padding: EdgeInsets.fromLTRB(
+                  AppStyles.spacingL,
+                  AppStyles.spacingS,
+                  AppStyles.spacingL,
+                  150, // Spezifischer Wert für Player-Platz
+                ), // Mehr Platz für den globalen Player
+                itemBuilder: (context, i) {
+                  final audio = audios[i];
+                  final String audioId = audio['appwrite_id'] ?? '';
+
+                  return StreamBuilder<AudioServiceStatus>(
+                    stream: _audioService.statusStream,
+                    builder: (context, snapshot) {
+                      final bool isCurrent =
+                          _audioService.currentAppwriteId == audioId;
+                      final bool isPlaying =
+                          isCurrent &&
+                          _audioService.status == AudioServiceStatus.playing;
+                      final bool isLoading =
+                          isCurrent &&
+                          _audioService.status == AudioServiceStatus.loading;
+
+                      return Card(
+                        margin: const EdgeInsets.only(bottom: 16),
+                        elevation: 0,
+                        color: Colors.white,
+                        shape: AppStyles.cardShape.copyWith(
+                          side: BorderSide(
+                            color: isCurrent
+                                ? AppStyles.primaryOrange.withOpacity(0.5)
+                                : Colors.grey.withOpacity(0.15),
+                            width: isCurrent ? 2 : 1.5,
+                          ),
+                        ),
+                        child: InkWell(
+                          onTap: () => _play(audio),
+                          borderRadius: BorderRadius.circular(28),
+                          child: Padding(
+                            padding: EdgeInsets.all(
+                              AppStyles.spacingL - AppStyles.spacingS,
+                            ), // 20px
+                            child: Row(
+                              children: [
+                                // Play/Pause Button
+                                isLoading
+                                    ? Container(
+                                        width: 56,
+                                        height: 56,
+                                        decoration: BoxDecoration(
+                                          color: AppStyles.primaryOrange,
+                                          shape: BoxShape.circle,
+                                        ),
+                                        child: const Center(
+                                          child: SizedBox(
+                                            width: 24,
+                                            height: 24,
+                                            child: CircularProgressIndicator(
+                                              strokeWidth: 2.5,
+                                              valueColor:
+                                                  AlwaysStoppedAnimation<Color>(
+                                                    Colors.white,
+                                                  ),
+                                            ),
+                                          ),
+                                        ),
+                                      )
+                                    : AnimatedPlayButton(
+                                        isPlaying: isPlaying,
+                                        size: 56,
+                                        showShadow: false,
+                                        onPressed: () => _play(audio),
+                                      ),
+                                SizedBox(
+                                  width:
+                                      AppStyles.spacingL - AppStyles.spacingS,
+                                ), // 20px
+                                // Title & Duration
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        audio['title']!,
+                                        style: AppStyles.subTitleStyle.copyWith(
+                                          color: isCurrent
+                                              ? AppStyles.primaryOrange
+                                              : AppStyles.softBrown,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height:
+                                            AppStyles.spacingM -
+                                            AppStyles.spacingS -
+                                            AppStyles.spacingXS,
+                                      ), // 6px
+                                      Row(
+                                        children: [
+                                          Icon(
+                                            Icons.access_time,
+                                            size: 14,
+                                            color: AppStyles.softBrown
+                                                .withOpacity(0.5),
+                                          ),
+                                          AppStyles.spacingXSHorizontal,
+                                          Text(
+                                            '• ${audio['duration'] ?? ''}',
+                                            style: AppStyles.bodyStyle.copyWith(
+                                              color: AppStyles.softBrown
+                                                  .withOpacity(0.6),
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                // Info Button
+                                if (audio['description'] != null &&
+                                    audio['description']!.isNotEmpty)
+                                  IconButton(
+                                    icon: Icon(
+                                      Icons.info_outline,
+                                      color: AppStyles.softBrown.withOpacity(
+                                        0.4,
+                                      ),
+                                    ),
+                                    onPressed: () => _showAudioInfo(audio),
+                                  ),
+                                // Indicator for playing
+                                if (isPlaying)
+                                  Container(
+                                    width: 10,
+                                    height: 10,
+                                    decoration: const BoxDecoration(
+                                      color: AppStyles.primaryOrange,
+                                      shape: BoxShape.circle,
+                                    ),
+                                  ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  );
+                },
+              ),
+            ),
+          ],
         ),
       ),
     );
