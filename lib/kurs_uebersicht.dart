@@ -389,8 +389,9 @@ class _KursUebersichtState extends State<KursUebersicht> {
           StreamBuilder<AudioServiceStatus>(
             stream: _audioService.statusStream,
             builder: (context, snapshot) {
-              if (_audioService.currentAppwriteId == null)
+              if (_audioService.currentAppwriteId == null) {
                 return const SizedBox.shrink();
+              }
               return Positioned(
                 left: 20,
                 right: 20,

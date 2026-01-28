@@ -1,4 +1,4 @@
-name: Deploy Flutter Web to Cloudflare Pages
+name: Build Flutter Web and Deploy to Cloudflare Pages
 
 on:
   push:
@@ -6,12 +6,11 @@ on:
       - main
 
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -21,14 +20,13 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
 
-      - name: Clean
-        run: flutter clean
-
       - name: Build Flutter Web
         run: flutter build web --release --base-href "/"
 
-      - name: Deploy to Cloudflare Pages
-        uses: cloudflare/wrangler-action@v3
+      - name: Publish to Cloudflare Pages
+        uses: cloudflare/pages-action@v1
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          command: pages deploy build/web --project-name mindfulpractice-app
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          projectName: mindfulpractice-app
+          directory: build/web
