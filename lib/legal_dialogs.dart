@@ -8,12 +8,14 @@ class LegalDialogs {
   static const String impressumText = 'Dr. Christian Hahn\n'
       'Salomonstr. 2\n'
       '04103 Leipzig\n\n'
-      'E-Mail: achtsamkeit@belight-leipzig.de';
+      'E-Mail: achtsamkeit@belight-leipzig.de\n'
+      'Web: www.mindfulpractice.de';
 
   static const String datenschutzText =
-      'Diese App wird über Appwrite/GitHub Pages gehostet. Es werden keine '
-      'persönlichen Daten gespeichert. Die Verarbeitung beschränkt '
-      'sich auf technisch notwendige Protokolldaten beim App-Aufruf.';
+      'Diese App wird über Appwrite und GitHub Pages gehostet. '
+      'Zur Bereitstellung und Absicherung (CDN, DDoS-Schutz) nutzen wir Cloudflare. '
+      'Dabei werden technisch notwendige Verbindungsdaten verarbeitet.\n\n'
+      'Es werden keine persönlichen Nutzerdaten in der App gespeichert.';
 
   /// Zeigt Impressum-Dialog
   static Future<void> showImpressum(BuildContext context) {
