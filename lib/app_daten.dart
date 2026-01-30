@@ -96,6 +96,10 @@ class AppDaten {
           'title': 'Kursunterlagen Woche 1',
           'appwrite_id': '696bfa6b0039f0497205',
         },
+        {
+          'title': 'Neun-Punkte-Übung',
+          'appwrite_id': '697d0fc80030febb4db5',
+        },
       ],
       'wochenAufgaben': [
         '1.	Body-Scan mehrmals pro Woche mit Audiodatei üben.',
@@ -121,6 +125,10 @@ class AppDaten {
         {
           'title': 'Kursunterlagen Woche 2',
           'appwrite_id': '696bfc7f003e17db0a1e',
+        },
+        {
+          'title': 'Kalender der angenehmen Erlebnisse',
+          'appwrite_id': '697d0fc1003193371a6a',
         },
       ],
       'wochenAufgaben': [
@@ -148,6 +156,10 @@ class AppDaten {
           'title': 'Kursunterlagen Woche 3',
           'appwrite_id': '696bfc8c001ab2d0d7fb',
         },
+        {
+          'title': 'Kalender der unangenehmen Erlebnisse',
+          'appwrite_id': '697d0fba00014e013bd4',
+        },
       ],
       'wochenAufgaben': [
         '1.	Mehrmals pro Woche Body-Scan oder achtsame Körperarbeit üben.',
@@ -172,6 +184,10 @@ class AppDaten {
         {
           'title': 'Kursunterlagen Woche 4',
           'appwrite_id': '696bfd3d00077e7e2c0b',
+        },
+        {
+          'title': 'Automatische Stressreaktion',
+          'appwrite_id': '697d0fad0011caa23f03',
         },
       ],
       'wochenAufgaben': [
@@ -198,6 +214,10 @@ class AppDaten {
         {
           'title': 'Kursunterlagen Woche 5',
           'appwrite_id': '696bfd450038aba59bcf',
+        },
+        {
+          'title': 'Schwierige Kommunikation',
+          'appwrite_id': '697d0f9a0021e3f24219',
         },
       ],
       'wochenAufgaben': [

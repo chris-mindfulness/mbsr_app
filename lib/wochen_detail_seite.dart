@@ -21,6 +21,7 @@ class WochenDetailSeite extends StatefulWidget {
   final String? alltagsTipp;
   final List<String>? reflexionsFragen;
   final List<String>? audioRefs;
+  final String? teaser;
 
   const WochenDetailSeite({
     super.key,
@@ -35,6 +36,7 @@ class WochenDetailSeite extends StatefulWidget {
     this.alltagsTipp,
     this.reflexionsFragen,
     this.audioRefs,
+    this.teaser,
   });
 
   @override
@@ -169,6 +171,16 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
                 ),
                 children: [
                   Text(widget.titel, style: AppStyles.titleStyle),
+                  if (widget.teaser != null) ...[
+                    AppStyles.spacingMBox,
+                    Text(
+                      widget.teaser!,
+                      style: AppStyles.bodyStyle.copyWith(
+                        fontStyle: FontStyle.italic,
+                        color: AppStyles.textDark,
+                      ),
+                    ),
+                  ],
                   AppStyles.spacingXLBox,
                   if (widget.fokus != null) ...[
                     AppStyles.spacingMBox,
@@ -217,7 +229,7 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
                               "- ${widget.zitatAutor}",
                               style: AppStyles.smallTextStyle.copyWith(
                                 fontWeight: FontWeight.bold,
-                                color: AppStyles.softBrown.withOpacity(0.7),
+                                color: AppStyles.softBrown,
                               ),
                             ),
                           ],
@@ -488,6 +500,7 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
           audioRefs: nextWeekData['audioRefs'] != null
               ? List<String>.from(nextWeekData['audioRefs'])
               : null,
+          teaser: nextWeekData['teaser'],
         ),
       ),
     );
@@ -502,7 +515,7 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
           letterSpacing: 1.5,
           fontWeight: FontWeight.bold,
           fontSize: 12,
-          color: AppStyles.softBrown.withOpacity(0.5),
+          color: AppStyles.softBrown.withOpacity(0.8),
         ),
       ),
     );

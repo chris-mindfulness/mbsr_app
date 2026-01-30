@@ -43,7 +43,6 @@ dependencies:
   url_launcher: ^6.3.2
   
   # UI & Design
-  google_fonts: ^6.1.0
   flutter_dotenv: ^5.1.0
   
   # Local Storage & Utilities
@@ -73,6 +72,12 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+
+  # Lokale Fonts (Datenschutz: keine Verbindung zu Google)
+  fonts:
+    - family: Nunito
+      fonts:
+        - asset: assets/fonts/Nunito-VariableFont.ttf
 
   # To add assets to your application, add an assets section, like this:
   # assets:

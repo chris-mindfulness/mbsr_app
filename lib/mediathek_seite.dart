@@ -323,7 +323,7 @@ class _MediathekSeiteState extends State<MediathekSeite> {
                 decoration: InputDecoration(
                   hintText: "Suchen...",
                   hintStyle: AppStyles.bodyStyle.copyWith(
-                    color: AppStyles.softBrown.withOpacity(0.5),
+                    color: AppStyles.textDark.withOpacity(0.7),
                   ),
                   prefixIcon: const Icon(
                     Icons.search,
@@ -455,15 +455,13 @@ class _MediathekSeiteState extends State<MediathekSeite> {
                                           Icon(
                                             Icons.access_time,
                                             size: 14,
-                                            color: AppStyles.softBrown
-                                                .withOpacity(0.5),
+                                            color: AppStyles.textDark.withOpacity(0.7),
                                           ),
                                           AppStyles.spacingXSHorizontal,
                                           Text(
                                             '• ${audio['duration'] ?? ''}',
                                             style: AppStyles.bodyStyle.copyWith(
-                                              color: AppStyles.softBrown
-                                                  .withOpacity(0.6),
+                                              color: AppStyles.textDark,
                                               fontWeight: FontWeight.w600,
                                             ),
                                           ),
@@ -478,9 +476,7 @@ class _MediathekSeiteState extends State<MediathekSeite> {
                                   IconButton(
                                     icon: Icon(
                                       Icons.info_outline,
-                                      color: AppStyles.softBrown.withOpacity(
-                                        0.4,
-                                      ),
+                                      color: AppStyles.textDark.withOpacity(0.7),
                                     ),
                                     onPressed: () => _showAudioInfo(audio),
                                   ),

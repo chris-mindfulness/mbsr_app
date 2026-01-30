@@ -10,7 +10,7 @@ class AppStyles {
   static const Color accentCoral = Color(0xFFFF8FA3); // Sanftes Korallen-Pink
   static const Color successGreen = Color(0xFF4ECDC4); // Frisches Türkis (Abgeschlossen/Erfolg)
   static const Color accentCyan = Color(0xFF5BC0BE); // Lebendiges Cyan
-  static const Color textDark = Color(0xFF2C3E50); // Modernes Dunkelgrau (Texte)
+  static const Color textDark = Color(0xFF1A1A1A); // Kräftiges Anthrazit für maximale Lesbarkeit
   static const Color softBrown = textDark; // Alias für Rückwärtskompatibilität
   static const Color sageGreen = successGreen; // Alias für Rückwärtskompatibilität
   static const Color borderColor = Color(0xFFE0E0E0); // Sehr feine graue Umrandung

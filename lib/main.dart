@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart' show kIsWeb, kDebugMode, debugPrint;
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'core/appwrite_client.dart';
 import 'services/auth_service.dart';
@@ -84,7 +83,8 @@ class MyApp extends StatelessWidget {
           seedColor: AppStyles.primaryOrange,
           background: AppStyles.bgColor,
         ),
-        textTheme: GoogleFonts.nunitoTextTheme(),
+        // Lokale Nunito-Schrift (keine Verbindung zu Google)
+        fontFamily: 'Nunito',
       ),
       home: const AuthWrapper(),
     );

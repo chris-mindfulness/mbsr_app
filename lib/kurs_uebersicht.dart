@@ -218,11 +218,17 @@ class _KursUebersichtState extends State<KursUebersicht> {
                         children: [
                           Text(
                             _formatDuration(position),
-                            style: AppStyles.bodyStyle.copyWith(fontSize: 12),
+                            style: AppStyles.bodyStyle.copyWith(
+                              fontSize: 12,
+                              color: AppStyles.textDark,
+                            ),
                           ),
                           Text(
                             _formatDuration(duration),
-                            style: AppStyles.bodyStyle.copyWith(fontSize: 12),
+                            style: AppStyles.bodyStyle.copyWith(
+                              fontSize: 12,
+                              color: AppStyles.textDark,
+                            ),
                           ),
                         ],
                       ),
@@ -473,7 +479,7 @@ class _KursUebersichtState extends State<KursUebersicht> {
                           "Tippen für Details",
                           style: AppStyles.bodyStyle.copyWith(
                             fontSize: 11,
-                            color: AppStyles.softBrown.withOpacity(0.5),
+                            color: AppStyles.textDark.withOpacity(0.8),
                           ),
                         ),
                       ],
@@ -734,17 +740,6 @@ class _KursUebersichtState extends State<KursUebersicht> {
           ),
         ),
         title: Text(woche['t'], style: AppStyles.subTitleStyle),
-        subtitle: Padding(
-          padding: EdgeInsets.only(top: AppStyles.spacingXS),
-          child: Text(
-            woche['teaser'] ?? '',
-            style: AppStyles.bodyStyle.copyWith(
-              fontSize: 13,
-              color: AppStyles.textDark.withOpacity(0.7),
-            ),
-            // maxLines entfernt für dynamische Höhe
-          ),
-        ),
         trailing: Icon(
           Icons.chevron_right,
           color: AppStyles.borderColor,
@@ -768,6 +763,7 @@ class _KursUebersichtState extends State<KursUebersicht> {
               audioRefs: woche['audioRefs'] != null
                   ? List<String>.from(woche['audioRefs'])
                   : null,
+              teaser: woche['teaser'],
             ),
           ),
         ),
