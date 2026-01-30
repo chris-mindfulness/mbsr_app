@@ -289,6 +289,12 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
                     AppStyles.spacingXLBox,
                   ],
 
+                  // SITZMEDITATION TIPPS (nur Woche 4)
+                  if (widget.wochenNummer.contains("4")) ...[
+                    _buildSitzmeditationTipps(),
+                    AppStyles.spacingXLBox,
+                  ],
+
                   // ALLTAGSTIPP
                   if (widget.alltagsTipp != null) ...[
                     _buildSectionHeader("FÜR DEN ALLTAG"),
@@ -724,6 +730,223 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
           ),
           AppStyles.spacingSBox,
           ...punkte.map((p) => _buildTippBullet(p)),
+        ],
+      ),
+    );
+  }
+
+  // ============================================
+  // SITZMEDITATION TIPPS (nur Woche 4)
+  // ============================================
+  Widget _buildSitzmeditationTipps() {
+    return Container(
+      padding: AppStyles.cardPadding,
+      decoration: BoxDecoration(
+        color: AppStyles.accentPink.withOpacity(0.08),
+        borderRadius: BorderRadius.circular(24),
+        border: Border.all(
+          color: AppStyles.accentPink.withOpacity(0.2),
+        ),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Header
+          Row(
+            children: [
+              Icon(
+                Icons.airline_seat_recline_normal,
+                color: AppStyles.accentPink,
+                size: 28,
+              ),
+              AppStyles.spacingMHorizontal,
+              Expanded(
+                child: Text(
+                  "Tipps zur Sitzmeditation",
+                  style: AppStyles.headingStyle.copyWith(
+                    fontSize: 18,
+                    color: AppStyles.accentPink,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          AppStyles.spacingMBox,
+
+          // Intro
+          Text(
+            "In der Sitzmeditation nutzt du den Atem als Anker - und lernst, dich auch dem zu oeffnen, was sonst noch da ist.",
+            style: AppStyles.bodyStyle.copyWith(height: 1.5),
+          ),
+          AppStyles.spacingLBox,
+
+          // 5 Kernprinzipien
+          Text(
+            "5 Kernprinzipien",
+            style: AppStyles.subTitleStyle.copyWith(
+              color: AppStyles.textDark,
+            ),
+          ),
+          AppStyles.spacingSBox,
+          _buildSitzTippBullet("Atem als Anker: Spuere ihn, ohne ihn zu steuern (Bauch, Brust oder Nase)."),
+          _buildSitzTippBullet("Abschweifen ist normal. Bemerken, dann freundlich zurueckkehren."),
+          _buildSitzTippBullet("Kein Wettbewerb. Immer wieder zurueckkommen - das ist die Uebung."),
+          _buildSitzTippBullet("Weite ueben: Wahrnehmen, was gerade im Vordergrund ist, ohne festzuhalten."),
+          _buildSitzTippBullet('"Okay, so ist es gerade." - Auch Unruhe und Langeweile gehoeren dazu.'),
+
+          AppStyles.spacingMBox,
+
+          // Merksatz
+          Container(
+            padding: EdgeInsets.all(AppStyles.spacingM),
+            decoration: BoxDecoration(
+              color: Colors.white.withOpacity(0.5),
+              borderRadius: BorderRadius.circular(16),
+            ),
+            child: Row(
+              children: [
+                Icon(
+                  Icons.format_quote,
+                  color: AppStyles.accentPink.withOpacity(0.6),
+                  size: 24,
+                ),
+                AppStyles.spacingSHorizontal,
+                Expanded(
+                  child: Text(
+                    "Der Atem atmet sich selbst. Du bist nur da und spuerst mit.",
+                    style: AppStyles.bodyStyle.copyWith(
+                      fontStyle: FontStyle.italic,
+                      color: AppStyles.textDark,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+
+          AppStyles.spacingLBox,
+
+          // Aufklappbarer Detailbereich
+          Theme(
+            data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
+            child: ExpansionTile(
+              tilePadding: EdgeInsets.zero,
+              childrenPadding: EdgeInsets.only(top: AppStyles.spacingS),
+              title: Text(
+                "Wenn es schwierig wird",
+                style: AppStyles.subTitleStyle.copyWith(
+                  color: AppStyles.accentPink,
+                ),
+              ),
+              iconColor: AppStyles.accentPink,
+              collapsedIconColor: AppStyles.accentPink,
+              children: [
+                _buildSitzTippSektion(
+                  "Abschweifen",
+                  [
+                    'Kurzes Label hilft: "Planen", "Erinnern", "Sorgen" - dann zurueck.',
+                    "Nicht bewerten. Die Rueckkehr ist der Uebungsmoment.",
+                    "Passiert allen, immer wieder. Das ist normal.",
+                  ],
+                ),
+                _buildSitzTippSektion(
+                  "Schläfrigkeit",
+                  [
+                    "Augen leicht oeffnen, Wirbelsaeule aufrichten.",
+                    "2-3 bewusstere Atemzuege nehmen.",
+                    "Position minimal anpassen - aufrechter sitzen kann helfen.",
+                  ],
+                ),
+                _buildSitzTippSektion(
+                  "Unruhe",
+                  [
+                    "1-2 kleine Bewegungen erlaubt (Schultern loesen, schlucken).",
+                    "Kontaktpunkte spueren: Sitzflaeche, Fuesse, Haende.",
+                    "Dann wieder still werden und zum Atem zurueckkehren.",
+                  ],
+                ),
+                _buildSitzTippSektion(
+                  "Atem zu subtil / Atem steuern",
+                  [
+                    "Atem kaum spuerbar? Kontaktpunkte als Backup-Anker nutzen.",
+                    "Du steuerst den Atem? Lass ihn wieder von selbst kommen und gehen.",
+                    "Nur mitspueren, nicht machen. Der Koerper atmet von allein.",
+                  ],
+                ),
+                _buildSitzTippSektion(
+                  "Offenes Gewahrsein schwer",
+                  [
+                    "Stufenweise oeffnen: Atem - Koerper - Geraeusche - offenes Feld.",
+                    "Nimm wahr, was gerade am deutlichsten ist.",
+                    "Zu viel? Kurz zurueck zum Atem, dann wieder oeffnen.",
+                  ],
+                ),
+                _buildSitzTippSektion(
+                  "Erwartungen & Leistungsdruck",
+                  [
+                    'Ziel ist nicht "ruhig werden" - sondern bemerken und zurueckkommen.',
+                    '"Nichts Besonderes" ist eine gueltige Erfahrung.',
+                    "Jede Sitzung ist anders. Vergleichen hilft nicht.",
+                  ],
+                ),
+                _buildSitzTippSektion(
+                  "Dranbleiben & Routine",
+                  [
+                    "Festes Zeitfenster hilft. Wiederholung ist Lernen.",
+                    'Optional: 1 Satz Notiz danach ("Wie war es heute?").',
+                    "Widerstand? Uebung aehnlich, Erfahrung jedes Mal neu.",
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSitzTippBullet(String text) {
+    return Padding(
+      padding: EdgeInsets.only(bottom: AppStyles.spacingS),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            margin: const EdgeInsets.only(top: 6),
+            width: 6,
+            height: 6,
+            decoration: BoxDecoration(
+              color: AppStyles.accentPink,
+              shape: BoxShape.circle,
+            ),
+          ),
+          AppStyles.spacingSHorizontal,
+          Expanded(
+            child: Text(
+              text,
+              style: AppStyles.bodyStyle.copyWith(height: 1.4),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSitzTippSektion(String titel, List<String> punkte) {
+    return Padding(
+      padding: EdgeInsets.only(bottom: AppStyles.spacingL),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            titel,
+            style: AppStyles.bodyStyle.copyWith(
+              fontWeight: AppStyles.fontWeightBold,
+              color: AppStyles.textDark,
+            ),
+          ),
+          AppStyles.spacingSBox,
+          ...punkte.map((p) => _buildSitzTippBullet(p)),
         ],
       ),
     );
