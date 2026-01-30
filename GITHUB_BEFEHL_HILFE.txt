@@ -3,7 +3,7 @@ Hier sind die universellen Befehle für dein Terminal, um DEINE Änderungen auf 
 Option 1: Alles in einer Zeile (Schnellste Methode)
 git add . && git commit -m "Hier deine Beschreibung eintragen" && git push origin main
 
-git add . && git commit -m "impressum" && git push origin main
+git add . && git commit -m "farbtron schrift" && git push origin main
 
 Option 2: Die Befehle einzeln (Schritt für Schritt)
 1. Änderungen sammeln: 

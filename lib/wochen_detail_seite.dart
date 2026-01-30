@@ -283,6 +283,12 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
                     AppStyles.spacingXLBox,
                   ],
 
+                  // BODY-SCAN TIPPS (nur Woche 1)
+                  if (widget.wochenNummer.contains("1")) ...[
+                    _buildBodyScanTipps(),
+                    AppStyles.spacingXLBox,
+                  ],
+
                   // ALLTAGSTIPP
                   if (widget.alltagsTipp != null) ...[
                     _buildSectionHeader("FÜR DEN ALLTAG"),
@@ -502,6 +508,223 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
               : null,
           teaser: nextWeekData['teaser'],
         ),
+      ),
+    );
+  }
+
+  // ============================================
+  // BODY-SCAN TIPPS (nur Woche 1)
+  // ============================================
+  Widget _buildBodyScanTipps() {
+    return Container(
+      padding: AppStyles.cardPadding,
+      decoration: BoxDecoration(
+        color: AppStyles.accentCyan.withOpacity(0.08),
+        borderRadius: BorderRadius.circular(24),
+        border: Border.all(
+          color: AppStyles.accentCyan.withOpacity(0.2),
+        ),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Header
+          Row(
+            children: [
+              Icon(
+                Icons.self_improvement,
+                color: AppStyles.accentCyan,
+                size: 28,
+              ),
+              AppStyles.spacingMHorizontal,
+              Expanded(
+                child: Text(
+                  "Tipps für den Body-Scan",
+                  style: AppStyles.headingStyle.copyWith(
+                    fontSize: 18,
+                    color: AppStyles.accentCyan,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          AppStyles.spacingMBox,
+
+          // Intro
+          Text(
+            "Der Body-Scan ist eine Einladung, deinen Körper so wahrzunehmen, wie er gerade ist – ohne etwas ändern zu müssen.",
+            style: AppStyles.bodyStyle.copyWith(height: 1.5),
+          ),
+          AppStyles.spacingLBox,
+
+          // 5 Kernprinzipien
+          Text(
+            "5 Kernprinzipien",
+            style: AppStyles.subTitleStyle.copyWith(
+              color: AppStyles.textDark,
+            ),
+          ),
+          AppStyles.spacingSBox,
+          _buildTippBullet("Was auch passiert – weitermachen. Auch Abschweifen gehört dazu."),
+          _buildTippBullet("Gedanken bemerken, nicht stoppen. Dann sanft zurückkehren."),
+          _buildTippBullet('Kein Wettbewerb. Regelmäßig üben ist wichtiger als "gut" üben.'),
+          _buildTippBullet("Erwartungen nicht füttern. Einfach da sein und schauen, was passiert."),
+          _buildTippBullet('"Okay, so ist es gerade." - Nicht gegen Unangenehmes kämpfen.'),
+
+          AppStyles.spacingMBox,
+
+          // Merksatz
+          Container(
+            padding: EdgeInsets.all(AppStyles.spacingM),
+            decoration: BoxDecoration(
+              color: Colors.white.withOpacity(0.5),
+              borderRadius: BorderRadius.circular(16),
+            ),
+            child: Row(
+              children: [
+                Icon(
+                  Icons.format_quote,
+                  color: AppStyles.accentCyan.withOpacity(0.6),
+                  size: 24,
+                ),
+                AppStyles.spacingSHorizontal,
+                Expanded(
+                  child: Text(
+                    "Es geht nicht darum, etwas zu erreichen – sondern zu bemerken, was schon da ist.",
+                    style: AppStyles.bodyStyle.copyWith(
+                      fontStyle: FontStyle.italic,
+                      color: AppStyles.textDark,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+
+          AppStyles.spacingLBox,
+
+          // Aufklappbarer Detailbereich
+          Theme(
+            data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
+            child: ExpansionTile(
+              tilePadding: EdgeInsets.zero,
+              childrenPadding: EdgeInsets.only(top: AppStyles.spacingS),
+              title: Text(
+                "Wenn es schwierig wird",
+                style: AppStyles.subTitleStyle.copyWith(
+                  color: AppStyles.accentCyan,
+                ),
+              ),
+              iconColor: AppStyles.accentCyan,
+              collapsedIconColor: AppStyles.accentCyan,
+              children: [
+                _buildTippSektion(
+                  "Abschweifen",
+                  [
+                    "Völlig normal – passiert allen, immer wieder.",
+                    "Bemerken ist bereits Achtsamkeit.",
+                    "Freundlich zurückkommen, ohne dich zu bewerten.",
+                  ],
+                ),
+                _buildTippSektion(
+                  "Schläfrigkeit",
+                  [
+                    "Augen leicht öffnen kann helfen.",
+                    "Ein paar tiefere Atemzüge nehmen.",
+                    "Position minimal verändern oder im Sitzen üben.",
+                  ],
+                ),
+                _buildTippSektion(
+                  "Unruhe",
+                  [
+                    "Kleine Bewegungen sind erlaubt (schlucken, Schultern lösen).",
+                    "Nicht verkrampft stillhalten müssen.",
+                    "Unruhe wahrnehmen, nicht wegdrücken.",
+                  ],
+                ),
+                _buildTippSektion(
+                  "Schmerz oder Unwohlsein",
+                  [
+                    "Erkunden statt ertragen: Was genau spürst du?",
+                    "Position anpassen ist jederzeit okay.",
+                    "Fokus weiten (ganzer Körper, Geräusche) oder neutralen Anker wählen.",
+                  ],
+                ),
+                _buildTippSektion(
+                  "Nichts spüren",
+                  [
+                    'Auch "neutral" oder "taub" ist eine Erfahrung.',
+                    "Kontaktpunkte nutzen: Wo liegt der Körper auf?",
+                    "Kein Problem – einfach weiter.",
+                  ],
+                ),
+                _buildTippSektion(
+                  "Erwartungen & Leistungsdruck",
+                  [
+                    'Es gibt kein "richtig" oder "falsch".',
+                    "Ziel ist nicht, Gedanken zu steuern – sondern zu bemerken.",
+                    "Jede Übung ist anders. Vergleichen hilft nicht.",
+                  ],
+                ),
+                _buildTippSektion(
+                  "Dranbleiben & Routine",
+                  [
+                    "Ein festes Zeitfenster hilft beim Dranbleiben.",
+                    "Wiederholung ist Teil des Lernens – nicht Langeweile.",
+                    "Optional: Kurze Notiz nach der Übung (Was war da?).",
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildTippBullet(String text) {
+    return Padding(
+      padding: EdgeInsets.only(bottom: AppStyles.spacingS),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            margin: const EdgeInsets.only(top: 6),
+            width: 6,
+            height: 6,
+            decoration: BoxDecoration(
+              color: AppStyles.accentCyan,
+              shape: BoxShape.circle,
+            ),
+          ),
+          AppStyles.spacingSHorizontal,
+          Expanded(
+            child: Text(
+              text,
+              style: AppStyles.bodyStyle.copyWith(height: 1.4),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildTippSektion(String titel, List<String> punkte) {
+    return Padding(
+      padding: EdgeInsets.only(bottom: AppStyles.spacingL),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            titel,
+            style: AppStyles.bodyStyle.copyWith(
+              fontWeight: AppStyles.fontWeightBold,
+              color: AppStyles.textDark,
+            ),
+          ),
+          AppStyles.spacingSBox,
+          ...punkte.map((p) => _buildTippBullet(p)),
+        ],
       ),
     );
   }
