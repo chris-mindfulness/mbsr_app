@@ -31,26 +31,68 @@ class AuthService {
   models.User? get currentUser => _currentUser;
 
   /// Initialisiert den Auth-Service und prüft bestehende Session
+  /// 
+  /// Unterscheidet zwischen:
+  /// - 401 Unauthorized → wirklich ausgeloggt
+  /// - Timeout/Netzwerkfehler → Retry, nicht sofort ausloggen
   Future<void> initialize() async {
-    try {
-      if (kDebugMode) debugPrint('🔐 Auth-Service: Prüfe Session...');
+    const maxRetries = 3;
+    const timeout = Duration(seconds: 15);
+    
+    for (int attempt = 1; attempt <= maxRetries; attempt++) {
+      try {
+        if (kDebugMode) debugPrint('🔐 Auth-Service: Prüfe Session (Versuch $attempt/$maxRetries)...');
+        
+        final user = await _appwrite.account.get().timeout(
+          timeout,
+          onTimeout: () {
+            throw TimeoutException('Session-Prüfung dauerte zu lange');
+          },
+        );
+        
+        _currentUser = user;
+        _authStateController.add(user);
+        if (kDebugMode) debugPrint('✅ Bestehende Session gefunden: ${user.email}');
+        return; // Erfolg - beende
+        
+      } on AppwriteException catch (e) {
+        // 401 = wirklich keine gültige Session
+        if (e.code == 401) {
+          if (kDebugMode) debugPrint('ℹ️ Keine aktive Session (401 Unauthorized)');
+          _currentUser = null;
+          _authStateController.add(null);
+          return; // Definitiv ausgeloggt
+        }
+        
+        // Andere Appwrite-Fehler: bei letztem Versuch aufgeben
+        if (attempt == maxRetries) {
+          if (kDebugMode) debugPrint('⚠️ Auth-Service: Appwrite-Fehler nach $maxRetries Versuchen: ${e.message}');
+          // Nicht ausloggen - Zustand unbekannt, behalte letzten Zustand
+          _authStateController.add(_currentUser);
+        }
+        
+      } on TimeoutException {
+        if (kDebugMode) debugPrint('⚠️ Auth-Service: Timeout (Versuch $attempt/$maxRetries)');
+        if (attempt == maxRetries) {
+          // Nach allen Versuchen: Zustand unbekannt, behalte letzten Zustand
+          if (kDebugMode) debugPrint('⚠️ Auth-Service: Alle Versuche fehlgeschlagen - behalte letzten Zustand');
+          _authStateController.add(_currentUser);
+        }
+        
+      } catch (e) {
+        // Netzwerk- oder andere Fehler
+        if (kDebugMode) debugPrint('⚠️ Auth-Service: Fehler (Versuch $attempt/$maxRetries): $e');
+        if (attempt == maxRetries) {
+          // Nicht ausloggen bei Netzwerkproblemen
+          if (kDebugMode) debugPrint('⚠️ Auth-Service: Netzwerkfehler - behalte letzten Zustand');
+          _authStateController.add(_currentUser);
+        }
+      }
       
-      // Timeout von 5 Sekunden für die Initialisierung
-      final user = await _appwrite.account.get().timeout(
-        const Duration(seconds: 5),
-        onTimeout: () {
-          if (kDebugMode) debugPrint('⚠️ Auth-Service: Timeout bei Session-Prüfung');
-          throw TimeoutException('Session-Prüfung dauerte zu lange');
-        },
-      );
-      
-      _currentUser = user;
-      _authStateController.add(user);
-      if (kDebugMode) debugPrint('✅ Bestehende Session gefunden: ${user.email}');
-    } catch (e) {
-      _currentUser = null;
-      _authStateController.add(null);
-      if (kDebugMode) debugPrint('ℹ️ Keine aktive Session oder Fehler: $e');
+      // Kurze Pause vor Retry (außer beim letzten Versuch)
+      if (attempt < maxRetries) {
+        await Future.delayed(const Duration(seconds: 2));
+      }
     }
   }
 
