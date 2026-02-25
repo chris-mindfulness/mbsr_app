@@ -15,3 +15,26 @@ Bei Änderungen passe ich die bestehende Notiz-Datei an und ergänze Datum/Statu
 
 ## Ziel
 Du sollst die nächsten Schritte jederzeit ohne Chatverlauf direkt im Ordner nachlesen können.
+
+## Produkt-Präferenzen (merken für alle nächsten Schritte)
+
+Stand: 25.02.2026
+
+### Was gut passt
+- klare, ruhige Oberfläche ohne visuelles Durcheinander
+- eindeutige Buttons mit klarer Hinterlegung und einheitlicher Form
+- klare Schließen-Optionen (`X`) bei eingeblendeten Karten/Sheets/Dialogs
+- einfache Bedienung für nicht-technikaffine Teilnehmende
+- pragmatische Verbesserungen statt Spielerei
+
+### Was vermieden werden soll
+- versteckte oder nur bei Hover sichtbare Bedienelemente
+- inkonsistente Button-Stile (mal flach, mal gefüllt, mal kaum sichtbar)
+- Overlays, die Inhalte verdecken (z. B. Unterlagen, Listenende)
+- unnötig komplexe Interaktionen ohne klaren Nutzen
+
+### Entscheidungsregel
+Bei UI-Entscheidungen gilt:
+1. Erst Klarheit und Lesbarkeit.
+2. Dann konsistente Bedienlogik.
+3. Dann visuelle Details.
