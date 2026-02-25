@@ -461,10 +461,22 @@ class _StatistikenSeiteState extends State<StatistikenSeite> {
   void _showTrackingInfo(BuildContext context) {
     showDialog(
       context: context,
-      builder: (context) => AlertDialog(
-        title: Text(
-          AppTexts.trackingInfoTitle,
-          style: AppStyles.headingStyle.copyWith(fontSize: 20),
+      builder: (dialogContext) => AlertDialog(
+        title: Row(
+          children: [
+            Expanded(
+              child: Text(
+                AppTexts.trackingInfoTitle,
+                style: AppStyles.headingStyle.copyWith(fontSize: 20),
+              ),
+            ),
+            IconButton(
+              icon: Icon(Icons.close_rounded, color: AppStyles.softBrown),
+              tooltip: 'Schließen',
+              onPressed: () => Navigator.of(dialogContext).pop(),
+              visualDensity: VisualDensity.compact,
+            ),
+          ],
         ),
         content: Text(AppTexts.trackingInfoText, style: AppStyles.bodyStyle),
         backgroundColor: AppStyles.bgColor,

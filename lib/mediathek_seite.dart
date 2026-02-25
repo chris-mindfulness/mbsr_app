@@ -57,65 +57,93 @@ class _MediathekSeiteState extends State<MediathekSeite> {
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(32)),
       ),
-      builder: (context) => Padding(
-        padding: const EdgeInsets.fromLTRB(32, 16, 32, 48),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Center(
-              child: Container(
-                width: 40,
-                height: 4,
-                decoration: BoxDecoration(
-                  color: AppStyles.softBrown.withValues(alpha: 0.2),
-                  borderRadius: BorderRadius.circular(2),
+      isScrollControlled: true,
+      isDismissible: true,
+      enableDrag: true,
+      builder: (sheetContext) => SafeArea(
+        top: true,
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(32, 16, 32, 48),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                height: 30,
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    Container(
+                      width: 40,
+                      height: 4,
+                      decoration: BoxDecoration(
+                        color: AppStyles.softBrown.withValues(alpha: 0.2),
+                        borderRadius: BorderRadius.circular(2),
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: IconButton(
+                        tooltip: 'Schließen',
+                        onPressed: () => Navigator.of(sheetContext).pop(),
+                        icon: Icon(
+                          Icons.close_rounded,
+                          color: AppStyles.softBrown,
+                        ),
+                        visualDensity: VisualDensity.compact,
+                      ),
+                    ),
+                  ],
                 ),
               ),
-            ),
-            const SizedBox(height: 32),
-            Row(
-              children: [
-                Icon(Icons.support_agent, color: AppStyles.errorRed, size: 32),
-                const SizedBox(width: 16),
-                Text(
-                  "Notfall-Koffer",
-                  style: AppStyles.headingStyle.copyWith(
+              const SizedBox(height: 20),
+              Row(
+                children: [
+                  Icon(
+                    Icons.support_agent,
                     color: AppStyles.errorRed,
+                    size: 32,
                   ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 24),
-            Text(
-              "Erste Hilfe bei akutem Stress",
-              style: AppStyles.subTitleStyle,
-            ),
-            const SizedBox(height: 16),
-            _buildSOSItem(
-              icon: Icons.timer,
-              title: "Kurzes Ankommen (ca. 3 Min)",
-              description:
-                  "Eine kurze Pause zum Sammeln. Startet die Übung „Ankommen“.",
-              onTap: () {
-                Navigator.pop(context);
-                // Startet bewusst die Übung "Ankommen" als kurze Akut-Hilfe.
-                final audio = AppDaten.getAlleAudios().firstWhere(
-                  (a) => a['title'] == 'Ankommen',
-                  orElse: () => {},
-                );
-                if (audio.isNotEmpty) _play(audio);
-              },
-            ),
-            const SizedBox(height: 16),
-            _buildSOSItem(
-              icon: Icons.accessibility_new,
-              title: "Körper spüren",
-              description:
-                  "Spüre deine Füße auf dem Boden. Nimm 3 tiefe Atemzüge.",
-              onTap: null, // Nur Info
-            ),
-          ],
+                  const SizedBox(width: 16),
+                  Text(
+                    "Notfall-Koffer",
+                    style: AppStyles.headingStyle.copyWith(
+                      color: AppStyles.errorRed,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 24),
+              Text(
+                "Erste Hilfe bei akutem Stress",
+                style: AppStyles.subTitleStyle,
+              ),
+              const SizedBox(height: 16),
+              _buildSOSItem(
+                icon: Icons.timer,
+                title: "Kurzes Ankommen (ca. 3 Min)",
+                description:
+                    "Eine kurze Pause zum Sammeln. Startet die Übung „Ankommen“.",
+                onTap: () {
+                  Navigator.of(sheetContext).pop();
+                  // Startet bewusst die Übung "Ankommen" als kurze Akut-Hilfe.
+                  final audio = AppDaten.getAlleAudios().firstWhere(
+                    (a) => a['title'] == 'Ankommen',
+                    orElse: () => {},
+                  );
+                  if (audio.isNotEmpty) _play(audio);
+                },
+              ),
+              const SizedBox(height: 16),
+              _buildSOSItem(
+                icon: Icons.accessibility_new,
+                title: "Körper spüren",
+                description:
+                    "Spüre deine Füße auf dem Boden. Nimm 3 tiefe Atemzüge.",
+                onTap: null, // Nur Info
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -183,30 +211,54 @@ class _MediathekSeiteState extends State<MediathekSeite> {
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(32)),
       ),
-      builder: (context) => Padding(
-        padding: const EdgeInsets.fromLTRB(32, 16, 32, 48),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Center(
-              child: Container(
-                width: 40,
-                height: 4,
-                decoration: BoxDecoration(
-                  color: AppStyles.softBrown.withValues(alpha: 0.2),
-                  borderRadius: BorderRadius.circular(2),
+      isScrollControlled: true,
+      isDismissible: true,
+      enableDrag: true,
+      builder: (sheetContext) => SafeArea(
+        top: true,
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(32, 16, 32, 48),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                height: 30,
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    Container(
+                      width: 40,
+                      height: 4,
+                      decoration: BoxDecoration(
+                        color: AppStyles.softBrown.withValues(alpha: 0.2),
+                        borderRadius: BorderRadius.circular(2),
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: IconButton(
+                        tooltip: 'Schließen',
+                        onPressed: () => Navigator.of(sheetContext).pop(),
+                        icon: Icon(
+                          Icons.close_rounded,
+                          color: AppStyles.softBrown,
+                        ),
+                        visualDensity: VisualDensity.compact,
+                      ),
+                    ),
+                  ],
                 ),
               ),
-            ),
-            const SizedBox(height: 32),
-            Text(audio['title']!, style: AppStyles.headingStyle),
-            const SizedBox(height: 16),
-            Text(
-              audio['description'] ?? "Keine Beschreibung verfügbar.",
-              style: AppStyles.bodyStyle.copyWith(height: 1.6),
-            ),
-          ],
+              const SizedBox(height: 20),
+              Text(audio['title']!, style: AppStyles.headingStyle),
+              const SizedBox(height: 16),
+              Text(
+                audio['description'] ?? "Keine Beschreibung verfügbar.",
+                style: AppStyles.bodyStyle.copyWith(height: 1.6),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -496,10 +548,22 @@ class _MediathekSeiteState extends State<MediathekSeite> {
   void _showTrackingInfo(BuildContext context) {
     showDialog(
       context: context,
-      builder: (context) => AlertDialog(
-        title: Text(
-          AppTexts.trackingInfoTitle,
-          style: AppStyles.headingStyle.copyWith(fontSize: 20),
+      builder: (dialogContext) => AlertDialog(
+        title: Row(
+          children: [
+            Expanded(
+              child: Text(
+                AppTexts.trackingInfoTitle,
+                style: AppStyles.headingStyle.copyWith(fontSize: 20),
+              ),
+            ),
+            IconButton(
+              icon: Icon(Icons.close_rounded, color: AppStyles.softBrown),
+              tooltip: 'Schließen',
+              onPressed: () => Navigator.of(dialogContext).pop(),
+              visualDensity: VisualDensity.compact,
+            ),
+          ],
         ),
         content: Text(AppTexts.trackingInfoText, style: AppStyles.bodyStyle),
         backgroundColor: AppStyles.bgColor,

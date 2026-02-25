@@ -37,13 +37,25 @@ class LegalDialogs {
   ) {
     return showDialog(
       context: context,
-      builder: (context) => AlertDialog(
-        title: Text(
-          title,
-          style: TextStyle(
-            color: AppStyles.textDark,
-            fontWeight: FontWeight.bold,
-          ),
+      builder: (dialogContext) => AlertDialog(
+        title: Row(
+          children: [
+            Expanded(
+              child: Text(
+                title,
+                style: TextStyle(
+                  color: AppStyles.textDark,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            IconButton(
+              icon: Icon(Icons.close_rounded, color: AppStyles.softBrown),
+              tooltip: 'Schließen',
+              onPressed: () => Navigator.of(dialogContext).pop(),
+              visualDensity: VisualDensity.compact,
+            ),
+          ],
         ),
         content: SingleChildScrollView(
           child: Text(
