@@ -46,7 +46,7 @@ class _StatistikenSeiteState extends State<StatistikenSeite> {
         elevation: 0,
         centerTitle: true,
         leading: IconButton(
-          icon: const Icon(
+          icon: Icon(
             Icons.arrow_back_ios_new,
             color: AppStyles.softBrown,
             size: 20,
@@ -55,7 +55,7 @@ class _StatistikenSeiteState extends State<StatistikenSeite> {
         ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.info_outline, color: AppStyles.softBrown),
+            icon: Icon(Icons.info_outline, color: AppStyles.softBrown),
             onPressed: () => _showTrackingInfo(context),
             tooltip: 'Über deine Statistiken',
           ),
@@ -64,7 +64,7 @@ class _StatistikenSeiteState extends State<StatistikenSeite> {
       ),
       body: DecorativeBlobs(
         child: _isLoading
-            ? const Center(
+            ? Center(
                 child: CircularProgressIndicator(
                   color: AppStyles.primaryOrange,
                 ),
@@ -87,7 +87,7 @@ class _StatistikenSeiteState extends State<StatistikenSeite> {
                     ),
                     child: Row(
                       children: [
-                        const Icon(
+                        Icon(
                           Icons.lock_outline,
                           color: AppStyles.sageGreen,
                           size: 24,
@@ -210,7 +210,7 @@ class _StatistikenSeiteState extends State<StatistikenSeite> {
               color: Colors.white.withValues(alpha: 0.2),
               shape: BoxShape.circle,
             ),
-            child: const Icon(
+            child: Icon(
               Icons.local_fire_department,
               color: Colors.white,
               size: 36,
@@ -232,7 +232,7 @@ class _StatistikenSeiteState extends State<StatistikenSeite> {
                 AppStyles.spacingXSBox,
                 Text(
                   '$streak ${streak == 1 ? "Tag" : "Tage"}',
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: Colors.white,
                     fontSize: 32,
                     fontWeight: FontWeight.bold,
@@ -298,11 +298,7 @@ class _StatistikenSeiteState extends State<StatistikenSeite> {
                             : null,
                       ),
                       child: hasActivity
-                          ? const Icon(
-                              Icons.check,
-                              color: Colors.white,
-                              size: 16,
-                            )
+                          ? Icon(Icons.check, color: Colors.white, size: 16)
                           : null,
                     ),
                   ],
@@ -417,7 +413,7 @@ class _StatistikenSeiteState extends State<StatistikenSeite> {
                         value: entry.value / 100,
                         minHeight: 8,
                         backgroundColor: AppStyles.bgColor,
-                        valueColor: const AlwaysStoppedAnimation<Color>(
+                        valueColor: AlwaysStoppedAnimation<Color>(
                           AppStyles.sageGreen,
                         ),
                       ),
@@ -445,7 +441,7 @@ class _StatistikenSeiteState extends State<StatistikenSeite> {
       ),
       child: Column(
         children: [
-          const Icon(Icons.spa_outlined, size: 40, color: AppStyles.sageGreen),
+          Icon(Icons.spa_outlined, size: 40, color: AppStyles.sageGreen),
           const SizedBox(height: 16),
           Text(
             "Jeder Moment zählt",

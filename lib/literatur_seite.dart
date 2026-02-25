@@ -115,7 +115,7 @@ class LiteraturSeite extends StatelessWidget {
         elevation: 0,
         centerTitle: true,
         leading: IconButton(
-          icon: const Icon(
+          icon: Icon(
             Icons.arrow_back_ios_new,
             color: AppStyles.softBrown,
             size: 20,
@@ -181,10 +181,7 @@ class LiteraturSeite extends StatelessWidget {
                   color: AppStyles.softBrown.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(12),
                 ),
-                child: const Icon(
-                  Icons.book_outlined,
-                  color: AppStyles.softBrown,
-                ),
+                child: Icon(Icons.book_outlined, color: AppStyles.softBrown),
               ),
               SizedBox(width: AppStyles.spacingL - AppStyles.spacingS), // 20px
               Expanded(
@@ -246,10 +243,7 @@ class LiteraturSeite extends StatelessWidget {
                   color: AppStyles.sageGreen.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(12),
                 ),
-                child: const Icon(
-                  Icons.science_outlined,
-                  color: AppStyles.sageGreen,
-                ),
+                child: Icon(Icons.science_outlined, color: AppStyles.sageGreen),
               ),
               SizedBox(width: AppStyles.spacingL - AppStyles.spacingS), // 20px
               Expanded(
@@ -268,11 +262,7 @@ class LiteraturSeite extends StatelessWidget {
                   ],
                 ),
               ),
-              const Icon(
-                Icons.open_in_new,
-                color: AppStyles.borderColor,
-                size: 18,
-              ),
+              Icon(Icons.open_in_new, color: AppStyles.borderColor, size: 18),
             ],
           ),
         ),

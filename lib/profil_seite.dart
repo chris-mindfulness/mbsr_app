@@ -8,6 +8,8 @@ import 'core/app_styles.dart';
 import 'widgets/decorative_blobs.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'downloads_seite.dart';
+import 'core/theme_mode_controller.dart';
+import 'core/theme_tokens.dart';
 
 class ProfilSeite extends StatelessWidget {
   const ProfilSeite({super.key});
@@ -18,10 +20,7 @@ class ProfilSeite extends StatelessWidget {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text(
-            "Abmelden",
-            style: AppStyles.headingStyle,
-          ),
+          title: Text("Abmelden", style: AppStyles.headingStyle),
           content: Text(
             "Möchtest du dich wirklich abmelden?",
             style: AppStyles.bodyStyle,
@@ -35,7 +34,9 @@ class ProfilSeite extends StatelessWidget {
               onPressed: () => Navigator.of(context).pop(false),
               child: Text(
                 "Abbrechen",
-                style: AppStyles.bodyStyle.copyWith(fontWeight: FontWeight.bold),
+                style: AppStyles.bodyStyle.copyWith(
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
             ElevatedButton(
@@ -61,7 +62,7 @@ class ProfilSeite extends StatelessWidget {
     try {
       // Audio stoppen bevor wir uns abmelden
       await AudioService().stop();
-      
+
       // Logout über Appwrite Auth-Service
       await AuthService().logout();
 
@@ -100,7 +101,11 @@ class ProfilSeite extends StatelessWidget {
         elevation: 0,
         centerTitle: true,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios_new, color: AppStyles.softBrown, size: 20),
+          icon: Icon(
+            Icons.arrow_back_ios_new,
+            color: AppStyles.softBrown,
+            size: 20,
+          ),
           onPressed: () => Navigator.pop(context),
         ),
       ),
@@ -108,219 +113,347 @@ class ProfilSeite extends StatelessWidget {
         child: ListView(
           padding: AppStyles.listPadding,
           children: [
-          // Profil-Header
-          Center(
-            child: Column(
-              children: [
-                Container(
-                  width: 100,
-                  height: 100,
-                  decoration: BoxDecoration(
-                    color: AppStyles.primaryOrange.withValues(alpha: 0.1),
-                    shape: BoxShape.circle,
+            // Profil-Header
+            Center(
+              child: Column(
+                children: [
+                  Container(
+                    width: 100,
+                    height: 100,
+                    decoration: BoxDecoration(
+                      color: AppStyles.primaryOrange.withValues(alpha: 0.1),
+                      shape: BoxShape.circle,
+                    ),
+                    child: Icon(
+                      Icons.person,
+                      size: 50,
+                      color: AppStyles.primaryOrange,
+                    ),
                   ),
-                  child: const Icon(Icons.person, size: 50, color: AppStyles.primaryOrange),
+                  SizedBox(
+                    height: AppStyles.spacingL - AppStyles.spacingS,
+                  ), // 20px
+                  Text(
+                    user?.email ?? "Kein Benutzer",
+                    style: AppStyles.headingStyle.copyWith(fontSize: 18),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: AppStyles.spacingXL + AppStyles.spacingS), // 40px
+            // Funktionen
+            Padding(
+              padding: EdgeInsets.only(
+                left: AppStyles.spacingS,
+                bottom: AppStyles.spacingM - AppStyles.spacingS,
+              ), // 12px
+              child: Text(
+                "FUNKTIONEN",
+                style: AppStyles.bodyStyle.copyWith(
+                  letterSpacing: 1.5,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 12,
+                  color: AppStyles.softBrown.withValues(alpha: 0.5),
                 ),
-                SizedBox(height: AppStyles.spacingL - AppStyles.spacingS), // 20px
-                Text(
-                  user?.email ?? "Kein Benutzer",
-                  style: AppStyles.headingStyle.copyWith(fontSize: 18),
+              ),
+            ),
+            _buildThemeModeCard(),
+            // Statistiken
+            Card(
+              margin: EdgeInsets.only(bottom: AppStyles.spacingM),
+              elevation: 0,
+              color: Colors.white,
+              shape: AppStyles.cardShape,
+              child: InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const StatistikenSeite(),
+                    ),
+                  );
+                },
+                borderRadius: BorderRadius.circular(AppStyles.borderRadius),
+                child: Padding(
+                  padding: AppStyles.cardPadding,
+                  child: Row(
+                    children: [
+                      Container(
+                        width: 48,
+                        height: 48,
+                        decoration: BoxDecoration(
+                          color: AppStyles.sageGreen.withValues(alpha: 0.1),
+                          borderRadius: BorderRadius.circular(14),
+                        ),
+                        child: Icon(
+                          Icons.bar_chart_outlined,
+                          color: AppStyles.sageGreen,
+                          size: 24,
+                        ),
+                      ),
+                      SizedBox(
+                        width: AppStyles.spacingL - AppStyles.spacingS,
+                      ), // 20px
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text("Statistiken", style: AppStyles.subTitleStyle),
+                            AppStyles.spacingXSBox,
+                            Text(
+                              "Deine Praxis im Überblick",
+                              style: AppStyles.bodyStyle.copyWith(
+                                fontSize: 13,
+                                color: AppStyles.softBrown.withValues(
+                                  alpha: 0.6,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Icon(Icons.chevron_right, color: AppStyles.borderColor),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+
+            // Downloads
+            Card(
+              margin: EdgeInsets.only(bottom: AppStyles.spacingM),
+              elevation: 0,
+              color: Colors.white,
+              shape: AppStyles.cardShape,
+              child: InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => DownloadsSeite()),
+                  );
+                },
+                borderRadius: BorderRadius.circular(AppStyles.borderRadius),
+                child: Padding(
+                  padding: AppStyles.cardPadding,
+                  child: Row(
+                    children: [
+                      Container(
+                        width: 48,
+                        height: 48,
+                        decoration: BoxDecoration(
+                          color: AppStyles.primaryOrange.withValues(alpha: 0.1),
+                          borderRadius: BorderRadius.circular(14),
+                        ),
+                        child: Icon(
+                          Icons.file_download_outlined,
+                          color: AppStyles.primaryOrange,
+                          size: 24,
+                        ),
+                      ),
+                      SizedBox(
+                        width: AppStyles.spacingL - AppStyles.spacingS,
+                      ), // 20px
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text("Downloads", style: AppStyles.subTitleStyle),
+                            AppStyles.spacingXSBox,
+                            Text(
+                              "Alle Kursunterlagen & PDFs",
+                              style: AppStyles.bodyStyle.copyWith(
+                                fontSize: 13,
+                                color: AppStyles.softBrown.withValues(
+                                  alpha: 0.6,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Icon(Icons.chevron_right, color: AppStyles.borderColor),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            AppStyles.spacingXLBox,
+            // Abmelden
+            ElevatedButton.icon(
+              onPressed: () => _signOut(context),
+              icon: Icon(Icons.logout),
+              label: const Text("Abmelden"),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.white,
+                foregroundColor: AppStyles.primaryOrange,
+                elevation: 0,
+                side: BorderSide(
+                  color: AppStyles.primaryOrange.withValues(alpha: 0.3),
+                  width: 1.5,
+                ),
+                padding: EdgeInsets.symmetric(vertical: AppStyles.spacingM),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
+                ),
+              ),
+            ),
+            SizedBox(height: AppStyles.spacingXL + AppStyles.spacingS), // 40px
+            // Footer: Impressum & Datenschutz (dezente kleine Links)
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                GestureDetector(
+                  onTap: () => LegalDialogs.showImpressum(context),
+                  child: Text(
+                    'Impressum',
+                    style: AppStyles.bodyStyle.copyWith(
+                      fontSize: 12,
+                      color: AppStyles.softBrown.withValues(alpha: 0.5),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: AppStyles.spacingM - AppStyles.spacingS,
+                  ), // 12px
+                  child: Text(
+                    '•',
+                    style: TextStyle(
+                      color: AppStyles.softBrown.withValues(alpha: 0.3),
+                    ),
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () => LegalDialogs.showDatenschutz(context),
+                  child: Text(
+                    'Datenschutz',
+                    style: AppStyles.bodyStyle.copyWith(
+                      fontSize: 12,
+                      color: AppStyles.softBrown.withValues(alpha: 0.5),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: AppStyles.spacingXL + AppStyles.spacingS), // 40px
+            // Website Link
+            Center(
+              child: GestureDetector(
+                onTap: () =>
+                    launchUrl(Uri.parse('https://www.mindfulpractice.de')),
+                child: Text(
+                  'Besuche uns auf mindfulpractice.de',
+                  style: AppStyles.bodyStyle.copyWith(
+                    fontSize: 12,
+                    color: AppStyles.primaryOrange,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(height: AppStyles.spacingXL + AppStyles.spacingS), // 40px
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildThemeModeCard() {
+    return AnimatedBuilder(
+      animation: ThemeModeController.instance,
+      builder: (context, _) {
+        final mode = ThemeModeController.instance.mode;
+        return Card(
+          margin: EdgeInsets.only(bottom: AppStyles.spacingM),
+          elevation: 0,
+          color: Colors.white,
+          shape: AppStyles.cardShape,
+          child: Padding(
+            padding: AppStyles.cardPadding,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Container(
+                      width: 48,
+                      height: 48,
+                      decoration: BoxDecoration(
+                        color: AppStyles.infoBlue.withValues(alpha: 0.12),
+                        borderRadius: BorderRadius.circular(14),
+                      ),
+                      child: Icon(
+                        Icons.palette_outlined,
+                        color: AppStyles.infoBlue,
+                        size: 24,
+                      ),
+                    ),
+                    SizedBox(width: AppStyles.spacingL - AppStyles.spacingS),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text("Darstellung", style: AppStyles.subTitleStyle),
+                          AppStyles.spacingXSBox,
+                          Text(
+                            "Wähle zwischen ruhig und lebendig.",
+                            style: AppStyles.bodyStyle.copyWith(
+                              fontSize: 13,
+                              color: AppStyles.softBrown.withValues(alpha: 0.6),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: AppStyles.spacingM),
+                SegmentedButton<AppVisualMode>(
+                  showSelectedIcon: false,
+                  segments: const [
+                    ButtonSegment<AppVisualMode>(
+                      value: AppVisualMode.calmDefault,
+                      label: Text('Ruhig'),
+                    ),
+                    ButtonSegment<AppVisualMode>(
+                      value: AppVisualMode.calmVivid,
+                      label: Text('Lebendig'),
+                    ),
+                  ],
+                  selected: {mode},
+                  onSelectionChanged: (selected) {
+                    if (selected.isEmpty) return;
+                    ThemeModeController.instance.setMode(selected.first);
+                  },
+                  style: ButtonStyle(
+                    foregroundColor: WidgetStateProperty.resolveWith((states) {
+                      if (states.contains(WidgetState.selected)) {
+                        return Colors.white;
+                      }
+                      return AppStyles.textDark;
+                    }),
+                    backgroundColor: WidgetStateProperty.resolveWith((states) {
+                      if (states.contains(WidgetState.selected)) {
+                        return AppStyles.primaryOrange;
+                      }
+                      return Colors.white;
+                    }),
+                    side: WidgetStatePropertyAll(
+                      BorderSide(color: AppStyles.borderColor, width: 1.2),
+                    ),
+                    textStyle: WidgetStatePropertyAll(
+                      AppStyles.bodyStyle.copyWith(
+                        fontSize: 13,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                  ),
                 ),
               ],
             ),
           ),
-          SizedBox(height: AppStyles.spacingXL + AppStyles.spacingS), // 40px
-          // Funktionen
-          Padding(
-            padding: EdgeInsets.only(left: AppStyles.spacingS, bottom: AppStyles.spacingM - AppStyles.spacingS), // 12px
-            child: Text(
-              "FUNKTIONEN",
-              style: AppStyles.bodyStyle.copyWith(
-                letterSpacing: 1.5,
-                fontWeight: FontWeight.bold,
-                fontSize: 12,
-                color: AppStyles.softBrown.withValues(alpha: 0.5),
-              ),
-            ),
-          ),
-          // Statistiken
-          Card(
-            margin: EdgeInsets.only(bottom: AppStyles.spacingM),
-            elevation: 0,
-            color: Colors.white,
-            shape: AppStyles.cardShape,
-            child: InkWell(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const StatistikenSeite(),
-                  ),
-                );
-              },
-              borderRadius: BorderRadius.circular(AppStyles.borderRadius),
-              child: Padding(
-                padding: AppStyles.cardPadding,
-                child: Row(
-                  children: [
-                    Container(
-                      width: 48,
-                      height: 48,
-                      decoration: BoxDecoration(
-                        color: AppStyles.sageGreen.withValues(alpha: 0.1),
-                        borderRadius: BorderRadius.circular(14),
-                      ),
-                      child: const Icon(
-                        Icons.bar_chart_outlined,
-                        color: AppStyles.sageGreen,
-                        size: 24,
-                      ),
-                    ),
-                    SizedBox(width: AppStyles.spacingL - AppStyles.spacingS), // 20px
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Statistiken",
-                            style: AppStyles.subTitleStyle,
-                          ),
-                          AppStyles.spacingXSBox,
-                          Text(
-                            "Deine Praxis im Überblick",
-                            style: AppStyles.bodyStyle.copyWith(fontSize: 13, color: AppStyles.softBrown.withValues(alpha: 0.6)),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const Icon(Icons.chevron_right, color: AppStyles.borderColor),
-                  ],
-                ),
-              ),
-            ),
-          ),
-          
-          // Downloads
-          Card(
-            margin: EdgeInsets.only(bottom: AppStyles.spacingM),
-            elevation: 0,
-            color: Colors.white,
-            shape: AppStyles.cardShape,
-            child: InkWell(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => DownloadsSeite(),
-                  ),
-                );
-              },
-              borderRadius: BorderRadius.circular(AppStyles.borderRadius),
-              child: Padding(
-                padding: AppStyles.cardPadding,
-                child: Row(
-                  children: [
-                    Container(
-                      width: 48,
-                      height: 48,
-                      decoration: BoxDecoration(
-                        color: AppStyles.primaryOrange.withValues(alpha: 0.1),
-                        borderRadius: BorderRadius.circular(14),
-                      ),
-                      child: const Icon(
-                        Icons.file_download_outlined,
-                        color: AppStyles.primaryOrange,
-                        size: 24,
-                      ),
-                    ),
-                    SizedBox(width: AppStyles.spacingL - AppStyles.spacingS), // 20px
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Downloads",
-                            style: AppStyles.subTitleStyle,
-                          ),
-                          AppStyles.spacingXSBox,
-                          Text(
-                            "Alle Kursunterlagen & PDFs",
-                            style: AppStyles.bodyStyle.copyWith(fontSize: 13, color: AppStyles.softBrown.withValues(alpha: 0.6)),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const Icon(Icons.chevron_right, color: AppStyles.borderColor),
-                  ],
-                ),
-              ),
-            ),
-          ),
-          AppStyles.spacingXLBox,
-          // Abmelden
-          ElevatedButton.icon(
-            onPressed: () => _signOut(context),
-            icon: const Icon(Icons.logout),
-            label: const Text("Abmelden"),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.white,
-              foregroundColor: AppStyles.primaryOrange,
-              elevation: 0,
-              side: BorderSide(color: AppStyles.primaryOrange.withValues(alpha: 0.3), width: 1.5),
-              padding: EdgeInsets.symmetric(vertical: AppStyles.spacingM),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20),
-              ),
-            ),
-          ),
-          SizedBox(height: AppStyles.spacingXL + AppStyles.spacingS), // 40px
-          // Footer: Impressum & Datenschutz (dezente kleine Links)
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              GestureDetector(
-                onTap: () => LegalDialogs.showImpressum(context),
-                child: Text(
-                  'Impressum',
-                  style: AppStyles.bodyStyle.copyWith(fontSize: 12, color: AppStyles.softBrown.withValues(alpha: 0.5)),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: AppStyles.spacingM - AppStyles.spacingS), // 12px
-                child: Text(
-                  '•',
-                  style: TextStyle(color: AppStyles.softBrown.withValues(alpha: 0.3)),
-                ),
-              ),
-              GestureDetector(
-                onTap: () => LegalDialogs.showDatenschutz(context),
-                child: Text(
-                  'Datenschutz',
-                  style: AppStyles.bodyStyle.copyWith(fontSize: 12, color: AppStyles.softBrown.withValues(alpha: 0.5)),
-                ),
-              ),
-            ],
-          ),
-          SizedBox(height: AppStyles.spacingXL + AppStyles.spacingS), // 40px
-          
-          // Website Link
-          Center(
-            child: GestureDetector(
-              onTap: () => launchUrl(Uri.parse('https://www.mindfulpractice.de')),
-              child: Text(
-                'Besuche uns auf mindfulpractice.de',
-                style: AppStyles.bodyStyle.copyWith(
-                  fontSize: 12,
-                  color: AppStyles.primaryOrange,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-          ),
-          SizedBox(height: AppStyles.spacingXL + AppStyles.spacingS), // 40px
-        ],
-        ),
-      ),
+        );
+      },
     );
   }
 }

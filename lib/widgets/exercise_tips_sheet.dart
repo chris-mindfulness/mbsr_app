@@ -77,7 +77,7 @@ class ExerciseTipsSheet {
                           child: IconButton(
                             tooltip: 'Schließen',
                             onPressed: () => Navigator.of(sheetContext).pop(),
-                            icon: const Icon(
+                            icon: Icon(
                               Icons.close_rounded,
                               color: AppStyles.softBrown,
                             ),
@@ -95,7 +95,11 @@ class ExerciseTipsSheet {
                         children: [
                           Row(
                             children: [
-                              Icon(data.icon, color: data.accentColor, size: 28),
+                              Icon(
+                                data.icon,
+                                color: data.accentColor,
+                                size: 28,
+                              ),
                               const SizedBox(width: 12),
                               Expanded(
                                 child: Text(
@@ -113,7 +117,9 @@ class ExerciseTipsSheet {
                             Text(
                               'Kontext: $contextLabel',
                               style: AppStyles.smallTextStyle.copyWith(
-                                color: AppStyles.softBrown.withValues(alpha: 0.75),
+                                color: AppStyles.softBrown.withValues(
+                                  alpha: 0.75,
+                                ),
                               ),
                             ),
                           ],
@@ -174,7 +180,7 @@ class ExerciseTipsSheet {
             margin: const EdgeInsets.only(top: 7),
             width: 6,
             height: 6,
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               color: AppStyles.softBrown,
               shape: BoxShape.circle,
             ),
@@ -309,7 +315,7 @@ class ExerciseTipsSheet {
           ],
         );
       case _ExerciseTipType.generic:
-        return const _ExerciseTipsData(
+        return _ExerciseTipsData(
           icon: Icons.lightbulb_outline,
           accentColor: AppStyles.softBrown,
           phaseHint:

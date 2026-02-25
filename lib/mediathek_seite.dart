@@ -39,7 +39,7 @@ class _MediathekSeiteState extends State<MediathekSeite> {
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
+          SnackBar(
             content: Text(
               "Fehler beim Laden des Audios. Bitte Internetverbindung prüfen.",
             ),
@@ -299,10 +299,7 @@ class _MediathekSeiteState extends State<MediathekSeite> {
                   hintStyle: AppStyles.bodyStyle.copyWith(
                     color: AppStyles.textDark.withValues(alpha: 0.7),
                   ),
-                  prefixIcon: const Icon(
-                    Icons.search,
-                    color: AppStyles.softBrown,
-                  ),
+                  prefixIcon: Icon(Icons.search, color: AppStyles.softBrown),
                   filled: true,
                   fillColor: Colors.white,
                   contentPadding: AppStyles.inputPadding,
@@ -320,7 +317,7 @@ class _MediathekSeiteState extends State<MediathekSeite> {
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20),
-                    borderSide: const BorderSide(
+                    borderSide: BorderSide(
                       color: AppStyles.primaryOrange,
                       width: 1.5,
                     ),
@@ -419,7 +416,7 @@ class _MediathekSeiteState extends State<MediathekSeite> {
                                         style: AppStyles.subTitleStyle.copyWith(
                                           color: isCurrent
                                               ? AppStyles.primaryOrange
-                                              : AppStyles.softBrown,
+                                              : AppStyles.textDark,
                                         ),
                                       ),
                                       SizedBox(
@@ -439,7 +436,11 @@ class _MediathekSeiteState extends State<MediathekSeite> {
                                           AppStyles.spacingXSHorizontal,
                                           Text(
                                             '• ${audio['duration'] ?? ''}',
-                                            style: AppStyles.bodyStyle,
+                                            style: AppStyles.smallTextStyle
+                                                .copyWith(
+                                                  color: AppStyles.textDark
+                                                      .withValues(alpha: 0.75),
+                                                ),
                                           ),
                                         ],
                                       ),
@@ -448,7 +449,7 @@ class _MediathekSeiteState extends State<MediathekSeite> {
                                 ),
                                 // Info Button
                                 IconButton(
-                                  icon: const Icon(
+                                  icon: Icon(
                                     Icons.lightbulb_outline,
                                     color: AppStyles.infoBlue,
                                   ),
@@ -470,7 +471,7 @@ class _MediathekSeiteState extends State<MediathekSeite> {
                                   Container(
                                     width: 10,
                                     height: 10,
-                                    decoration: const BoxDecoration(
+                                    decoration: BoxDecoration(
                                       color: AppStyles.primaryOrange,
                                       shape: BoxShape.circle,
                                     ),

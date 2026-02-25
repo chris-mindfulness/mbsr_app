@@ -62,7 +62,7 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
+          SnackBar(
             content: Text("Fehler beim Laden des Audios."),
             backgroundColor: Colors.red,
           ),
@@ -89,7 +89,7 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
         elevation: 0,
         centerTitle: true,
         leading: IconButton(
-          icon: const Icon(
+          icon: Icon(
             Icons.arrow_back_ios_new,
             color: AppStyles.softBrown,
             size: 20,
@@ -99,7 +99,7 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
         actions: [
           if (hasPrev)
             IconButton(
-              icon: const Icon(
+              icon: Icon(
                 Icons.chevron_left,
                 color: AppStyles.softBrown,
                 size: 32,
@@ -109,7 +109,7 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
             ),
           if (hasNext)
             IconButton(
-              icon: const Icon(
+              icon: Icon(
                 Icons.chevron_right,
                 color: AppStyles.softBrown,
                 size: 32,
@@ -176,7 +176,7 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
                       ),
                       child: Column(
                         children: [
-                          const Icon(
+                          Icon(
                             Icons.format_quote,
                             color: AppStyles.softBrown,
                             size: 32,
@@ -225,7 +225,7 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Icon(
+                            Icon(
                               Icons.info_outline,
                               color: AppStyles.infoBlue,
                               size: 24,
@@ -284,7 +284,7 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Icon(
+                          Icon(
                             Icons.lightbulb_outline,
                             color: AppStyles.successGreen,
                             size: 28,
@@ -316,7 +316,7 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Icon(
+                            Icon(
                               Icons.edit_note,
                               color: AppStyles.accentPink,
                               size: 24,
@@ -354,7 +354,7 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
                         children: [
                           Row(
                             children: [
-                              const Icon(
+                              Icon(
                                 Icons.assignment_outlined,
                                 color: AppStyles.primaryOrange,
                                 size: 24,
@@ -384,7 +384,7 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
                                 children: [
                                   Container(
                                     margin: const EdgeInsets.only(top: 2),
-                                    child: const Icon(
+                                    child: Icon(
                                       Icons.check_circle_outline,
                                       color: AppStyles.sageGreen,
                                       size: 20,
@@ -1149,7 +1149,7 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
                       ? Container(
                           width: 56,
                           height: 56,
-                          decoration: const BoxDecoration(
+                          decoration: BoxDecoration(
                             color: AppStyles.primaryOrange,
                             shape: BoxShape.circle,
                           ),
@@ -1209,7 +1209,7 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
                   ),
                   IconButton(
                     tooltip: 'Tipps zur Übung',
-                    icon: const Icon(
+                    icon: Icon(
                       Icons.lightbulb_outline,
                       color: AppStyles.infoBlue,
                     ),
@@ -1248,7 +1248,7 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
                   color: AppStyles.softBrown.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(18),
                 ),
-                child: const Icon(
+                child: Icon(
                   Icons.description_outlined,
                   color: AppStyles.softBrown,
                   size: 28,
@@ -1258,11 +1258,7 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
               Expanded(
                 child: Text(pdf['title']!, style: AppStyles.subTitleStyle),
               ),
-              const Icon(
-                Icons.open_in_new,
-                color: AppStyles.borderColor,
-                size: 20,
-              ),
+              Icon(Icons.open_in_new, color: AppStyles.borderColor, size: 20),
             ],
           ),
         ),

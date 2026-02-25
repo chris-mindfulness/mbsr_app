@@ -20,173 +20,185 @@ class VertiefungSeite extends StatelessWidget {
       child: ListView(
         padding: AppStyles.listPadding,
         children: [
-        // Header
-        Text(
-          "Vertiefung",
-          style: AppStyles.headingStyle,
-        ),
-        AppStyles.spacingSBox,
-        Text(
-          "Zusätzliche Übungen und Ressourcen für deine Praxis",
-          style: AppStyles.bodyStyle.copyWith(color: AppStyles.softBrown.withValues(alpha: 0.7)),
-        ),
-        AppStyles.spacingXLBox,
-
-        _buildSectionHeader("ZUSÄTZLICHE ÜBUNGEN"),
-        AppStyles.spacingMBox,
-
-        // Coming soon Card
-        Card(
-          elevation: 0,
-          color: Colors.white,
-          shape: AppStyles.cardShape,
-          child: Padding(
-            padding: AppStyles.cardPaddingLarge,
-            child: Center(
-              child: Column(
-                children: [
-                  Container(
-                    padding: const EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                      color: AppStyles.softBrown.withValues(alpha: 0.05),
-                      shape: BoxShape.circle,
-                    ),
-                    child: Icon(
-                      Icons.schedule,
-                      size: 40,
-                      color: AppStyles.softBrown.withValues(alpha: 0.3),
-                    ),
-                  ),
-                  SizedBox(height: AppStyles.spacingL - AppStyles.spacingS), // 20px
-                  Text(
-                    "Coming soon",
-                    style: AppStyles.subTitleStyle.copyWith(color: AppStyles.softBrown.withValues(alpha: 0.5)),
-                  ),
-                  AppStyles.spacingSBox,
-                  Text(
-                    "Neue Übungen werden in Kürze hinzugefügt",
-                    textAlign: TextAlign.center,
-                    style: AppStyles.bodyStyle.copyWith(fontSize: 13, color: AppStyles.softBrown.withValues(alpha: 0.4)),
-                  ),
-                ],
-              ),
+          // Header
+          Text("Vertiefung", style: AppStyles.headingStyle),
+          AppStyles.spacingSBox,
+          Text(
+            "Zusätzliche Übungen und Ressourcen für deine Praxis",
+            style: AppStyles.bodyStyle.copyWith(
+              color: AppStyles.softBrown.withValues(alpha: 0.7),
             ),
           ),
-        ),
+          AppStyles.spacingXLBox,
 
-        AppStyles.spacingMBox,
-        
-        Card(
-          elevation: 0,
-          color: Colors.white,
-          shape: AppStyles.cardShape,
-          child: InkWell(
-            onTap: () => Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const GlossarFaqSeite()),
-            ),
-            borderRadius: BorderRadius.circular(28),
+          _buildSectionHeader("ZUSÄTZLICHE ÜBUNGEN"),
+          AppStyles.spacingMBox,
+
+          // Coming soon Card
+          Card(
+            elevation: 0,
+            color: Colors.white,
+            shape: AppStyles.cardShape,
             child: Padding(
-              padding: AppStyles.cardPadding,
-              child: Row(
-                children: [
-                  Container(
-                    padding: const EdgeInsets.all(12),
-                    decoration: BoxDecoration(
-                      color: AppStyles.accentCyan.withValues(alpha: 0.1),
-                      borderRadius: BorderRadius.circular(14),
+              padding: AppStyles.cardPaddingLarge,
+              child: Center(
+                child: Column(
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                        color: AppStyles.softBrown.withValues(alpha: 0.05),
+                        shape: BoxShape.circle,
+                      ),
+                      child: Icon(
+                        Icons.schedule,
+                        size: 40,
+                        color: AppStyles.softBrown.withValues(alpha: 0.3),
+                      ),
                     ),
-                    child: const Icon(
-                      Icons.help_outline,
-                      color: AppStyles.accentCyan,
-                      size: 24,
+                    SizedBox(
+                      height: AppStyles.spacingL - AppStyles.spacingS,
+                    ), // 20px
+                    Text(
+                      "Coming soon",
+                      style: AppStyles.subTitleStyle.copyWith(
+                        color: AppStyles.softBrown.withValues(alpha: 0.5),
+                      ),
                     ),
-                  ),
-                  SizedBox(width: AppStyles.spacingL - AppStyles.spacingS), // 20px
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Wissen & Hilfe",
-                          style: AppStyles.subTitleStyle,
-                        ),
-                        const SizedBox(height: 4),
-                        Text(
-                          "Glossar und häufige Fragen",
-                          style: AppStyles.bodyStyle.copyWith(fontSize: 13, color: AppStyles.softBrown.withValues(alpha: 0.6)),
-                        ),
-                      ],
+                    AppStyles.spacingSBox,
+                    Text(
+                      "Neue Übungen werden in Kürze hinzugefügt",
+                      textAlign: TextAlign.center,
+                      style: AppStyles.bodyStyle.copyWith(
+                        fontSize: 13,
+                        color: AppStyles.softBrown.withValues(alpha: 0.4),
+                      ),
                     ),
-                  ),
-                  const Icon(
-                    Icons.chevron_right,
-                    color: AppStyles.borderColor,
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
-        ),
-        
-        SizedBox(height: AppStyles.spacingXL + AppStyles.spacingS), // 40px
 
-        _buildSectionHeader("LITERATUR & FORSCHUNG"),
-        AppStyles.spacingMBox,
-        
-        Card(
-          elevation: 0,
-          color: Colors.white,
-          shape: AppStyles.cardShape,
-          child: InkWell(
-            onTap: () => Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const LiteraturSeite()),
-            ),
-            borderRadius: BorderRadius.circular(28),
-            child: Padding(
-              padding: AppStyles.cardPadding,
-              child: Row(
-                children: [
-                  Container(
-                    padding: const EdgeInsets.all(12),
-                    decoration: BoxDecoration(
-                      color: AppStyles.primaryOrange.withValues(alpha: 0.1),
-                      borderRadius: BorderRadius.circular(14),
+          AppStyles.spacingMBox,
+
+          Card(
+            elevation: 0,
+            color: Colors.white,
+            shape: AppStyles.cardShape,
+            child: InkWell(
+              onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const GlossarFaqSeite(),
+                ),
+              ),
+              borderRadius: BorderRadius.circular(28),
+              child: Padding(
+                padding: AppStyles.cardPadding,
+                child: Row(
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.all(12),
+                      decoration: BoxDecoration(
+                        color: AppStyles.accentCyan.withValues(alpha: 0.1),
+                        borderRadius: BorderRadius.circular(14),
+                      ),
+                      child: Icon(
+                        Icons.help_outline,
+                        color: AppStyles.accentCyan,
+                        size: 24,
+                      ),
                     ),
-                    child: const Icon(
-                      Icons.menu_book_outlined,
-                      color: AppStyles.primaryOrange,
-                      size: 24,
+                    SizedBox(
+                      width: AppStyles.spacingL - AppStyles.spacingS,
+                    ), // 20px
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Wissen & Hilfe",
+                            style: AppStyles.subTitleStyle,
+                          ),
+                          const SizedBox(height: 4),
+                          Text(
+                            "Glossar und häufige Fragen",
+                            style: AppStyles.bodyStyle.copyWith(
+                              fontSize: 13,
+                              color: AppStyles.softBrown.withValues(alpha: 0.6),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                  SizedBox(width: AppStyles.spacingL - AppStyles.spacingS), // 20px
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Literatur & Forschung",
-                          style: AppStyles.subTitleStyle,
-                        ),
-                        const SizedBox(height: 4),
-                        Text(
-                          "Bücher, Artikel und Studien zu MBSR",
-                          style: AppStyles.bodyStyle.copyWith(fontSize: 13, color: AppStyles.softBrown.withValues(alpha: 0.6)),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const Icon(
-                    Icons.chevron_right,
-                    color: AppStyles.borderColor,
-                  ),
-                ],
+                    Icon(Icons.chevron_right, color: AppStyles.borderColor),
+                  ],
+                ),
               ),
             ),
           ),
-        ),
-        const SizedBox(height: 100), // Platz für Floating Nav
+
+          SizedBox(height: AppStyles.spacingXL + AppStyles.spacingS), // 40px
+
+          _buildSectionHeader("LITERATUR & FORSCHUNG"),
+          AppStyles.spacingMBox,
+
+          Card(
+            elevation: 0,
+            color: Colors.white,
+            shape: AppStyles.cardShape,
+            child: InkWell(
+              onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const LiteraturSeite()),
+              ),
+              borderRadius: BorderRadius.circular(28),
+              child: Padding(
+                padding: AppStyles.cardPadding,
+                child: Row(
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.all(12),
+                      decoration: BoxDecoration(
+                        color: AppStyles.primaryOrange.withValues(alpha: 0.1),
+                        borderRadius: BorderRadius.circular(14),
+                      ),
+                      child: Icon(
+                        Icons.menu_book_outlined,
+                        color: AppStyles.primaryOrange,
+                        size: 24,
+                      ),
+                    ),
+                    SizedBox(
+                      width: AppStyles.spacingL - AppStyles.spacingS,
+                    ), // 20px
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Literatur & Forschung",
+                            style: AppStyles.subTitleStyle,
+                          ),
+                          const SizedBox(height: 4),
+                          Text(
+                            "Bücher, Artikel und Studien zu MBSR",
+                            style: AppStyles.bodyStyle.copyWith(
+                              fontSize: 13,
+                              color: AppStyles.softBrown.withValues(alpha: 0.6),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Icon(Icons.chevron_right, color: AppStyles.borderColor),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(height: 100), // Platz für Floating Nav
         ],
       ),
     );

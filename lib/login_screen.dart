@@ -31,20 +31,29 @@ class _LoginScreenState extends State<LoginScreen> {
   String? _validateEmail(String? value) {
     if (value == null || value.isEmpty) return "Bitte gib deine E-Mail ein.";
     final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
-    if (!emailRegex.hasMatch(value)) return "Bitte gib eine gültige E-Mail-Adresse ein.";
+    if (!emailRegex.hasMatch(value)) {
+      return "Bitte gib eine gültige E-Mail-Adresse ein.";
+    }
     return null;
   }
 
   String? _validatePassword(String? value) {
     if (value == null || value.isEmpty) return "Bitte gib dein Passwort ein.";
-    if (value.length < 6) return "Das Passwort muss mindestens 6 Zeichen lang sein.";
+    if (value.length < 6) {
+      return "Das Passwort muss mindestens 6 Zeichen lang sein.";
+    }
     return null;
   }
 
   Future<void> _resetPassword() async {
     final email = _emailController.text.trim();
     if (email.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Bitte gib erst deine E-Mail ein."), backgroundColor: AppStyles.primaryOrange));
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("Bitte gib erst deine E-Mail ein."),
+          backgroundColor: AppStyles.primaryOrange,
+        ),
+      );
       _emailFocusNode.requestFocus();
       return;
     }
@@ -52,11 +61,18 @@ class _LoginScreenState extends State<LoginScreen> {
     try {
       await AuthService().sendPasswordResetEmail(email: email);
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("E-Mail zum Passwort-Reset wurde gesendet!"), backgroundColor: AppStyles.sageGreen));
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text("E-Mail zum Passwort-Reset wurde gesendet!"),
+            backgroundColor: AppStyles.sageGreen,
+          ),
+        );
       }
     } catch (e) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Fehler: $e"), backgroundColor: Colors.red));
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("Fehler: $e"), backgroundColor: Colors.red),
+        );
       }
     } finally {
       if (mounted) setState(() => _isLoading = false);
@@ -102,12 +118,19 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       backgroundColor: AppStyles.bgColor,
       appBar: AppBar(
-        title: Text("Anmeldung", style: AppStyles.headingStyle.copyWith(fontSize: 18)),
+        title: Text(
+          "Anmeldung",
+          style: AppStyles.headingStyle.copyWith(fontSize: 18),
+        ),
         backgroundColor: Colors.transparent,
         elevation: 0,
         centerTitle: true,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios_new, color: AppStyles.softBrown, size: 20),
+          icon: Icon(
+            Icons.arrow_back_ios_new,
+            color: AppStyles.softBrown,
+            size: 20,
+          ),
           onPressed: () => Navigator.of(context).pop(),
         ),
       ),
@@ -119,13 +142,27 @@ class _LoginScreenState extends State<LoginScreen> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               SizedBox(height: AppStyles.spacingL - AppStyles.spacingS), // 20px
-              const Icon(Icons.lock_outline, size: 80, color: AppStyles.primaryOrange),
-              SizedBox(height: AppStyles.spacingXL + AppStyles.spacingS), // 40px
-              Text("Willkommen zurück", style: AppStyles.titleStyle, textAlign: TextAlign.center),
+              Icon(
+                Icons.lock_outline,
+                size: 80,
+                color: AppStyles.primaryOrange,
+              ),
+              SizedBox(
+                height: AppStyles.spacingXL + AppStyles.spacingS,
+              ), // 40px
+              Text(
+                "Willkommen zurück",
+                style: AppStyles.titleStyle,
+                textAlign: TextAlign.center,
+              ),
               SizedBox(height: AppStyles.spacingM - AppStyles.spacingS), // 12px
-              Text("Melde dich mit deinem Kurs-Account an.", style: AppStyles.bodyStyle, textAlign: TextAlign.center),
+              Text(
+                "Melde dich mit deinem Kurs-Account an.",
+                style: AppStyles.bodyStyle,
+                textAlign: TextAlign.center,
+              ),
               AppStyles.spacingXXLBox,
-              
+
               _buildTextField(
                 controller: _emailController,
                 focusNode: _emailFocusNode,
@@ -146,28 +183,55 @@ class _LoginScreenState extends State<LoginScreen> {
                 textInputAction: TextInputAction.done,
                 onSubmitted: (_) => _login(),
               ),
-              
+
               Align(
                 alignment: Alignment.centerRight,
                 child: TextButton(
                   onPressed: _isLoading ? null : _resetPassword,
-                  child: Text("Passwort vergessen?", style: AppStyles.bodyStyle.copyWith(color: AppStyles.primaryOrange, fontWeight: FontWeight.bold)),
+                  child: Text(
+                    "Passwort vergessen?",
+                    style: AppStyles.bodyStyle.copyWith(
+                      color: AppStyles.primaryOrange,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
               ),
-              SizedBox(height: AppStyles.spacingXL + AppStyles.spacingS), // 40px
-              
+              SizedBox(
+                height: AppStyles.spacingXL + AppStyles.spacingS,
+              ), // 40px
+
               ElevatedButton(
                 onPressed: _isLoading ? null : _login,
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppStyles.primaryOrange,
                   foregroundColor: Colors.white,
-                  padding: EdgeInsets.symmetric(vertical: AppStyles.spacingL - AppStyles.spacingS), // 20px
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(28)),
+                  padding: EdgeInsets.symmetric(
+                    vertical: AppStyles.spacingL - AppStyles.spacingS,
+                  ), // 20px
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(28),
+                  ),
                   elevation: 0,
                 ),
                 child: _isLoading
-                    ? const SizedBox(height: 20, width: 20, child: CircularProgressIndicator(strokeWidth: 2, valueColor: AlwaysStoppedAnimation<Color>(Colors.white)))
-                    : const Text("Einloggen", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                    ? const SizedBox(
+                        height: 20,
+                        width: 20,
+                        child: CircularProgressIndicator(
+                          strokeWidth: 2,
+                          valueColor: AlwaysStoppedAnimation<Color>(
+                            Colors.white,
+                          ),
+                        ),
+                      )
+                    : const Text(
+                        "Einloggen",
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
               ),
             ],
           ),
@@ -196,15 +260,18 @@ class _LoginScreenState extends State<LoginScreen> {
       style: AppStyles.bodyStyle.copyWith(fontWeight: FontWeight.bold),
       decoration: InputDecoration(
         labelText: label,
-        prefixIcon: Icon(icon, color: AppStyles.softBrown.withValues(alpha: 0.5)),
+        prefixIcon: Icon(
+          icon,
+          color: AppStyles.softBrown.withValues(alpha: 0.5),
+        ),
         suffixIcon: isPassword
             ? IconButton(
                 icon: Icon(
                   _passwordVisible ? Icons.visibility : Icons.visibility_off,
                   color: Colors.grey,
                 ),
-                onPressed:
-                    () => setState(() => _passwordVisible = !_passwordVisible),
+                onPressed: () =>
+                    setState(() => _passwordVisible = !_passwordVisible),
               )
             : null,
         filled: true,
@@ -223,8 +290,7 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(24),
-          borderSide:
-              const BorderSide(color: AppStyles.primaryOrange, width: 1.5),
+          borderSide: BorderSide(color: AppStyles.primaryOrange, width: 1.5),
         ),
       ),
     );

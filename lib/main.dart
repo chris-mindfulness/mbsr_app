@@ -9,6 +9,7 @@ import 'audio_service.dart';
 import 'audio/bell_service.dart';
 import 'services/connectivity_service.dart';
 import 'core/app_styles.dart';
+import 'core/theme_mode_controller.dart';
 
 // Globaler NavigatorKey, um den Stack bei Login zu bereinigen
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
@@ -46,7 +47,9 @@ void main() async {
     await dotenv.load(fileName: ".env");
     if (kDebugMode) debugPrint('✅ .env Datei geladen');
   } catch (e) {
-    if (kDebugMode) debugPrint('ℹ️ Keine .env Datei gefunden, nutze Standardwerte');
+    if (kDebugMode) {
+      debugPrint('ℹ️ Keine .env Datei gefunden, nutze Standardwerte');
+    }
   }
 
   // Initialisiere Appwrite Client
@@ -54,6 +57,9 @@ void main() async {
 
   // Initialisiere Auth-Service und prüfe bestehende Session
   await AuthService().initialize();
+
+  // Lade visuelles Theme (persistente Nutzereinstellung)
+  await ThemeModeController.instance.initialize();
 
   if (kIsWeb) {
     usePathUrlStrategy();
@@ -72,21 +78,26 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'MBSR Achtsamkeitstraining',
-      debugShowCheckedModeBanner: false,
-      navigatorKey: navigatorKey, // Key registrieren
-      theme: ThemeData(
-        useMaterial3: true,
-        scaffoldBackgroundColor: AppStyles.bgColor,
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: AppStyles.primaryOrange,
-          surface: AppStyles.bgColor,
-        ),
-        // Lokale Nunito-Schrift (keine Verbindung zu Google)
-        fontFamily: 'Nunito',
-      ),
-      home: const AuthWrapper(),
+    return AnimatedBuilder(
+      animation: ThemeModeController.instance,
+      builder: (context, _) {
+        return MaterialApp(
+          title: 'MBSR Achtsamkeitstraining',
+          debugShowCheckedModeBanner: false,
+          navigatorKey: navigatorKey, // Key registrieren
+          theme: ThemeData(
+            useMaterial3: true,
+            scaffoldBackgroundColor: AppStyles.bgColor,
+            colorScheme: ColorScheme.fromSeed(
+              seedColor: AppStyles.primaryOrange,
+              surface: AppStyles.bgColor,
+            ),
+            // Lokale Nunito-Schrift (keine Verbindung zu Google)
+            fontFamily: 'Nunito',
+          ),
+          home: const AuthWrapper(),
+        );
+      },
     );
   }
 }

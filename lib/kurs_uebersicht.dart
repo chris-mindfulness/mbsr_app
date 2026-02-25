@@ -143,7 +143,7 @@ class _KursUebersichtState extends State<KursUebersicht> {
                     ),
                   ],
                 ),
-                child: const Center(
+                child: Center(
                   child: Icon(
                     Icons.self_improvement,
                     size: 120,
@@ -191,8 +191,8 @@ class _KursUebersichtState extends State<KursUebersicht> {
                           overlayRadius: 20,
                         ),
                         activeTrackColor: AppStyles.primaryOrange,
-                        inactiveTrackColor: AppStyles.primaryOrange.withValues(alpha: 
-                          0.1,
+                        inactiveTrackColor: AppStyles.primaryOrange.withValues(
+                          alpha: 0.1,
                         ),
                         thumbColor: AppStyles.primaryOrange,
                       ),
@@ -430,7 +430,7 @@ class _KursUebersichtState extends State<KursUebersicht> {
                         ),
                         Text(
                           "Tippen für Details",
-                          style: AppStyles.bodyStyle.copyWith(
+                          style: AppStyles.smallTextStyle.copyWith(
                             fontSize: 11,
                             color: AppStyles.textDark.withValues(alpha: 0.8),
                           ),
@@ -674,7 +674,10 @@ class _KursUebersichtState extends State<KursUebersicht> {
           decoration: BoxDecoration(
             color: cardColor.withValues(alpha: 0.15),
             shape: BoxShape.circle,
-            border: Border.all(color: cardColor.withValues(alpha: 0.3), width: 2),
+            border: Border.all(
+              color: cardColor.withValues(alpha: 0.3),
+              width: 2,
+            ),
           ),
           child: Center(
             child: Text(
@@ -753,7 +756,7 @@ class _KursUebersichtState extends State<KursUebersicht> {
               ),
             ],
           ),
-          child: const Icon(Icons.spa, color: Colors.white),
+          child: Icon(Icons.spa, color: Colors.white),
         ),
         title: Text(
           'Tag der Achtsamkeit',

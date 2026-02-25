@@ -57,7 +57,7 @@ class DownloadsSeite extends StatelessWidget {
         elevation: 0,
         centerTitle: true,
         leading: IconButton(
-          icon: const Icon(
+          icon: Icon(
             Icons.arrow_back_ios_new,
             color: AppStyles.softBrown,
             size: 20,
@@ -115,7 +115,7 @@ class DownloadsSeite extends StatelessWidget {
                   color: AppStyles.softBrown.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(18),
                 ),
-                child: const Icon(
+                child: Icon(
                   Icons.description_outlined,
                   color: AppStyles.softBrown,
                   size: 28,

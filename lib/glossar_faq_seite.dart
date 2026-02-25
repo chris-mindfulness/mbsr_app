@@ -20,7 +20,7 @@ class GlossarFaqSeite extends StatelessWidget {
           elevation: 0,
           centerTitle: true,
           leading: IconButton(
-            icon: const Icon(
+            icon: Icon(
               Icons.arrow_back_ios_new,
               color: AppStyles.softBrown,
               size: 20,

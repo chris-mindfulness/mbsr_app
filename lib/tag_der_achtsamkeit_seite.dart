@@ -31,7 +31,7 @@ class TagDerAchtsamkeitSeite extends StatelessWidget {
         elevation: 0,
         centerTitle: true,
         leading: IconButton(
-          icon: const Icon(
+          icon: Icon(
             Icons.arrow_back_ios_new,
             color: AppStyles.softBrown,
             size: 20,
@@ -59,7 +59,7 @@ class TagDerAchtsamkeitSeite extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Icon(Icons.spa, color: Colors.white, size: 48),
+                Icon(Icons.spa, color: Colors.white, size: 48),
                 AppStyles.spacingLBox,
                 const Text(
                   'Tag der Achtsamkeit',
@@ -111,7 +111,7 @@ class TagDerAchtsamkeitSeite extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      const Icon(
+                      Icon(
                         Icons.calendar_today_outlined,
                         color: AppStyles.sageGreen,
                         size: 20,
@@ -158,7 +158,7 @@ class TagDerAchtsamkeitSeite extends StatelessWidget {
                         color: AppStyles.sageGreen.withValues(alpha: 0.1),
                         borderRadius: BorderRadius.circular(14),
                       ),
-                      child: const Icon(
+                      child: Icon(
                         Icons.email_outlined,
                         color: AppStyles.sageGreen,
                       ),
@@ -187,7 +187,7 @@ class TagDerAchtsamkeitSeite extends StatelessWidget {
                         ],
                       ),
                     ),
-                    const Icon(
+                    Icon(
                       Icons.arrow_forward_ios,
                       size: 16,
                       color: AppStyles.borderColor,
@@ -213,7 +213,7 @@ class TagDerAchtsamkeitSeite extends StatelessWidget {
             ),
             child: Row(
               children: [
-                const Icon(
+                Icon(
                   Icons.info_outline,
                   color: AppStyles.primaryOrange,
                   size: 20,
@@ -278,7 +278,7 @@ class TagDerAchtsamkeitSeite extends StatelessWidget {
             color: AppStyles.primaryOrange.withValues(alpha: 0.1),
             borderRadius: BorderRadius.circular(14),
           ),
-          child: const Icon(
+          child: Icon(
             Icons.picture_as_pdf_outlined,
             color: AppStyles.primaryOrange,
           ),
