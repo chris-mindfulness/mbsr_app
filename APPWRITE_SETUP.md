@@ -1,227 +1,106 @@
-# 🚀 Appwrite Cloud Setup für MBSR App
+# Appwrite Setup (aktuell, einfach)
 
-## Projekt-Informationen
-- **Projekt-ID:** `696befd00018180d10ff`
-- **Endpoint:** `https://fra.cloud.appwrite.io/v1`
-- **Region:** Frankfurt (EU)
+Stand: 25.02.2026
 
----
+Ziel: Die App soll stabil einloggen, Profil finden und Medien laden.
 
-## 1️⃣ DATABASE ERSTELLEN
+## Aktuelle Soll-Werte (aus dem Code)
 
-### Schritt 1: Neue Database anlegen
-1. Gehe zu [Appwrite Console](https://cloud.appwrite.io)
-2. Wähle dein Projekt (`696befd00018180d10ff`)
-3. Klicke links auf **"Databases"**
-4. Klicke **"Create database"**
-5. **Database ID:** `mbsr_database` (genau so eingeben!)
-6. **Name:** `MBSR Database`
-7. Klicke **"Create"**
+- Endpoint: `https://api.mindfulpractice.de/v1`
+- Project ID: `696befd00018180d10ff`
+- Database ID: `mbsr_database`
+- Users-Profil: `users`
+- Medien-Bucket (Audio + PDF): `mbsr_content`
+- Rollenwert für Kurszugang: `mbsr`
 
----
+## 1) Basis in der App prüfen
 
-## 2️⃣ COLLECTIONS ERSTELLEN
+Datei: `.env`
 
-### Collection 1: Users (Benutzer-Profile)
-
-1. In der Database `mbsr_database`, klicke **"Create collection"**
-2. **Collection ID:** `users` (genau so!)
-3. **Name:** `Users`
-4. Klicke **"Create"**
-
-#### Attributes (Felder) hinzufügen:
-
-Klicke **"Create attribute"** und füge **NUR** diese drei Felder hinzu:
-
-| Attribute Key | Type | Size | Required |
-|---|---|---|---|
-| `email` | String | 255 | ✅ Yes |
-| `role` | String | 50 | ✅ Yes |
-| `name` | String | 255 | ❌ No |
-
-**Wichtig:** Keine Passwörter oder kryptische IDs hier speichern! Das macht Appwrite Auth automatisch.
-
-#### Permissions setzen:
-
-Klicke auf **"Settings"** (oben rechts) → **"Permissions"**
-
-**Wichtig:** Lösche ALLE Standard-Permissions und füge hinzu:
-
-| Role | Permissions |
-|---|---|
-| `Any` | ❌ (nichts) |
-| `Users` | ✅ Read (nur eigenes Dokument) |
-
-**Custom Permission Rule:**
-```
-Read: document.email == $user.email
+```env
+APPWRITE_ENDPOINT=https://api.mindfulpractice.de/v1
+APPWRITE_PROJECT_ID=696befd00018180d10ff
 ```
 
-#### Indexes erstellen:
+Wichtig:
+- Endpoint und Project ID müssen zum gleichen Appwrite-Projekt gehören.
 
-Klicke **"Indexes"** → **"Create index"**
+## 2) Web-Plattform in Appwrite prüfen
 
-| Key | Type | Order |
-|---|---|---|
-| `email` | Key | ASC |
+Ort in Appwrite: `Project -> Platforms -> Web`
 
-**Wichtig:** Dieser Index ermöglicht schnelle Suche nach Email!
+Prüfen:
+- Richtige produktive Domain ist eingetragen (inkl. `https://`).
+- Falls lokal getestet wird, ist auch die lokale Web-URL erlaubt.
 
----
+Wenn die Plattform-URL falsch ist, kann Refresh/Login instabil werden.
 
-### Collection 2: Kurs-Daten (optional, falls du Daten in Appwrite speichern willst)
+## 3) Datenbank-Struktur prüfen
 
-**Hinweis:** Aktuell sind deine Kursdaten in `app_daten.dart` (lokal). 
-Falls du sie später in die Cloud migrieren willst:
+Ort in Appwrite: `Databases -> mbsr_database`
 
-1. **Collection ID:** `kurs_daten`
-2. **Name:** `Kurs Daten`
-3. **Attributes:** (nach Bedarf)
-4. **Permissions:** Nur Users mit `role == 'mbsr'`
+Erwartet wird eine Users-Struktur mit ID `users`.
+Diese wird für Rollenprüfung genutzt.
 
----
+Pflichtfelder:
+- `email` (String)
+- `role` (String)
 
-## 3️⃣ STORAGE BUCKET ERSTELLEN (Shared Bucket)
+Optional:
+- `name` (String)
 
-Da im Free Plan nur ein Bucket möglich ist, nutzen wir einen gemeinsamen Bucket für alle Medien.
+Inhaltlich wichtig:
+- Pro Auth-User muss ein passender Profil-Eintrag existieren.
+- `email` muss exakt zur Login-E-Mail passen.
+- `role` muss `mbsr` sein, wenn Zugang zur Kurs-App erlaubt sein soll.
 
-1. Klicke links auf **"Storage"**
-2. Klicke **"Create bucket"**
-3. **Bucket ID:** `mbsr_content` (genau so!)
-4. **Name:** `MBSR Content`
-5. **Permissions:**
-   - ✅ Read: `Any` (oder `Users` für mehr Sicherheit)
-   - ❌ Create/Update/Delete: (nur Admin)
-6. **File Security:** Enabled (Wichtig für Privatsphäre!)
-7. **Maximum File Size:** 100 MB (reicht für Audio)
-8. **Allowed File Extensions:** `mp3, wav, m4a, pdf`
-9. Klicke **"Create"**
+## 4) Rechte für Profil-Zugriff prüfen
 
----
+Der eingeloggte Nutzer muss sein eigenes Profil lesen können.
 
-## 4️⃣ USERS ERSTELLEN (Deine MBSR-Teilnehmer)
+Wenn diese Berechtigung fehlt, kommt es zu:
+- "Profil nicht gefunden"
+- oder Hängenbleiben auf Profil-/Retry-Seiten
 
-### Schritt 1: User in Authentication erstellen
+## 5) Storage-Bucket prüfen
 
-1. Klicke links auf **"Auth"**
-2. Klicke **"Create user"**
-3. **Email:** `test@mbsr.de` (Beispiel)
-4. **Password:** `[Sicheres Passwort]`
-5. **Name:** `Test User` (optional)
-6. Klicke **"Create"**
+Ort in Appwrite: `Storage`
 
-### Schritt 2: User-Dokument in Database erstellen
+Erwartet:
+- Bucket ID: `mbsr_content`
+- Enthält Audio- und PDF-Dateien
+- IDs der Dateien müssen mit den IDs in der App zusammenpassen
 
-1. Gehe zu **Databases** → `mbsr_database` → Collection `users`
-2. Klicke **"Create document"**
-3. **Document ID:** Automatisch generieren lassen
-4. **Felder ausfüllen:**
-   - `email`: `test@mbsr.de` (gleiche Email wie in Auth!)
-   - `role`: `mbsr`
-   - `name`: `Test User` (optional)
-5. Klicke **"Create"**
+Die App baut Medien-URLs so auf:
 
-**WICHTIG:** Für jeden User brauchst du:
-- ✅ Einen Auth-Account (in "Auth")
-- ✅ Ein User-Dokument (in "Databases" → "users")
-
----
-
-## 5️⃣ AUDIO/PDF-DATEIEN HOCHLADEN
-
-### Audios hochladen:
-
-1. Gehe zu **Storage** → Bucket `audios`
-2. Klicke **"Create file"**
-3. Wähle deine MP3-Datei
-4. **File ID:** Automatisch oder custom (z.B. `sitzmeditation_woche1`)
-5. Klicke **"Create"**
-6. **Kopiere die File-URL** (brauchst du für `app_daten.dart`)
-
-### PDFs hochladen:
-
-Gleicher Prozess im Bucket `pdfs`
-
----
-
-## 6️⃣ FILE-URLS IN APP EINTRAGEN
-
-Nach dem Upload erhältst du URLs wie:
-```
-https://fra.cloud.appwrite.io/v1/storage/buckets/audios/files/[FILE_ID]/view?project=696befd00018180d10ff
+```text
+{ENDPOINT}/storage/buckets/mbsr_content/files/{FILE_ID}/view?project={PROJECT_ID}
 ```
 
-Diese URLs trägst du in `lib/app_daten.dart` ein:
+## 6) Wichtiger Technik-Hinweis zum aktuellen Code
 
-```dart
-'url': 'https://fra.cloud.appwrite.io/v1/storage/buckets/audios/files/sitzmeditation_woche1/view?project=696befd00018180d10ff',
-```
+Die Rollenabfrage läuft aktuell in dieser Reihenfolge:
+1. TablesDB (`users`) als primärer Weg
+2. Legacy-Fallback über ältere Collection (`users`)
+3. lokaler Fallback-Cache (nur zur Stabilisierung)
 
----
+Das bedeutet:
+- Neue Daten bitte im aktuellen `users`-Schema pflegen.
+- Alte Legacy-Daten können Übergangsprobleme abfedern, sind aber nicht Zielzustand.
 
-## 7️⃣ TESTEN
+## 7) Schnelltest nach Änderung
 
-### Nach dem Setup:
+1. Einloggen
+2. Unterseite öffnen
+3. Browser-Refresh
+4. Prüfen: eingeloggt bleiben + Profil wird direkt geladen
 
-```bash
-# 1. Dependencies installieren
-flutter pub get
+Zusatzcheck in Browser DevTools (Network):
+- Request `/account` sollte stabil `200` sein.
 
-# 2. App starten
-flutter run -d chrome
+## 8) Wenn etwas nicht passt
 
-# 3. Teste:
-# - Login mit test@mbsr.de
-# - Navigation funktioniert
-# - Audios werden geladen (URLs müssen korrekt sein!)
-```
+Nutze diese Checkliste:
+- `CHECKLISTE_APPWRITE_PRUEFEN.md`
 
----
-
-## 🔒 SECURITY CHECKLIST
-
-Nach dem Setup, prüfe:
-
-- ✅ Users Collection: Nur eigenes Dokument lesbar
-- ✅ Storage Buckets: Nur lesen erlaubt, kein Upload
-- ✅ Auth: Nur du kannst User erstellen (in Console)
-- ✅ Keine öffentlichen Write-Permissions
-
----
-
-## ⚠️ WICHTIGE HINWEISE
-
-### User-Verwaltung:
-
-**Für jeden neuen MBSR-Teilnehmer:**
-1. Erstelle Auth-Account (in "Auth")
-2. Erstelle User-Dokument (in "Databases" → "users")
-3. **Email muss in beiden identisch sein!**
-4. Setze `role: 'mbsr'` im Dokument
-
-### Datenmigration von Firebase:
-
-Falls du bestehende User hast:
-- Exportiere User-Liste aus Firebase Auth
-- Erstelle sie manuell in Appwrite (oder nutze Appwrite API für Bulk-Import)
-
-### Audio/PDF-Migration:
-
-- Lade alle Dateien aus Firebase Storage herunter
-- Lade sie in Appwrite Storage hoch
-- Aktualisiere URLs in `app_daten.dart`
-
----
-
-## 📞 SUPPORT
-
-Bei Problemen:
-- Appwrite Docs: https://appwrite.io/docs
-- Discord: https://appwrite.io/discord
-- GitHub: https://github.com/appwrite/appwrite
-
----
-
-**Geschätzte Setup-Zeit:** 30-45 Minuten
-
-**Danach ist die Migration komplett!** 🎉
+Dort ist die Fehlersuche Schritt für Schritt beschrieben.

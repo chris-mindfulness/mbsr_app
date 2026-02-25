@@ -66,6 +66,23 @@ class _KursUebersichtState extends State<KursUebersicht> {
     super.dispose();
   }
 
+  Future<void> _seekRelative(Duration offset) async {
+    final current = _audioService.position;
+    var target = current + offset;
+    if (target < Duration.zero) {
+      target = Duration.zero;
+    }
+
+    final knownDuration = _audioService.duration;
+    if (knownDuration != null &&
+        knownDuration > Duration.zero &&
+        target > knownDuration) {
+      target = knownDuration;
+    }
+
+    await _audioService.seek(target);
+  }
+
   /// Öffnet den Full-Screen Player im Headspace-Stil
   void _showFullPlayer() {
     showModalBottomSheet(
@@ -110,20 +127,34 @@ class _KursUebersichtState extends State<KursUebersicht> {
                 ),
               ],
             ),
-            // Schließen-Button oben rechts
-            Align(
-              alignment: Alignment.topRight,
-              child: IconButton(
-                icon: Icon(
-                  Icons.close_rounded,
-                  color: AppStyles.textDark.withValues(alpha: 0.6),
-                  size: AppStyles.iconSizeL,
+            // Aktionen oben rechts
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                IconButton(
+                  icon: Icon(
+                    Icons.stop_circle_outlined,
+                    color: AppStyles.textDark.withValues(alpha: 0.6),
+                    size: AppStyles.iconSizeL,
+                  ),
+                  onPressed: () {
+                    _audioService.stop();
+                    Navigator.of(context).pop();
+                  },
+                  tooltip: 'Audio stoppen',
                 ),
-                onPressed: () {
-                  Navigator.of(context).pop(); // Modal schließen
-                },
-                tooltip: 'Schließen',
-              ),
+                IconButton(
+                  icon: Icon(
+                    Icons.close_rounded,
+                    color: AppStyles.textDark.withValues(alpha: 0.6),
+                    size: AppStyles.iconSizeL,
+                  ),
+                  onPressed: () {
+                    Navigator.of(context).pop(); // Modal schließen
+                  },
+                  tooltip: 'Player schließen',
+                ),
+              ],
             ),
             AppStyles.spacingLBox,
 
@@ -173,63 +204,84 @@ class _KursUebersichtState extends State<KursUebersicht> {
             AppStyles.spacingXXLBox,
 
             // Progress Area
-            StreamBuilder<Duration>(
-              stream: _audioService.positionStream,
-              builder: (context, snapshot) {
-                final position = snapshot.data ?? Duration.zero;
-                final duration = _audioService.duration ?? Duration.zero;
+            StreamBuilder<Duration?>(
+              stream: _audioService.durationStream,
+              builder: (context, durationSnapshot) {
+                final duration = durationSnapshot.data ?? Duration.zero;
+                final hasKnownDuration = duration.inSeconds > 0;
+                return StreamBuilder<Duration>(
+                  stream: _audioService.positionStream,
+                  builder: (context, positionSnapshot) {
+                    final position = positionSnapshot.data ?? Duration.zero;
+                    final clampedPosition = hasKnownDuration
+                        ? Duration(
+                            seconds: position.inSeconds.clamp(
+                              0,
+                              duration.inSeconds,
+                            ),
+                          )
+                        : position;
 
-                return Column(
-                  children: [
-                    SliderTheme(
-                      data: SliderTheme.of(context).copyWith(
-                        trackHeight: 6,
-                        thumbShape: const RoundSliderThumbShape(
-                          enabledThumbRadius: 8,
-                        ),
-                        overlayShape: const RoundSliderOverlayShape(
-                          overlayRadius: 20,
-                        ),
-                        activeTrackColor: AppStyles.primaryOrange,
-                        inactiveTrackColor: AppStyles.primaryOrange.withValues(
-                          alpha: 0.1,
-                        ),
-                        thumbColor: AppStyles.primaryOrange,
-                      ),
-                      child: Slider(
-                        value: position.inSeconds.toDouble(),
-                        max: duration.inSeconds > 0
-                            ? duration.inSeconds.toDouble()
-                            : 1.0,
-                        onChanged: (value) {
-                          HapticFeedback.selectionClick();
-                          _audioService.seek(Duration(seconds: value.toInt()));
-                        },
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            _formatDuration(position),
-                            style: AppStyles.bodyStyle.copyWith(
-                              fontSize: 12,
-                              color: AppStyles.textDark,
+                    return Column(
+                      children: [
+                        SliderTheme(
+                          data: SliderTheme.of(context).copyWith(
+                            trackHeight: 6,
+                            thumbShape: const RoundSliderThumbShape(
+                              enabledThumbRadius: 8,
                             ),
-                          ),
-                          Text(
-                            _formatDuration(duration),
-                            style: AppStyles.bodyStyle.copyWith(
-                              fontSize: 12,
-                              color: AppStyles.textDark,
+                            overlayShape: const RoundSliderOverlayShape(
+                              overlayRadius: 20,
                             ),
+                            activeTrackColor: AppStyles.primaryOrange,
+                            inactiveTrackColor: AppStyles.primaryOrange
+                                .withValues(alpha: 0.1),
+                            thumbColor: AppStyles.primaryOrange,
                           ),
-                        ],
-                      ),
-                    ),
-                  ],
+                          child: Slider(
+                            value: hasKnownDuration
+                                ? clampedPosition.inSeconds.toDouble()
+                                : 0,
+                            max: hasKnownDuration
+                                ? duration.inSeconds.toDouble()
+                                : 1.0,
+                            onChanged: hasKnownDuration
+                                ? (value) {
+                                    HapticFeedback.selectionClick();
+                                    _audioService.seek(
+                                      Duration(seconds: value.toInt()),
+                                    );
+                                  }
+                                : null,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                _formatDuration(clampedPosition),
+                                style: AppStyles.bodyStyle.copyWith(
+                                  fontSize: 12,
+                                  color: AppStyles.textDark,
+                                ),
+                              ),
+                              Text(
+                                hasKnownDuration
+                                    ? _formatDuration(duration)
+                                    : '--:--',
+                                style: AppStyles.bodyStyle.copyWith(
+                                  fontSize: 12,
+                                  color: AppStyles.textDark,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    );
+                  },
                 );
               },
             ),
@@ -247,11 +299,7 @@ class _KursUebersichtState extends State<KursUebersicht> {
                   color: AppStyles.softBrown,
                   tooltip: '10 Sekunden zurück',
                   onPressed: () {
-                    final newPos =
-                        _audioService.position - const Duration(seconds: 10);
-                    _audioService.seek(
-                      newPos < Duration.zero ? Duration.zero : newPos,
-                    );
+                    _seekRelative(const Duration(seconds: -10));
                   },
                 ),
                 AppStyles.spacingLHorizontal,
@@ -277,15 +325,12 @@ class _KursUebersichtState extends State<KursUebersicht> {
                 AppStyles.spacingLHorizontal,
                 // Forward 30s
                 AnimatedIconButton(
-                  icon: Icons.forward_30,
+                  icon: Icons.forward_10,
                   iconSize: 36,
                   color: AppStyles.softBrown,
-                  tooltip: '30 Sekunden vor',
+                  tooltip: '10 Sekunden vor',
                   onPressed: () {
-                    final newPos =
-                        _audioService.position + const Duration(seconds: 30);
-                    final duration = _audioService.duration ?? Duration.zero;
-                    _audioService.seek(newPos > duration ? duration : newPos);
+                    _seekRelative(const Duration(seconds: 10));
                   },
                 ),
               ],
@@ -456,6 +501,18 @@ class _KursUebersichtState extends State<KursUebersicht> {
                           }
                         },
                       );
+                    },
+                  ),
+                  IconButton(
+                    icon: Icon(
+                      Icons.stop_circle_outlined,
+                      color: AppStyles.softBrown.withValues(alpha: 0.8),
+                      size: 24,
+                    ),
+                    tooltip: 'Audio stoppen',
+                    onPressed: () async {
+                      HapticFeedback.lightImpact();
+                      await _audioService.stop();
                     },
                   ),
                 ],

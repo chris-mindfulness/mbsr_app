@@ -1,72 +1,56 @@
-# App anschauen - Anleitung
+# App starten (einfach)
 
-## Voraussetzungen
-- Flutter muss installiert sein
-- Ein Emulator/Simulator oder physisches Gerät muss verfügbar sein
+Stand: 25.02.2026
 
-## Option 1: Flutter im Terminal starten
+## 1) In den Projektordner wechseln
 
-### 1. Flutter-Pfad prüfen
-Falls Flutter nicht im PATH ist, finde den Flutter-Pfad:
 ```bash
-# Typischer Flutter-Installationspfad auf macOS:
-# ~/flutter/bin/flutter
-# oder
-# /usr/local/flutter/bin/flutter
+cd /Users/ch70bure/ki_projects/privat/mbsr_app
 ```
 
-### 2. Verfügbare Geräte anzeigen
+## 2) Flutter prüfen
+
+Variante A (wenn `flutter` im PATH ist):
+
 ```bash
-cd /Users/ch70bure/Privat/mbsr_app
-flutter devices
+flutter --version
 ```
 
-### 3. App starten
+Variante B (sicher, mit lokalem SDK):
 
-#### Für iOS Simulator (macOS):
 ```bash
-flutter run -d ios
+/Users/ch70bure/ki_projects/privat/flutter/bin/flutter --version
 ```
 
-#### Für Android Emulator:
+## 3) Abhängigkeiten laden
+
 ```bash
-flutter run -d android
+/Users/ch70bure/ki_projects/privat/flutter/bin/flutter pub get
 ```
 
-#### Für macOS Desktop:
+## 4) App lokal starten
+
+Web (empfohlen für schnellen Test):
+
 ```bash
-flutter run -d macos
+/Users/ch70bure/ki_projects/privat/flutter/bin/flutter run -d chrome
 ```
 
-#### Für Chrome/Web (schnell zum Testen):
+Optional:
+
 ```bash
-flutter run -d chrome
+/Users/ch70bure/ki_projects/privat/flutter/bin/flutter run -d macos
 ```
 
-## Option 2: In VS Code starten
-1. Öffne das Projekt in VS Code
-2. Drücke `F5` oder klicke auf "Run and Debug"
-3. Wähle "Flutter" als Debug-Konfiguration
-4. Wähle ein Gerät aus der Liste
+## 5) Wichtige Tasten im laufenden Terminal
 
-## Option 3: In Android Studio starten
-1. Öffne das Projekt in Android Studio
-2. Klicke auf den "Run" Button (grüner Play-Button)
-3. Wähle ein Gerät aus
+- `r` = Hot Reload
+- `R` = Hot Restart
+- `q` = Beenden
 
-## Option 4: Hot Reload während Entwicklung
-Während die App läuft:
-- Drücke `r` im Terminal für Hot Reload
-- Drücke `R` für Hot Restart
-- Drücke `q` zum Beenden
+## 6) Vor Deploy kurz prüfen
 
-## Falls Flutter nicht installiert ist:
-
-### Installation auf macOS:
-1. Lade Flutter herunter: https://flutter.dev/docs/get-started/install/macos
-2. Extrahiere das Archiv
-3. Füge Flutter zum PATH hinzu:
 ```bash
-export PATH="$PATH:`pwd`/flutter/bin"
+HOME=/tmp /Users/ch70bure/ki_projects/privat/flutter/bin/flutter analyze --no-pub
+HOME=/tmp /Users/ch70bure/ki_projects/privat/flutter/bin/flutter build web --no-pub
 ```
-4. Führe aus: `flutter doctor`

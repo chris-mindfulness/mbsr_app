@@ -27,11 +27,18 @@ migrate_working_dir/
 **/doc/api/
 **/ios/Flutter/.last_build_id
 .dart_tool/
+.dart-tool/
+.dartServer/
+.config/
+.flutter
 .flutter-plugins-dependencies
 .pub-cache/
 .pub/
 /build/
 /coverage/
+
+# Lokale Arbeitsdateien (nicht Teil der App)
+mbsr_audiofiles.xlsx
 
 # Symbolication related
 app.*.symbols

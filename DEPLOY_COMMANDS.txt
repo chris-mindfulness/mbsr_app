@@ -1,17 +1,17 @@
-### BEFEHLE ZUM VERÖFFENTLICHEN (GITHUB PAGES) ###
+### DEPLOY (Cloudflare Pages über GitHub Actions) ###
 
-Führe diese drei Befehle nacheinander im Terminal aus, 
-um deine Änderungen live zu schalten:
+Stand: 25.02.2026
 
-1. Änderungen vormerken:
+1) Änderungen vormerken:
 git add .
 
-2. Änderungen bestätigen:
-git commit -m "Update: Arbeitsblätter hinzugefügt und Kontraste optimiert"
+2) Änderungen committen:
+git commit -m "Kurz beschreiben, was geändert wurde"
 
-3. Änderungen hochladen:
-git push
+3) Nach GitHub pushen:
+git push origin main
 
---------------------------------------------------
-Nach dem 'git push' dauert es ca. 2-3 Minuten, 
-bis die Änderungen auf der Webseite sichtbar sind.
+Danach startet automatisch der Workflow
+`.github/workflows/deploy.yml`.
+
+Ziel ist Cloudflare Pages (Projekt: `mindfulpractice-app`).

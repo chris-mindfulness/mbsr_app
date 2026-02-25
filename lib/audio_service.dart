@@ -14,18 +14,22 @@ class AudioService {
   factory AudioService() => _instance;
   AudioService._internal() {
     // Globaler Error-Listener für den Player
-    _player.playbackEventStream.listen((event) {}, onError: (Object e, StackTrace st) {
-      if (kDebugMode) {
-        debugPrint('AudioService: Player-Fehler (z.B. Seeking/Netzwerk): $e');
-      }
-      _attemptRecoverPlayback('playbackEventStream error', error: e);
-    });
-    
+    _player.playbackEventStream.listen(
+      (event) {},
+      onError: (Object e, StackTrace st) {
+        if (kDebugMode) {
+          debugPrint('AudioService: Player-Fehler (z.B. Seeking/Netzwerk): $e');
+        }
+        _attemptRecoverPlayback('playbackEventStream error', error: e);
+      },
+    );
+
     // Höre auf Player-State-Änderungen, um Status automatisch zu aktualisieren
     _playerStateSubscription = _player.playerStateStream.listen((playerState) {
       // Nur aktualisieren, wenn wir ein Audio haben
       if (_currentAppwriteId != null) {
-        if (playerState.processingState == ProcessingState.ready && playerState.playing) {
+        if (playerState.processingState == ProcessingState.ready &&
+            playerState.playing) {
           _updateStatus(AudioServiceStatus.playing);
         } else if (playerState.processingState == ProcessingState.loading) {
           // Nur auf "loading" setzen, wenn wir wirklich noch laden
@@ -33,7 +37,8 @@ class AudioService {
           if (_status != AudioServiceStatus.playing) {
             _updateStatus(AudioServiceStatus.loading);
           }
-        } else if (playerState.processingState == ProcessingState.ready && !playerState.playing) {
+        } else if (playerState.processingState == ProcessingState.ready &&
+            !playerState.playing) {
           _updateStatus(AudioServiceStatus.paused);
         }
       }
@@ -42,7 +47,8 @@ class AudioService {
         if (playerState.processingState == ProcessingState.buffering ||
             playerState.processingState == ProcessingState.loading) {
           _startBufferingTimer();
-        } else if (playerState.processingState == ProcessingState.ready && playerState.playing) {
+        } else if (playerState.processingState == ProcessingState.ready &&
+            playerState.playing) {
           _clearBufferingTimer();
         }
       } else {
@@ -58,20 +64,20 @@ class AudioService {
   bool _shouldBePlaying = false;
   bool _isRecovering = false;
   Duration _lastKnownPosition = Duration.zero;
-  
+
   AudioServiceStatus _status = AudioServiceStatus.idle;
   String? _currentAppwriteId;
   String? _currentTitle;
   Map<String, String>? _currentAudio;
-  
+
   // Streams für die UI
   final _statusController = StreamController<AudioServiceStatus>.broadcast();
   Stream<AudioServiceStatus> get statusStream => _statusController.stream;
-  
+
   Stream<Duration> get positionStream => _player.positionStream;
   Stream<Duration?> get durationStream => _player.durationStream;
   Stream<PlayerState> get playerStateStream => _player.playerStateStream;
-  
+
   // Listener für Player-State (um Status automatisch zu aktualisieren)
   StreamSubscription<PlayerState>? _playerStateSubscription;
 
@@ -84,7 +90,7 @@ class AudioService {
 
   // Letzter Ladezeitpunkt für Debouncing
   DateTime _lastLoadTime = DateTime.fromMillisecondsSinceEpoch(0);
-  
+
   // 80%-Tracking
   DateTime? _sessionStartTime; // Zeitpunkt des Session-Starts
   bool _hasTracked80Percent = false; // Verhindert doppeltes Tracking
@@ -115,7 +121,9 @@ class AudioService {
   }
 
   Future<void> _attemptRecoverPlayback(String reason, {Object? error}) async {
-    if (_isRecovering || !_shouldBePlaying || _currentAppwriteId == null) return;
+    if (_isRecovering || !_shouldBePlaying || _currentAppwriteId == null) {
+      return;
+    }
 
     final now = DateTime.now();
     if (now.difference(_lastRecoveryTime) < _minRecoveryInterval) return;
@@ -134,8 +142,12 @@ class AudioService {
 
     final resumePosition = _lastKnownPosition;
     if (kDebugMode) {
-      debugPrint('AudioService: Recovery attempt $_recoveryAttempts ($reason).');
-      if (error != null) debugPrint('AudioService: Recovery error info: $error');
+      debugPrint(
+        'AudioService: Recovery attempt $_recoveryAttempts ($reason).',
+      );
+      if (error != null) {
+        debugPrint('AudioService: Recovery error info: $error');
+      }
     }
 
     try {
@@ -164,7 +176,7 @@ class AudioService {
   Future<void> play(Map<String, String> audio) async {
     final appwriteId = audio['appwrite_id'];
     final title = audio['title'];
-    
+
     if (appwriteId == null || appwriteId.isEmpty) return;
 
     final url = _constructAppwriteUrl(appwriteId);
@@ -172,7 +184,9 @@ class AudioService {
     // Debouncing: 500ms Sperre
     final now = DateTime.now();
     if (now.difference(_lastLoadTime).inMilliseconds < 500) {
-      if (kDebugMode) debugPrint("AudioService: Debounce active, ignoring play command.");
+      if (kDebugMode) {
+        debugPrint("AudioService: Debounce active, ignoring play command.");
+      }
       return;
     }
     _lastLoadTime = now;
@@ -195,13 +209,13 @@ class AudioService {
     _currentAppwriteId = appwriteId;
     _currentTitle = title;
     _currentAudio = audio;
-    
+
     _shouldBePlaying = true;
     _clearBufferingTimer();
 
     // Neuer Track: erst laden, dann abspielen.
     _updateStatus(AudioServiceStatus.loading);
-    
+
     try {
       // WICHTIG: Setze Tracking-Status zurück
       _hasTracked80Percent = false;
@@ -265,6 +279,10 @@ class AudioService {
     await _player.stop();
     _currentAppwriteId = null;
     _currentTitle = null;
+    _currentAudio = null;
+    _lastKnownPosition = Duration.zero;
+    _positionSubscription?.cancel();
+    _positionSubscription = null;
     _updateStatus(AudioServiceStatus.idle);
   }
 
@@ -275,10 +293,10 @@ class AudioService {
   /// Startet das 80%-Tracking für das aktuelle Audio
   void _startTracking() {
     _sessionStartTime = DateTime.now();
-    
+
     // Cancle vorherige Subscription
     _positionSubscription?.cancel();
-    
+
     // Überwache Position-Stream
     _positionSubscription = _player.positionStream.listen((position) {
       _lastKnownPosition = position;
@@ -307,7 +325,9 @@ class AudioService {
 
   /// Führt das eigentliche Tracking aus (Zuletzt gehört & Statistiken)
   void _performTracking(String trigger) {
-    if (_hasTracked80Percent || _currentTitle == null || _currentAudio == null) {
+    if (_hasTracked80Percent ||
+        _currentTitle == null ||
+        _currentAudio == null) {
       return;
     }
 
@@ -355,7 +375,8 @@ class AudioService {
       final currentSeconds = currentPosition.inSeconds;
       final threshold = totalDuration.inSeconds * 0.8;
 
-      if (currentSeconds >= threshold && currentSeconds <= totalDuration.inSeconds + 2) {
+      if (currentSeconds >= threshold &&
+          currentSeconds <= totalDuration.inSeconds + 2) {
         _performTracking('Final Check (>80%)');
       } else {
         if (kDebugMode) {
