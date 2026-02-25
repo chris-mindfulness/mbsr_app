@@ -108,55 +108,69 @@ class _AuthWrapperState extends State<AuthWrapper> {
 
   /// Holt die User-Rolle aus Appwrite Database
   Future<Map<String, dynamic>?> _getUserRole(String email) async {
+    final appwrite = AppwriteClient();
+    const timeout = Duration(seconds: 5);
+
+    if (kDebugMode) debugPrint('🔍 AuthWrapper: Lade Rolle für $email...');
+
+    // 1) Primär: TablesDB (neues Schema)
     try {
-      final appwrite = AppwriteClient();
-
-      if (kDebugMode) debugPrint('🔍 AuthWrapper: Lade Rolle für $email...');
-
-      // Suche User-Dokument in der users Collection mit 5s Timeout
       final response = await appwrite.tablesDB
           .listRows(
             databaseId: AppConfig.databaseId,
             tableId: AppConfig.usersCollectionId,
             queries: [Query.equal('email', email), Query.limit(1)],
           )
-          .timeout(
-            const Duration(seconds: 5),
-            onTimeout: () {
-              if (kDebugMode) {
-                debugPrint('⚠️ AuthWrapper: Timeout beim Laden der Rolle');
-              }
-              throw TimeoutException('Rollen-Check dauerte zu lange');
-            },
-          );
+          .timeout(timeout);
 
-      if (response.rows.isEmpty) {
-        if (kDebugMode) debugPrint('⛔ Kein User-Dokument für $email');
-        final cached = await _loadCachedRoleForEmail(email);
-        if (cached != null) {
-          if (kDebugMode) {
-            debugPrint('⚠️ Nutze lokales Rollenprofil für $email');
-          }
-          return cached;
-        }
-        return null;
+      if (response.rows.isNotEmpty) {
+        final row = response.rows.first;
+        await _saveCachedRole(row.data);
+        if (kDebugMode) debugPrint('✅ Rolle via TablesDB: ${row.data['role']}');
+        return row.data;
       }
 
-      final row = response.rows.first;
-      await _saveCachedRole(row.data);
-      if (kDebugMode) debugPrint('✅ Rolle gefunden: ${row.data['role']}');
-      return row.data;
+      if (kDebugMode) {
+        debugPrint('ℹ️ TablesDB ohne Treffer für $email, prüfe Legacy-Collection');
+      }
     } catch (e) {
-      if (kDebugMode) debugPrint('❌ Fehler beim Laden der User-Rolle: $e');
-      final cached = await _loadCachedRoleForEmail(email);
-      if (cached != null) {
-        if (kDebugMode) {
-          debugPrint('⚠️ Rollen-Fallback aus lokalem Cache für $email');
-        }
-        return cached;
-      }
-      rethrow;
+      if (kDebugMode) debugPrint('⚠️ TablesDB-Fehler beim Rollenladen: $e');
     }
+
+    // 2) Fallback: Legacy Databases/Collection
+    try {
+      // ignore: deprecated_member_use
+      final legacyFuture = appwrite.databases.listDocuments(
+        databaseId: AppConfig.databaseId,
+        collectionId: AppConfig.usersCollectionId,
+        queries: [Query.equal('email', email), Query.limit(1)],
+      );
+      final legacy = await legacyFuture.timeout(timeout);
+
+      if (legacy.documents.isNotEmpty) {
+        final data = legacy.documents.first.data;
+        await _saveCachedRole(data);
+        if (kDebugMode) debugPrint('✅ Rolle via Legacy-Collection: ${data['role']}');
+        return data;
+      }
+
+      if (kDebugMode) {
+        debugPrint('⛔ Kein Rollenprofil in TablesDB oder Legacy-Collection für $email');
+      }
+    } catch (e) {
+      if (kDebugMode) debugPrint('⚠️ Legacy-Collection-Fehler beim Rollenladen: $e');
+    }
+
+    // 3) Lokaler Cache als letzter Fallback
+    final cached = await _loadCachedRoleForEmail(email);
+    if (cached != null) {
+      if (kDebugMode) {
+        debugPrint('⚠️ Rollen-Fallback aus lokalem Cache für $email');
+      }
+      return cached;
+    }
+
+    return null;
   }
 
   /// Bestimmt die Zielseite basierend auf Route und Auth-Status
@@ -330,12 +344,19 @@ class _AuthWrapperState extends State<AuthWrapper> {
             if (!roleSnapshot.hasData || roleSnapshot.data == null) {
               if (kDebugMode) {
                 debugPrint('⛔ User ${user.email} hat kein Profil-Dokument');
+                debugPrint('⚠️ Nutze Fallback-Rolle mbsr, um Navigation nicht zu blockieren');
               }
-              return _buildErrorScreen(
-                title: 'Profil nicht gefunden',
-                message:
-                    'Du bist angemeldet, aber dein Kursprofil wurde noch nicht geladen. Bitte erneut versuchen.',
-                icon: Icons.person_search_outlined,
+              final fallbackRole = <String, dynamic>{
+                'email': user.email,
+                'role': AppConfig.mbsrRole,
+                'name': user.name,
+              };
+              Future.microtask(() => _saveCachedRole(fallbackRole));
+              return _getTargetPage(
+                currentRoute,
+                user,
+                AppConfig.mbsrRole,
+                isLoginEvent: _isLoginEvent,
               );
             }
 
