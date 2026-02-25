@@ -133,9 +133,13 @@ class _KursUebersichtState extends State<KursUebersicht> {
               children: [
                 IconButton(
                   icon: Icon(
-                    Icons.stop_circle_outlined,
-                    color: AppStyles.textDark.withValues(alpha: 0.6),
+                    Icons.stop_rounded,
+                    color: AppStyles.textDark,
                     size: AppStyles.iconSizeL,
+                  ),
+                  style: IconButton.styleFrom(
+                    foregroundColor: AppStyles.textDark,
+                    backgroundColor: Colors.white.withValues(alpha: 0.92),
                   ),
                   onPressed: () {
                     _audioService.stop();
@@ -146,8 +150,12 @@ class _KursUebersichtState extends State<KursUebersicht> {
                 IconButton(
                   icon: Icon(
                     Icons.close_rounded,
-                    color: AppStyles.textDark.withValues(alpha: 0.6),
+                    color: AppStyles.textDark,
                     size: AppStyles.iconSizeL,
+                  ),
+                  style: IconButton.styleFrom(
+                    foregroundColor: AppStyles.textDark,
+                    backgroundColor: Colors.white.withValues(alpha: 0.92),
                   ),
                   onPressed: () {
                     Navigator.of(context).pop(); // Modal schließen
@@ -323,9 +331,9 @@ class _KursUebersichtState extends State<KursUebersicht> {
                   },
                 ),
                 AppStyles.spacingLHorizontal,
-                // Forward 30s
+                // Forward 10s
                 AnimatedIconButton(
-                  icon: Icons.forward_10,
+                  icon: Icons.fast_forward_rounded,
                   iconSize: 36,
                   color: AppStyles.softBrown,
                   tooltip: '10 Sekunden vor',
@@ -505,9 +513,13 @@ class _KursUebersichtState extends State<KursUebersicht> {
                   ),
                   IconButton(
                     icon: Icon(
-                      Icons.stop_circle_outlined,
-                      color: AppStyles.softBrown.withValues(alpha: 0.8),
+                      Icons.stop_rounded,
+                      color: AppStyles.textDark,
                       size: 24,
+                    ),
+                    style: IconButton.styleFrom(
+                      foregroundColor: AppStyles.textDark,
+                      backgroundColor: Colors.white.withValues(alpha: 0.9),
                     ),
                     tooltip: 'Audio stoppen',
                     onPressed: () async {

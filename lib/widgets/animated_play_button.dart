@@ -4,7 +4,7 @@ import '../core/app_styles.dart';
 import 'styled_tooltip.dart';
 
 /// Animierter Play/Pause Button mit Haptik-Feedback
-/// 
+///
 /// Zeigt eine sanfte "Atmung"-Animation beim Klick
 /// und gibt haptisches Feedback für Premium-Feeling
 class AnimatedPlayButton extends StatefulWidget {
@@ -39,9 +39,10 @@ class _AnimatedPlayButtonState extends State<AnimatedPlayButton>
       duration: const Duration(milliseconds: 200),
       vsync: this,
     );
-    _scaleAnimation = Tween<double>(begin: 1.0, end: 0.9).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
-    );
+    _scaleAnimation = Tween<double>(
+      begin: 1.0,
+      end: 0.9,
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOut));
   }
 
   @override
@@ -53,12 +54,12 @@ class _AnimatedPlayButtonState extends State<AnimatedPlayButton>
   void _handleTap() {
     // Haptisches Feedback
     HapticFeedback.lightImpact();
-    
+
     // "Atmung"-Animation
     _controller.forward().then((_) {
       _controller.reverse();
     });
-    
+
     // Callback ausführen
     widget.onPressed();
   }
@@ -66,7 +67,7 @@ class _AnimatedPlayButtonState extends State<AnimatedPlayButton>
   @override
   Widget build(BuildContext context) {
     final buttonColor = widget.color ?? AppStyles.primaryOrange;
-    
+
     return AnimatedBuilder(
       animation: _scaleAnimation,
       builder: (context, child) {
@@ -88,7 +89,8 @@ class _AnimatedPlayButtonState extends State<AnimatedPlayButton>
             ),
             child: IconButton(
               icon: Icon(widget.isPlaying ? Icons.pause : Icons.play_arrow),
-              iconSize: widget.size * 0.5, // Kleineres Icon für bessere Proportion
+              iconSize:
+                  widget.size * 0.5, // Kleineres Icon für bessere Proportion
               color: Colors.white,
               onPressed: _handleTap,
             ),
@@ -132,9 +134,10 @@ class _AnimatedIconButtonState extends State<AnimatedIconButton>
       duration: const Duration(milliseconds: 150),
       vsync: this,
     );
-    _scaleAnimation = Tween<double>(begin: 1.0, end: 0.85).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
-    );
+    _scaleAnimation = Tween<double>(
+      begin: 1.0,
+      end: 0.85,
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOut));
   }
 
   @override
@@ -153,17 +156,20 @@ class _AnimatedIconButtonState extends State<AnimatedIconButton>
 
   @override
   Widget build(BuildContext context) {
+    final iconColor = widget.color ?? AppStyles.softBrown;
+
     return AnimatedBuilder(
       animation: _scaleAnimation,
       builder: (context, child) {
         return Transform.scale(
           scale: _scaleAnimation.value,
-          child: StyledTooltip( // Tooltip hinzugefügt
+          child: StyledTooltip(
+            // Tooltip hinzugefügt
             message: widget.tooltip ?? '',
             child: IconButton(
-              icon: Icon(widget.icon),
+              icon: Icon(widget.icon, color: iconColor),
               iconSize: widget.iconSize,
-              color: widget.color ?? AppStyles.softBrown,
+              style: IconButton.styleFrom(foregroundColor: iconColor),
               onPressed: _handleTap,
             ),
           ),
