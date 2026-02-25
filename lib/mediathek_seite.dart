@@ -6,6 +6,7 @@ import 'constants/app_texts.dart';
 import 'core/app_styles.dart';
 import 'widgets/animated_play_button.dart';
 import 'widgets/decorative_blobs.dart';
+import 'widgets/exercise_tips_sheet.dart';
 import 'widgets/offline_banner.dart';
 import 'widgets/subtle_divider.dart';
 
@@ -93,11 +94,12 @@ class _MediathekSeiteState extends State<MediathekSeite> {
             const SizedBox(height: 16),
             _buildSOSItem(
               icon: Icons.timer,
-              title: "3-Minuten-Atemraum",
-              description: "Eine kurze Pause, um dich zu sammeln.",
+              title: "Kurzes Ankommen (ca. 3 Min)",
+              description:
+                  "Eine kurze Pause zum Sammeln. Startet die Übung „Ankommen“.",
               onTap: () {
                 Navigator.pop(context);
-                // Suche nach "Ankommen" Audio (als Platzhalter für Atemraum)
+                // Startet bewusst die Übung "Ankommen" als kurze Akut-Hilfe.
                 final audio = AppDaten.getAlleAudios().firstWhere(
                   (a) => a['title'] == 'Ankommen',
                   orElse: () => {},
@@ -210,6 +212,16 @@ class _MediathekSeiteState extends State<MediathekSeite> {
     );
   }
 
+  void _showExerciseTipsForAudio(Map<String, String> audio) {
+    final title = audio['title'];
+    if (title == null || title.isEmpty) return;
+    ExerciseTipsSheet.show(
+      context,
+      audioTitle: title,
+      sourceLabel: 'Mediathek',
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     List<Map<String, String>> audios = AppDaten.getAlleAudios();
@@ -296,11 +308,15 @@ class _MediathekSeiteState extends State<MediathekSeite> {
                   contentPadding: AppStyles.inputPadding,
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20),
-                    borderSide: BorderSide(color: Colors.grey.withValues(alpha: 0.2)),
+                    borderSide: BorderSide(
+                      color: Colors.grey.withValues(alpha: 0.2),
+                    ),
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20),
-                    borderSide: BorderSide(color: Colors.grey.withValues(alpha: 0.1)),
+                    borderSide: BorderSide(
+                      color: Colors.grey.withValues(alpha: 0.1),
+                    ),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20),
@@ -431,6 +447,15 @@ class _MediathekSeiteState extends State<MediathekSeite> {
                                   ),
                                 ),
                                 // Info Button
+                                IconButton(
+                                  icon: const Icon(
+                                    Icons.lightbulb_outline,
+                                    color: AppStyles.infoBlue,
+                                  ),
+                                  tooltip: 'Tipps zur Übung',
+                                  onPressed: () =>
+                                      _showExerciseTipsForAudio(audio),
+                                ),
                                 if (audio['description'] != null &&
                                     audio['description']!.isNotEmpty)
                                   IconButton(

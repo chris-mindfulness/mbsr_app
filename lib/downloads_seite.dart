@@ -69,10 +69,7 @@ class DownloadsSeite extends StatelessWidget {
         child: ListView(
           padding: AppStyles.listPadding,
           children: [
-            Text(
-              'Alle Kursunterlagen & PDFs',
-              style: AppStyles.subTitleStyle,
-            ),
+            Text('Alle Kursunterlagen & PDFs', style: AppStyles.subTitleStyle),
             AppStyles.spacingMBox,
             if (_pdfs.isEmpty)
               Text(
@@ -89,7 +86,13 @@ class DownloadsSeite extends StatelessWidget {
   }
 
   Widget _buildPdfCard(Map<String, String> pdf) {
+    final title = pdf['title'] ?? 'PDF';
     final appwriteId = pdf['appwrite_id'];
+    final isPending =
+        title.toLowerCase().contains('folgt') ||
+        appwriteId == null ||
+        appwriteId.isEmpty ||
+        appwriteId == '696c0000000000000008';
     final url =
         '${AppConfig.appwriteEndpoint}/storage/buckets/${AppConfig.pdfsBucketId}/files/$appwriteId/view?project=${AppConfig.appwriteProjectId}';
 
@@ -99,7 +102,7 @@ class DownloadsSeite extends StatelessWidget {
       color: Colors.white,
       shape: AppStyles.cardShape,
       child: InkWell(
-        onTap: () => launchUrl(Uri.parse(url)),
+        onTap: isPending ? null : () => launchUrl(Uri.parse(url)),
         borderRadius: BorderRadius.circular(AppStyles.borderRadius),
         child: Padding(
           padding: AppStyles.cardPadding,
@@ -120,13 +123,22 @@ class DownloadsSeite extends StatelessWidget {
               ),
               const SizedBox(width: 20),
               Expanded(
-                child: Text(
-                  pdf['title'] ?? 'PDF',
-                  style: AppStyles.subTitleStyle,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(title, style: AppStyles.subTitleStyle),
+                    if (isPending) ...[
+                      const SizedBox(height: 4),
+                      Text(
+                        'Wird zeitnah bereitgestellt.',
+                        style: AppStyles.bodyStyle.copyWith(fontSize: 12),
+                      ),
+                    ],
+                  ],
                 ),
               ),
-              const Icon(
-                Icons.open_in_new,
+              Icon(
+                isPending ? Icons.schedule : Icons.open_in_new,
                 color: AppStyles.borderColor,
                 size: 20,
               ),

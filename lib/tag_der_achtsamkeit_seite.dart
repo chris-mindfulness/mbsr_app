@@ -31,7 +31,11 @@ class TagDerAchtsamkeitSeite extends StatelessWidget {
         elevation: 0,
         centerTitle: true,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios_new, color: AppStyles.softBrown, size: 20),
+          icon: const Icon(
+            Icons.arrow_back_ios_new,
+            color: AppStyles.softBrown,
+            size: 20,
+          ),
           onPressed: () => Navigator.pop(context),
         ),
       ),
@@ -65,9 +69,12 @@ class TagDerAchtsamkeitSeite extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                SizedBox(height: AppStyles.spacingM - AppStyles.spacingS), // 12px
+                SizedBox(
+                  height: AppStyles.spacingM - AppStyles.spacingS,
+                ), // 12px
                 Text(
-                  'Ein spezieller Tag für Kursteilnehmer und Ehemalige.',
+                  (daten['beschreibung'] as String?) ??
+                      'Ein spezieller Tag für Kursteilnehmer und Ehemalige.',
                   style: TextStyle(
                     color: Colors.white.withValues(alpha: 0.8),
                     fontSize: 16,
@@ -84,9 +91,9 @@ class TagDerAchtsamkeitSeite extends StatelessWidget {
           AppStyles.spacingMBox,
 
           if (daten['pdfs'] != null)
-            ...List<Map<String, dynamic>>.from(daten['pdfs']).map(
-              (pdf) => _buildPDFCard(pdf            ),
-          ),
+            ...List<Map<String, dynamic>>.from(
+              daten['pdfs'],
+            ).map((pdf) => _buildPDFCard(pdf)),
 
           SizedBox(height: AppStyles.spacingXL + AppStyles.spacingS), // 40px
 
@@ -104,15 +111,20 @@ class TagDerAchtsamkeitSeite extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      const Icon(Icons.calendar_today_outlined, color: AppStyles.sageGreen, size: 20),
-                      SizedBox(width: AppStyles.spacingM - AppStyles.spacingS), // 12px
-                      Text(
-                        'Datum folgt',
-                        style: AppStyles.subTitleStyle,
+                      const Icon(
+                        Icons.calendar_today_outlined,
+                        color: AppStyles.sageGreen,
+                        size: 20,
                       ),
+                      SizedBox(
+                        width: AppStyles.spacingM - AppStyles.spacingS,
+                      ), // 12px
+                      Text('Datum folgt', style: AppStyles.subTitleStyle),
                     ],
                   ),
-                  SizedBox(height: AppStyles.spacingM - AppStyles.spacingS), // 12px
+                  SizedBox(
+                    height: AppStyles.spacingM - AppStyles.spacingS,
+                  ), // 12px
                   Text(
                     'Die Termine werden rechtzeitig per E-Mail bekannt gegeben.',
                     style: AppStyles.bodyStyle,
@@ -139,28 +151,47 @@ class TagDerAchtsamkeitSeite extends StatelessWidget {
                 child: Row(
                   children: [
                     Container(
-                      padding: EdgeInsets.all(AppStyles.spacingM - AppStyles.spacingS), // 12px
+                      padding: EdgeInsets.all(
+                        AppStyles.spacingM - AppStyles.spacingS,
+                      ), // 12px
                       decoration: BoxDecoration(
                         color: AppStyles.sageGreen.withValues(alpha: 0.1),
                         borderRadius: BorderRadius.circular(14),
                       ),
-                      child: const Icon(Icons.email_outlined, color: AppStyles.sageGreen),
+                      child: const Icon(
+                        Icons.email_outlined,
+                        color: AppStyles.sageGreen,
+                      ),
                     ),
-                    SizedBox(width: AppStyles.spacingL - AppStyles.spacingS), // 20px
+                    SizedBox(
+                      width: AppStyles.spacingL - AppStyles.spacingS,
+                    ), // 20px
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('Fragen?', style: AppStyles.bodyStyle.copyWith(fontSize: 13, color: AppStyles.softBrown.withValues(alpha: 0.6))),
+                          Text(
+                            'Fragen?',
+                            style: AppStyles.bodyStyle.copyWith(
+                              fontSize: 13,
+                              color: AppStyles.softBrown.withValues(alpha: 0.6),
+                            ),
+                          ),
                           AppStyles.spacingXSBox,
                           Text(
                             'achtsamkeit@belight-leipzig.de',
-                            style: AppStyles.subTitleStyle.copyWith(color: AppStyles.sageGreen),
+                            style: AppStyles.subTitleStyle.copyWith(
+                              color: AppStyles.sageGreen,
+                            ),
                           ),
                         ],
                       ),
                     ),
-                    const Icon(Icons.arrow_forward_ios, size: 16, color: AppStyles.borderColor),
+                    const Icon(
+                      Icons.arrow_forward_ios,
+                      size: 16,
+                      color: AppStyles.borderColor,
+                    ),
                   ],
                 ),
               ),
@@ -168,18 +199,25 @@ class TagDerAchtsamkeitSeite extends StatelessWidget {
           ),
 
           SizedBox(height: AppStyles.spacingXL + AppStyles.spacingS), // 40px
-
           // Hinweis
           Container(
-            padding: EdgeInsets.all(AppStyles.spacingL - AppStyles.spacingS), // 20px
+            padding: EdgeInsets.all(
+              AppStyles.spacingL - AppStyles.spacingS,
+            ), // 20px
             decoration: BoxDecoration(
               color: AppStyles.primaryOrange.withValues(alpha: 0.05),
               borderRadius: BorderRadius.circular(20),
-              border: Border.all(color: AppStyles.primaryOrange.withValues(alpha: 0.1)),
+              border: Border.all(
+                color: AppStyles.primaryOrange.withValues(alpha: 0.1),
+              ),
             ),
             child: Row(
               children: [
-                const Icon(Icons.info_outline, color: AppStyles.primaryOrange, size: 20),
+                const Icon(
+                  Icons.info_outline,
+                  color: AppStyles.primaryOrange,
+                  size: 20,
+                ),
                 AppStyles.spacingMHorizontal,
                 Expanded(
                   child: Text(
@@ -212,9 +250,15 @@ class TagDerAchtsamkeitSeite extends StatelessWidget {
   }
 
   Widget _buildPDFCard(Map<String, dynamic> pdf) {
-    final title = pdf['title'] ?? 'Unterlage';
+    final String title = pdf['title'] ?? 'Unterlage';
     final appwriteId = pdf['appwrite_id'];
-    final url = '${AppConfig.appwriteEndpoint}/storage/buckets/${AppConfig.pdfsBucketId}/files/$appwriteId/view?project=${AppConfig.appwriteProjectId}';
+    final bool isPending =
+        title.toLowerCase().contains('folgt') ||
+        appwriteId == null ||
+        appwriteId.toString().isEmpty ||
+        appwriteId == '696c0000000000000008';
+    final url =
+        '${AppConfig.appwriteEndpoint}/storage/buckets/${AppConfig.pdfsBucketId}/files/$appwriteId/view?project=${AppConfig.appwriteProjectId}';
 
     return Card(
       margin: const EdgeInsets.only(bottom: 16),
@@ -222,8 +266,11 @@ class TagDerAchtsamkeitSeite extends StatelessWidget {
       color: Colors.white,
       shape: AppStyles.cardShape,
       child: ListTile(
-        onTap: () => launchUrl(Uri.parse(url)),
-        contentPadding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+        onTap: isPending ? null : () => launchUrl(Uri.parse(url)),
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 24,
+          vertical: 12,
+        ),
         leading: Container(
           width: 48,
           height: 48,
@@ -231,10 +278,22 @@ class TagDerAchtsamkeitSeite extends StatelessWidget {
             color: AppStyles.primaryOrange.withValues(alpha: 0.1),
             borderRadius: BorderRadius.circular(14),
           ),
-          child: const Icon(Icons.picture_as_pdf_outlined, color: AppStyles.primaryOrange),
+          child: const Icon(
+            Icons.picture_as_pdf_outlined,
+            color: AppStyles.primaryOrange,
+          ),
         ),
         title: Text(title, style: AppStyles.subTitleStyle),
-        trailing: const Icon(Icons.download_outlined, color: AppStyles.borderColor),
+        subtitle: isPending
+            ? Text(
+                'Wird zeitnah bereitgestellt.',
+                style: AppStyles.bodyStyle.copyWith(fontSize: 12),
+              )
+            : null,
+        trailing: Icon(
+          isPending ? Icons.schedule : Icons.download_outlined,
+          color: AppStyles.borderColor,
+        ),
       ),
     );
   }

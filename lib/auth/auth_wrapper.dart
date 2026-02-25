@@ -1,13 +1,8 @@
 import 'dart:async';
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
-import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart' as models;
-import 'package:shared_preferences/shared_preferences.dart';
 import '../services/auth_service.dart';
-import '../core/appwrite_client.dart';
-import '../core/app_config.dart';
 import '../core/app_styles.dart';
 import '../splash_screen.dart';
 import '../login_screen.dart';
@@ -20,8 +15,8 @@ import '../routing/app_router.dart';
 /// Zentrale Authentifizierungs- und Routing-Komponente
 ///
 /// Verantwortlichkeiten:
-/// - Firebase Auth-Status überwachen
-/// - Firestore Rollen-Check (role: 'mbsr')
+/// - Appwrite Auth-Status überwachen
+/// - Rollen-Check (role: 'mbsr')
 /// - Deep-Link Routing
 /// - Login/Logout Events erkennen
 /// - Error-Handling bei Netzwerkproblemen
@@ -33,31 +28,13 @@ class AuthWrapper extends StatefulWidget {
 }
 
 class _AuthWrapperState extends State<AuthWrapper> {
-  static const String _cachedRoleKey = 'auth_cached_role_v1';
-
   bool _splashFinished = false;
   String? _lastUserId; // Um Login-Events zu erkennen
   bool _isLoginEvent = false; // Flag für frischen Login
+  Future<RoleResolution>? _roleFuture;
+  String? _roleFutureEmail;
+  String? _roleFutureName;
   StreamSubscription<models.User?>? _authSubscription;
-
-  Future<void> _saveCachedRole(Map<String, dynamic> roleData) async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setString(_cachedRoleKey, jsonEncode(roleData));
-  }
-
-  Future<Map<String, dynamic>?> _loadCachedRoleForEmail(String email) async {
-    final prefs = await SharedPreferences.getInstance();
-    final json = prefs.getString(_cachedRoleKey);
-    if (json == null || json.isEmpty) return null;
-
-    try {
-      final map = (jsonDecode(json) as Map).cast<String, dynamic>();
-      if ((map['email'] as String?) == email) return map;
-      return null;
-    } catch (_) {
-      return null;
-    }
-  }
 
   @override
   void initState() {
@@ -83,6 +60,18 @@ class _AuthWrapperState extends State<AuthWrapper> {
       debugPrint('📍 Aktuelle Browser-URL: ${Uri.base}');
     }
 
+    // Wenn bereits ein User geladen ist (z. B. nach Refresh mit Cache),
+    // Splash überspringen, um visuelles Zucken zu vermeiden.
+    if (AuthService().currentUser != null) {
+      _splashFinished = true;
+      if (kDebugMode) {
+        debugPrint(
+          '⚡ AuthWrapper: Überspringe Startup-Splash (User bereits da)',
+        );
+      }
+      return;
+    }
+
     // Safety Timeout: Falls der Splash Screen nicht verschwindet
     Future.delayed(const Duration(seconds: 5), () {
       if (mounted && !_splashFinished) {
@@ -106,71 +95,74 @@ class _AuthWrapperState extends State<AuthWrapper> {
     super.dispose();
   }
 
-  /// Holt die User-Rolle aus Appwrite Database
-  Future<Map<String, dynamic>?> _getUserRole(String email) async {
-    final appwrite = AppwriteClient();
-    const timeout = Duration(seconds: 5);
-
-    if (kDebugMode) debugPrint('🔍 AuthWrapper: Lade Rolle für $email...');
-
-    // 1) Primär: TablesDB (neues Schema)
-    try {
-      final response = await appwrite.tablesDB
-          .listRows(
-            databaseId: AppConfig.databaseId,
-            tableId: AppConfig.usersCollectionId,
-            queries: [Query.equal('email', email), Query.limit(1)],
-          )
-          .timeout(timeout);
-
-      if (response.rows.isNotEmpty) {
-        final row = response.rows.first;
-        await _saveCachedRole(row.data);
-        if (kDebugMode) debugPrint('✅ Rolle via TablesDB: ${row.data['role']}');
-        return row.data;
-      }
-
-      if (kDebugMode) {
-        debugPrint('ℹ️ TablesDB ohne Treffer für $email, prüfe Legacy-Collection');
-      }
-    } catch (e) {
-      if (kDebugMode) debugPrint('⚠️ TablesDB-Fehler beim Rollenladen: $e');
+  void _syncRoleFuture(models.User? user) {
+    if (user == null) {
+      _roleFuture = null;
+      _roleFutureEmail = null;
+      _roleFutureName = null;
+      return;
     }
 
-    // 2) Fallback: Legacy Databases/Collection
-    try {
-      // ignore: deprecated_member_use
-      final legacyFuture = appwrite.databases.listDocuments(
-        databaseId: AppConfig.databaseId,
-        collectionId: AppConfig.usersCollectionId,
-        queries: [Query.equal('email', email), Query.limit(1)],
+    if (_roleFutureEmail == user.email && _roleFuture != null) return;
+    _roleFutureEmail = user.email;
+    _roleFutureName = user.name;
+    _roleFuture = AuthService().resolveRoleForEmail(
+      email: user.email,
+      name: user.name,
+    );
+  }
+
+  void _retryRoleLoad() {
+    final email = _roleFutureEmail;
+    if (email == null) {
+      setState(() {});
+      return;
+    }
+
+    setState(() {
+      _roleFuture = AuthService().resolveRoleForEmail(
+        email: email,
+        name: _roleFutureName,
       );
-      final legacy = await legacyFuture.timeout(timeout);
+    });
+  }
 
-      if (legacy.documents.isNotEmpty) {
-        final data = legacy.documents.first.data;
-        await _saveCachedRole(data);
-        if (kDebugMode) debugPrint('✅ Rolle via Legacy-Collection: ${data['role']}');
-        return data;
-      }
+  void _syncLoginState(models.User? user) {
+    final bool isNewLogin = (_lastUserId == null && user != null);
 
+    if (isNewLogin) {
       if (kDebugMode) {
-        debugPrint('⛔ Kein Rollenprofil in TablesDB oder Legacy-Collection für $email');
+        debugPrint('🔓 FRISCHER LOGIN erkannt! User: ${user.email}');
+        debugPrint('🔓 Setze Login-Event-Flag...');
       }
+      _lastUserId = user.$id;
+      _isLoginEvent = true;
+      return;
+    }
+
+    if (_lastUserId != null && user == null) {
+      _isLoginEvent = false;
+      _lastUserId = null;
+      if (kDebugMode) {
+        debugPrint('🔒 Logout erkannt! Setze Login-Event-Flag zurück...');
+      }
+      return;
+    }
+
+    _lastUserId = user?.$id;
+  }
+
+  String? _readCurrentRoute() {
+    try {
+      final route = getCurrentRoute();
+      if (kDebugMode) {
+        debugPrint('🔗 Aktuelle Route: ${route ?? "(leer)"}');
+      }
+      return route;
     } catch (e) {
-      if (kDebugMode) debugPrint('⚠️ Legacy-Collection-Fehler beim Rollenladen: $e');
+      if (kDebugMode) debugPrint('⚠️ Fehler beim Auslesen der Route: $e');
+      return null;
     }
-
-    // 3) Lokaler Cache als letzter Fallback
-    final cached = await _loadCachedRoleForEmail(email);
-    if (cached != null) {
-      if (kDebugMode) {
-        debugPrint('⚠️ Rollen-Fallback aus lokalem Cache für $email');
-      }
-      return cached;
-    }
-
-    return null;
   }
 
   /// Bestimmt die Zielseite basierend auf Route und Auth-Status
@@ -283,54 +275,29 @@ class _AuthWrapperState extends State<AuthWrapper> {
         }
 
         final user = snapshot.data;
-
-        // LOGIN-EVENT CHECK: Erkennung eines frischen Logins
-        final bool isNewLogin = (_lastUserId == null && user != null);
-
-        if (isNewLogin) {
-          if (kDebugMode) {
-            debugPrint('🔓 FRISCHER LOGIN erkannt! User: ${user.email}');
-            debugPrint('🔓 Setze Login-Event-Flag...');
-          }
-
-          // Setze das Login-Event-Flag für _getTargetPage
-          // WICHTIG: Setze _lastUserId SOFORT, um mehrfache Trigger zu vermeiden
-          _lastUserId = user.$id;
-          _isLoginEvent = true;
-        } else if (_lastUserId != null && user == null) {
-          // Logout erkannt
-          _isLoginEvent = false;
-          _lastUserId = null;
-          if (kDebugMode) {
-            debugPrint('🔒 Logout erkannt! Setze Login-Event-Flag zurück...');
-          }
-        } else {
-          // Normaler Build (kein Login/Logout-Event)
-          _lastUserId = user?.$id;
-        }
-
-        // Route dynamisch auslesen
-        String? currentRoute;
-        try {
-          currentRoute = getCurrentRoute();
-          if (kDebugMode) {
-            debugPrint('🔗 Aktuelle Route: ${currentRoute ?? "(leer)"}');
-          }
-        } catch (e) {
-          if (kDebugMode) debugPrint('⚠️ Fehler beim Auslesen der Route: $e');
-          currentRoute = null;
-        }
+        _syncLoginState(user);
+        final currentRoute = _readCurrentRoute();
 
         if (user == null) {
+          _syncRoleFuture(null);
           return _getTargetPage(currentRoute, null, null, isLoginEvent: false);
         }
 
+        _syncRoleFuture(user);
+        final roleFuture = _roleFuture;
+        if (roleFuture == null) {
+          return _buildErrorScreen(
+            title: 'Technischer Fehler',
+            message: 'Rollenprüfung konnte nicht gestartet werden.',
+          );
+        }
+
         // Hole User-Rolle aus Appwrite Database
-        return FutureBuilder<Map<String, dynamic>?>(
-          future: _getUserRole(user.email),
+        return FutureBuilder<RoleResolution>(
+          future: roleFuture,
           builder: (context, roleSnapshot) {
             if (roleSnapshot.connectionState == ConnectionState.waiting) {
-              return const SplashScreen();
+              return _buildInlineLoadingScreen();
             }
 
             // Fehlerbehandlung: Netzwerkprobleme vs. fehlende Daten
@@ -339,33 +306,25 @@ class _AuthWrapperState extends State<AuthWrapper> {
               return _buildErrorScreen();
             }
 
-            // Dokument existiert nicht.
-            // WICHTIG: Kein automatisches Logout, um Refresh-Logout-Schleifen zu vermeiden.
-            if (!roleSnapshot.hasData || roleSnapshot.data == null) {
-              if (kDebugMode) {
-                debugPrint('⛔ User ${user.email} hat kein Profil-Dokument');
-                debugPrint('⚠️ Nutze Fallback-Rolle mbsr, um Navigation nicht zu blockieren');
-              }
-              final fallbackRole = <String, dynamic>{
-                'email': user.email,
-                'role': AppConfig.mbsrRole,
-                'name': user.name,
-              };
-              Future.microtask(() => _saveCachedRole(fallbackRole));
-              return _getTargetPage(
-                currentRoute,
-                user,
-                AppConfig.mbsrRole,
-                isLoginEvent: _isLoginEvent,
+            if (!roleSnapshot.hasData) {
+              return _buildErrorScreen(
+                title: 'Profilfehler',
+                message: 'Rollenprofil konnte nicht geladen werden.',
+                icon: Icons.person_off_outlined,
               );
             }
 
-            final role = roleSnapshot.data!['role'] as String?;
+            final resolution = roleSnapshot.data!;
+            if (kDebugMode && resolution.fromFallback) {
+              debugPrint(
+                '⚠️ Navigation mit Fallback-Rolle für ${user.email} (kein Profil gefunden)',
+              );
+            }
 
             return _getTargetPage(
               currentRoute,
               user,
-              role,
+              resolution.role,
               isLoginEvent: _isLoginEvent,
             );
           },
@@ -409,10 +368,7 @@ class _AuthWrapperState extends State<AuthWrapper> {
               ),
               AppStyles.spacingXLBox,
               ElevatedButton.icon(
-                onPressed: () {
-                  // Trigger Rebuild → erneuter Versuch
-                  setState(() {});
-                },
+                onPressed: _retryRoleLoad,
                 icon: const Icon(Icons.refresh),
                 label: const Text('Erneut versuchen'),
                 style: ElevatedButton.styleFrom(
@@ -426,6 +382,35 @@ class _AuthWrapperState extends State<AuthWrapper> {
               ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildInlineLoadingScreen() {
+    return Scaffold(
+      backgroundColor: AppStyles.bgColor,
+      body: Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            SizedBox(
+              width: 30,
+              height: 30,
+              child: CircularProgressIndicator(
+                strokeWidth: 3,
+                color: AppStyles.primaryOrange,
+              ),
+            ),
+            AppStyles.spacingMBox,
+            Text(
+              'Lade Profil...',
+              style: TextStyle(
+                fontSize: 15,
+                color: AppStyles.textDark.withValues(alpha: 0.75),
+              ),
+            ),
+          ],
         ),
       ),
     );

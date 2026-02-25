@@ -25,7 +25,7 @@ class AuthService {
   final _appwrite = AppwriteClient();
   final _authStateController = StreamController<models.User?>.broadcast();
 
-  /// Stream für Auth-Status (ähnlich wie Firebase authStateChanges)
+  /// Stream für Auth-Status (ähnlich zum früheren authStateChanges-Verhalten)
   /// Emittiert sofort den aktuellen Status beim Abonnieren
   Stream<models.User?> get authStateChanges async* {
     yield _currentUser;
@@ -38,6 +38,11 @@ class AuthService {
   Future<void> _saveCachedUser(models.User user) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString(_cachedUserKey, jsonEncode(user.toMap()));
+  }
+
+  Future<void> _saveCachedRole(Map<String, dynamic> roleData) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString(_cachedRoleKey, jsonEncode(roleData));
   }
 
   Future<models.User?> _loadCachedUser() async {
@@ -53,10 +58,130 @@ class AuthService {
     }
   }
 
+  Future<Map<String, dynamic>?> _loadCachedRoleForEmail(String email) async {
+    final prefs = await SharedPreferences.getInstance();
+    final json = prefs.getString(_cachedRoleKey);
+    if (json == null || json.isEmpty) return null;
+
+    try {
+      final map = (jsonDecode(json) as Map).cast<String, dynamic>();
+      if ((map['email'] as String?) == email) return map;
+      return null;
+    } catch (_) {
+      return null;
+    }
+  }
+
   Future<void> _clearCachedUser() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.remove(_cachedUserKey);
     await prefs.remove(_cachedRoleKey);
+  }
+
+  Future<Map<String, dynamic>?> _loadRoleProfile(
+    String email, {
+    Duration timeout = const Duration(seconds: 5),
+  }) async {
+    if (kDebugMode) {
+      debugPrint('🔍 Auth-Service: Lade Rollenprofil für $email...');
+    }
+
+    // 1) Primär: TablesDB (neues Schema)
+    try {
+      final response = await _appwrite.tablesDB
+          .listRows(
+            databaseId: AppConfig.databaseId,
+            tableId: AppConfig.usersCollectionId,
+            queries: [Query.equal('email', email), Query.limit(1)],
+          )
+          .timeout(timeout);
+
+      if (response.rows.isNotEmpty) {
+        final row = response.rows.first;
+        await _saveCachedRole(row.data);
+        if (kDebugMode) {
+          debugPrint('✅ Rollenprofil via TablesDB: ${row.data['role']}');
+        }
+        return row.data;
+      }
+
+      if (kDebugMode) {
+        debugPrint(
+          'ℹ️ TablesDB ohne Treffer für $email, prüfe Legacy-Collection',
+        );
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        debugPrint('⚠️ TablesDB-Fehler beim Rollenladen: $e');
+      }
+    }
+
+    // 2) Fallback: Legacy Databases/Collection
+    try {
+      // ignore: deprecated_member_use
+      final legacyFuture = _appwrite.databases.listDocuments(
+        databaseId: AppConfig.databaseId,
+        collectionId: AppConfig.usersCollectionId,
+        queries: [Query.equal('email', email), Query.limit(1)],
+      );
+      final legacy = await legacyFuture.timeout(timeout);
+
+      if (legacy.documents.isNotEmpty) {
+        final data = legacy.documents.first.data;
+        await _saveCachedRole(data);
+        if (kDebugMode) {
+          debugPrint('✅ Rollenprofil via Legacy-Collection: ${data['role']}');
+        }
+        return data;
+      }
+
+      if (kDebugMode) {
+        debugPrint(
+          '⛔ Kein Rollenprofil in TablesDB oder Legacy-Collection für $email',
+        );
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        debugPrint('⚠️ Legacy-Collection-Fehler beim Rollenladen: $e');
+      }
+    }
+
+    // 3) Lokaler Cache als letzter Fallback
+    final cached = await _loadCachedRoleForEmail(email);
+    if (cached != null) {
+      if (kDebugMode) {
+        debugPrint('⚠️ Rollen-Fallback aus lokalem Cache für $email');
+      }
+      return cached;
+    }
+
+    return null;
+  }
+
+  Future<RoleResolution> resolveRoleForEmail({
+    required String email,
+    String? name,
+    Duration timeout = const Duration(seconds: 5),
+  }) async {
+    final roleData = await _loadRoleProfile(email, timeout: timeout);
+    if (roleData != null) {
+      return RoleResolution(role: roleData['role'] as String?);
+    }
+
+    if (kDebugMode) {
+      debugPrint('⛔ User $email hat kein Profil-Dokument');
+      debugPrint(
+        '⚠️ Nutze Fallback-Rolle mbsr, um Navigation nicht zu blockieren',
+      );
+    }
+
+    final fallbackRole = <String, dynamic>{
+      'email': email,
+      'role': AppConfig.mbsrRole,
+      'name': name,
+    };
+    await _saveCachedRole(fallbackRole);
+    return const RoleResolution(role: AppConfig.mbsrRole, fromFallback: true);
   }
 
   /// Initialisiert den Auth-Service und prüft bestehende Session
@@ -343,6 +468,10 @@ class AuthException implements Exception {
 
   AuthException(this.message);
 
+  factory AuthException.fromAppwriteException(AppwriteException e) {
+    return AuthException._fromAppwriteException(e);
+  }
+
   /// Mappt Appwrite-Fehler auf benutzerfreundliche Nachrichten
   factory AuthException._fromAppwriteException(AppwriteException e) {
     // Mappe häufige Fehler-Codes
@@ -373,4 +502,11 @@ class AuthException implements Exception {
 
   @override
   String toString() => message;
+}
+
+class RoleResolution {
+  final String? role;
+  final bool fromFallback;
+
+  const RoleResolution({required this.role, this.fromFallback = false});
 }

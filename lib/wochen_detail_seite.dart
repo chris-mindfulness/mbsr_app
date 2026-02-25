@@ -7,6 +7,7 @@ import 'widgets/offline_banner.dart';
 import 'app_daten.dart';
 import 'audio_service.dart';
 import 'widgets/animated_play_button.dart';
+import 'widgets/exercise_tips_sheet.dart';
 import 'package:flutter/services.dart';
 
 class WochenDetailSeite extends StatefulWidget {
@@ -46,6 +47,13 @@ class WochenDetailSeite extends StatefulWidget {
 class _WochenDetailSeiteState extends State<WochenDetailSeite> {
   final AudioService _audioService = AudioService();
 
+  int _getCurrentWeekIndex() {
+    return int.tryParse(
+          widget.wochenNummer.replaceAll(RegExp(r'[^0-9]'), ''),
+        ) ??
+        1;
+  }
+
   void _play(Map<String, String> audio) async {
     HapticFeedback.lightImpact();
     try {
@@ -66,9 +74,7 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
   @override
   Widget build(BuildContext context) {
     // Navigation Logic
-    final currentWeekIndex =
-        int.tryParse(widget.wochenNummer.replaceAll(RegExp(r'[^0-9]'), '')) ??
-        1;
+    final currentWeekIndex = _getCurrentWeekIndex();
     final hasPrev = currentWeekIndex > 1;
     final hasNext = currentWeekIndex < 8;
 
@@ -205,7 +211,7 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
                       widget.audioRefs!.isNotEmpty) ...[
                     _buildSectionHeader("DEINE PRAXIS DIESE WOCHE"),
                     AppStyles.spacingMBox,
-                    if (widget.wochenNummer.contains("1")) ...[
+                    if (currentWeekIndex <= 2) ...[
                       Container(
                         padding: AppStyles.cardPadding,
                         margin: EdgeInsets.only(bottom: AppStyles.spacingM),
@@ -245,19 +251,19 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
                   ],
 
                   // BODY-SCAN TIPPS (nur Woche 1)
-                  if (widget.wochenNummer.contains("1")) ...[
+                  if (currentWeekIndex <= 2) ...[
                     _buildBodyScanTipps(),
                     AppStyles.spacingXLBox,
                   ],
 
                   // SITZMEDITATION TIPPS (nur Woche 4)
-                  if (widget.wochenNummer.contains("4")) ...[
+                  if (currentWeekIndex == 4) ...[
                     _buildSitzmeditationTipps(),
                     AppStyles.spacingXLBox,
                   ],
 
                   // ACHTSAME BEWEGUNG TIPPS (nur Woche 3)
-                  if (widget.wochenNummer.contains("3")) ...[
+                  if (currentWeekIndex == 3) ...[
                     _buildBewegungTipps(),
                     AppStyles.spacingXLBox,
                   ],
@@ -444,6 +450,17 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
         .toList();
   }
 
+  void _showTipsForAudio(Map<String, String> audio) {
+    final title = audio['title'];
+    if (title == null || title.isEmpty) return;
+    ExerciseTipsSheet.show(
+      context,
+      audioTitle: title,
+      weekIndex: _getCurrentWeekIndex(),
+      sourceLabel: widget.wochenNummer,
+    );
+  }
+
   void _navigateToWeek(int direction) {
     final currentWeekIndex =
         int.tryParse(widget.wochenNummer.replaceAll(RegExp(r'[^0-9]'), '')) ??
@@ -620,7 +637,7 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
                 _buildTippSektion("Nichts spüren", [
                   'Auch "neutral" oder "taub" ist eine Erfahrung.',
                   "Kontaktpunkte nutzen: Wo liegt dein Körper auf?",
-                  "Kein Problem - einfach weiter.",
+                  "Wenn es sich zu viel oder abgeschnitten anfühlt: Augen öffnen, im Raum orientieren, dann neu entscheiden.",
                 ]),
                 _buildTippSektion("Erwartungen & Leistungsdruck", [
                   'Es gibt kein "richtig" oder "falsch".',
@@ -944,7 +961,9 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
           _buildBewegungTippBullet(
             "Pausen sind Teil der Übung. Jederzeit stoppen ist okay.",
           ),
-          _buildBewegungTippBullet("Ruhig atmen können = gute Dosierung."),
+          _buildBewegungTippBullet(
+            "Wenn du ruhig weiteratmen kannst, ist die Intensität meist passend.",
+          ),
 
           AppStyles.spacingMBox,
 
@@ -994,7 +1013,7 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
               collapsedIconColor: AppStyles.sageGreen,
               children: [
                 _buildBewegungTippSektion("Grenzen & Dosierung", [
-                  '"Erste Kante": Bis zum ersten Signal, dann bleiben oder zurück.',
+                  "Bis zum ersten deutlichen Körpersignal gehen; dort bleiben oder etwas zurückgehen.",
                   "Kannst du dabei ruhig atmen? Wenn nein: weniger machen.",
                   "Variationen nutzen: kleinerer Radius, langsamer, stabiler.",
                 ]),
@@ -1005,7 +1024,7 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
                 ]),
                 _buildBewegungTippSektion("Erwartungen & Leistungsdruck", [
                   'Es gibt kein "richtig" oder "falsch". Jede Variation zählt.',
-                  "Vergleichen auftaucht? Kurz merken, zurück zu Empfindungen.",
+                  "Wenn Vergleichen auftaucht: kurz bemerken, dann zurück zu Körperempfindungen.",
                   "Jede Übung ist anders. Vergleichen hilft nicht.",
                 ]),
                 _buildBewegungTippSektion("Unruhe", [
@@ -1021,7 +1040,7 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
                 _buildBewegungTippSektion("Nichts spüren", [
                   'Auch "neutral" ist eine Erfahrung.',
                   "Kontaktpunkte nutzen: Wo berührt dein Körper den Boden?",
-                  "Kein Problem - einfach weiter.",
+                  "Wenn es sich zu viel oder abgeschnitten anfühlt: Augen öffnen, im Raum orientieren, dann neu entscheiden.",
                 ]),
                 _buildBewegungTippSektion("Dranbleiben & Routine", [
                   "Ein festes Zeitfenster hilft beim Dranbleiben.",
@@ -1178,13 +1197,23 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
                             Text(
                               audio['duration'] ?? '',
                               style: AppStyles.smallTextStyle.copyWith(
-                                color: AppStyles.softBrown.withValues(alpha: 0.6),
+                                color: AppStyles.softBrown.withValues(
+                                  alpha: 0.6,
+                                ),
                               ),
                             ),
                           ],
                         ),
                       ],
                     ),
+                  ),
+                  IconButton(
+                    tooltip: 'Tipps zur Übung',
+                    icon: const Icon(
+                      Icons.lightbulb_outline,
+                      color: AppStyles.infoBlue,
+                    ),
+                    onPressed: () => _showTipsForAudio(audio),
                   ),
                 ],
               ),
