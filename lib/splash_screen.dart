@@ -18,7 +18,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     // Fade-In Animation starten
-    Future.delayed(const Duration(milliseconds: 200), () {
+    Future.delayed(const Duration(milliseconds: 80), () {
       if (mounted) {
         setState(() {
           _opacity = 1.0;
@@ -36,12 +36,12 @@ class _SplashScreenState extends State<SplashScreen> {
         child: Center(
         child: AnimatedOpacity(
           opacity: _opacity,
-          duration: const Duration(milliseconds: 1200),
+          duration: const Duration(milliseconds: 450),
           curve: Curves.easeInOut,
           child: AnimatedScale(
             scale: _scale,
-            duration: const Duration(milliseconds: 1200),
-            curve: Curves.easeOutBack,
+            duration: const Duration(milliseconds: 420),
+            curve: Curves.easeOut,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

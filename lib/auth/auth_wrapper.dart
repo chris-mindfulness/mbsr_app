@@ -31,6 +31,7 @@ class _AuthWrapperState extends State<AuthWrapper> {
   bool _splashFinished = false;
   String? _lastUserId; // Um Login-Events zu erkennen
   bool _isLoginEvent = false; // Flag für frischen Login
+  bool _hasProcessedFirstAuthSnapshot = false;
   Future<RoleResolution>? _roleFuture;
   String? _roleFutureEmail;
   String? _roleFutureName;
@@ -128,6 +129,14 @@ class _AuthWrapperState extends State<AuthWrapper> {
   }
 
   void _syncLoginState(models.User? user) {
+    // Initialen Snapshot (z. B. nach Refresh) nicht als frischen Login werten.
+    if (!_hasProcessedFirstAuthSnapshot) {
+      _hasProcessedFirstAuthSnapshot = true;
+      _lastUserId = user?.$id;
+      _isLoginEvent = false;
+      return;
+    }
+
     final bool isNewLogin = (_lastUserId == null && user != null);
 
     if (isNewLogin) {
@@ -271,7 +280,10 @@ class _AuthWrapperState extends State<AuthWrapper> {
 
         if (snapshot.connectionState == ConnectionState.waiting ||
             !_splashFinished) {
-          return const SplashScreen();
+          if (!_splashFinished) {
+            return const SplashScreen();
+          }
+          return _buildInlineLoadingScreen();
         }
 
         final user = snapshot.data;

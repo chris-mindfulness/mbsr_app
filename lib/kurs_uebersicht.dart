@@ -85,10 +85,7 @@ class _KursUebersichtState extends State<KursUebersicht> {
         expand: false,
         builder: (context, scrollController) => _buildFullPlayerContent(),
       ),
-    ).whenComplete(() {
-      // WICHTIG: Stoppe Audio, wenn Player geschlossen wird
-      _audioService.stop();
-    });
+    );
   }
 
   Widget _buildFullPlayerContent() {
@@ -123,10 +120,9 @@ class _KursUebersichtState extends State<KursUebersicht> {
                   size: AppStyles.iconSizeL,
                 ),
                 onPressed: () {
-                  _audioService.stop(); // Audio stoppen
                   Navigator.of(context).pop(); // Modal schließen
                 },
-                tooltip: 'Schließen & Stoppen',
+                tooltip: 'Schließen',
               ),
             ),
             AppStyles.spacingLBox,
@@ -272,12 +268,7 @@ class _KursUebersichtState extends State<KursUebersicht> {
                         if (isPlaying) {
                           _audioService.pause();
                         } else {
-                          if (_audioService.currentAppwriteId != null) {
-                            _audioService.play({
-                              'appwrite_id': _audioService.currentAppwriteId!,
-                              'title': _audioService.currentTitle!,
-                            });
-                          }
+                          _audioService.resumeCurrent();
                         }
                       },
                     );
@@ -461,12 +452,7 @@ class _KursUebersichtState extends State<KursUebersicht> {
                           if (isPlaying) {
                             _audioService.pause();
                           } else {
-                            if (_audioService.currentAppwriteId != null) {
-                              _audioService.play({
-                                'appwrite_id': _audioService.currentAppwriteId!,
-                                'title': _audioService.currentTitle!,
-                              });
-                            }
+                            _audioService.resumeCurrent();
                           }
                         },
                       );

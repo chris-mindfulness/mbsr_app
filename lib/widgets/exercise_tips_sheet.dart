@@ -46,86 +46,121 @@ class ExerciseTipsSheet {
         borderRadius: BorderRadius.vertical(top: Radius.circular(32)),
       ),
       isScrollControlled: true,
-      builder: (context) => SafeArea(
-        top: false,
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(28, 16, 28, 40),
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Center(
-                  child: Container(
-                    width: 40,
-                    height: 4,
-                    decoration: BoxDecoration(
-                      color: AppStyles.softBrown.withValues(alpha: 0.2),
-                      borderRadius: BorderRadius.circular(2),
+      isDismissible: true,
+      enableDrag: true,
+      builder: (sheetContext) {
+        final maxHeight = MediaQuery.of(sheetContext).size.height * 0.88;
+        return SafeArea(
+          top: true,
+          child: SizedBox(
+            height: maxHeight,
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(28, 16, 28, 24),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    height: 30,
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        Container(
+                          width: 40,
+                          height: 4,
+                          decoration: BoxDecoration(
+                            color: AppStyles.softBrown.withValues(alpha: 0.2),
+                            borderRadius: BorderRadius.circular(2),
+                          ),
+                        ),
+                        Align(
+                          alignment: Alignment.centerRight,
+                          child: IconButton(
+                            tooltip: 'Schließen',
+                            onPressed: () => Navigator.of(sheetContext).pop(),
+                            icon: const Icon(
+                              Icons.close_rounded,
+                              color: AppStyles.softBrown,
+                            ),
+                            visualDensity: VisualDensity.compact,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                ),
-                const SizedBox(height: 20),
-                Row(
-                  children: [
-                    Icon(data.icon, color: data.accentColor, size: 28),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      child: Text(
-                        'Tipps zu: $audioTitle',
-                        style: AppStyles.headingStyle.copyWith(
-                          color: data.accentColor,
-                          fontSize: 22,
-                        ),
+                  const SizedBox(height: 8),
+                  Expanded(
+                    child: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              Icon(data.icon, color: data.accentColor, size: 28),
+                              const SizedBox(width: 12),
+                              Expanded(
+                                child: Text(
+                                  'Tipps zu: $audioTitle',
+                                  style: AppStyles.headingStyle.copyWith(
+                                    color: data.accentColor,
+                                    fontSize: 22,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          if (contextLabel != null) ...[
+                            const SizedBox(height: 6),
+                            Text(
+                              'Kontext: $contextLabel',
+                              style: AppStyles.smallTextStyle.copyWith(
+                                color: AppStyles.softBrown.withValues(alpha: 0.75),
+                              ),
+                            ),
+                          ],
+                          const SizedBox(height: 16),
+                          Text(
+                            data.phaseHint,
+                            style: AppStyles.bodyStyle.copyWith(height: 1.5),
+                          ),
+                          const SizedBox(height: 20),
+                          Text('Orientierung', style: AppStyles.subTitleStyle),
+                          const SizedBox(height: 8),
+                          ...data.orientationPoints.map(_buildBullet),
+                          const SizedBox(height: 16),
+                          Text(
+                            'Wenn Fragen auftauchen',
+                            style: AppStyles.subTitleStyle,
+                          ),
+                          const SizedBox(height: 8),
+                          ...data.questionPoints.map(_buildBullet),
+                          const SizedBox(height: 18),
+                          Container(
+                            padding: const EdgeInsets.all(14),
+                            decoration: BoxDecoration(
+                              color: data.accentColor.withValues(alpha: 0.08),
+                              borderRadius: BorderRadius.circular(14),
+                              border: Border.all(
+                                color: data.accentColor.withValues(alpha: 0.18),
+                              ),
+                            ),
+                            child: Text(
+                              'Du übst nicht allein: Gleichzeitig üben auch andere Menschen achtsam. Diese geteilte Menschlichkeit kann tragen.',
+                              style: AppStyles.bodyStyle.copyWith(
+                                fontStyle: FontStyle.italic,
+                                height: 1.45,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
-                  ],
-                ),
-                if (contextLabel != null) ...[
-                  const SizedBox(height: 6),
-                  Text(
-                    'Kontext: $contextLabel',
-                    style: AppStyles.smallTextStyle.copyWith(
-                      color: AppStyles.softBrown.withValues(alpha: 0.75),
                     ),
                   ),
                 ],
-                const SizedBox(height: 16),
-                Text(
-                  data.phaseHint,
-                  style: AppStyles.bodyStyle.copyWith(height: 1.5),
-                ),
-                const SizedBox(height: 20),
-                Text('Orientierung', style: AppStyles.subTitleStyle),
-                const SizedBox(height: 8),
-                ...data.orientationPoints.map(_buildBullet),
-                const SizedBox(height: 16),
-                Text('Wenn Fragen auftauchen', style: AppStyles.subTitleStyle),
-                const SizedBox(height: 8),
-                ...data.questionPoints.map(_buildBullet),
-                const SizedBox(height: 18),
-                Container(
-                  padding: const EdgeInsets.all(14),
-                  decoration: BoxDecoration(
-                    color: data.accentColor.withValues(alpha: 0.08),
-                    borderRadius: BorderRadius.circular(14),
-                    border: Border.all(
-                      color: data.accentColor.withValues(alpha: 0.18),
-                    ),
-                  ),
-                  child: Text(
-                    'Du übst nicht allein: Gleichzeitig üben auch andere Menschen achtsam. Diese geteilte Menschlichkeit kann tragen.',
-                    style: AppStyles.bodyStyle.copyWith(
-                      fontStyle: FontStyle.italic,
-                      height: 1.45,
-                    ),
-                  ),
-                ),
-              ],
+              ),
             ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 

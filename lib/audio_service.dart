@@ -183,10 +183,7 @@ class AudioService {
         _shouldBePlaying = false;
         await pause();
       } else {
-        _shouldBePlaying = true;
-        // SOFORT Status auf "playing" setzen für schnelle UI-Reaktion
-        _updateStatus(AudioServiceStatus.playing);
-        _player.play(); // Nicht await - damit UI sofort reagiert
+        await resumeCurrent();
       }
       return;
     }
@@ -202,7 +199,7 @@ class AudioService {
     _shouldBePlaying = true;
     _clearBufferingTimer();
 
-    // Setze Status auf "loading" nur kurz, dann sofort optimistisch auf "playing"
+    // Neuer Track: erst laden, dann abspielen.
     _updateStatus(AudioServiceStatus.loading);
     
     try {
@@ -224,16 +221,9 @@ class AudioService {
         preload: true, // Lädt Metadaten (Dauer) sofort
       );
 
-      // OPTIMISTISCH: Setze Status SOFORT auf "playing", bevor play() fertig ist
-      // Der Player-State-Listener wird den tatsächlichen Status korrigieren, falls nötig
+      // Starte Playback erst nach erfolgreichem Laden.
+      await _player.play();
       _updateStatus(AudioServiceStatus.playing);
-      
-      // Starte Playback (nicht await - damit UI sofort reagiert)
-      _player.play().catchError((e) {
-        // Falls Fehler auftritt, Status korrigieren
-        if (kDebugMode) debugPrint("AudioService: Play-Fehler: $e");
-        _updateStatus(AudioServiceStatus.error);
-      });
 
       // Starte 80%-Tracking
       _startTracking();
@@ -250,6 +240,22 @@ class AudioService {
     _clearBufferingTimer();
     await _player.pause();
     _updateStatus(AudioServiceStatus.paused);
+  }
+
+  /// Setzt das aktuelle Audio fort, ohne die Quelle neu zu laden.
+  Future<void> resumeCurrent() async {
+    if (_currentAppwriteId == null) return;
+    _shouldBePlaying = true;
+    _clearBufferingTimer();
+    try {
+      await _player.play();
+      _updateStatus(AudioServiceStatus.playing);
+    } catch (e) {
+      if (kDebugMode) debugPrint("AudioService: Resume-Fehler: $e");
+      _shouldBePlaying = false;
+      _updateStatus(AudioServiceStatus.error);
+      rethrow;
+    }
   }
 
   Future<void> stop() async {
