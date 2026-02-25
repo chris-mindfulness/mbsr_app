@@ -81,7 +81,7 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: AppStyles.bgColor,
         colorScheme: ColorScheme.fromSeed(
           seedColor: AppStyles.primaryOrange,
-          background: AppStyles.bgColor,
+          surface: AppStyles.bgColor,
         ),
         // Lokale Nunito-Schrift (keine Verbindung zu Google)
         fontFamily: 'Nunito',

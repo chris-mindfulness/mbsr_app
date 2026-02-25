@@ -1,18 +1,23 @@
 import 'dart:async';
+import 'dart:convert';
 import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart' as models;
 import 'package:flutter/foundation.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../core/appwrite_client.dart';
 import '../core/app_config.dart';
 
 /// Authentifizierungs-Service für Appwrite
-/// 
+///
 /// Security Features:
 /// - Session-basierte Authentifizierung
 /// - Sichere Logout-Funktionen (einzelne oder alle Sessions)
 /// - Stream für Auth-Status-Änderungen
 /// - Benutzerfreundliche Fehlermeldungen
 class AuthService {
+  static const String _cachedUserKey = 'auth_cached_user_v1';
+  static const String _cachedRoleKey = 'auth_cached_role_v1';
+
   static final AuthService _instance = AuthService._internal();
   factory AuthService() => _instance;
   AuthService._internal();
@@ -30,65 +35,134 @@ class AuthService {
   models.User? _currentUser;
   models.User? get currentUser => _currentUser;
 
+  Future<void> _saveCachedUser(models.User user) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString(_cachedUserKey, jsonEncode(user.toMap()));
+  }
+
+  Future<models.User?> _loadCachedUser() async {
+    final prefs = await SharedPreferences.getInstance();
+    final json = prefs.getString(_cachedUserKey);
+    if (json == null || json.isEmpty) return null;
+
+    try {
+      final map = jsonDecode(json) as Map<String, dynamic>;
+      return models.User.fromMap(map);
+    } catch (_) {
+      return null;
+    }
+  }
+
+  Future<void> _clearCachedUser() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove(_cachedUserKey);
+    await prefs.remove(_cachedRoleKey);
+  }
+
   /// Initialisiert den Auth-Service und prüft bestehende Session
-  /// 
+  ///
   /// Unterscheidet zwischen:
   /// - 401 Unauthorized → wirklich ausgeloggt
   /// - Timeout/Netzwerkfehler → Retry, nicht sofort ausloggen
   Future<void> initialize() async {
     const maxRetries = 3;
     const timeout = Duration(seconds: 15);
-    
+    final cachedUser = await _loadCachedUser();
+
+    // Frühzeitig lokalen Fallback setzen, damit bei Startfehlern kein
+    // unnötiger Logout-Zustand entsteht.
+    if (cachedUser != null) {
+      _currentUser = cachedUser;
+      if (kDebugMode) {
+        debugPrint('🧠 Lokaler User-Fallback geladen: ${cachedUser.email}');
+      }
+    }
+
     for (int attempt = 1; attempt <= maxRetries; attempt++) {
       try {
-        if (kDebugMode) debugPrint('🔐 Auth-Service: Prüfe Session (Versuch $attempt/$maxRetries)...');
-        
+        if (kDebugMode) {
+          debugPrint(
+            '🔐 Auth-Service: Prüfe Session (Versuch $attempt/$maxRetries)...',
+          );
+        }
+
         final user = await _appwrite.account.get().timeout(
           timeout,
           onTimeout: () {
             throw TimeoutException('Session-Prüfung dauerte zu lange');
           },
         );
-        
+
         _currentUser = user;
+        await _saveCachedUser(user);
         _authStateController.add(user);
-        if (kDebugMode) debugPrint('✅ Bestehende Session gefunden: ${user.email}');
+        if (kDebugMode) {
+          debugPrint('✅ Bestehende Session gefunden: ${user.email}');
+        }
         return; // Erfolg - beende
-        
       } on AppwriteException catch (e) {
         // 401 = wirklich keine gültige Session
         if (e.code == 401) {
-          if (kDebugMode) debugPrint('ℹ️ Keine aktive Session (401 Unauthorized)');
-          _currentUser = null;
-          _authStateController.add(null);
-          return; // Definitiv ausgeloggt
+          if (cachedUser != null) {
+            _currentUser = cachedUser;
+            _authStateController.add(cachedUser);
+            if (kDebugMode) {
+              debugPrint(
+                '⚠️ Session-Check 401, nutze lokalen Fallback-User: ${cachedUser.email}',
+              );
+            }
+            return;
+          } else {
+            if (kDebugMode) {
+              debugPrint('ℹ️ Keine aktive Session (401 Unauthorized)');
+            }
+            _currentUser = null;
+            _authStateController.add(null);
+            return; // Definitiv ausgeloggt
+          }
         }
-        
+
         // Andere Appwrite-Fehler: bei letztem Versuch aufgeben
         if (attempt == maxRetries) {
-          if (kDebugMode) debugPrint('⚠️ Auth-Service: Appwrite-Fehler nach $maxRetries Versuchen: ${e.message}');
+          if (kDebugMode) {
+            debugPrint(
+              '⚠️ Auth-Service: Appwrite-Fehler nach $maxRetries Versuchen: ${e.message}',
+            );
+          }
           // Nicht ausloggen - Zustand unbekannt, behalte letzten Zustand
           _authStateController.add(_currentUser);
         }
-        
       } on TimeoutException {
-        if (kDebugMode) debugPrint('⚠️ Auth-Service: Timeout (Versuch $attempt/$maxRetries)');
+        if (kDebugMode) {
+          debugPrint('⚠️ Auth-Service: Timeout (Versuch $attempt/$maxRetries)');
+        }
         if (attempt == maxRetries) {
           // Nach allen Versuchen: Zustand unbekannt, behalte letzten Zustand
-          if (kDebugMode) debugPrint('⚠️ Auth-Service: Alle Versuche fehlgeschlagen - behalte letzten Zustand');
+          if (kDebugMode) {
+            debugPrint(
+              '⚠️ Auth-Service: Alle Versuche fehlgeschlagen - behalte letzten Zustand',
+            );
+          }
           _authStateController.add(_currentUser);
         }
-        
       } catch (e) {
         // Netzwerk- oder andere Fehler
-        if (kDebugMode) debugPrint('⚠️ Auth-Service: Fehler (Versuch $attempt/$maxRetries): $e');
+        if (kDebugMode) {
+          debugPrint(
+            '⚠️ Auth-Service: Fehler (Versuch $attempt/$maxRetries): $e',
+          );
+        }
         if (attempt == maxRetries) {
           // Nicht ausloggen bei Netzwerkproblemen
-          if (kDebugMode) debugPrint('⚠️ Auth-Service: Netzwerkfehler - behalte letzten Zustand');
+          if (kDebugMode) {
+            debugPrint(
+              '⚠️ Auth-Service: Netzwerkfehler - behalte letzten Zustand',
+            );
+          }
           _authStateController.add(_currentUser);
         }
       }
-      
+
       // Kurze Pause vor Retry (außer beim letzten Versuch)
       if (attempt < maxRetries) {
         await Future.delayed(const Duration(seconds: 2));
@@ -100,7 +174,7 @@ class AuthService {
   Future<void> checkSession() => initialize();
 
   /// Login mit Email und Passwort
-  /// 
+  ///
   /// Wirft [AuthException] bei Fehlern mit benutzerfreundlicher Nachricht
   Future<models.User> login({
     required String email,
@@ -118,6 +192,7 @@ class AuthService {
       // Hole User-Daten
       final user = await _appwrite.account.get();
       _currentUser = user;
+      await _saveCachedUser(user);
       _authStateController.add(user);
 
       if (kDebugMode) debugPrint('✅ Login erfolgreich: ${user.email}');
@@ -143,7 +218,7 @@ class AuthService {
       if (kDebugMode) debugPrint('📝 Erstelle Account für: $email');
 
       // 1. Auth Account erstellen
-      final user = await _appwrite.account.create(
+      await _appwrite.account.create(
         userId: ID.unique(),
         email: email,
         password: password,
@@ -151,15 +226,11 @@ class AuthService {
       );
 
       // 2. Datenbank-Dokument erstellen (Nur 3 Felder!)
-      await _appwrite.databases.createDocument(
+      await _appwrite.tablesDB.createRow(
         databaseId: AppConfig.databaseId,
-        collectionId: AppConfig.usersCollectionId,
-        documentId: ID.unique(),
-        data: {
-          'email': email,
-          'role': role,
-          'name': name,
-        },
+        tableId: AppConfig.usersCollectionId,
+        rowId: ID.unique(),
+        data: {'email': email, 'role': role, 'name': name},
       );
 
       if (kDebugMode) debugPrint('✅ Account & Profil erfolgreich erstellt');
@@ -177,6 +248,7 @@ class AuthService {
       await _appwrite.account.deleteSession(sessionId: 'current');
 
       _currentUser = null;
+      await _clearCachedUser();
       _authStateController.add(null);
 
       if (kDebugMode) debugPrint('✅ Logout erfolgreich');
@@ -184,12 +256,13 @@ class AuthService {
       if (kDebugMode) debugPrint('⚠️ Logout-Fehler: ${e.message}');
       // Auch bei Fehler den lokalen State zurücksetzen
       _currentUser = null;
+      await _clearCachedUser();
       _authStateController.add(null);
     }
   }
 
   /// Logout von ALLEN Geräten (löscht alle Sessions)
-  /// 
+  ///
   /// Nützlich bei:
   /// - Passwort-Änderung
   /// - Sicherheitsbedenken
@@ -199,22 +272,27 @@ class AuthService {
       if (kDebugMode) debugPrint('🔓 Lösche alle Sessions...');
 
       final sessions = await _appwrite.account.listSessions();
-      
+
       for (final session in sessions.sessions) {
         try {
           await _appwrite.account.deleteSession(sessionId: session.$id);
           if (kDebugMode) debugPrint('✅ Session gelöscht: ${session.$id}');
         } catch (e) {
-          if (kDebugMode) debugPrint('⚠️ Fehler beim Löschen von Session ${session.$id}: $e');
+          if (kDebugMode) {
+            debugPrint('⚠️ Fehler beim Löschen von Session ${session.$id}: $e');
+          }
         }
       }
 
       _currentUser = null;
+      await _clearCachedUser();
       _authStateController.add(null);
 
       if (kDebugMode) debugPrint('✅ Alle Sessions gelöscht');
     } on AppwriteException catch (e) {
-      if (kDebugMode) debugPrint('❌ Fehler beim Löschen aller Sessions: ${e.message}');
+      if (kDebugMode) {
+        debugPrint('❌ Fehler beim Löschen aller Sessions: ${e.message}');
+      }
       throw AuthException._fromAppwriteException(e);
     }
   }
@@ -226,17 +304,15 @@ class AuthService {
 
       // Appwrite benötigt eine Redirect-URL für den Reset-Link
       // Diese sollte zu deiner App zurückführen
-      final redirectUrl =
-          'https://app.mindfulpractice.de/reset-password';
+      final redirectUrl = 'https://app.mindfulpractice.de/reset-password';
 
-      await _appwrite.account.createRecovery(
-        email: email,
-        url: redirectUrl,
-      );
+      await _appwrite.account.createRecovery(email: email, url: redirectUrl);
 
       if (kDebugMode) debugPrint('✅ Passwort-Reset-Email gesendet');
     } on AppwriteException catch (e) {
-      if (kDebugMode) debugPrint('❌ Fehler beim Senden der Reset-Email: ${e.message}');
+      if (kDebugMode) {
+        debugPrint('❌ Fehler beim Senden der Reset-Email: ${e.message}');
+      }
       throw AuthException._fromAppwriteException(e);
     }
   }
@@ -246,10 +322,12 @@ class AuthService {
     try {
       final user = await _appwrite.account.get();
       _currentUser = user;
+      await _saveCachedUser(user);
       return user;
     } catch (e) {
-      _currentUser = null;
-      return null;
+      final cachedUser = await _loadCachedUser();
+      _currentUser = cachedUser;
+      return cachedUser;
     }
   }
 
@@ -270,9 +348,13 @@ class AuthException implements Exception {
     // Mappe häufige Fehler-Codes
     switch (e.code) {
       case 401: // Unauthorized
-        return AuthException('E-Mail oder Passwort falsch. Bitte prüfe deine Eingabe.');
+        return AuthException(
+          'E-Mail oder Passwort falsch. Bitte prüfe deine Eingabe.',
+        );
       case 429: // Too many requests
-        return AuthException('Zu viele Fehlversuche. Bitte warte einen Moment.');
+        return AuthException(
+          'Zu viele Fehlversuche. Bitte warte einen Moment.',
+        );
       case 500: // Server error
         return AuthException('Server-Fehler. Bitte versuche es später erneut.');
       case 503: // Service unavailable
@@ -282,7 +364,9 @@ class AuthException implements Exception {
         if (kDebugMode) {
           return AuthException('Fehler: ${e.message} (Code: ${e.code})');
         } else {
-          return AuthException('Ein Fehler ist aufgetreten. Bitte versuche es erneut.');
+          return AuthException(
+            'Ein Fehler ist aufgetreten. Bitte versuche es erneut.',
+          );
         }
     }
   }

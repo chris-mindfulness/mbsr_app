@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'app_daten.dart';
 import 'audio_service.dart';
-import 'services/connectivity_service.dart';
 import 'constants/app_texts.dart';
 import 'core/app_styles.dart';
 import 'widgets/animated_play_button.dart';
 import 'widgets/decorative_blobs.dart';
+import 'widgets/offline_banner.dart';
 import 'widgets/subtle_divider.dart';
 
 class MediathekSeite extends StatefulWidget {
@@ -67,7 +67,7 @@ class _MediathekSeiteState extends State<MediathekSeite> {
                 width: 40,
                 height: 4,
                 decoration: BoxDecoration(
-                  color: AppStyles.softBrown.withOpacity(0.2),
+                  color: AppStyles.softBrown.withValues(alpha: 0.2),
                   borderRadius: BorderRadius.circular(2),
                 ),
               ),
@@ -131,9 +131,9 @@ class _MediathekSeiteState extends State<MediathekSeite> {
       child: Container(
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
-          color: AppStyles.errorRed.withOpacity(0.05),
+          color: AppStyles.errorRed.withValues(alpha: 0.05),
           borderRadius: BorderRadius.circular(16),
-          border: Border.all(color: AppStyles.errorRed.withOpacity(0.1)),
+          border: Border.all(color: AppStyles.errorRed.withValues(alpha: 0.1)),
         ),
         child: Row(
           children: [
@@ -192,7 +192,7 @@ class _MediathekSeiteState extends State<MediathekSeite> {
                 width: 40,
                 height: 4,
                 decoration: BoxDecoration(
-                  color: AppStyles.softBrown.withOpacity(0.2),
+                  color: AppStyles.softBrown.withValues(alpha: 0.2),
                   borderRadius: BorderRadius.circular(2),
                 ),
               ),
@@ -269,48 +269,10 @@ class _MediathekSeiteState extends State<MediathekSeite> {
             const SubtleDivider(height: 1, verticalMargin: 0),
             const SubtleDivider(height: 1, verticalMargin: 0),
             // Offline-Banner
-            StreamBuilder<bool>(
-              stream: ConnectivityService.onlineStream,
-              initialData: ConnectivityService.isOnline,
-              builder: (context, snapshot) {
-                final isOnline = snapshot.data ?? true;
-                if (isOnline) return const SizedBox.shrink();
-
-                return Container(
-                  width: double.infinity,
-                  margin: EdgeInsets.symmetric(
-                    horizontal: AppStyles.spacingL,
-                    vertical: AppStyles.spacingS,
-                  ),
-                  padding: EdgeInsets.symmetric(
-                    vertical: 10, // Spezifischer Wert für Banner
-                    horizontal: AppStyles.spacingM,
-                  ),
-                  decoration: BoxDecoration(
-                    color: Colors.orange.shade100,
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        Icons.wifi_off,
-                        size: 18,
-                        color: Colors.orange.shade800,
-                      ),
-                      AppStyles.spacingSHorizontal,
-                      Text(
-                        'Offline - Audios können nicht geladen werden',
-                        style: TextStyle(
-                          fontSize: 13,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.orange.shade900,
-                        ),
-                      ),
-                    ],
-                  ),
-                );
-              },
+            const ConnectivityOfflineBanner(
+              message: 'Offline - Audios können nicht geladen werden',
+              horizontalMargin: AppStyles.spacingL,
+              verticalMargin: AppStyles.spacingS,
             ),
             Padding(
               padding: EdgeInsets.symmetric(
@@ -323,7 +285,7 @@ class _MediathekSeiteState extends State<MediathekSeite> {
                 decoration: InputDecoration(
                   hintText: "Suchen...",
                   hintStyle: AppStyles.bodyStyle.copyWith(
-                    color: AppStyles.textDark.withOpacity(0.7),
+                    color: AppStyles.textDark.withValues(alpha: 0.7),
                   ),
                   prefixIcon: const Icon(
                     Icons.search,
@@ -334,11 +296,11 @@ class _MediathekSeiteState extends State<MediathekSeite> {
                   contentPadding: AppStyles.inputPadding,
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20),
-                    borderSide: BorderSide(color: Colors.grey.withOpacity(0.2)),
+                    borderSide: BorderSide(color: Colors.grey.withValues(alpha: 0.2)),
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20),
-                    borderSide: BorderSide(color: Colors.grey.withOpacity(0.1)),
+                    borderSide: BorderSide(color: Colors.grey.withValues(alpha: 0.1)),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20),
@@ -383,8 +345,8 @@ class _MediathekSeiteState extends State<MediathekSeite> {
                         shape: AppStyles.cardShape.copyWith(
                           side: BorderSide(
                             color: isCurrent
-                                ? AppStyles.primaryOrange.withOpacity(0.5)
-                                : Colors.grey.withOpacity(0.15),
+                                ? AppStyles.primaryOrange.withValues(alpha: 0.5)
+                                : Colors.grey.withValues(alpha: 0.15),
                             width: isCurrent ? 2 : 1.5,
                           ),
                         ),
@@ -455,7 +417,8 @@ class _MediathekSeiteState extends State<MediathekSeite> {
                                           Icon(
                                             Icons.access_time,
                                             size: 14,
-                                            color: AppStyles.textDark.withOpacity(0.7),
+                                            color: AppStyles.textDark
+                                                .withValues(alpha: 0.7),
                                           ),
                                           AppStyles.spacingXSHorizontal,
                                           Text(

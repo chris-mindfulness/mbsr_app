@@ -1,8 +1,10 @@
 import 'dart:async';
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart' as models;
+import 'package:shared_preferences/shared_preferences.dart';
 import '../services/auth_service.dart';
 import '../core/appwrite_client.dart';
 import '../core/app_config.dart';
@@ -16,7 +18,7 @@ import '../web_utils.dart' show getCurrentRoute, setRoute;
 import '../routing/app_router.dart';
 
 /// Zentrale Authentifizierungs- und Routing-Komponente
-/// 
+///
 /// Verantwortlichkeiten:
 /// - Firebase Auth-Status überwachen
 /// - Firestore Rollen-Check (role: 'mbsr')
@@ -31,10 +33,31 @@ class AuthWrapper extends StatefulWidget {
 }
 
 class _AuthWrapperState extends State<AuthWrapper> {
+  static const String _cachedRoleKey = 'auth_cached_role_v1';
+
   bool _splashFinished = false;
   String? _lastUserId; // Um Login-Events zu erkennen
   bool _isLoginEvent = false; // Flag für frischen Login
   StreamSubscription<models.User?>? _authSubscription;
+
+  Future<void> _saveCachedRole(Map<String, dynamic> roleData) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString(_cachedRoleKey, jsonEncode(roleData));
+  }
+
+  Future<Map<String, dynamic>?> _loadCachedRoleForEmail(String email) async {
+    final prefs = await SharedPreferences.getInstance();
+    final json = prefs.getString(_cachedRoleKey);
+    if (json == null || json.isEmpty) return null;
+
+    try {
+      final map = (jsonDecode(json) as Map).cast<String, dynamic>();
+      if ((map['email'] as String?) == email) return map;
+      return null;
+    } catch (_) {
+      return null;
+    }
+  }
 
   @override
   void initState() {
@@ -43,7 +66,9 @@ class _AuthWrapperState extends State<AuthWrapper> {
     // Globaler Listener für Auth-Status (Sicherheitsnetz für Audio)
     _authSubscription = AuthService().authStateChanges.listen((user) {
       if (kDebugMode) {
-        debugPrint('AuthWrapper: Status-Update erhalten. User: ${user?.email ?? "ausgeloggt"}');
+        debugPrint(
+          'AuthWrapper: Status-Update erhalten. User: ${user?.email ?? "ausgeloggt"}',
+        );
       }
       if (user == null) {
         if (kDebugMode) {
@@ -61,7 +86,11 @@ class _AuthWrapperState extends State<AuthWrapper> {
     // Safety Timeout: Falls der Splash Screen nicht verschwindet
     Future.delayed(const Duration(seconds: 5), () {
       if (mounted && !_splashFinished) {
-        if (kDebugMode) debugPrint('⚠️ AuthWrapper: Safety Timeout erreicht, erzwinge Splash-Ende');
+        if (kDebugMode) {
+          debugPrint(
+            '⚠️ AuthWrapper: Safety Timeout erreicht, erzwinge Splash-Ende',
+          );
+        }
         setState(() => _splashFinished = true);
       }
     });
@@ -81,35 +110,51 @@ class _AuthWrapperState extends State<AuthWrapper> {
   Future<Map<String, dynamic>?> _getUserRole(String email) async {
     try {
       final appwrite = AppwriteClient();
-      
+
       if (kDebugMode) debugPrint('🔍 AuthWrapper: Lade Rolle für $email...');
 
       // Suche User-Dokument in der users Collection mit 5s Timeout
-      final response = await appwrite.databases.listDocuments(
-        databaseId: AppConfig.databaseId,
-        collectionId: AppConfig.usersCollectionId,
-        queries: [
-          Query.equal('email', email),
-          Query.limit(1),
-        ],
-      ).timeout(
-        const Duration(seconds: 5),
-        onTimeout: () {
-          if (kDebugMode) debugPrint('⚠️ AuthWrapper: Timeout beim Laden der Rolle');
-          throw TimeoutException('Rollen-Check dauerte zu lange');
-        },
-      );
+      final response = await appwrite.tablesDB
+          .listRows(
+            databaseId: AppConfig.databaseId,
+            tableId: AppConfig.usersCollectionId,
+            queries: [Query.equal('email', email), Query.limit(1)],
+          )
+          .timeout(
+            const Duration(seconds: 5),
+            onTimeout: () {
+              if (kDebugMode) {
+                debugPrint('⚠️ AuthWrapper: Timeout beim Laden der Rolle');
+              }
+              throw TimeoutException('Rollen-Check dauerte zu lange');
+            },
+          );
 
-      if (response.documents.isEmpty) {
+      if (response.rows.isEmpty) {
         if (kDebugMode) debugPrint('⛔ Kein User-Dokument für $email');
+        final cached = await _loadCachedRoleForEmail(email);
+        if (cached != null) {
+          if (kDebugMode) {
+            debugPrint('⚠️ Nutze lokales Rollenprofil für $email');
+          }
+          return cached;
+        }
         return null;
       }
 
-      final doc = response.documents.first;
-      if (kDebugMode) debugPrint('✅ Rolle gefunden: ${doc.data['role']}');
-      return doc.data;
+      final row = response.rows.first;
+      await _saveCachedRole(row.data);
+      if (kDebugMode) debugPrint('✅ Rolle gefunden: ${row.data['role']}');
+      return row.data;
     } catch (e) {
       if (kDebugMode) debugPrint('❌ Fehler beim Laden der User-Rolle: $e');
+      final cached = await _loadCachedRoleForEmail(email);
+      if (cached != null) {
+        if (kDebugMode) {
+          debugPrint('⚠️ Rollen-Fallback aus lokalem Cache für $email');
+        }
+        return cached;
+      }
       rethrow;
     }
   }
@@ -140,11 +185,16 @@ class _AuthWrapperState extends State<AuthWrapper> {
       return const MBSRHomePage();
     }
 
-    // PRIORITÄT 1: Eingeloggt, aber keine gültige Rolle -> Auswahlseite
+    // PRIORITÄT 1: Eingeloggt, aber keine gültige Rolle
+    // WICHTIG: Kein automatisches Logout, um Refresh-Logout-Schleifen zu vermeiden.
     if (role != 'mbsr') {
       if (kDebugMode) debugPrint('⛔ Kein MBSR-Zugriff für ${user.email}');
-      AuthService().logout();
-      return const MBSRHomePage();
+      return _buildErrorScreen(
+        title: 'Profil wird geprüft',
+        message:
+            'Du bist angemeldet, aber dein Kursprofil konnte noch nicht eindeutig zugeordnet werden.',
+        icon: Icons.lock_outline,
+      );
     }
 
     // PRIORITÄT 2: FRISCHER LOGIN hat absolute Priorität!
@@ -184,16 +234,16 @@ class _AuthWrapperState extends State<AuthWrapper> {
 
     // PRIORITÄT 4: Deep-Link Navigation (nur wenn bereits eingeloggt und kein Login-Event)
     if (kDebugMode) debugPrint('🔗 Deep-Link erkannt: $route');
-    
+
     try {
       // Verwende AppRouter für Widget-Auflösung
       final widget = AppRouter.getWidgetForRoute(route);
-      
+
       // Synchronisiere URL
       if (route != null && route.isNotEmpty) {
         setRoute(route);
       }
-      
+
       return widget;
     } catch (e) {
       if (kDebugMode) debugPrint('❌ Fehler bei Navigation: $e');
@@ -208,7 +258,9 @@ class _AuthWrapperState extends State<AuthWrapper> {
       stream: AuthService().authStateChanges,
       builder: (context, snapshot) {
         if (kDebugMode) {
-          debugPrint('AuthWrapper: Status ist ${snapshot.connectionState} (User: ${snapshot.data?.email ?? "null"})');
+          debugPrint(
+            'AuthWrapper: Status ist ${snapshot.connectionState} (User: ${snapshot.data?.email ?? "null"})',
+          );
         }
 
         if (snapshot.connectionState == ConnectionState.waiting ||
@@ -270,16 +322,21 @@ class _AuthWrapperState extends State<AuthWrapper> {
             // Fehlerbehandlung: Netzwerkprobleme vs. fehlende Daten
             if (roleSnapshot.hasError) {
               // Netzwerkfehler → Zeige Retry-Screen
-              return _buildErrorScreen(context);
+              return _buildErrorScreen();
             }
 
-            // Dokument existiert nicht → User hat keine Berechtigung
+            // Dokument existiert nicht.
+            // WICHTIG: Kein automatisches Logout, um Refresh-Logout-Schleifen zu vermeiden.
             if (!roleSnapshot.hasData || roleSnapshot.data == null) {
               if (kDebugMode) {
                 debugPrint('⛔ User ${user.email} hat kein Profil-Dokument');
               }
-              AuthService().logout();
-              return const MBSRHomePage();
+              return _buildErrorScreen(
+                title: 'Profil nicht gefunden',
+                message:
+                    'Du bist angemeldet, aber dein Kursprofil wurde noch nicht geladen. Bitte erneut versuchen.',
+                icon: Icons.person_search_outlined,
+              );
             }
 
             final role = roleSnapshot.data!['role'] as String?;
@@ -297,7 +354,11 @@ class _AuthWrapperState extends State<AuthWrapper> {
   }
 
   /// Error-Screen bei Netzwerkproblemen
-  Widget _buildErrorScreen(BuildContext context) {
+  Widget _buildErrorScreen({
+    String title = 'Verbindungsfehler',
+    String message = 'Bitte prüfe deine Internetverbindung.',
+    IconData icon = Icons.cloud_off,
+  }) {
     return Scaffold(
       backgroundColor: AppStyles.bgColor,
       body: Center(
@@ -306,14 +367,10 @@ class _AuthWrapperState extends State<AuthWrapper> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(
-                Icons.cloud_off,
-                size: 80,
-                color: AppStyles.primaryOrange,
-              ),
+              Icon(icon, size: 80, color: AppStyles.primaryOrange),
               AppStyles.spacingLBox,
               Text(
-                'Verbindungsfehler',
+                title,
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
@@ -322,11 +379,11 @@ class _AuthWrapperState extends State<AuthWrapper> {
               ),
               SizedBox(height: AppStyles.spacingM - AppStyles.spacingS), // 12px
               Text(
-                'Bitte prüfe deine Internetverbindung.',
+                message,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 16,
-                  color: AppStyles.textDark.withOpacity(0.7),
+                  color: AppStyles.textDark.withValues(alpha: 0.7),
                 ),
               ),
               AppStyles.spacingXLBox,

@@ -116,7 +116,7 @@ class ProfilSeite extends StatelessWidget {
                   width: 100,
                   height: 100,
                   decoration: BoxDecoration(
-                    color: AppStyles.primaryOrange.withOpacity(0.1),
+                    color: AppStyles.primaryOrange.withValues(alpha: 0.1),
                     shape: BoxShape.circle,
                   ),
                   child: const Icon(Icons.person, size: 50, color: AppStyles.primaryOrange),
@@ -139,7 +139,7 @@ class ProfilSeite extends StatelessWidget {
                 letterSpacing: 1.5,
                 fontWeight: FontWeight.bold,
                 fontSize: 12,
-                color: AppStyles.softBrown.withOpacity(0.5),
+                color: AppStyles.softBrown.withValues(alpha: 0.5),
               ),
             ),
           ),
@@ -167,7 +167,7 @@ class ProfilSeite extends StatelessWidget {
                       width: 48,
                       height: 48,
                       decoration: BoxDecoration(
-                        color: AppStyles.sageGreen.withOpacity(0.1),
+                        color: AppStyles.sageGreen.withValues(alpha: 0.1),
                         borderRadius: BorderRadius.circular(14),
                       ),
                       child: const Icon(
@@ -188,7 +188,7 @@ class ProfilSeite extends StatelessWidget {
                           AppStyles.spacingXSBox,
                           Text(
                             "Deine Praxis im Überblick",
-                            style: AppStyles.bodyStyle.copyWith(fontSize: 13, color: AppStyles.softBrown.withOpacity(0.6)),
+                            style: AppStyles.bodyStyle.copyWith(fontSize: 13, color: AppStyles.softBrown.withValues(alpha: 0.6)),
                           ),
                         ],
                       ),
@@ -224,7 +224,7 @@ class ProfilSeite extends StatelessWidget {
                       width: 48,
                       height: 48,
                       decoration: BoxDecoration(
-                        color: AppStyles.primaryOrange.withOpacity(0.1),
+                        color: AppStyles.primaryOrange.withValues(alpha: 0.1),
                         borderRadius: BorderRadius.circular(14),
                       ),
                       child: const Icon(
@@ -245,7 +245,7 @@ class ProfilSeite extends StatelessWidget {
                           AppStyles.spacingXSBox,
                           Text(
                             "Alle Kursunterlagen & PDFs",
-                            style: AppStyles.bodyStyle.copyWith(fontSize: 13, color: AppStyles.softBrown.withOpacity(0.6)),
+                            style: AppStyles.bodyStyle.copyWith(fontSize: 13, color: AppStyles.softBrown.withValues(alpha: 0.6)),
                           ),
                         ],
                       ),
@@ -266,7 +266,7 @@ class ProfilSeite extends StatelessWidget {
               backgroundColor: Colors.white,
               foregroundColor: AppStyles.primaryOrange,
               elevation: 0,
-              side: BorderSide(color: AppStyles.primaryOrange.withOpacity(0.3), width: 1.5),
+              side: BorderSide(color: AppStyles.primaryOrange.withValues(alpha: 0.3), width: 1.5),
               padding: EdgeInsets.symmetric(vertical: AppStyles.spacingM),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(20),
@@ -282,21 +282,21 @@ class ProfilSeite extends StatelessWidget {
                 onTap: () => LegalDialogs.showImpressum(context),
                 child: Text(
                   'Impressum',
-                  style: AppStyles.bodyStyle.copyWith(fontSize: 12, color: AppStyles.softBrown.withOpacity(0.5)),
+                  style: AppStyles.bodyStyle.copyWith(fontSize: 12, color: AppStyles.softBrown.withValues(alpha: 0.5)),
                 ),
               ),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: AppStyles.spacingM - AppStyles.spacingS), // 12px
                 child: Text(
                   '•',
-                  style: TextStyle(color: AppStyles.softBrown.withOpacity(0.3)),
+                  style: TextStyle(color: AppStyles.softBrown.withValues(alpha: 0.3)),
                 ),
               ),
               GestureDetector(
                 onTap: () => LegalDialogs.showDatenschutz(context),
                 child: Text(
                   'Datenschutz',
-                  style: AppStyles.bodyStyle.copyWith(fontSize: 12, color: AppStyles.softBrown.withOpacity(0.5)),
+                  style: AppStyles.bodyStyle.copyWith(fontSize: 12, color: AppStyles.softBrown.withValues(alpha: 0.5)),
                 ),
               ),
             ],

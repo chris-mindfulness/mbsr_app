@@ -46,7 +46,7 @@ class TagDerAchtsamkeitSeite extends StatelessWidget {
               borderRadius: BorderRadius.circular(28),
               boxShadow: [
                 BoxShadow(
-                  color: AppStyles.primaryOrange.withOpacity(0.3),
+                  color: AppStyles.primaryOrange.withValues(alpha: 0.3),
                   blurRadius: 20,
                   offset: const Offset(0, 10),
                 ),
@@ -69,7 +69,7 @@ class TagDerAchtsamkeitSeite extends StatelessWidget {
                 Text(
                   'Ein spezieller Tag für Kursteilnehmer und Ehemalige.',
                   style: TextStyle(
-                    color: Colors.white.withOpacity(0.8),
+                    color: Colors.white.withValues(alpha: 0.8),
                     fontSize: 16,
                     height: 1.4,
                   ),
@@ -141,7 +141,7 @@ class TagDerAchtsamkeitSeite extends StatelessWidget {
                     Container(
                       padding: EdgeInsets.all(AppStyles.spacingM - AppStyles.spacingS), // 12px
                       decoration: BoxDecoration(
-                        color: AppStyles.sageGreen.withOpacity(0.1),
+                        color: AppStyles.sageGreen.withValues(alpha: 0.1),
                         borderRadius: BorderRadius.circular(14),
                       ),
                       child: const Icon(Icons.email_outlined, color: AppStyles.sageGreen),
@@ -151,7 +151,7 @@ class TagDerAchtsamkeitSeite extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('Fragen?', style: AppStyles.bodyStyle.copyWith(fontSize: 13, color: AppStyles.softBrown.withOpacity(0.6))),
+                          Text('Fragen?', style: AppStyles.bodyStyle.copyWith(fontSize: 13, color: AppStyles.softBrown.withValues(alpha: 0.6))),
                           AppStyles.spacingXSBox,
                           Text(
                             'achtsamkeit@belight-leipzig.de',
@@ -173,9 +173,9 @@ class TagDerAchtsamkeitSeite extends StatelessWidget {
           Container(
             padding: EdgeInsets.all(AppStyles.spacingL - AppStyles.spacingS), // 20px
             decoration: BoxDecoration(
-              color: AppStyles.primaryOrange.withOpacity(0.05),
+              color: AppStyles.primaryOrange.withValues(alpha: 0.05),
               borderRadius: BorderRadius.circular(20),
-              border: Border.all(color: AppStyles.primaryOrange.withOpacity(0.1)),
+              border: Border.all(color: AppStyles.primaryOrange.withValues(alpha: 0.1)),
             ),
             child: Row(
               children: [
@@ -205,7 +205,7 @@ class TagDerAchtsamkeitSeite extends StatelessWidget {
           letterSpacing: 1.5,
           fontWeight: FontWeight.bold,
           fontSize: 12,
-          color: AppStyles.softBrown.withOpacity(0.5),
+          color: AppStyles.softBrown.withValues(alpha: 0.5),
         ),
       ),
     );
@@ -228,7 +228,7 @@ class TagDerAchtsamkeitSeite extends StatelessWidget {
           width: 48,
           height: 48,
           decoration: BoxDecoration(
-            color: AppStyles.primaryOrange.withOpacity(0.1),
+            color: AppStyles.primaryOrange.withValues(alpha: 0.1),
             borderRadius: BorderRadius.circular(14),
           ),
           child: const Icon(Icons.picture_as_pdf_outlined, color: AppStyles.primaryOrange),

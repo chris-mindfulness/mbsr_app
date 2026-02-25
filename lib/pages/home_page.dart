@@ -34,7 +34,7 @@ class MBSRHomePage extends StatelessWidget {
                 textAlign: TextAlign.center,
                 style: AppStyles.bodyStyle.copyWith(
                   fontSize: 16,
-                  color: AppStyles.softBrown.withOpacity(0.7),
+                  color: AppStyles.softBrown.withValues(alpha: 0.7),
                 ),
               ),
               SizedBox(height: AppStyles.spacingXXL + AppStyles.spacingM), // 60px
@@ -80,21 +80,21 @@ class MBSRHomePage extends StatelessWidget {
                       onTap: () => LegalDialogs.showImpressum(context),
                       child: Text(
                         'Impressum',
-                        style: AppStyles.bodyStyle.copyWith(fontSize: 12, color: AppStyles.softBrown.withOpacity(0.5)),
+                        style: AppStyles.bodyStyle.copyWith(fontSize: 12, color: AppStyles.softBrown.withValues(alpha: 0.5)),
                       ),
                     ),
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: AppStyles.spacingM - AppStyles.spacingS), // 12px
                       child: Text(
                         '•',
-                        style: TextStyle(color: AppStyles.softBrown.withOpacity(0.3)),
+                        style: TextStyle(color: AppStyles.softBrown.withValues(alpha: 0.3)),
                       ),
                     ),
                     GestureDetector(
                       onTap: () => LegalDialogs.showDatenschutz(context),
                       child: Text(
                         'Datenschutz',
-                        style: AppStyles.bodyStyle.copyWith(fontSize: 12, color: AppStyles.softBrown.withOpacity(0.5)),
+                        style: AppStyles.bodyStyle.copyWith(fontSize: 12, color: AppStyles.softBrown.withValues(alpha: 0.5)),
                       ),
                     ),
                   ],

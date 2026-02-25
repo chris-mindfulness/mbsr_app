@@ -6,13 +6,13 @@ import 'tag_der_achtsamkeit_seite.dart';
 import 'app_daten.dart';
 import 'mediathek_seite.dart';
 import 'web_utils.dart' show setRoute;
-import 'services/connectivity_service.dart';
 import 'package:flutter/services.dart';
 import 'core/app_styles.dart';
 import 'audio_service.dart';
 import 'widgets/ambient_background.dart';
 import 'widgets/animated_play_button.dart';
 import 'widgets/decorative_blobs.dart';
+import 'widgets/offline_banner.dart';
 import 'widgets/subtle_divider.dart';
 
 class KursUebersicht extends StatefulWidget {
@@ -74,7 +74,7 @@ class _KursUebersichtState extends State<KursUebersicht> {
       isDismissible: true,
       enableDrag: true,
       backgroundColor: AppStyles.bgColor,
-      barrierColor: Colors.black.withOpacity(0.5),
+      barrierColor: Colors.black.withValues(alpha: 0.5),
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(40)),
       ),
@@ -107,7 +107,7 @@ class _KursUebersichtState extends State<KursUebersicht> {
                   width: 40,
                   height: 5,
                   decoration: BoxDecoration(
-                    color: AppStyles.softBrown.withOpacity(0.2),
+                    color: AppStyles.softBrown.withValues(alpha: 0.2),
                     borderRadius: BorderRadius.circular(10),
                   ),
                 ),
@@ -119,7 +119,7 @@ class _KursUebersichtState extends State<KursUebersicht> {
               child: IconButton(
                 icon: Icon(
                   Icons.close_rounded,
-                  color: AppStyles.textDark.withOpacity(0.6),
+                  color: AppStyles.textDark.withValues(alpha: 0.6),
                   size: AppStyles.iconSizeL,
                 ),
                 onPressed: () {
@@ -141,7 +141,7 @@ class _KursUebersichtState extends State<KursUebersicht> {
                   borderRadius: BorderRadius.circular(40),
                   boxShadow: [
                     BoxShadow(
-                      color: AppStyles.primaryOrange.withOpacity(0.1),
+                      color: AppStyles.primaryOrange.withValues(alpha: 0.1),
                       blurRadius: 30,
                       offset: const Offset(0, 15),
                     ),
@@ -169,7 +169,7 @@ class _KursUebersichtState extends State<KursUebersicht> {
             Text(
               "Achtsamkeitspraxis",
               style: AppStyles.bodyStyle.copyWith(
-                color: AppStyles.softBrown.withOpacity(0.6),
+                color: AppStyles.softBrown.withValues(alpha: 0.6),
                 letterSpacing: 1.2,
               ),
             ),
@@ -195,7 +195,7 @@ class _KursUebersichtState extends State<KursUebersicht> {
                           overlayRadius: 20,
                         ),
                         activeTrackColor: AppStyles.primaryOrange,
-                        inactiveTrackColor: AppStyles.primaryOrange.withOpacity(
+                        inactiveTrackColor: AppStyles.primaryOrange.withValues(alpha: 
                           0.1,
                         ),
                         thumbColor: AppStyles.primaryOrange,
@@ -345,47 +345,9 @@ class _KursUebersichtState extends State<KursUebersicht> {
         children: [
           Column(
             children: [
-              StreamBuilder<bool>(
-                stream: ConnectivityService.onlineStream,
-                initialData: ConnectivityService.isOnline,
-                builder: (context, snapshot) {
-                  final isOnline = snapshot.data ?? true;
-                  if (isOnline) return const SizedBox.shrink();
-                  return Container(
-                    width: double.infinity,
-                    margin: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 8,
-                    ),
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 10,
-                      horizontal: 16,
-                    ),
-                    decoration: BoxDecoration(
-                      color: Colors.orange.shade100,
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.wifi_off,
-                          size: 18,
-                          color: Colors.orange.shade800,
-                        ),
-                        const SizedBox(width: 8),
-                        Text(
-                          'Keine Internetverbindung',
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.orange.shade900,
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
-                },
+              const ConnectivityOfflineBanner(
+                message: 'Keine Internetverbindung',
+                fontSize: 14,
               ),
               Expanded(child: pages[_currentIndex]),
             ],
@@ -434,7 +396,7 @@ class _KursUebersichtState extends State<KursUebersicht> {
             border: Border.all(color: AppStyles.glassBorder, width: 1.5),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.08),
+                color: Colors.black.withValues(alpha: 0.08),
                 blurRadius: 20,
                 offset: const Offset(0, 8),
               ),
@@ -451,7 +413,7 @@ class _KursUebersichtState extends State<KursUebersicht> {
                     width: 48,
                     height: 48,
                     decoration: BoxDecoration(
-                      color: AppStyles.primaryOrange.withOpacity(0.1),
+                      color: AppStyles.primaryOrange.withValues(alpha: 0.1),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Icon(
@@ -479,7 +441,7 @@ class _KursUebersichtState extends State<KursUebersicht> {
                           "Tippen für Details",
                           style: AppStyles.bodyStyle.copyWith(
                             fontSize: 11,
-                            color: AppStyles.textDark.withOpacity(0.8),
+                            color: AppStyles.textDark.withValues(alpha: 0.8),
                           ),
                         ),
                       ],
@@ -527,7 +489,7 @@ class _KursUebersichtState extends State<KursUebersicht> {
                     height: 3,
                     width: double.infinity,
                     decoration: BoxDecoration(
-                      color: AppStyles.primaryOrange.withOpacity(0.1),
+                      color: AppStyles.primaryOrange.withValues(alpha: 0.1),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: FractionallySizedBox(
@@ -568,7 +530,7 @@ class _KursUebersichtState extends State<KursUebersicht> {
             border: Border.all(color: AppStyles.glassBorder, width: 1.5),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.08),
+                color: Colors.black.withValues(alpha: 0.08),
                 blurRadius: 20,
                 offset: const Offset(0, 10),
               ),
@@ -584,7 +546,7 @@ class _KursUebersichtState extends State<KursUebersicht> {
               },
               backgroundColor: Colors.transparent,
               selectedItemColor: AppStyles.primaryOrange,
-              unselectedItemColor: AppStyles.softBrown.withOpacity(0.4),
+              unselectedItemColor: AppStyles.softBrown.withValues(alpha: 0.4),
               showSelectedLabels: true,
               showUnselectedLabels: false,
               elevation: 0,
@@ -661,7 +623,7 @@ class _KursUebersichtState extends State<KursUebersicht> {
           Container(
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
-              color: AppStyles.primaryOrange.withOpacity(0.1),
+              color: AppStyles.primaryOrange.withValues(alpha: 0.1),
               shape: BoxShape.circle,
             ),
             child: Icon(
@@ -680,7 +642,7 @@ class _KursUebersichtState extends State<KursUebersicht> {
           Text(
             "8-Wochen-Achtsamkeitsprogramm",
             style: AppStyles.bodyStyle.copyWith(
-              color: AppStyles.textDark.withOpacity(0.6),
+              color: AppStyles.textDark.withValues(alpha: 0.6),
             ),
             textAlign: TextAlign.center,
           ),
@@ -724,9 +686,9 @@ class _KursUebersichtState extends State<KursUebersicht> {
           width: 48,
           height: 48,
           decoration: BoxDecoration(
-            color: cardColor.withOpacity(0.15),
+            color: cardColor.withValues(alpha: 0.15),
             shape: BoxShape.circle,
-            border: Border.all(color: cardColor.withOpacity(0.3), width: 2),
+            border: Border.all(color: cardColor.withValues(alpha: 0.3), width: 2),
           ),
           child: Center(
             child: Text(
@@ -776,12 +738,12 @@ class _KursUebersichtState extends State<KursUebersicht> {
       margin: const EdgeInsets.only(bottom: 16),
       shape: AppStyles.cardShape.copyWith(
         side: BorderSide(
-          color: AppStyles.accentPink.withOpacity(0.4),
+          color: AppStyles.accentPink.withValues(alpha: 0.4),
           width: 2,
         ),
       ),
       elevation: 0,
-      color: AppStyles.accentPink.withOpacity(0.08),
+      color: AppStyles.accentPink.withValues(alpha: 0.08),
       child: ListTile(
         contentPadding: const EdgeInsets.symmetric(
           horizontal: 24,
@@ -799,7 +761,7 @@ class _KursUebersichtState extends State<KursUebersicht> {
             shape: BoxShape.circle,
             boxShadow: [
               BoxShadow(
-                color: AppStyles.accentPink.withOpacity(0.3),
+                color: AppStyles.accentPink.withValues(alpha: 0.3),
                 blurRadius: 8,
                 offset: const Offset(0, 4),
               ),

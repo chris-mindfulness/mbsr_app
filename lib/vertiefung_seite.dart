@@ -28,7 +28,7 @@ class VertiefungSeite extends StatelessWidget {
         AppStyles.spacingSBox,
         Text(
           "Zusätzliche Übungen und Ressourcen für deine Praxis",
-          style: AppStyles.bodyStyle.copyWith(color: AppStyles.softBrown.withOpacity(0.7)),
+          style: AppStyles.bodyStyle.copyWith(color: AppStyles.softBrown.withValues(alpha: 0.7)),
         ),
         AppStyles.spacingXLBox,
 
@@ -48,25 +48,25 @@ class VertiefungSeite extends StatelessWidget {
                   Container(
                     padding: const EdgeInsets.all(16),
                     decoration: BoxDecoration(
-                      color: AppStyles.softBrown.withOpacity(0.05),
+                      color: AppStyles.softBrown.withValues(alpha: 0.05),
                       shape: BoxShape.circle,
                     ),
                     child: Icon(
                       Icons.schedule,
                       size: 40,
-                      color: AppStyles.softBrown.withOpacity(0.3),
+                      color: AppStyles.softBrown.withValues(alpha: 0.3),
                     ),
                   ),
                   SizedBox(height: AppStyles.spacingL - AppStyles.spacingS), // 20px
                   Text(
                     "Coming soon",
-                    style: AppStyles.subTitleStyle.copyWith(color: AppStyles.softBrown.withOpacity(0.5)),
+                    style: AppStyles.subTitleStyle.copyWith(color: AppStyles.softBrown.withValues(alpha: 0.5)),
                   ),
                   AppStyles.spacingSBox,
                   Text(
                     "Neue Übungen werden in Kürze hinzugefügt",
                     textAlign: TextAlign.center,
-                    style: AppStyles.bodyStyle.copyWith(fontSize: 13, color: AppStyles.softBrown.withOpacity(0.4)),
+                    style: AppStyles.bodyStyle.copyWith(fontSize: 13, color: AppStyles.softBrown.withValues(alpha: 0.4)),
                   ),
                 ],
               ),
@@ -93,7 +93,7 @@ class VertiefungSeite extends StatelessWidget {
                   Container(
                     padding: const EdgeInsets.all(12),
                     decoration: BoxDecoration(
-                      color: AppStyles.accentCyan.withOpacity(0.1),
+                      color: AppStyles.accentCyan.withValues(alpha: 0.1),
                       borderRadius: BorderRadius.circular(14),
                     ),
                     child: const Icon(
@@ -114,7 +114,7 @@ class VertiefungSeite extends StatelessWidget {
                         const SizedBox(height: 4),
                         Text(
                           "Glossar und häufige Fragen",
-                          style: AppStyles.bodyStyle.copyWith(fontSize: 13, color: AppStyles.softBrown.withOpacity(0.6)),
+                          style: AppStyles.bodyStyle.copyWith(fontSize: 13, color: AppStyles.softBrown.withValues(alpha: 0.6)),
                         ),
                       ],
                     ),
@@ -151,7 +151,7 @@ class VertiefungSeite extends StatelessWidget {
                   Container(
                     padding: const EdgeInsets.all(12),
                     decoration: BoxDecoration(
-                      color: AppStyles.primaryOrange.withOpacity(0.1),
+                      color: AppStyles.primaryOrange.withValues(alpha: 0.1),
                       borderRadius: BorderRadius.circular(14),
                     ),
                     child: const Icon(
@@ -172,7 +172,7 @@ class VertiefungSeite extends StatelessWidget {
                         const SizedBox(height: 4),
                         Text(
                           "Bücher, Artikel und Studien zu MBSR",
-                          style: AppStyles.bodyStyle.copyWith(fontSize: 13, color: AppStyles.softBrown.withOpacity(0.6)),
+                          style: AppStyles.bodyStyle.copyWith(fontSize: 13, color: AppStyles.softBrown.withValues(alpha: 0.6)),
                         ),
                       ],
                     ),
@@ -201,7 +201,7 @@ class VertiefungSeite extends StatelessWidget {
           letterSpacing: 1.5,
           fontWeight: FontWeight.bold,
           fontSize: 12,
-          color: AppStyles.softBrown.withOpacity(0.5),
+          color: AppStyles.softBrown.withValues(alpha: 0.5),
         ),
       ),
     );

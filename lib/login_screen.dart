@@ -196,7 +196,7 @@ class _LoginScreenState extends State<LoginScreen> {
       style: AppStyles.bodyStyle.copyWith(fontWeight: FontWeight.bold),
       decoration: InputDecoration(
         labelText: label,
-        prefixIcon: Icon(icon, color: AppStyles.softBrown.withOpacity(0.5)),
+        prefixIcon: Icon(icon, color: AppStyles.softBrown.withValues(alpha: 0.5)),
         suffixIcon: isPassword
             ? IconButton(
                 icon: Icon(
@@ -215,11 +215,11 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(24),
-          borderSide: BorderSide(color: Colors.grey.withOpacity(0.2)),
+          borderSide: BorderSide(color: Colors.grey.withValues(alpha: 0.2)),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(24),
-          borderSide: BorderSide(color: Colors.grey.withOpacity(0.1)),
+          borderSide: BorderSide(color: Colors.grey.withValues(alpha: 0.1)),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(24),

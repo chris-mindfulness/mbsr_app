@@ -3,7 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'app_config.dart';
 
 /// Singleton Appwrite Client
-/// 
+///
 /// Stellt sicher, dass nur eine Client-Instanz existiert
 /// Verhindert Memory-Leaks und Session-Konflikte
 class AppwriteClient {
@@ -16,6 +16,7 @@ class AppwriteClient {
   late final Client _client;
   late final Account _account;
   late final Databases _databases;
+  late final TablesDB _tablesDB;
   late final Storage _storage;
 
   /// Initialisiert den Appwrite Client
@@ -29,6 +30,7 @@ class AppwriteClient {
 
     _account = Account(_client);
     _databases = Databases(_client);
+    _tablesDB = TablesDB(_client);
     _storage = Storage(_client);
 
     if (kDebugMode) {
@@ -42,6 +44,7 @@ class AppwriteClient {
   Client get client => _client;
   Account get account => _account;
   Databases get databases => _databases;
+  TablesDB get tablesDB => _tablesDB;
   Storage get storage => _storage;
 
   /// Prüft, ob eine aktive Session existiert

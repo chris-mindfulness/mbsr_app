@@ -28,7 +28,7 @@ class GlossarFaqSeite extends StatelessWidget {
             tabAlignment: TabAlignment.start,
             labelPadding: EdgeInsets.symmetric(horizontal: AppStyles.spacingM),
             labelColor: AppStyles.textDark,
-          unselectedLabelColor: AppStyles.textDark.withOpacity(0.8),
+          unselectedLabelColor: AppStyles.textDark.withValues(alpha: 0.8),
           indicatorColor: AppStyles.accentCyan,
           indicatorWeight: 4,
           indicatorSize: TabBarIndicatorSize.label,
@@ -326,9 +326,9 @@ class GlossarFaqSeite extends StatelessWidget {
   }) {
     return Container(
       decoration: BoxDecoration(
-        color: AppStyles.successGreen.withOpacity(0.08),
+        color: AppStyles.successGreen.withValues(alpha: 0.08),
         borderRadius: BorderRadius.circular(AppStyles.borderRadius),
-        border: Border.all(color: AppStyles.successGreen.withOpacity(0.2)),
+        border: Border.all(color: AppStyles.successGreen.withValues(alpha: 0.2)),
       ),
       child: Theme(
         data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
@@ -344,7 +344,7 @@ class GlossarFaqSeite extends StatelessWidget {
             AppStyles.spacingL,
           ),
           iconColor: AppStyles.textDark,
-          collapsedIconColor: AppStyles.textDark.withOpacity(0.9),
+          collapsedIconColor: AppStyles.textDark.withValues(alpha: 0.9),
           title: Text(
             title,
             style: AppStyles.subTitleStyle,

@@ -86,7 +86,6 @@ class AudioService {
   DateTime _lastLoadTime = DateTime.fromMillisecondsSinceEpoch(0);
   
   // 80%-Tracking
-  Duration? _sessionStartPosition; // Position beim Start der Session
   DateTime? _sessionStartTime; // Zeitpunkt des Session-Starts
   bool _hasTracked80Percent = false; // Verhindert doppeltes Tracking
   StreamSubscription<Duration>? _positionSubscription;
@@ -209,7 +208,6 @@ class AudioService {
     try {
       // WICHTIG: Setze Tracking-Status zurück
       _hasTracked80Percent = false;
-      _sessionStartPosition = null;
       _sessionStartTime = null;
 
       await _player.stop();
@@ -270,7 +268,6 @@ class AudioService {
 
   /// Startet das 80%-Tracking für das aktuelle Audio
   void _startTracking() {
-    _sessionStartPosition = _player.position;
     _sessionStartTime = DateTime.now();
     
     // Cancle vorherige Subscription

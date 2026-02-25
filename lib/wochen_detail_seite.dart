@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'services/connectivity_service.dart';
 import 'core/app_config.dart';
 import 'core/app_styles.dart';
 import 'widgets/decorative_blobs.dart';
+import 'widgets/offline_banner.dart';
 import 'app_daten.dart';
 import 'audio_service.dart';
 import 'widgets/animated_play_button.dart';
@@ -118,48 +118,9 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
         child: Column(
           children: [
             // Offline-Banner
-            StreamBuilder<bool>(
-              stream: ConnectivityService.onlineStream,
-              initialData: ConnectivityService.isOnline,
-              builder: (context, snapshot) {
-                final isOnline = snapshot.data ?? true;
-                if (isOnline) return const SizedBox.shrink();
-
-                return Container(
-                  width: double.infinity,
-                  margin: const EdgeInsets.symmetric(
-                    horizontal: 24,
-                    vertical: 8,
-                  ),
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 10,
-                    horizontal: 16,
-                  ),
-                  decoration: BoxDecoration(
-                    color: Colors.orange.shade100,
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        Icons.wifi_off,
-                        size: 18,
-                        color: Colors.orange.shade800,
-                      ),
-                      const SizedBox(width: 8),
-                      Text(
-                        'Offline - Audios können nicht geladen werden',
-                        style: TextStyle(
-                          fontSize: 13,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.orange.shade900,
-                        ),
-                      ),
-                    ],
-                  ),
-                );
-              },
+            const ConnectivityOfflineBanner(
+              message: 'Offline - Audios können nicht geladen werden',
+              horizontalMargin: 24,
             ),
             Expanded(
               child: ListView(
@@ -201,10 +162,10 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
                     Container(
                       padding: AppStyles.cardPadding,
                       decoration: BoxDecoration(
-                        color: AppStyles.softBrown.withOpacity(0.05),
+                        color: AppStyles.softBrown.withValues(alpha: 0.05),
                         borderRadius: BorderRadius.circular(20),
                         border: Border.all(
-                          color: AppStyles.softBrown.withOpacity(0.1),
+                          color: AppStyles.softBrown.withValues(alpha: 0.1),
                         ),
                       ),
                       child: Column(
@@ -249,10 +210,10 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
                         padding: AppStyles.cardPadding,
                         margin: EdgeInsets.only(bottom: AppStyles.spacingM),
                         decoration: BoxDecoration(
-                          color: AppStyles.infoBlue.withOpacity(0.1),
+                          color: AppStyles.infoBlue.withValues(alpha: 0.1),
                           borderRadius: BorderRadius.circular(20),
                           border: Border.all(
-                            color: AppStyles.infoBlue.withOpacity(0.3),
+                            color: AppStyles.infoBlue.withValues(alpha: 0.3),
                           ),
                         ),
                         child: Row(
@@ -308,10 +269,10 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
                     Container(
                       padding: AppStyles.cardPadding,
                       decoration: BoxDecoration(
-                        color: AppStyles.successGreen.withOpacity(0.1),
+                        color: AppStyles.successGreen.withValues(alpha: 0.1),
                         borderRadius: BorderRadius.circular(20),
                         border: Border.all(
-                          color: AppStyles.successGreen.withOpacity(0.3),
+                          color: AppStyles.successGreen.withValues(alpha: 0.3),
                         ),
                       ),
                       child: Row(
@@ -375,10 +336,10 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
                     Container(
                       padding: AppStyles.cardPadding,
                       decoration: BoxDecoration(
-                        color: AppStyles.primaryOrange.withOpacity(0.05),
+                        color: AppStyles.primaryOrange.withValues(alpha: 0.05),
                         borderRadius: BorderRadius.circular(28),
                         border: Border.all(
-                          color: AppStyles.primaryOrange.withOpacity(0.1),
+                          color: AppStyles.primaryOrange.withValues(alpha: 0.1),
                           width: 1.5,
                         ),
                       ),
@@ -457,7 +418,7 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
                           letterSpacing: 1.5,
                           fontWeight: FontWeight.bold,
                           fontSize: 12,
-                          color: AppStyles.softBrown.withOpacity(0.5),
+                          color: AppStyles.softBrown.withValues(alpha: 0.5),
                         ),
                       ),
                     ),
@@ -531,11 +492,9 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
     return Container(
       padding: AppStyles.cardPadding,
       decoration: BoxDecoration(
-        color: AppStyles.accentCyan.withOpacity(0.08),
+        color: AppStyles.accentCyan.withValues(alpha: 0.08),
         borderRadius: BorderRadius.circular(24),
-        border: Border.all(
-          color: AppStyles.accentCyan.withOpacity(0.2),
-        ),
+        border: Border.all(color: AppStyles.accentCyan.withValues(alpha: 0.2)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -572,16 +531,24 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
           // 5 Kernprinzipien
           Text(
             "5 Kernprinzipien",
-            style: AppStyles.subTitleStyle.copyWith(
-              color: AppStyles.textDark,
-            ),
+            style: AppStyles.subTitleStyle.copyWith(color: AppStyles.textDark),
           ),
           AppStyles.spacingSBox,
-          _buildTippBullet("Was auch passiert - weitermachen. Auch Abschweifen gehört dazu."),
-          _buildTippBullet("Gedanken bemerken, nicht stoppen. Dann sanft zurückkehren."),
-          _buildTippBullet("Kein Wettbewerb. Regelmäßig üben zählt mehr als perfekt üben."),
-          _buildTippBullet("Erwartungen nicht füttern. Da sein und schauen, was passiert."),
-          _buildTippBullet('"So ist es gerade." - Nicht gegen Unangenehmes kämpfen.'),
+          _buildTippBullet(
+            "Was auch passiert - weitermachen. Auch Abschweifen gehört dazu.",
+          ),
+          _buildTippBullet(
+            "Gedanken bemerken, nicht stoppen. Dann sanft zurückkehren.",
+          ),
+          _buildTippBullet(
+            "Kein Wettbewerb. Regelmäßig üben zählt mehr als perfekt üben.",
+          ),
+          _buildTippBullet(
+            "Erwartungen nicht füttern. Da sein und schauen, was passiert.",
+          ),
+          _buildTippBullet(
+            '"So ist es gerade." - Nicht gegen Unangenehmes kämpfen.',
+          ),
 
           AppStyles.spacingMBox,
 
@@ -589,14 +556,14 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
           Container(
             padding: EdgeInsets.all(AppStyles.spacingM),
             decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.5),
+              color: Colors.white.withValues(alpha: 0.5),
               borderRadius: BorderRadius.circular(16),
             ),
             child: Row(
               children: [
                 Icon(
                   Icons.format_quote,
-                  color: AppStyles.accentCyan.withOpacity(0.6),
+                  color: AppStyles.accentCyan.withValues(alpha: 0.6),
                   size: 24,
                 ),
                 AppStyles.spacingSHorizontal,
@@ -630,62 +597,41 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
               iconColor: AppStyles.accentCyan,
               collapsedIconColor: AppStyles.accentCyan,
               children: [
-                _buildTippSektion(
-                  "Abschweifen",
-                  [
-                    "Völlig normal - passiert allen, immer wieder.",
-                    "Bemerken ist bereits Achtsamkeit.",
-                    "Freundlich zurückkommen, ohne dich zu bewerten.",
-                  ],
-                ),
-                _buildTippSektion(
-                  "Schläfrigkeit",
-                  [
-                    "Augen leicht öffnen kann helfen.",
-                    "Ein paar tiefere Atemzüge nehmen.",
-                    "Position minimal verändern oder im Sitzen üben.",
-                  ],
-                ),
-                _buildTippSektion(
-                  "Unruhe",
-                  [
-                    "Kleine Bewegungen sind erlaubt (schlucken, Schultern lösen).",
-                    "Du musst nicht verkrampft stillhalten.",
-                    "Unruhe wahrnehmen, nicht wegdrücken.",
-                  ],
-                ),
-                _buildTippSektion(
-                  "Schmerz / Unwohlsein",
-                  [
-                    "Erkunden statt ertragen: Was genau spürst du?",
-                    "Position anpassen ist jederzeit okay.",
-                    "Fokus weiten (ganzer Körper, Geräusche) oder neutralen Anker wählen.",
-                  ],
-                ),
-                _buildTippSektion(
-                  "Nichts spüren",
-                  [
-                    'Auch "neutral" oder "taub" ist eine Erfahrung.',
-                    "Kontaktpunkte nutzen: Wo liegt dein Körper auf?",
-                    "Kein Problem - einfach weiter.",
-                  ],
-                ),
-                _buildTippSektion(
-                  "Erwartungen & Leistungsdruck",
-                  [
-                    'Es gibt kein "richtig" oder "falsch".',
-                    "Ziel ist nicht, Gedanken zu steuern - sondern zu bemerken.",
-                    "Jede Übung ist anders. Vergleichen hilft nicht.",
-                  ],
-                ),
-                _buildTippSektion(
-                  "Dranbleiben & Routine",
-                  [
-                    "Ein festes Zeitfenster hilft beim Dranbleiben.",
-                    "Wiederholung ist Teil des Lernens - nicht Langeweile.",
-                    "Optional: Kurze Notiz nach der Übung (Was war da?).",
-                  ],
-                ),
+                _buildTippSektion("Abschweifen", [
+                  "Völlig normal - passiert allen, immer wieder.",
+                  "Bemerken ist bereits Achtsamkeit.",
+                  "Freundlich zurückkommen, ohne dich zu bewerten.",
+                ]),
+                _buildTippSektion("Schläfrigkeit", [
+                  "Augen leicht öffnen kann helfen.",
+                  "Ein paar tiefere Atemzüge nehmen.",
+                  "Position minimal verändern oder im Sitzen üben.",
+                ]),
+                _buildTippSektion("Unruhe", [
+                  "Kleine Bewegungen sind erlaubt (schlucken, Schultern lösen).",
+                  "Du musst nicht verkrampft stillhalten.",
+                  "Unruhe wahrnehmen, nicht wegdrücken.",
+                ]),
+                _buildTippSektion("Schmerz / Unwohlsein", [
+                  "Erkunden statt ertragen: Was genau spürst du?",
+                  "Position anpassen ist jederzeit okay.",
+                  "Fokus weiten (ganzer Körper, Geräusche) oder neutralen Anker wählen.",
+                ]),
+                _buildTippSektion("Nichts spüren", [
+                  'Auch "neutral" oder "taub" ist eine Erfahrung.',
+                  "Kontaktpunkte nutzen: Wo liegt dein Körper auf?",
+                  "Kein Problem - einfach weiter.",
+                ]),
+                _buildTippSektion("Erwartungen & Leistungsdruck", [
+                  'Es gibt kein "richtig" oder "falsch".',
+                  "Ziel ist nicht, Gedanken zu steuern - sondern zu bemerken.",
+                  "Jede Übung ist anders. Vergleichen hilft nicht.",
+                ]),
+                _buildTippSektion("Dranbleiben & Routine", [
+                  "Ein festes Zeitfenster hilft beim Dranbleiben.",
+                  "Wiederholung ist Teil des Lernens - nicht Langeweile.",
+                  "Optional: Kurze Notiz nach der Übung (Was war da?).",
+                ]),
               ],
             ),
           ),
@@ -711,10 +657,7 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
           ),
           AppStyles.spacingSHorizontal,
           Expanded(
-            child: Text(
-              text,
-              style: AppStyles.bodyStyle.copyWith(height: 1.4),
-            ),
+            child: Text(text, style: AppStyles.bodyStyle.copyWith(height: 1.4)),
           ),
         ],
       ),
@@ -748,11 +691,9 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
     return Container(
       padding: AppStyles.cardPadding,
       decoration: BoxDecoration(
-        color: AppStyles.accentPink.withOpacity(0.08),
+        color: AppStyles.accentPink.withValues(alpha: 0.08),
         borderRadius: BorderRadius.circular(24),
-        border: Border.all(
-          color: AppStyles.accentPink.withOpacity(0.2),
-        ),
+        border: Border.all(color: AppStyles.accentPink.withValues(alpha: 0.2)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -789,16 +730,24 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
           // 5 Kernprinzipien
           Text(
             "5 Kernprinzipien",
-            style: AppStyles.subTitleStyle.copyWith(
-              color: AppStyles.textDark,
-            ),
+            style: AppStyles.subTitleStyle.copyWith(color: AppStyles.textDark),
           ),
           AppStyles.spacingSBox,
-          _buildSitzTippBullet("Den Atem spüren, ohne ihn zu steuern (Bauch, Brust oder Nase)."),
-          _buildSitzTippBullet("Abschweifen ist normal. Bemerken, dann freundlich zurückkehren."),
-          _buildSitzTippBullet("Kein Wettbewerb. Immer wieder zurückkommen - das ist die Übung."),
-          _buildSitzTippBullet("Weite üben: Wahrnehmen, was im Vordergrund ist, ohne festzuhalten."),
-          _buildSitzTippBullet('"So ist es gerade." - Auch Unruhe und Langeweile gehören dazu.'),
+          _buildSitzTippBullet(
+            "Den Atem spüren, ohne ihn zu steuern (Bauch, Brust oder Nase).",
+          ),
+          _buildSitzTippBullet(
+            "Abschweifen ist normal. Bemerken, dann freundlich zurückkehren.",
+          ),
+          _buildSitzTippBullet(
+            "Kein Wettbewerb. Immer wieder zurückkommen - das ist die Übung.",
+          ),
+          _buildSitzTippBullet(
+            "Weite üben: Wahrnehmen, was im Vordergrund ist, ohne festzuhalten.",
+          ),
+          _buildSitzTippBullet(
+            '"So ist es gerade." - Auch Unruhe und Langeweile gehören dazu.',
+          ),
 
           AppStyles.spacingMBox,
 
@@ -806,14 +755,14 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
           Container(
             padding: EdgeInsets.all(AppStyles.spacingM),
             decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.5),
+              color: Colors.white.withValues(alpha: 0.5),
               borderRadius: BorderRadius.circular(16),
             ),
             child: Row(
               children: [
                 Icon(
                   Icons.format_quote,
-                  color: AppStyles.accentPink.withOpacity(0.6),
+                  color: AppStyles.accentPink.withValues(alpha: 0.6),
                   size: 24,
                 ),
                 AppStyles.spacingSHorizontal,
@@ -847,62 +796,41 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
               iconColor: AppStyles.accentPink,
               collapsedIconColor: AppStyles.accentPink,
               children: [
-                _buildSitzTippSektion(
-                  "Abschweifen",
-                  [
-                    "Völlig normal - passiert allen, immer wieder.",
-                    'Kurzes Label hilft: "Planen", "Erinnern" - dann zurück.',
-                    "Die Rückkehr ist der Übungsmoment, nicht das Stillsein.",
-                  ],
-                ),
-                _buildSitzTippSektion(
-                  "Schläfrigkeit",
-                  [
-                    "Augen leicht öffnen, Wirbelsäule aufrichten.",
-                    "Ein paar tiefere Atemzüge nehmen.",
-                    "Position minimal anpassen - aufrechter sitzen kann helfen.",
-                  ],
-                ),
-                _buildSitzTippSektion(
-                  "Unruhe",
-                  [
-                    "Kleine Bewegungen sind erlaubt (Schultern lösen, schlucken).",
-                    "Kontaktpunkte spüren: Sitzfläche, Füße, Hände.",
-                    "Unruhe wahrnehmen, nicht wegdrücken.",
-                  ],
-                ),
-                _buildSitzTippSektion(
-                  "Atem zu subtil / Atem steuern",
-                  [
-                    "Atem kaum spürbar? Kontaktpunkte als Backup-Anker nutzen.",
-                    "Du steuerst den Atem? Lass ihn wieder von selbst kommen.",
-                    "Nur mitspüren, nicht machen. Der Körper atmet von allein.",
-                  ],
-                ),
-                _buildSitzTippSektion(
-                  "Offenes Gewahrsein schwer",
-                  [
-                    "Stufenweise öffnen: Atem - Körper - Geräusche - offenes Feld.",
-                    "Nimm wahr, was gerade am deutlichsten ist.",
-                    "Zu viel? Kurz zurück zum Atem, dann wieder öffnen.",
-                  ],
-                ),
-                _buildSitzTippSektion(
-                  "Erwartungen & Leistungsdruck",
-                  [
-                    'Es gibt kein "richtig" oder "falsch".',
-                    'Ziel ist nicht "ruhig werden" - sondern bemerken.',
-                    "Jede Übung ist anders. Vergleichen hilft nicht.",
-                  ],
-                ),
-                _buildSitzTippSektion(
-                  "Dranbleiben & Routine",
-                  [
-                    "Ein festes Zeitfenster hilft beim Dranbleiben.",
-                    "Wiederholung ist Teil des Lernens - nicht Langeweile.",
-                    "Optional: Kurze Notiz nach der Übung (Was war da?).",
-                  ],
-                ),
+                _buildSitzTippSektion("Abschweifen", [
+                  "Völlig normal - passiert allen, immer wieder.",
+                  'Kurzes Label hilft: "Planen", "Erinnern" - dann zurück.',
+                  "Die Rückkehr ist der Übungsmoment, nicht das Stillsein.",
+                ]),
+                _buildSitzTippSektion("Schläfrigkeit", [
+                  "Augen leicht öffnen, Wirbelsäule aufrichten.",
+                  "Ein paar tiefere Atemzüge nehmen.",
+                  "Position minimal anpassen - aufrechter sitzen kann helfen.",
+                ]),
+                _buildSitzTippSektion("Unruhe", [
+                  "Kleine Bewegungen sind erlaubt (Schultern lösen, schlucken).",
+                  "Kontaktpunkte spüren: Sitzfläche, Füße, Hände.",
+                  "Unruhe wahrnehmen, nicht wegdrücken.",
+                ]),
+                _buildSitzTippSektion("Atem zu subtil / Atem steuern", [
+                  "Atem kaum spürbar? Kontaktpunkte als Backup-Anker nutzen.",
+                  "Du steuerst den Atem? Lass ihn wieder von selbst kommen.",
+                  "Nur mitspüren, nicht machen. Der Körper atmet von allein.",
+                ]),
+                _buildSitzTippSektion("Offenes Gewahrsein schwer", [
+                  "Stufenweise öffnen: Atem - Körper - Geräusche - offenes Feld.",
+                  "Nimm wahr, was gerade am deutlichsten ist.",
+                  "Zu viel? Kurz zurück zum Atem, dann wieder öffnen.",
+                ]),
+                _buildSitzTippSektion("Erwartungen & Leistungsdruck", [
+                  'Es gibt kein "richtig" oder "falsch".',
+                  'Ziel ist nicht "ruhig werden" - sondern bemerken.',
+                  "Jede Übung ist anders. Vergleichen hilft nicht.",
+                ]),
+                _buildSitzTippSektion("Dranbleiben & Routine", [
+                  "Ein festes Zeitfenster hilft beim Dranbleiben.",
+                  "Wiederholung ist Teil des Lernens - nicht Langeweile.",
+                  "Optional: Kurze Notiz nach der Übung (Was war da?).",
+                ]),
               ],
             ),
           ),
@@ -928,10 +856,7 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
           ),
           AppStyles.spacingSHorizontal,
           Expanded(
-            child: Text(
-              text,
-              style: AppStyles.bodyStyle.copyWith(height: 1.4),
-            ),
+            child: Text(text, style: AppStyles.bodyStyle.copyWith(height: 1.4)),
           ),
         ],
       ),
@@ -965,11 +890,9 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
     return Container(
       padding: AppStyles.cardPadding,
       decoration: BoxDecoration(
-        color: AppStyles.sageGreen.withOpacity(0.12),
+        color: AppStyles.sageGreen.withValues(alpha: 0.12),
         borderRadius: BorderRadius.circular(24),
-        border: Border.all(
-          color: AppStyles.sageGreen.withOpacity(0.25),
-        ),
+        border: Border.all(color: AppStyles.sageGreen.withValues(alpha: 0.25)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1006,15 +929,21 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
           // 5 Kernprinzipien
           Text(
             "5 Kernprinzipien",
-            style: AppStyles.subTitleStyle.copyWith(
-              color: AppStyles.textDark,
-            ),
+            style: AppStyles.subTitleStyle.copyWith(color: AppStyles.textDark),
           ),
           AppStyles.spacingSBox,
-          _buildBewegungTippBullet("Weniger ist oft mehr: sanft, klein und langsam statt zu viel."),
-          _buildBewegungTippBullet("Grenzen respektieren. Intensität bei 3-5 von 10 halten."),
-          _buildBewegungTippBullet("Spüre Kontakt, Dehnung, Wärme - ohne zu bewerten."),
-          _buildBewegungTippBullet("Pausen sind Teil der Übung. Jederzeit stoppen ist okay."),
+          _buildBewegungTippBullet(
+            "Weniger ist oft mehr: sanft, klein und langsam statt zu viel.",
+          ),
+          _buildBewegungTippBullet(
+            "Grenzen respektieren. Intensität bei 3-5 von 10 halten.",
+          ),
+          _buildBewegungTippBullet(
+            "Spüre Kontakt, Dehnung, Wärme - ohne zu bewerten.",
+          ),
+          _buildBewegungTippBullet(
+            "Pausen sind Teil der Übung. Jederzeit stoppen ist okay.",
+          ),
           _buildBewegungTippBullet("Ruhig atmen können = gute Dosierung."),
 
           AppStyles.spacingMBox,
@@ -1023,14 +952,14 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
           Container(
             padding: EdgeInsets.all(AppStyles.spacingM),
             decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.5),
+              color: Colors.white.withValues(alpha: 0.5),
               borderRadius: BorderRadius.circular(16),
             ),
             child: Row(
               children: [
                 Icon(
                   Icons.format_quote,
-                  color: AppStyles.sageGreen.withOpacity(0.6),
+                  color: AppStyles.sageGreen.withValues(alpha: 0.6),
                   size: 24,
                 ),
                 AppStyles.spacingSHorizontal,
@@ -1064,62 +993,41 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
               iconColor: AppStyles.sageGreen,
               collapsedIconColor: AppStyles.sageGreen,
               children: [
-                _buildBewegungTippSektion(
-                  "Grenzen & Dosierung",
-                  [
-                    '"Erste Kante": Bis zum ersten Signal, dann bleiben oder zurück.',
-                    "Kannst du dabei ruhig atmen? Wenn nein: weniger machen.",
-                    "Variationen nutzen: kleinerer Radius, langsamer, stabiler.",
-                  ],
-                ),
-                _buildBewegungTippSektion(
-                  "Schmerz / Unwohlsein",
-                  [
-                    "Erkunden statt ertragen: Dehnreiz okay, stechend nicht.",
-                    "Bei stechendem Schmerz: sofort raus, Position anpassen.",
-                    "Bei Unsicherheit: weniger machen oder Übung auslassen.",
-                  ],
-                ),
-                _buildBewegungTippSektion(
-                  "Erwartungen & Leistungsdruck",
-                  [
-                    'Es gibt kein "richtig" oder "falsch". Jede Variation zählt.',
-                    "Vergleichen auftaucht? Kurz merken, zurück zu Empfindungen.",
-                    "Jede Übung ist anders. Vergleichen hilft nicht.",
-                  ],
-                ),
-                _buildBewegungTippSektion(
-                  "Unruhe",
-                  [
-                    "Verlangsame absichtlich: halbe Geschwindigkeit.",
-                    "Kontaktpunkte spüren: Füße, Hände, Boden.",
-                    "Unruhe wahrnehmen, nicht wegdrücken.",
-                  ],
-                ),
-                _buildBewegungTippSektion(
-                  "Körperbild / Selbstkritik",
-                  [
-                    'Selbstkritik als Ereignis erkennen ("Bewerten"), nicht als Wahrheit.',
-                    "Fokus auf neutrale Daten: Druck, Temperatur, Kontakt.",
-                    "So üben, dass es sicher und würdevoll bleibt.",
-                  ],
-                ),
-                _buildBewegungTippSektion(
-                  "Nichts spüren",
-                  [
-                    'Auch "neutral" ist eine Erfahrung.',
-                    "Kontaktpunkte nutzen: Wo berührt dein Körper den Boden?",
-                    "Kein Problem - einfach weiter.",
-                  ],
-                ),
-                _buildBewegungTippSektion(
-                  "Dranbleiben & Routine",
-                  [
-                    "Ein festes Zeitfenster hilft beim Dranbleiben.",
-                    "Wiederholung ist Teil des Lernens - nicht Langeweile.",
-                    "Optional: Kurze Notiz nach der Übung (Was war da?).",
-                  ],
-                ),
+                _buildBewegungTippSektion("Grenzen & Dosierung", [
+                  '"Erste Kante": Bis zum ersten Signal, dann bleiben oder zurück.',
+                  "Kannst du dabei ruhig atmen? Wenn nein: weniger machen.",
+                  "Variationen nutzen: kleinerer Radius, langsamer, stabiler.",
+                ]),
+                _buildBewegungTippSektion("Schmerz / Unwohlsein", [
+                  "Erkunden statt ertragen: Dehnreiz okay, stechend nicht.",
+                  "Bei stechendem Schmerz: sofort raus, Position anpassen.",
+                  "Bei Unsicherheit: weniger machen oder Übung auslassen.",
+                ]),
+                _buildBewegungTippSektion("Erwartungen & Leistungsdruck", [
+                  'Es gibt kein "richtig" oder "falsch". Jede Variation zählt.',
+                  "Vergleichen auftaucht? Kurz merken, zurück zu Empfindungen.",
+                  "Jede Übung ist anders. Vergleichen hilft nicht.",
+                ]),
+                _buildBewegungTippSektion("Unruhe", [
+                  "Verlangsame absichtlich: halbe Geschwindigkeit.",
+                  "Kontaktpunkte spüren: Füße, Hände, Boden.",
+                  "Unruhe wahrnehmen, nicht wegdrücken.",
+                ]),
+                _buildBewegungTippSektion("Körperbild / Selbstkritik", [
+                  'Selbstkritik als Ereignis erkennen ("Bewerten"), nicht als Wahrheit.',
+                  "Fokus auf neutrale Daten: Druck, Temperatur, Kontakt.",
+                  "So üben, dass es sicher und würdevoll bleibt.",
+                ]),
+                _buildBewegungTippSektion("Nichts spüren", [
+                  'Auch "neutral" ist eine Erfahrung.',
+                  "Kontaktpunkte nutzen: Wo berührt dein Körper den Boden?",
+                  "Kein Problem - einfach weiter.",
+                ]),
+                _buildBewegungTippSektion("Dranbleiben & Routine", [
+                  "Ein festes Zeitfenster hilft beim Dranbleiben.",
+                  "Wiederholung ist Teil des Lernens - nicht Langeweile.",
+                  "Optional: Kurze Notiz nach der Übung (Was war da?).",
+                ]),
               ],
             ),
           ),
@@ -1145,10 +1053,7 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
           ),
           AppStyles.spacingSHorizontal,
           Expanded(
-            child: Text(
-              text,
-              style: AppStyles.bodyStyle.copyWith(height: 1.4),
-            ),
+            child: Text(text, style: AppStyles.bodyStyle.copyWith(height: 1.4)),
           ),
         ],
       ),
@@ -1184,7 +1089,7 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
           letterSpacing: 1.5,
           fontWeight: FontWeight.bold,
           fontSize: 12,
-          color: AppStyles.softBrown.withOpacity(0.8),
+          color: AppStyles.softBrown.withValues(alpha: 0.8),
         ),
       ),
     );
@@ -1209,8 +1114,8 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
           shape: AppStyles.cardShape.copyWith(
             side: BorderSide(
               color: isCurrent
-                  ? AppStyles.primaryOrange.withOpacity(0.5)
-                  : Colors.grey.withOpacity(0.15),
+                  ? AppStyles.primaryOrange.withValues(alpha: 0.5)
+                  : Colors.grey.withValues(alpha: 0.15),
               width: isCurrent ? 2 : 1.5,
             ),
           ),
@@ -1267,13 +1172,13 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
                             Icon(
                               Icons.access_time,
                               size: 14,
-                              color: AppStyles.softBrown.withOpacity(0.5),
+                              color: AppStyles.softBrown.withValues(alpha: 0.5),
                             ),
                             AppStyles.spacingXSHorizontal,
                             Text(
                               audio['duration'] ?? '',
                               style: AppStyles.smallTextStyle.copyWith(
-                                color: AppStyles.softBrown.withOpacity(0.6),
+                                color: AppStyles.softBrown.withValues(alpha: 0.6),
                               ),
                             ),
                           ],
@@ -1311,7 +1216,7 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
                 width: 56,
                 height: 56,
                 decoration: BoxDecoration(
-                  color: AppStyles.softBrown.withOpacity(0.1),
+                  color: AppStyles.softBrown.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(18),
                 ),
                 child: const Icon(

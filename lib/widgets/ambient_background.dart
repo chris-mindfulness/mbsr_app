@@ -93,15 +93,15 @@ class _AmbientPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final paint1 = Paint()
-      ..color = AppStyles.primaryOrange.withOpacity(0.08)
+      ..color = AppStyles.primaryOrange.withValues(alpha: 0.08)
       ..style = PaintingStyle.fill;
     
     final paint2 = Paint()
-      ..color = AppStyles.successGreen.withOpacity(0.06)
+      ..color = AppStyles.successGreen.withValues(alpha: 0.06)
       ..style = PaintingStyle.fill;
     
     final paint3 = Paint()
-      ..color = AppStyles.accentPink.withOpacity(0.05)
+      ..color = AppStyles.accentPink.withValues(alpha: 0.05)
       ..style = PaintingStyle.fill;
 
     // Blob 1 - Bewegt sich von links oben nach rechts unten

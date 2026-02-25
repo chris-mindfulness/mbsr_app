@@ -79,7 +79,7 @@ class _AnimatedPlayButtonState extends State<AnimatedPlayButton>
               boxShadow: widget.showShadow
                   ? [
                       BoxShadow(
-                        color: buttonColor.withOpacity(0.3),
+                        color: buttonColor.withValues(alpha: 0.3),
                         blurRadius: 20,
                         offset: const Offset(0, 10),
                       ),

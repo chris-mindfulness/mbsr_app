@@ -78,10 +78,10 @@ class _StatistikenSeiteState extends State<StatistikenSeite> {
                       AppStyles.spacingL - AppStyles.spacingS,
                     ), // 20px
                     decoration: BoxDecoration(
-                      color: AppStyles.sageGreen.withOpacity(0.05),
+                      color: AppStyles.sageGreen.withValues(alpha: 0.05),
                       borderRadius: BorderRadius.circular(24),
                       border: Border.all(
-                        color: AppStyles.sageGreen.withOpacity(0.1),
+                        color: AppStyles.sageGreen.withValues(alpha: 0.1),
                         width: 1.5,
                       ),
                     ),
@@ -195,7 +195,7 @@ class _StatistikenSeiteState extends State<StatistikenSeite> {
         borderRadius: BorderRadius.circular(28),
         boxShadow: [
           BoxShadow(
-            color: AppStyles.primaryOrange.withOpacity(0.3),
+            color: AppStyles.primaryOrange.withValues(alpha: 0.3),
             blurRadius: 20,
             offset: const Offset(0, 10),
           ),
@@ -207,7 +207,7 @@ class _StatistikenSeiteState extends State<StatistikenSeite> {
             width: 60,
             height: 60,
             decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.2),
+              color: Colors.white.withValues(alpha: 0.2),
               shape: BoxShape.circle,
             ),
             child: const Icon(
@@ -276,7 +276,7 @@ class _StatistikenSeiteState extends State<StatistikenSeite> {
                             : FontWeight.normal,
                         color: isToday
                             ? AppStyles.primaryOrange
-                            : AppStyles.softBrown.withOpacity(0.5),
+                            : AppStyles.softBrown.withValues(alpha: 0.5),
                       ),
                     ),
                     SizedBox(
@@ -336,7 +336,7 @@ class _StatistikenSeiteState extends State<StatistikenSeite> {
               width: 52,
               height: 52,
               decoration: BoxDecoration(
-                color: color.withOpacity(0.1),
+                color: color.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(16),
               ),
               child: Icon(icon, color: color, size: 26),
@@ -350,7 +350,7 @@ class _StatistikenSeiteState extends State<StatistikenSeite> {
                     title,
                     style: AppStyles.bodyStyle.copyWith(
                       fontSize: 13,
-                      color: AppStyles.softBrown.withOpacity(0.6),
+                      color: AppStyles.softBrown.withValues(alpha: 0.6),
                     ),
                   ),
                   const SizedBox(height: 4),
@@ -439,7 +439,7 @@ class _StatistikenSeiteState extends State<StatistikenSeite> {
         color: Colors.white,
         borderRadius: BorderRadius.circular(28),
         border: Border.all(
-          color: AppStyles.primaryOrange.withOpacity(0.1),
+          color: AppStyles.primaryOrange.withValues(alpha: 0.1),
           width: 1.5,
         ),
       ),

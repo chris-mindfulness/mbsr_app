@@ -28,7 +28,7 @@ class AppColors {
   static Color get inactiveColor => borderLight;
   
   // Helper-Methoden für Opacity-Varianten
-  static Color primaryBrownWithOpacity(double opacity) => primaryBrown.withOpacity(opacity);
-  static Color accentOliveWithOpacity(double opacity) => accentOlive.withOpacity(opacity);
-  static Color accentTerracottaWithOpacity(double opacity) => accentTerracotta.withOpacity(opacity);
+  static Color primaryBrownWithOpacity(double opacity) => primaryBrown.withValues(alpha: opacity);
+  static Color accentOliveWithOpacity(double opacity) => accentOlive.withValues(alpha: opacity);
+  static Color accentTerracottaWithOpacity(double opacity) => accentTerracotta.withValues(alpha: opacity);
 }

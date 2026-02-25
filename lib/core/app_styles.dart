@@ -24,7 +24,7 @@ class AppStyles {
   static const double borderRadius = 28.0;
   static final RoundedRectangleBorder cardShape = RoundedRectangleBorder(
     borderRadius: BorderRadius.circular(borderRadius),
-    side: BorderSide(color: Colors.grey.withOpacity(0.2), width: 1.5),
+    side: BorderSide(color: Colors.grey.withValues(alpha: 0.2), width: 1.5),
   );
 
   // ============================================
@@ -94,8 +94,8 @@ class AppStyles {
 
   // Glassmorphismus (Frosted Glass Effect) - 2026 Design
   static ImageFilter get glassBlur => ImageFilter.blur(sigmaX: 15, sigmaY: 15);
-  static Color get glassBackground => Colors.white.withOpacity(0.6);
-  static Color get glassBorder => Colors.white.withOpacity(0.2);
+  static Color get glassBackground => Colors.white.withValues(alpha: 0.6);
+  static Color get glassBorder => Colors.white.withValues(alpha: 0.2);
 
   // ============================================
   // SPACING SYSTEM (Design Token System)
@@ -181,9 +181,9 @@ class AppStyles {
 
   // Icon-Farben (konsistent)
   static Color iconColorActive = primaryOrange;
-  static Color iconColorInactive = textDark.withOpacity(0.4);
+  static Color iconColorInactive = textDark.withValues(alpha: 0.4);
   static Color iconColorSuccess = successGreen;
-  static Color iconColorOnWhite = textDark.withOpacity(0.6);
+  static Color iconColorOnWhite = textDark.withValues(alpha: 0.6);
 
   // 2. BADGE-DESIGN
   // Badge-Styles für kleine Status-Anzeigen
@@ -212,7 +212,7 @@ class AppStyles {
     return Container(
       height: height ?? 0.5,
       margin: EdgeInsets.symmetric(vertical: spacingM),
-      color: textDark.withOpacity(0.1),
+      color: textDark.withValues(alpha: 0.1),
     );
   }
 
@@ -225,11 +225,11 @@ class AppStyles {
   // Tooltip-Styling (abgerundet, sanfter Shadow)
   static BoxDecoration get tooltipDecoration {
     return BoxDecoration(
-      color: textDark.withOpacity(0.9),
+      color: textDark.withValues(alpha: 0.9),
       borderRadius: BorderRadius.circular(12.0),
       boxShadow: [
         BoxShadow(
-          color: Colors.black.withOpacity(0.1),
+          color: Colors.black.withValues(alpha: 0.1),
           blurRadius: 8,
           offset: const Offset(0, 2),
         ),

@@ -163,7 +163,7 @@ class LiteraturSeite extends StatelessWidget {
           letterSpacing: 1.5,
           fontWeight: FontWeight.bold,
           fontSize: 12,
-          color: AppStyles.softBrown.withOpacity(0.5),
+          color: AppStyles.softBrown.withValues(alpha: 0.5),
         ),
       ),
     );
@@ -183,7 +183,7 @@ class LiteraturSeite extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: AppStyles.softBrown.withOpacity(0.1),
+                color: AppStyles.softBrown.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: const Icon(Icons.book_outlined, color: AppStyles.softBrown),
@@ -197,7 +197,7 @@ class LiteraturSeite extends StatelessWidget {
                   AppStyles.spacingXSBox,
                   Text(buch['autor']!, style: AppStyles.bodyStyle.copyWith(fontWeight: FontWeight.bold, color: AppStyles.sageGreen)),
                   AppStyles.spacingSBox,
-                  Text(buch['info']!, style: AppStyles.bodyStyle.copyWith(fontSize: 13, color: AppStyles.softBrown.withOpacity(0.7))),
+                  Text(buch['info']!, style: AppStyles.bodyStyle.copyWith(fontSize: 13, color: AppStyles.softBrown.withValues(alpha: 0.7))),
                 ],
               ),
             ),
@@ -223,7 +223,7 @@ class LiteraturSeite extends StatelessWidget {
               Container(
                 padding: EdgeInsets.all(AppStyles.spacingM - AppStyles.spacingS), // 12px
                 decoration: BoxDecoration(
-                  color: AppStyles.sageGreen.withOpacity(0.1),
+                  color: AppStyles.sageGreen.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: const Icon(Icons.science_outlined, color: AppStyles.sageGreen),
@@ -235,7 +235,7 @@ class LiteraturSeite extends StatelessWidget {
                   children: [
                     Text(art['titel']!, style: AppStyles.subTitleStyle),
                     AppStyles.spacingXSBox,
-                    Text(art['journal']!, style: AppStyles.bodyStyle.copyWith(fontSize: 12, color: AppStyles.softBrown.withOpacity(0.6))),
+                    Text(art['journal']!, style: AppStyles.bodyStyle.copyWith(fontSize: 12, color: AppStyles.softBrown.withValues(alpha: 0.6))),
                   ],
                 ),
               ),

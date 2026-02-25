@@ -34,7 +34,7 @@ void setRoute(String route) {
   try {
     // Die sauberste Methode in Flutter, um die Browser-URL zu aktualisieren,
     // ohne den Navigator-Stack zu korrumpieren.
-    SystemNavigator.routeInformationUpdated(location: route);
+    SystemNavigator.routeInformationUpdated(uri: Uri.parse(route));
   } catch (e) {
     // Ignoriere Fehler - URL-Update ist optional
   }

@@ -28,7 +28,7 @@ class _BlobPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     // Blob 1 - Links oben (Korallenrot)
     final paint1 = Paint()
-      ..color = AppStyles.primaryOrange.withOpacity(0.1)
+      ..color = AppStyles.primaryOrange.withValues(alpha: 0.1)
       ..style = PaintingStyle.fill;
 
     final path1 = Path();
@@ -56,7 +56,7 @@ class _BlobPainter extends CustomPainter {
 
     // Blob 2 - Rechts oben (Türkis)
     final paint2 = Paint()
-      ..color = AppStyles.successGreen.withOpacity(0.08)
+      ..color = AppStyles.successGreen.withValues(alpha: 0.08)
       ..style = PaintingStyle.fill;
 
     final path2 = Path();
@@ -84,7 +84,7 @@ class _BlobPainter extends CustomPainter {
 
     // Blob 3 - Unten links (Pink)
     final paint3 = Paint()
-      ..color = AppStyles.accentPink.withOpacity(0.07)
+      ..color = AppStyles.accentPink.withValues(alpha: 0.07)
       ..style = PaintingStyle.fill;
 
     final path3 = Path();
@@ -112,7 +112,7 @@ class _BlobPainter extends CustomPainter {
 
     // Blob 4 - Unten rechts (Cyan)
     final paint4 = Paint()
-      ..color = AppStyles.accentCyan.withOpacity(0.08)
+      ..color = AppStyles.accentCyan.withValues(alpha: 0.08)
       ..style = PaintingStyle.fill;
 
     final path4 = Path();
@@ -140,7 +140,7 @@ class _BlobPainter extends CustomPainter {
 
     // Blob 5 - Mitte links (Korallen-Pink)
     final paint5 = Paint()
-      ..color = AppStyles.accentCoral.withOpacity(0.06)
+      ..color = AppStyles.accentCoral.withValues(alpha: 0.06)
       ..style = PaintingStyle.fill;
 
     final path5 = Path();
@@ -168,7 +168,7 @@ class _BlobPainter extends CustomPainter {
 
     // Blob 6 - Mitte rechts (Orange-Akzent)
     final paint6 = Paint()
-      ..color = AppStyles.accentOrange.withOpacity(0.07)
+      ..color = AppStyles.accentOrange.withValues(alpha: 0.07)
       ..style = PaintingStyle.fill;
 
     final path6 = Path();
@@ -196,7 +196,7 @@ class _BlobPainter extends CustomPainter {
 
     // Blob 7 - Oben Mitte (Türkis-Hell)
     final paint7 = Paint()
-      ..color = AppStyles.accentCyan.withOpacity(0.05)
+      ..color = AppStyles.accentCyan.withValues(alpha: 0.05)
       ..style = PaintingStyle.fill;
 
     final path7 = Path();

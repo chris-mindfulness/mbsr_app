@@ -109,7 +109,7 @@ class DownloadsSeite extends StatelessWidget {
                 width: 56,
                 height: 56,
                 decoration: BoxDecoration(
-                  color: AppStyles.softBrown.withOpacity(0.1),
+                  color: AppStyles.softBrown.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(18),
                 ),
                 child: const Icon(
