@@ -18,6 +18,12 @@ Der Audioplayer ist funktional stabil. Die zuletzt gemeldeten Kernprobleme wurde
     - `Stop` im Mini-Player
   - Skip-Steuerung vereinheitlicht auf `10s zurück` und `10s vor`.
   - `stop()` räumt Audio-Zustand vollständiger auf (`currentAudio`, Position-Tracking).
+  - Player-Layout entschärft:
+    - Mini-Player ist in den unteren Layoutbereich integriert (nicht mehr als überlagerndes Overlay).
+    - Inhalte wie Unterlagen/Listen werden unten nicht mehr verdeckt.
+  - Button-Visualisierung vereinheitlicht:
+    - klare, hinterlegte Flächen bei Audio-Aktionen (statt gemischter Stile).
+    - konsistente Form bei Transport- und Kontextbuttons.
 
 ## Verbleibende Risiken (klein)
 - Keine dedizierten Audio-Unit-/Widget-Tests für Zustandswechsel.

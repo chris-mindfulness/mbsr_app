@@ -71,6 +71,33 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
     }
   }
 
+  Widget _buildSurfaceIconButton({
+    required IconData icon,
+    required Color color,
+    required String tooltip,
+    required VoidCallback onPressed,
+  }) {
+    return IconButton(
+      icon: Icon(icon, size: 22, color: color),
+      tooltip: tooltip,
+      style: IconButton.styleFrom(
+        foregroundColor: color,
+        backgroundColor: Colors.white.withValues(alpha: 0.98),
+        minimumSize: const Size(40, 40),
+        fixedSize: const Size(40, 40),
+        padding: EdgeInsets.zero,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+          side: BorderSide(
+            color: AppStyles.borderColor.withValues(alpha: 0.6),
+            width: 1,
+          ),
+        ),
+      ),
+      onPressed: onPressed,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     // Navigation Logic
@@ -1207,12 +1234,10 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
                       ],
                     ),
                   ),
-                  IconButton(
+                  _buildSurfaceIconButton(
+                    icon: Icons.lightbulb_outline,
+                    color: AppStyles.infoBlue,
                     tooltip: 'Tipps zur Übung',
-                    icon: Icon(
-                      Icons.lightbulb_outline,
-                      color: AppStyles.infoBlue,
-                    ),
                     onPressed: () => _showTipsForAudio(audio),
                   ),
                 ],

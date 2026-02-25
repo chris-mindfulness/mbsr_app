@@ -204,6 +204,33 @@ class _MediathekSeiteState extends State<MediathekSeite> {
     );
   }
 
+  Widget _buildSurfaceIconButton({
+    required IconData icon,
+    required Color color,
+    required String tooltip,
+    required VoidCallback onPressed,
+  }) {
+    return IconButton(
+      icon: Icon(icon, size: 22, color: color),
+      tooltip: tooltip,
+      style: IconButton.styleFrom(
+        foregroundColor: color,
+        backgroundColor: Colors.white.withValues(alpha: 0.98),
+        minimumSize: const Size(40, 40),
+        fixedSize: const Size(40, 40),
+        padding: EdgeInsets.zero,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+          side: BorderSide(
+            color: AppStyles.borderColor.withValues(alpha: 0.6),
+            width: 1,
+          ),
+        ),
+      ),
+      onPressed: onPressed,
+    );
+  }
+
   void _showAudioInfo(Map<String, String> audio) {
     showModalBottomSheet(
       context: context,
@@ -307,23 +334,18 @@ class _MediathekSeiteState extends State<MediathekSeite> {
                   Row(
                     children: [
                       // SOS-Button
-                      IconButton(
-                        icon: Icon(
-                          Icons.support_agent,
-                          color: AppStyles.errorRed,
-                          size: AppStyles.iconSizeM,
-                        ),
-                        onPressed: () => _showSOSDialog(context),
+                      _buildSurfaceIconButton(
+                        icon: Icons.support_agent,
+                        color: AppStyles.errorRed,
                         tooltip: 'Notfall-Koffer',
+                        onPressed: () => _showSOSDialog(context),
                       ),
-                      IconButton(
-                        icon: Icon(
-                          Icons.info_outline,
-                          color: AppStyles.softBrown,
-                          size: AppStyles.iconSizeM,
-                        ),
-                        onPressed: () => _showTrackingInfo(context),
+                      const SizedBox(width: 8),
+                      _buildSurfaceIconButton(
+                        icon: Icons.info_outline,
+                        color: AppStyles.softBrown,
                         tooltip: 'Über das Tracking',
+                        onPressed: () => _showTrackingInfo(context),
                       ),
                     ],
                   ),
@@ -385,8 +407,8 @@ class _MediathekSeiteState extends State<MediathekSeite> {
                   AppStyles.spacingL,
                   AppStyles.spacingS,
                   AppStyles.spacingL,
-                  150, // Spezifischer Wert für Player-Platz
-                ), // Mehr Platz für den globalen Player
+                  24,
+                ),
                 itemBuilder: (context, i) {
                   final audio = audios[i];
                   final String audioId = audio['appwrite_id'] ?? '';
@@ -500,23 +522,23 @@ class _MediathekSeiteState extends State<MediathekSeite> {
                                   ),
                                 ),
                                 // Info Button
-                                IconButton(
-                                  icon: Icon(
-                                    Icons.lightbulb_outline,
-                                    color: AppStyles.infoBlue,
-                                  ),
+                                _buildSurfaceIconButton(
+                                  icon: Icons.lightbulb_outline,
+                                  color: AppStyles.infoBlue,
                                   tooltip: 'Tipps zur Übung',
                                   onPressed: () =>
                                       _showExerciseTipsForAudio(audio),
                                 ),
                                 if (audio['description'] != null &&
                                     audio['description']!.isNotEmpty)
-                                  IconButton(
-                                    icon: Icon(
-                                      Icons.info_outline,
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 6),
+                                    child: _buildSurfaceIconButton(
+                                      icon: Icons.info_outline,
                                       color: AppStyles.textDark,
+                                      tooltip: 'Info zur Übung',
+                                      onPressed: () => _showAudioInfo(audio),
                                     ),
-                                    onPressed: () => _showAudioInfo(audio),
                                   ),
                                 // Indicator for playing
                                 if (isPlaying)

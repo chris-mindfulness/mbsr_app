@@ -83,6 +83,51 @@ class _KursUebersichtState extends State<KursUebersicht> {
     await _audioService.seek(target);
   }
 
+  ButtonStyle _surfaceIconStyle({
+    Color? foregroundColor,
+    Color? backgroundColor,
+    double radius = 14,
+  }) {
+    return IconButton.styleFrom(
+      foregroundColor: foregroundColor ?? AppStyles.textDark,
+      backgroundColor: backgroundColor ?? Colors.white.withValues(alpha: 0.95),
+      minimumSize: const Size(44, 44),
+      fixedSize: const Size(44, 44),
+      padding: EdgeInsets.zero,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(radius),
+        side: BorderSide(
+          color: AppStyles.borderColor.withValues(alpha: 0.55),
+          width: 1.0,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildTransportButton({
+    required IconData icon,
+    required String tooltip,
+    required VoidCallback onPressed,
+  }) {
+    return IconButton(
+      icon: Icon(icon, size: 30),
+      tooltip: tooltip,
+      style:
+          _surfaceIconStyle(
+            foregroundColor: AppStyles.softBrown,
+            backgroundColor: Colors.white.withValues(alpha: 0.98),
+            radius: 18,
+          ).copyWith(
+            minimumSize: const WidgetStatePropertyAll(Size(58, 58)),
+            fixedSize: const WidgetStatePropertyAll(Size(58, 58)),
+          ),
+      onPressed: () {
+        HapticFeedback.selectionClick();
+        onPressed();
+      },
+    );
+  }
+
   /// Öffnet den Full-Screen Player im Headspace-Stil
   void _showFullPlayer() {
     showModalBottomSheet(
@@ -137,10 +182,7 @@ class _KursUebersichtState extends State<KursUebersicht> {
                     color: AppStyles.textDark,
                     size: AppStyles.iconSizeL,
                   ),
-                  style: IconButton.styleFrom(
-                    foregroundColor: AppStyles.textDark,
-                    backgroundColor: Colors.white.withValues(alpha: 0.92),
-                  ),
+                  style: _surfaceIconStyle(),
                   onPressed: () {
                     _audioService.stop();
                     Navigator.of(context).pop();
@@ -153,10 +195,7 @@ class _KursUebersichtState extends State<KursUebersicht> {
                     color: AppStyles.textDark,
                     size: AppStyles.iconSizeL,
                   ),
-                  style: IconButton.styleFrom(
-                    foregroundColor: AppStyles.textDark,
-                    backgroundColor: Colors.white.withValues(alpha: 0.92),
-                  ),
+                  style: _surfaceIconStyle(),
                   onPressed: () {
                     Navigator.of(context).pop(); // Modal schließen
                   },
@@ -301,10 +340,8 @@ class _KursUebersichtState extends State<KursUebersicht> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 // Back 10s
-                AnimatedIconButton(
-                  icon: Icons.replay_10,
-                  iconSize: 36,
-                  color: AppStyles.softBrown,
+                _buildTransportButton(
+                  icon: Icons.replay_10_rounded,
                   tooltip: '10 Sekunden zurück',
                   onPressed: () {
                     _seekRelative(const Duration(seconds: -10));
@@ -332,10 +369,8 @@ class _KursUebersichtState extends State<KursUebersicht> {
                 ),
                 AppStyles.spacingLHorizontal,
                 // Forward 10s
-                AnimatedIconButton(
-                  icon: Icons.fast_forward_rounded,
-                  iconSize: 36,
-                  color: AppStyles.softBrown,
+                _buildTransportButton(
+                  icon: Icons.forward_10_rounded,
                   tooltip: '10 Sekunden vor',
                   onPressed: () {
                     _seekRelative(const Duration(seconds: 10));
@@ -385,45 +420,38 @@ class _KursUebersichtState extends State<KursUebersicht> {
           const SizedBox(width: 8),
         ],
       ),
-      body: Stack(
+      body: Column(
         children: [
-          Column(
-            children: [
-              const ConnectivityOfflineBanner(
-                message: 'Keine Internetverbindung',
-                fontSize: 14,
-              ),
-              Expanded(child: pages[_currentIndex]),
-            ],
+          const ConnectivityOfflineBanner(
+            message: 'Keine Internetverbindung',
+            fontSize: 14,
           ),
-
-          // Globaler Mini-Player-Balken
-          StreamBuilder<AudioServiceStatus>(
-            stream: _audioService.statusStream,
-            builder: (context, snapshot) {
-              if (_audioService.currentAppwriteId == null) {
-                return const SizedBox.shrink();
-              }
-              return Positioned(
-                left: 20,
-                right: 20,
-                bottom: 110,
-                child: GestureDetector(
-                  onTap: _showFullPlayer, // Öffnet den großen Player
-                  child: _buildMiniPlayerBar(),
-                ),
-              );
-            },
-          ),
-
-          // Floating Nav
-          Positioned(
-            left: 20,
-            right: 20,
-            bottom: 20,
-            child: _buildFloatingBottomNav(),
-          ),
+          Expanded(child: pages[_currentIndex]),
         ],
+      ),
+      bottomNavigationBar: StreamBuilder<AudioServiceStatus>(
+        stream: _audioService.statusStream,
+        builder: (context, snapshot) {
+          final hasActiveAudio = _audioService.currentAppwriteId != null;
+          return SafeArea(
+            top: false,
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(20, 6, 20, 20),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  if (hasActiveAudio)
+                    GestureDetector(
+                      onTap: _showFullPlayer,
+                      child: _buildMiniPlayerBar(),
+                    ),
+                  if (hasActiveAudio) const SizedBox(height: 12),
+                  _buildFloatingBottomNav(),
+                ],
+              ),
+            ),
+          );
+        },
       ),
     );
   }
@@ -517,9 +545,8 @@ class _KursUebersichtState extends State<KursUebersicht> {
                       color: AppStyles.textDark,
                       size: 24,
                     ),
-                    style: IconButton.styleFrom(
-                      foregroundColor: AppStyles.textDark,
-                      backgroundColor: Colors.white.withValues(alpha: 0.9),
+                    style: _surfaceIconStyle(
+                      backgroundColor: Colors.white.withValues(alpha: 0.95),
                     ),
                     tooltip: 'Audio stoppen',
                     onPressed: () async {
@@ -635,9 +662,7 @@ class _KursUebersichtState extends State<KursUebersicht> {
           builder: (context) => DecorativeBlobs(
             child: ListView(
               controller: _scrollController,
-              padding: const EdgeInsets.only(
-                bottom: 180,
-              ), // Mehr Platz für Mini-Player
+              padding: const EdgeInsets.only(bottom: 28),
               children: [
                 _buildHeader(),
                 Padding(
