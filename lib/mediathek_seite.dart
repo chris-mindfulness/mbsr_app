@@ -371,7 +371,7 @@ class _MediathekSeiteState extends State<MediathekSeite> {
                 decoration: InputDecoration(
                   hintText: "Suchen...",
                   hintStyle: AppStyles.bodyStyle.copyWith(
-                    color: AppStyles.textDark.withValues(alpha: 0.7),
+                    color: AppStyles.textMuted,
                   ),
                   prefixIcon: Icon(Icons.search, color: AppStyles.softBrown),
                   filled: true,
@@ -504,16 +504,14 @@ class _MediathekSeiteState extends State<MediathekSeite> {
                                           Icon(
                                             Icons.access_time,
                                             size: 14,
-                                            color: AppStyles.textDark
-                                                .withValues(alpha: 0.7),
+                                            color: AppStyles.textMuted,
                                           ),
                                           AppStyles.spacingXSHorizontal,
                                           Text(
                                             '• ${audio['duration'] ?? ''}',
                                             style: AppStyles.smallTextStyle
                                                 .copyWith(
-                                                  color: AppStyles.textDark
-                                                      .withValues(alpha: 0.75),
+                                                  color: AppStyles.textMuted,
                                                 ),
                                           ),
                                         ],

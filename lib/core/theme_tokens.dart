@@ -11,6 +11,7 @@ class AppThemeTokens {
   final Color successGreen;
   final Color accentCyan;
   final Color textDark;
+  final Color textMuted;
   final Color borderColor;
   final Color infoBlue;
   final Color warningYellow;
@@ -42,6 +43,7 @@ class AppThemeTokens {
     required this.successGreen,
     required this.accentCyan,
     required this.textDark,
+    required this.textMuted,
     required this.borderColor,
     required this.infoBlue,
     required this.warningYellow,
@@ -72,6 +74,7 @@ const AppThemeTokens calmDefaultTokens = AppThemeTokens(
   successGreen: Color(0xFF5D988F),
   accentCyan: Color(0xFF6F9FA1),
   textDark: Color(0xFF1E1F1D),
+  textMuted: Color(0xFF5F6662),
   borderColor: Color(0xFFD9DEE2),
   infoBlue: Color(0xFF6D8FB3),
   warningYellow: Color(0xFFC6A34E),
@@ -81,10 +84,10 @@ const AppThemeTokens calmDefaultTokens = AppThemeTokens(
   subTitleFontSize: 18,
   subTitleFontWeight: FontWeight.w600,
   bodyFontSize: 17,
-  bodyFontWeight: FontWeight.w500,
-  bodyLetterSpacing: 0.05,
+  bodyFontWeight: FontWeight.w400,
+  bodyLetterSpacing: 0.0,
   smallFontSize: 15,
-  smallFontWeight: FontWeight.w500,
+  smallFontWeight: FontWeight.w400,
   glassSigma: 9,
   glassBackgroundAlpha: 0.82,
   glassBorderAlpha: 0.34,
@@ -101,6 +104,7 @@ const AppThemeTokens calmVividTokens = AppThemeTokens(
   successGreen: Color(0xFF4ECDC4),
   accentCyan: Color(0xFF5BC0BE),
   textDark: Color(0xFF1E1F1D),
+  textMuted: Color(0xFF5F6662),
   borderColor: Color(0xFFE0E0E0),
   infoBlue: Color(0xFF6B9BD2),
   warningYellow: Color(0xFFFFC107),
@@ -110,10 +114,10 @@ const AppThemeTokens calmVividTokens = AppThemeTokens(
   subTitleFontSize: 18,
   subTitleFontWeight: FontWeight.w600,
   bodyFontSize: 17,
-  bodyFontWeight: FontWeight.w500,
-  bodyLetterSpacing: 0.05,
+  bodyFontWeight: FontWeight.w400,
+  bodyLetterSpacing: 0.0,
   smallFontSize: 15,
-  smallFontWeight: FontWeight.w500,
+  smallFontWeight: FontWeight.w400,
   glassSigma: 15,
   glassBackgroundAlpha: 0.6,
   glassBorderAlpha: 0.2,

@@ -81,19 +81,47 @@ class MyApp extends StatelessWidget {
     return AnimatedBuilder(
       animation: ThemeModeController.instance,
       builder: (context, _) {
+        final bodyFamily = kIsWeb ? 'Helvetica Neue' : 'Nunito';
+        final bodyFallback = kIsWeb
+            ? const ['Helvetica', 'Arial', 'sans-serif']
+            : const <String>['sans-serif'];
+        final headingFamily = kIsWeb ? 'Lora' : bodyFamily;
+        final headingFallback = kIsWeb
+            ? const ['Georgia', 'serif']
+            : const <String>[];
+
+        final baseTheme = ThemeData(
+          useMaterial3: true,
+          scaffoldBackgroundColor: AppStyles.bgColor,
+          colorScheme: ColorScheme.fromSeed(
+            seedColor: AppStyles.primaryOrange,
+            surface: AppStyles.bgColor,
+          ),
+          fontFamily: bodyFamily,
+          fontFamilyFallback: bodyFallback,
+        );
+
+        TextStyle? headingStyle(TextStyle? style) => style?.copyWith(
+          fontFamily: headingFamily,
+          fontFamilyFallback: headingFallback,
+        );
+
         return MaterialApp(
           title: 'MBSR Achtsamkeitstraining',
           debugShowCheckedModeBanner: false,
           navigatorKey: navigatorKey, // Key registrieren
-          theme: ThemeData(
-            useMaterial3: true,
-            scaffoldBackgroundColor: AppStyles.bgColor,
-            colorScheme: ColorScheme.fromSeed(
-              seedColor: AppStyles.primaryOrange,
-              surface: AppStyles.bgColor,
+          theme: baseTheme.copyWith(
+            textTheme: baseTheme.textTheme.copyWith(
+              displayLarge: headingStyle(baseTheme.textTheme.displayLarge),
+              displayMedium: headingStyle(baseTheme.textTheme.displayMedium),
+              displaySmall: headingStyle(baseTheme.textTheme.displaySmall),
+              headlineLarge: headingStyle(baseTheme.textTheme.headlineLarge),
+              headlineMedium: headingStyle(baseTheme.textTheme.headlineMedium),
+              headlineSmall: headingStyle(baseTheme.textTheme.headlineSmall),
+              titleLarge: headingStyle(baseTheme.textTheme.titleLarge),
+              titleMedium: headingStyle(baseTheme.textTheme.titleMedium),
+              titleSmall: headingStyle(baseTheme.textTheme.titleSmall),
             ),
-            // Web: näher an Website-Typografie; Mobile/Desktop: Nunito wie bisher
-            fontFamily: kIsWeb ? 'Helvetica Neue' : 'Nunito',
           ),
           home: const AuthWrapper(),
         );

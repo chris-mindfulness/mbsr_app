@@ -20,6 +20,14 @@
 6. Woche 5-8 inhaltlich geschärft:
    - je Woche kompakte Hilfekarte
    - `Wenn es schwierig wird` mit kurzen, praxisnahen Leitpunkten
+7. Typografie-Abgleich zur Website umgesetzt:
+   - zentrale Tokens auf Website-Basis gesetzt (`17px`, `1.6`, `w400`, `#1E1F1D`)
+   - Muted-Token eingeführt (`#5F6662`) und in Kernbereichen genutzt
+   - Woche-4-Lesemodus auf globale Fließtext-Typografie zurückgeführt
+   - Web-Theme um Fontstack-Fallbacks erweitert (Sans + Heading)
+8. Neuer Design-Test ergänzt:
+   - `test/design/typografie_web_abgleich_tokens_test.dart`
+   - prüft typografische Basiswerte für beide Theme-Modi
 
 ## Geprüft
 
@@ -28,5 +36,5 @@
 
 ## Offene nächste Schritte
 
-1. Typografie-Abgleich App/Web später in eigenem Schritt finalisieren (bereits separat notiert).
+1. Kurze visuelle Feinabnahme im Browser (Woche 4 + Mediathek + Vertiefung).
 2. Appwrite-Basisprüfung manuell abschließen (Stabilität ohne Fallback-Layer verifizieren).

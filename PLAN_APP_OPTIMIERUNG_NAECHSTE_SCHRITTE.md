@@ -40,6 +40,12 @@ Stand: 26.02.2026 (aktualisiert)
 - Woche 5-8 inhaltlich geschärft:
   - neue kompakte Hilfekarten je Woche mit `Wenn es schwierig wird`
   - Fokus auf typische Hürden (Gedanken, Kommunikation, Selbstfürsorge, Transfer nach Kursende)
+- Typografie an Website-Basis angeglichen:
+  - Body-Werte auf Website-Standard gesetzt (`17px`, `1.6`, `#1E1F1D`, normales Gewicht)
+  - dedizierte Muted-Farbe ergänzt (`#5F6662`) und in Kernbereichen verwendet
+  - Woche-4-Lesemodus von Heavy-Overrides auf globale Typografie zurückgeführt
+  - Web-Fontstack im Theme explizit mit Fallbacks abgebildet (Sans + Heading-Familie)
+  - zusätzlicher Token-Test für Typografie-Basiswerte ergänzt
 - Technische Checks nach den Änderungen erfolgreich:
   - `flutter analyze --no-pub` grün
   - `flutter test --no-pub` grün
@@ -56,12 +62,12 @@ Akzeptanz:
 - `/account` bleibt nach Refresh stabil gültig.
 - Profil wird direkt gefunden, ohne Zwischenfehlerseite.
 
-### 2) Typografie-Abgleich App vs. Website (bewusst geparkt)
-Status: offen (separater Schritt)
+### 2) Visuelle Feinabnahme Typografie (manuell)
+Status: offen (Kurzcheck im Browser)
 
 Ziel:
-Lesbarkeit feiner angleichen ohne Übersteuerung.
+Final bestätigen, dass die Typografie in realer Nutzung 1:1 wie gewünscht wirkt.
 
 Akzeptanz:
-- Fließtext wirkt weder zu blass noch zu hart.
-- Ergebnis orientiert sich sichtbar am Website-Lesegefühl.
+- Woche 4 und Mediathek sind subjektiv klar website-nah.
+- Falls nötig nur minimale Feinkorrektur einzelner Tokens (kein neuer Umbau).

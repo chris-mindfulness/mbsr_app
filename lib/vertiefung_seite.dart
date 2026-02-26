@@ -27,9 +27,7 @@ class VertiefungSeite extends StatelessWidget {
           AppStyles.spacingSBox,
           Text(
             "Zusätzliche Übungen und Ressourcen für deine Praxis",
-            style: AppStyles.bodyStyle.copyWith(
-              color: AppStyles.softBrown.withValues(alpha: 0.7),
-            ),
+            style: AppStyles.bodyStyle.copyWith(color: AppStyles.textMuted),
           ),
           AppStyles.spacingXLBox,
 
@@ -64,7 +62,7 @@ class VertiefungSeite extends StatelessWidget {
                     Text(
                       "Coming soon",
                       style: AppStyles.subTitleStyle.copyWith(
-                        color: AppStyles.softBrown.withValues(alpha: 0.5),
+                        color: AppStyles.textMuted,
                       ),
                     ),
                     AppStyles.spacingSBox,
@@ -73,7 +71,7 @@ class VertiefungSeite extends StatelessWidget {
                       textAlign: TextAlign.center,
                       style: AppStyles.bodyStyle.copyWith(
                         fontSize: 13,
-                        color: AppStyles.softBrown.withValues(alpha: 0.4),
+                        color: AppStyles.textMuted,
                       ),
                     ),
                   ],
@@ -128,7 +126,7 @@ class VertiefungSeite extends StatelessWidget {
                             "Glossar und häufige Fragen",
                             style: AppStyles.bodyStyle.copyWith(
                               fontSize: 13,
-                              color: AppStyles.softBrown.withValues(alpha: 0.6),
+                              color: AppStyles.textMuted,
                             ),
                           ),
                         ],
@@ -187,7 +185,7 @@ class VertiefungSeite extends StatelessWidget {
                             "Volltexte zu den Kurswochen",
                             style: AppStyles.bodyStyle.copyWith(
                               fontSize: 13,
-                              color: AppStyles.softBrown.withValues(alpha: 0.6),
+                              color: AppStyles.textMuted,
                             ),
                           ),
                         ],
@@ -247,7 +245,7 @@ class VertiefungSeite extends StatelessWidget {
                             "Bücher, Artikel und Studien zu MBSR",
                             style: AppStyles.bodyStyle.copyWith(
                               fontSize: 13,
-                              color: AppStyles.softBrown.withValues(alpha: 0.6),
+                              color: AppStyles.textMuted,
                             ),
                           ),
                         ],
@@ -271,10 +269,10 @@ class VertiefungSeite extends StatelessWidget {
       child: Text(
         title,
         style: AppStyles.bodyStyle.copyWith(
-          letterSpacing: 1.5,
-          fontWeight: FontWeight.bold,
+          letterSpacing: 1.2,
+          fontWeight: AppStyles.fontWeightSemiBold,
           fontSize: 12,
-          color: AppStyles.softBrown.withValues(alpha: 0.5),
+          color: AppStyles.textMuted,
         ),
       ),
     );

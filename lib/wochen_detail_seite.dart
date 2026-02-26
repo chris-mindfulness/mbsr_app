@@ -54,12 +54,6 @@ class WochenDetailSeite extends StatefulWidget {
 
 class _WochenDetailSeiteState extends State<WochenDetailSeite> {
   final AudioService _audioService = AudioService();
-  static const Color _pilotTextStrong = Color(0xFF101418);
-  static const Color _pilotTextDefault = Color(0xFF171A1D);
-  static const Color _pilotPrimaryReadable = Color(0xFF9F3F32);
-  static const Color _pilotSuccessReadable = Color(0xFF3F7A72);
-  static const Color _pilotInfoReadable = Color(0xFF4B6F95);
-  static const Color _pilotPinkReadable = Color(0xFF944A61);
 
   double _responsiveHorizontalPadding(double width) {
     if (width >= 1400) return 72;
@@ -563,7 +557,6 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
     // Navigation Logic
     final currentWeekIndex = _getCurrentWeekIndex();
     final isReadabilityPilot = currentWeekIndex == 4;
-    final isWideLayout = MediaQuery.sizeOf(context).width >= 900;
     final hasPrev = currentWeekIndex > 1;
     final hasNext = currentWeekIndex < 8;
     final horizontalPadding = _responsiveHorizontalPadding(
@@ -636,7 +629,6 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
                     Text(
                       widget.teaser!,
                       style: AppStyles.bodyStyle.copyWith(
-                        fontStyle: FontStyle.italic,
                         color: AppStyles.textDark,
                       ),
                     ),
@@ -704,15 +696,11 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
                     Container(
                       padding: AppStyles.cardPadding,
                       decoration: BoxDecoration(
-                        color: isReadabilityPilot
-                            ? _pilotPrimaryReadable.withValues(alpha: 0.05)
-                            : AppStyles.primaryOrange.withValues(alpha: 0.05),
+                        color: AppStyles.primaryOrange.withValues(alpha: 0.05),
                         borderRadius: BorderRadius.circular(28),
                         border: Border.all(
-                          color: isReadabilityPilot
-                              ? _pilotPrimaryReadable.withValues(alpha: 0.22)
-                              : AppStyles.primaryOrange.withValues(alpha: 0.1),
-                          width: isReadabilityPilot ? 1.4 : 1.5,
+                          color: AppStyles.primaryOrange.withValues(alpha: 0.1),
+                          width: 1.5,
                         ),
                       ),
                       child: Column(
@@ -722,9 +710,7 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
                             children: [
                               Icon(
                                 Icons.assignment_outlined,
-                                color: isReadabilityPilot
-                                    ? _pilotPrimaryReadable
-                                    : AppStyles.primaryOrange,
+                                color: AppStyles.primaryOrange,
                                 size: 24,
                               ),
                               SizedBox(
@@ -734,9 +720,7 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
                                 "Hinweise zu deinen Übungen dieser Woche",
                                 style: AppStyles.headingStyle.copyWith(
                                   fontSize: 18,
-                                  color: isReadabilityPilot
-                                      ? _pilotTextStrong
-                                      : AppStyles.primaryOrange,
+                                  color: AppStyles.primaryOrange,
                                 ),
                               ),
                             ],
@@ -756,9 +740,7 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
                                     margin: const EdgeInsets.only(top: 2),
                                     child: Icon(
                                       Icons.check_circle_outline,
-                                      color: isReadabilityPilot
-                                          ? _pilotSuccessReadable
-                                          : AppStyles.sageGreen,
+                                      color: AppStyles.sageGreen,
                                       size: 20,
                                     ),
                                   ),
@@ -770,16 +752,10 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
                                     child: Text(
                                       aufgabe,
                                       style: AppStyles.bodyStyle.copyWith(
-                                        height: isReadabilityPilot ? 1.7 : 1.6,
-                                        fontWeight: isReadabilityPilot
-                                            ? FontWeight.w600
-                                            : FontWeight.w500,
-                                        color: isReadabilityPilot
-                                            ? _pilotTextDefault
-                                            : AppStyles.textDark,
-                                        fontSize: isReadabilityPilot
-                                            ? (isWideLayout ? 18 : 17)
-                                            : AppStyles.bodyStyle.fontSize,
+                                        height: 1.6,
+                                        fontWeight: AppStyles.fontWeightRegular,
+                                        color: AppStyles.textDark,
+                                        fontSize: AppStyles.bodyStyle.fontSize,
                                       ),
                                     ),
                                   ),
@@ -813,15 +789,11 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
                         padding: AppStyles.cardPadding,
                         margin: EdgeInsets.only(bottom: AppStyles.spacingM),
                         decoration: BoxDecoration(
-                          color: isReadabilityPilot
-                              ? _pilotInfoReadable.withValues(alpha: 0.07)
-                              : AppStyles.infoBlue.withValues(alpha: 0.1),
+                          color: AppStyles.infoBlue.withValues(alpha: 0.1),
                           borderRadius: BorderRadius.circular(20),
                           border: Border.all(
-                            color: isReadabilityPilot
-                                ? _pilotInfoReadable.withValues(alpha: 0.24)
-                                : AppStyles.infoBlue.withValues(alpha: 0.3),
-                            width: isReadabilityPilot ? 1.4 : 1.0,
+                            color: AppStyles.infoBlue.withValues(alpha: 0.3),
+                            width: 1.0,
                           ),
                         ),
                         child: Row(
@@ -829,9 +801,7 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
                           children: [
                             Icon(
                               Icons.info_outline,
-                              color: isReadabilityPilot
-                                  ? _pilotInfoReadable
-                                  : AppStyles.infoBlue,
+                              color: AppStyles.infoBlue,
                               size: 24,
                             ),
                             AppStyles.spacingMHorizontal,
@@ -839,16 +809,10 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
                               child: Text(
                                 "Hinweis: In der Mediathek findest du auch längere Versionen des Body-Scans (27 & 35 Min), falls du mehr Zeit hast.",
                                 style: AppStyles.bodyStyle.copyWith(
-                                  fontSize: isReadabilityPilot
-                                      ? (isWideLayout ? 18 : 17)
-                                      : 13,
-                                  color: isReadabilityPilot
-                                      ? _pilotTextDefault
-                                      : AppStyles.textDark,
-                                  fontWeight: isReadabilityPilot
-                                      ? FontWeight.w600
-                                      : AppStyles.fontWeightRegular,
-                                  height: isReadabilityPilot ? 1.7 : 1.5,
+                                  fontSize: AppStyles.bodyStyle.fontSize,
+                                  color: AppStyles.textDark,
+                                  fontWeight: AppStyles.fontWeightRegular,
+                                  height: 1.6,
                                 ),
                               ),
                             ),
@@ -890,15 +854,11 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
                     Container(
                       padding: AppStyles.cardPadding,
                       decoration: BoxDecoration(
-                        color: isReadabilityPilot
-                            ? _pilotSuccessReadable.withValues(alpha: 0.07)
-                            : AppStyles.successGreen.withValues(alpha: 0.1),
+                        color: AppStyles.successGreen.withValues(alpha: 0.1),
                         borderRadius: BorderRadius.circular(20),
                         border: Border.all(
-                          color: isReadabilityPilot
-                              ? _pilotSuccessReadable.withValues(alpha: 0.24)
-                              : AppStyles.successGreen.withValues(alpha: 0.3),
-                          width: isReadabilityPilot ? 1.4 : 1.0,
+                          color: AppStyles.successGreen.withValues(alpha: 0.3),
+                          width: 1.0,
                         ),
                       ),
                       child: Row(
@@ -906,9 +866,7 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
                         children: [
                           Icon(
                             Icons.lightbulb_outline,
-                            color: isReadabilityPilot
-                                ? _pilotSuccessReadable
-                                : AppStyles.successGreen,
+                            color: AppStyles.successGreen,
                             size: 28,
                           ),
                           AppStyles.spacingMHorizontal,
@@ -916,16 +874,10 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
                             child: Text(
                               widget.alltagsTipp!,
                               style: AppStyles.bodyStyle.copyWith(
-                                color: isReadabilityPilot
-                                    ? _pilotTextDefault
-                                    : AppStyles.textDark,
-                                height: isReadabilityPilot ? 1.7 : 1.5,
-                                fontSize: isReadabilityPilot
-                                    ? (isWideLayout ? 18 : 17)
-                                    : AppStyles.bodyStyle.fontSize,
-                                fontWeight: isReadabilityPilot
-                                    ? FontWeight.w600
-                                    : AppStyles.fontWeightRegular,
+                                color: AppStyles.textDark,
+                                height: 1.6,
+                                fontSize: AppStyles.bodyStyle.fontSize,
+                                fontWeight: AppStyles.fontWeightRegular,
                               ),
                             ),
                           ),
@@ -951,9 +903,7 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
                           children: [
                             Icon(
                               Icons.edit_note,
-                              color: isReadabilityPilot
-                                  ? _pilotPinkReadable
-                                  : AppStyles.accentPink,
+                              color: AppStyles.accentPink,
                               size: 24,
                             ),
                             AppStyles.spacingMHorizontal,
@@ -961,19 +911,11 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
                               child: Text(
                                 frage,
                                 style: AppStyles.bodyStyle.copyWith(
-                                  fontStyle: isReadabilityPilot
-                                      ? FontStyle.normal
-                                      : FontStyle.italic,
-                                  color: isReadabilityPilot
-                                      ? _pilotTextDefault
-                                      : AppStyles.textDark,
-                                  fontSize: isReadabilityPilot
-                                      ? (isWideLayout ? 18 : 17)
-                                      : AppStyles.bodyStyle.fontSize,
-                                  fontWeight: isReadabilityPilot
-                                      ? FontWeight.w600
-                                      : AppStyles.fontWeightRegular,
-                                  height: isReadabilityPilot ? 1.7 : 1.62,
+                                  fontStyle: FontStyle.normal,
+                                  color: AppStyles.textDark,
+                                  fontSize: AppStyles.bodyStyle.fontSize,
+                                  fontWeight: AppStyles.fontWeightRegular,
+                                  height: 1.6,
                                 ),
                               ),
                             ),
@@ -1698,19 +1640,12 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
       padding: EdgeInsets.only(left: AppStyles.spacingS),
       child: Text(
         title,
-        style: readabilityPilot
-            ? AppStyles.bodyStyle.copyWith(
-                letterSpacing: 1.1,
-                fontWeight: FontWeight.w700,
-                fontSize: 14,
-                color: _pilotTextStrong,
-              )
-            : AppStyles.bodyStyle.copyWith(
-                letterSpacing: 1.5,
-                fontWeight: FontWeight.bold,
-                fontSize: 12,
-                color: AppStyles.softBrown.withValues(alpha: 0.8),
-              ),
+        style: AppStyles.bodyStyle.copyWith(
+          letterSpacing: 1.2,
+          fontWeight: AppStyles.fontWeightSemiBold,
+          fontSize: 12,
+          color: AppStyles.textMuted,
+        ),
       ),
     );
   }
@@ -1803,15 +1738,13 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
                             Icon(
                               Icons.access_time,
                               size: 14,
-                              color: AppStyles.softBrown.withValues(alpha: 0.5),
+                              color: AppStyles.textMuted,
                             ),
                             AppStyles.spacingXSHorizontal,
                             Text(
                               audio['duration'] ?? '',
                               style: AppStyles.smallTextStyle.copyWith(
-                                color: AppStyles.softBrown.withValues(
-                                  alpha: 0.6,
-                                ),
+                                color: AppStyles.textMuted,
                               ),
                             ),
                           ],

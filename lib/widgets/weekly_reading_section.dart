@@ -24,12 +24,6 @@ class WeeklyReadingSection extends StatelessWidget {
 
   double _maxReadingWidth() => 980;
 
-  static const Color _textStrong = Color(0xFF101418);
-  static const Color _textDefault = Color(0xFF171A1D);
-  static const Color _textMuted = Color(0xFF2D3742);
-  static const Color _primaryReadable = Color(0xFFAD4738);
-  static const Color _infoReadable = Color(0xFF4B6F95);
-
   @override
   Widget build(BuildContext context) {
     if (readingCards.isEmpty) {
@@ -37,20 +31,13 @@ class WeeklyReadingSection extends StatelessWidget {
     }
 
     final screenWidth = MediaQuery.sizeOf(context).width;
-    final bodyFontSize = screenWidth >= 900 ? 18.0 : 17.0;
-    final sectionHeaderStyle = readabilityPilot
-        ? AppStyles.bodyStyle.copyWith(
-            letterSpacing: 1.1,
-            fontWeight: FontWeight.w700,
-            fontSize: 14,
-            color: _textStrong,
-          )
-        : AppStyles.bodyStyle.copyWith(
-            letterSpacing: 1.5,
-            fontWeight: FontWeight.bold,
-            fontSize: 12,
-            color: AppStyles.softBrown.withValues(alpha: 0.8),
-          );
+    final bodyFontSize = screenWidth >= 900 ? 17.0 : 17.0;
+    final sectionHeaderStyle = AppStyles.bodyStyle.copyWith(
+      letterSpacing: 1.2,
+      fontWeight: AppStyles.fontWeightSemiBold,
+      fontSize: 12,
+      color: AppStyles.textMuted,
+    );
 
     return Center(
       child: ConstrainedBox(
@@ -73,10 +60,8 @@ class WeeklyReadingSection extends StatelessWidget {
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(24),
                   border: Border.all(
-                    color: readabilityPilot
-                        ? _infoReadable.withValues(alpha: 0.42)
-                        : AppStyles.infoBlue.withValues(alpha: 0.55),
-                    width: readabilityPilot ? 1.4 : 1.5,
+                    color: AppStyles.infoBlue.withValues(alpha: 0.45),
+                    width: 1.4,
                   ),
                 ),
                 child: Row(
@@ -84,9 +69,7 @@ class WeeklyReadingSection extends StatelessWidget {
                   children: [
                     Icon(
                       Icons.menu_book_outlined,
-                      color: readabilityPilot
-                          ? _infoReadable
-                          : AppStyles.infoBlue,
+                      color: AppStyles.infoBlue,
                       size: 24,
                     ),
                     AppStyles.spacingMHorizontal,
@@ -95,12 +78,10 @@ class WeeklyReadingSection extends StatelessWidget {
                         readingSummary!,
                         style: AppStyles.bodyStyle.copyWith(
                           fontSize: bodyFontSize,
-                          fontWeight: readabilityPilot
-                              ? FontWeight.w600
-                              : FontWeight.w600,
-                          color: readabilityPilot ? _textDefault : _textStrong,
-                          height: readabilityPilot ? 1.7 : 1.72,
-                          letterSpacing: readabilityPilot ? 0.0 : 0.1,
+                          fontWeight: AppStyles.fontWeightRegular,
+                          color: AppStyles.textDark,
+                          height: 1.6,
+                          letterSpacing: 0.0,
                         ),
                       ),
                     ),
@@ -176,38 +157,32 @@ class WeeklyReadingSection extends StatelessWidget {
             ),
             childrenPadding: EdgeInsets.fromLTRB(
               AppStyles.spacingL + 6,
-              readabilityPilot ? AppStyles.spacingM : AppStyles.spacingS + 4,
+              AppStyles.spacingM,
               AppStyles.spacingL + 6,
               AppStyles.spacingL + 8,
             ),
-            iconColor: readabilityPilot
-                ? _primaryReadable
-                : AppStyles.primaryOrange,
-            collapsedIconColor: readabilityPilot
-                ? _textMuted
-                : AppStyles.softBrown,
+            iconColor: AppStyles.primaryOrange,
+            collapsedIconColor: AppStyles.textMuted,
             title: Text(
               title,
               style: AppStyles.subTitleStyle.copyWith(
                 fontSize: 17,
-                color: _textStrong,
-                fontWeight: FontWeight.w600,
+                color: AppStyles.textDark,
+                fontWeight: AppStyles.fontWeightSemiBold,
               ),
             ),
             children: [
-              if (readabilityPilot) AppStyles.spacingMBox,
+              if (readabilityPilot) AppStyles.spacingSBox,
               Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
                   body,
                   style: AppStyles.bodyStyle.copyWith(
-                    fontSize: isWideLayout ? 18.0 : 17.0,
-                    fontWeight: readabilityPilot
-                        ? FontWeight.w600
-                        : FontWeight.w600,
-                    height: readabilityPilot ? 1.7 : 1.75,
-                    color: readabilityPilot ? _textDefault : _textStrong,
-                    letterSpacing: readabilityPilot ? 0.0 : 0.08,
+                    fontSize: isWideLayout ? 17.0 : 17.0,
+                    fontWeight: AppStyles.fontWeightRegular,
+                    height: 1.6,
+                    color: AppStyles.textDark,
+                    letterSpacing: 0.0,
                   ),
                 ),
               ),
@@ -220,11 +195,9 @@ class WeeklyReadingSection extends StatelessWidget {
                   child: Text(
                     "Quelle: $sourceRef",
                     style: AppStyles.smallTextStyle.copyWith(
-                      color: _textMuted,
+                      color: AppStyles.textMuted,
                       fontSize: 13,
-                      fontWeight: readabilityPilot
-                          ? FontWeight.w500
-                          : FontWeight.w600,
+                      fontWeight: AppStyles.fontWeightRegular,
                     ),
                   ),
                 ),

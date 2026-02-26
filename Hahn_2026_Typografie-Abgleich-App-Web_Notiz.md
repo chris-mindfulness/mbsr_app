@@ -1,7 +1,7 @@
 # Typografie-Abgleich App vs. Website (Notiz)
 
 Stand: 26.02.2026  
-Status: Geparkt. Nächster Fokus liegt auf Inhaltsstruktur/Logik; Typografie wird separat finalisiert.
+Status: Umgesetzt (Basisabgleich). Offene Restaufgabe ist nur eine kurze visuelle Feinabnahme.
 
 ## 12 Kommentare / Anforderungen (vom Nutzer)
 1. Die Schrift in der App wirkte zuerst zu dünn und zu blass.
@@ -26,8 +26,13 @@ Kurz in einfachen Worten:
 - Helle Kartenflächen plus Transparenz verändern die wahrgenommene Stärke zusätzlich.
 - Deshalb ergibt derselbe Hex-Farbwert und dasselbe nominelle Gewicht nicht automatisch denselben visuellen Eindruck.
 
-## Für den nächsten Typografie-Schritt (nur vorgemerkt)
-- Web-Referenzwerte exakt messen: Font-Family, tatsächliche Gewichte, Zeilenhöhe, Textfarbe.
-- In Flutter-Web auf feste Gewichte testen (z. B. 500/550/600), nicht nur über Variable-Font-Achse.
-- Lesetext auf neutralerer Kartenfläche testen (weniger Tönung), dann erst Farbe feinjustieren.
-- Zielbild: „wie Website“, aber mit Flutter-spezifischem Feintuning statt 1:1-Wertkopie.
+## Umgesetzte Basiswerte
+- Body: `17px`, `line-height 1.6`, `font-weight 400`
+- Textfarbe: `#1E1F1D`
+- Muted-Text: `#5F6662`
+- Woche-4-Lesetexte nutzen nun globale Fließtext-Styles statt Heavy-Overrides
+- Web-Theme nutzt expliziten Sans-Stack mit Fallbacks; Heading-Style separat hinterlegt
+
+## Noch offen (kurzer Sichtcheck)
+- Browser-Feinabnahme für Woche 4, Mediathek und Vertiefung
+- Nur falls nötig: minimale Token-Korrekturen in kleinen Schritten

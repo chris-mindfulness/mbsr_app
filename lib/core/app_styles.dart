@@ -17,7 +17,8 @@ class AppStyles {
   static Color get successGreen => _tokens.successGreen;
   static Color get accentCyan => _tokens.accentCyan;
   static Color get textDark => _tokens.textDark;
-  static Color get softBrown => textDark;
+  static Color get textMuted => _tokens.textMuted;
+  static Color get softBrown => textMuted;
   static Color get sageGreen => successGreen;
   static Color get borderColor => _tokens.borderColor;
 
@@ -72,14 +73,14 @@ class AppStyles {
     fontSize: _tokens.bodyFontSize,
     fontWeight: _tokens.bodyFontWeight,
     color: textDark,
-    height: 1.62,
+    height: 1.6,
     letterSpacing: _tokens.bodyLetterSpacing,
   );
 
   static TextStyle get smallTextStyle => TextStyle(
     fontSize: _tokens.smallFontSize,
     fontWeight: _tokens.smallFontWeight,
-    color: textDark,
+    color: textMuted,
     height: 1.4,
     letterSpacing: 0.16,
   );
@@ -152,7 +153,7 @@ class AppStyles {
   static const double iconSizeXL = 48.0;
 
   static Color get iconColorActive => primaryOrange;
-  static Color get iconColorInactive => textDark.withValues(alpha: 0.45);
+  static Color get iconColorInactive => textMuted;
   static Color get iconColorSuccess => successGreen;
   static Color get iconColorOnWhite => textDark.withValues(alpha: 0.65);
 

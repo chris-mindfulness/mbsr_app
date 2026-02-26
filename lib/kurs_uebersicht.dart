@@ -257,7 +257,7 @@ class _KursUebersichtState extends State<KursUebersicht> {
             Text(
               "Achtsamkeitspraxis",
               style: AppStyles.bodyStyle.copyWith(
-                color: AppStyles.softBrown.withValues(alpha: 0.6),
+                color: AppStyles.textMuted,
                 letterSpacing: 1.2,
               ),
             ),
@@ -518,7 +518,7 @@ class _KursUebersichtState extends State<KursUebersicht> {
                           _audioService.currentTitle ?? '',
                           style: AppStyles.subTitleStyle.copyWith(
                             fontSize: 14,
-                            fontWeight: FontWeight.bold,
+                            fontWeight: AppStyles.fontWeightSemiBold,
                           ),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
@@ -527,7 +527,7 @@ class _KursUebersichtState extends State<KursUebersicht> {
                           "Tippen für Details",
                           style: AppStyles.smallTextStyle.copyWith(
                             fontSize: 11,
-                            color: AppStyles.textDark.withValues(alpha: 0.8),
+                            color: AppStyles.textMuted,
                           ),
                         ),
                       ],
@@ -642,7 +642,7 @@ class _KursUebersichtState extends State<KursUebersicht> {
               },
               backgroundColor: Colors.transparent,
               selectedItemColor: AppStyles.primaryOrange,
-              unselectedItemColor: AppStyles.softBrown.withValues(alpha: 0.4),
+              unselectedItemColor: AppStyles.textMuted,
               showSelectedLabels: true,
               showUnselectedLabels: false,
               elevation: 0,
@@ -735,9 +735,7 @@ class _KursUebersichtState extends State<KursUebersicht> {
           AppStyles.spacingSBox,
           Text(
             "8-Wochen-Achtsamkeitsprogramm",
-            style: AppStyles.bodyStyle.copyWith(
-              color: AppStyles.textDark.withValues(alpha: 0.6),
-            ),
+            style: AppStyles.bodyStyle.copyWith(color: AppStyles.textMuted),
             textAlign: TextAlign.center,
           ),
         ],
