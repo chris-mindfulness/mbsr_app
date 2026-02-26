@@ -8,6 +8,8 @@ import 'app_daten.dart';
 import 'audio_service.dart';
 import 'widgets/animated_play_button.dart';
 import 'widgets/exercise_tips_sheet.dart';
+import 'widgets/weekly_reading_section.dart';
+import 'text_archiv_seite.dart';
 import 'package:flutter/services.dart';
 
 class WochenDetailSeite extends StatefulWidget {
@@ -23,6 +25,9 @@ class WochenDetailSeite extends StatefulWidget {
   final List<String>? reflexionsFragen;
   final List<String>? audioRefs;
   final String? teaser;
+  final List<Map<String, String>> readingCards;
+  final String? readingSummary;
+  final bool archiveEligible;
 
   const WochenDetailSeite({
     super.key,
@@ -38,6 +43,9 @@ class WochenDetailSeite extends StatefulWidget {
     this.reflexionsFragen,
     this.audioRefs,
     this.teaser,
+    this.readingCards = const [],
+    this.readingSummary,
+    this.archiveEligible = false,
   });
 
   @override
@@ -46,6 +54,19 @@ class WochenDetailSeite extends StatefulWidget {
 
 class _WochenDetailSeiteState extends State<WochenDetailSeite> {
   final AudioService _audioService = AudioService();
+  static const Color _pilotTextStrong = Color(0xFF101418);
+  static const Color _pilotTextDefault = Color(0xFF171A1D);
+  static const Color _pilotPrimaryReadable = Color(0xFF9F3F32);
+  static const Color _pilotSuccessReadable = Color(0xFF3F7A72);
+  static const Color _pilotInfoReadable = Color(0xFF4B6F95);
+  static const Color _pilotPinkReadable = Color(0xFF944A61);
+
+  double _responsiveHorizontalPadding(double width) {
+    if (width >= 1400) return 72;
+    if (width >= 1100) return 56;
+    if (width >= 900) return 40;
+    return 24;
+  }
 
   int _getCurrentWeekIndex() {
     return int.tryParse(
@@ -98,12 +119,456 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
     );
   }
 
+  // Öffnet den Notfall-Koffer direkt aus der Wochenansicht.
+  void _showNotfallKofferSheet() {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: AppStyles.bgColor,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(32)),
+      ),
+      isScrollControlled: true,
+      isDismissible: true,
+      enableDrag: true,
+      builder: (sheetContext) => SafeArea(
+        top: true,
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(32, 16, 32, 48),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                height: 30,
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    Container(
+                      width: 40,
+                      height: 4,
+                      decoration: BoxDecoration(
+                        color: AppStyles.softBrown.withValues(alpha: 0.2),
+                        borderRadius: BorderRadius.circular(2),
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: IconButton(
+                        tooltip: 'Schließen',
+                        onPressed: () => Navigator.of(sheetContext).pop(),
+                        icon: Icon(
+                          Icons.close_rounded,
+                          color: AppStyles.softBrown,
+                        ),
+                        visualDensity: VisualDensity.compact,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 20),
+              Row(
+                children: [
+                  Icon(
+                    Icons.support_agent,
+                    color: AppStyles.errorRed,
+                    size: 32,
+                  ),
+                  const SizedBox(width: 16),
+                  Text(
+                    "Notfall-Koffer",
+                    style: AppStyles.headingStyle.copyWith(
+                      color: AppStyles.errorRed,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 24),
+              Text(
+                "Erste Hilfe bei akutem Stress",
+                style: AppStyles.subTitleStyle,
+              ),
+              const SizedBox(height: 16),
+              _buildNotfallItem(
+                icon: Icons.timer,
+                title: "Kurzes Ankommen (ca. 3 Min)",
+                description:
+                    "Eine kurze Pause zum Sammeln. Startet die Übung „Ankommen“.",
+                onTap: () {
+                  Navigator.of(sheetContext).pop();
+                  final audio = AppDaten.getAlleAudios().firstWhere(
+                    (a) => a['title'] == 'Ankommen',
+                    orElse: () => {},
+                  );
+                  if (audio.isNotEmpty) _play(audio);
+                },
+              ),
+              const SizedBox(height: 16),
+              _buildNotfallItem(
+                icon: Icons.accessibility_new,
+                title: "Körper orientieren",
+                description:
+                    "Spüre beide Füße auf dem Boden und nimm 3 ruhige Atemzüge.",
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildNotfallItem({
+    required IconData icon,
+    required String title,
+    required String description,
+    VoidCallback? onTap,
+  }) {
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(16),
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: AppStyles.errorRed.withValues(alpha: 0.05),
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(color: AppStyles.errorRed.withValues(alpha: 0.1)),
+        ),
+        child: Row(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(12),
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                shape: BoxShape.circle,
+              ),
+              child: Icon(icon, color: AppStyles.errorRed, size: 24),
+            ),
+            const SizedBox(width: 16),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    style: AppStyles.subTitleStyle.copyWith(fontSize: 16),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    description,
+                    style: AppStyles.bodyStyle.copyWith(fontSize: 13),
+                  ),
+                ],
+              ),
+            ),
+            if (onTap != null)
+              Icon(
+                Icons.play_circle_outline,
+                color: AppStyles.errorRed,
+                size: 32,
+              ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildNotfallKofferCard() {
+    return Container(
+      padding: AppStyles.cardPadding,
+      decoration: BoxDecoration(
+        color: AppStyles.errorRed.withValues(alpha: 0.06),
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: AppStyles.errorRed.withValues(alpha: 0.24)),
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Icon(Icons.support_agent, color: AppStyles.errorRed, size: 28),
+          AppStyles.spacingMHorizontal,
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Notfall-Koffer",
+                  style: AppStyles.subTitleStyle.copyWith(
+                    color: AppStyles.errorRed,
+                  ),
+                ),
+                AppStyles.spacingSBox,
+                Text(
+                  "Wenn es dir gerade zu viel wird: Öffne den Notfall-Koffer für eine schnelle Stabilisierung.",
+                  style: AppStyles.bodyStyle.copyWith(height: 1.5),
+                ),
+              ],
+            ),
+          ),
+          TextButton(
+            onPressed: _showNotfallKofferSheet,
+            child: const Text("Öffnen"),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Map<String, dynamic>? _getWeekSupportConfig(int weekIndex) {
+    switch (weekIndex) {
+      case 5:
+        return {
+          'title': 'Tipps für Gedankenarbeit',
+          'intro':
+              'Gedanken müssen nicht weggehen. Du übst, sie zu bemerken und freundlicher mit ihnen umzugehen.',
+          'icon': Icons.psychology_alt_outlined,
+          'color': AppStyles.infoBlue,
+          'sections': [
+            {
+              'title': 'Gedankenkarussell',
+              'bullets': [
+                "Gib dem Gedanken ein kurzes Label, z. B. „Sorge“ oder „Planen“.",
+                "Komme dann sanft zum Atem oder zu den Kontaktpunkten zurück.",
+              ],
+            },
+            {
+              'title': 'Selbstkritik',
+              'bullets': [
+                "Frage dich: Würde ich so auch mit einem guten Freund sprechen?",
+                "Formuliere den Satz neu, klar und respektvoll dir gegenüber.",
+              ],
+            },
+            {
+              'title': 'Kein Effekt spürbar',
+              'bullets': [
+                "Wirkung entsteht oft über Wiederholung, nicht über einen einzelnen Tag.",
+                "Bleib bei kurzen, verlässlichen Einheiten statt bei Perfektion.",
+              ],
+            },
+          ],
+        };
+      case 6:
+        return {
+          'title': 'Tipps für achtsame Kommunikation',
+          'intro':
+              'In Gesprächen hilft es, erst zu regulieren und dann zu reagieren. Kleine Pausen machen einen großen Unterschied.',
+          'icon': Icons.forum_outlined,
+          'color': AppStyles.accentPink,
+          'sections': [
+            {
+              'title': 'Vor dem Gespräch',
+              'bullets': [
+                "Nimm dir 1 ruhigen Atemzug und spüre kurz deine Füße.",
+                "Setze eine klare Intention: verstehen statt gewinnen.",
+              ],
+            },
+            {
+              'title': 'Wenn du getriggert bist',
+              'bullets': [
+                "Sprich langsamer und kürzer, statt sofort zu argumentieren.",
+                "Bitte bei Bedarf um eine kurze Pause, bevor es eskaliert.",
+              ],
+            },
+            {
+              'title': 'Nach dem Gespräch',
+              'bullets': [
+                "Notiere 1 Punkt, der gut lief, und 1 Punkt für den nächsten Versuch.",
+                "Vermeide Nachgrübeln, indem du bewusst zum Körper zurückkehrst.",
+              ],
+            },
+          ],
+        };
+      case 7:
+        return {
+          'title': 'Tipps für Selbstfürsorge',
+          'intro':
+              'Selbstfürsorge ist keine Belohnung nach Leistung, sondern eine Grundlage für Stabilität im Alltag.',
+          'icon': Icons.favorite_border,
+          'color': AppStyles.successGreen,
+          'sections': [
+            {
+              'title': 'Zu wenig Zeit',
+              'bullets': [
+                "Plane bewusst ein 5-Minuten-Minimum statt auf den perfekten Moment zu warten.",
+                "Verknüpfe die Praxis mit einem festen Tagesanker.",
+              ],
+            },
+            {
+              'title': 'Schuldgefühl bei Pausen',
+              'bullets': [
+                "Erinnere dich: Regeneration erhöht langfristig deine Handlungsfähigkeit.",
+                "Eine kurze Pause ist Verantwortung, nicht Rückzug.",
+              ],
+            },
+            {
+              'title': 'Alte Muster kommen zurück',
+              'bullets': [
+                "Rückfälle sind Lernmomente, kein Scheitern.",
+                "Starte klein neu und halte den Ton mit dir freundlich.",
+              ],
+            },
+          ],
+        };
+      case 8:
+        return {
+          'title': 'Tipps für die Zeit nach dem Kurs',
+          'intro':
+              'Nach dem Kurs hilft ein einfacher, realistischer Plan mehr als ein großer Vorsatz.',
+          'icon': Icons.flag_outlined,
+          'color': AppStyles.primaryOrange,
+          'sections': [
+            {
+              'title': 'Praxis fällt weg',
+              'bullets': [
+                "Definiere eine feste Minimalpraxis für volle Tage.",
+                "Halte den Einstieg niedrig, damit du dranbleibst.",
+              ],
+            },
+            {
+              'title': 'Motivation schwankt',
+              'bullets': [
+                "Orientiere dich an Wirkung statt an Stimmung.",
+                "Notiere kurz, was dir die Übung im Alltag erleichtert.",
+              ],
+            },
+            {
+              'title': 'Einzelne Tage auslassen',
+              'bullets': [
+                "Steige am nächsten Tag direkt wieder ein, ohne Aufhol-Druck.",
+                "Kontinuität entsteht durch Rückkehr, nicht durch Perfektion.",
+              ],
+            },
+          ],
+        };
+      default:
+        return null;
+    }
+  }
+
+  Widget _buildWeekSupportTipps(int weekIndex) {
+    final config = _getWeekSupportConfig(weekIndex);
+    if (config == null) {
+      return const SizedBox.shrink();
+    }
+
+    final accentColor = config['color'] as Color;
+    final sections = List<Map<String, dynamic>>.from(config['sections']);
+
+    return Container(
+      padding: AppStyles.cardPadding,
+      decoration: BoxDecoration(
+        color: accentColor.withValues(alpha: 0.08),
+        borderRadius: BorderRadius.circular(24),
+        border: Border.all(color: accentColor.withValues(alpha: 0.24)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(config['icon'] as IconData, color: accentColor, size: 28),
+              AppStyles.spacingMHorizontal,
+              Expanded(
+                child: Text(
+                  config['title'] as String,
+                  style: AppStyles.headingStyle.copyWith(
+                    fontSize: 18,
+                    color: accentColor,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          AppStyles.spacingMBox,
+          Text(
+            config['intro'] as String,
+            style: AppStyles.bodyStyle.copyWith(height: 1.5),
+          ),
+          AppStyles.spacingLBox,
+          Theme(
+            data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
+            child: ExpansionTile(
+              tilePadding: EdgeInsets.zero,
+              childrenPadding: EdgeInsets.only(top: AppStyles.spacingS),
+              title: Text(
+                "Wenn es schwierig wird",
+                style: AppStyles.subTitleStyle.copyWith(color: accentColor),
+              ),
+              iconColor: accentColor,
+              collapsedIconColor: accentColor,
+              children: sections
+                  .map(
+                    (section) => _buildWeekSupportSection(
+                      section['title'] as String,
+                      List<String>.from(section['bullets']),
+                      accentColor,
+                    ),
+                  )
+                  .toList(),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildWeekSupportSection(
+    String title,
+    List<String> bullets,
+    Color accentColor,
+  ) {
+    return Padding(
+      padding: EdgeInsets.only(bottom: AppStyles.spacingL),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            title,
+            style: AppStyles.bodyStyle.copyWith(
+              fontWeight: AppStyles.fontWeightBold,
+              color: AppStyles.textDark,
+            ),
+          ),
+          AppStyles.spacingSBox,
+          ...bullets.map((item) => _buildWeekSupportBullet(item, accentColor)),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildWeekSupportBullet(String text, Color accentColor) {
+    return Padding(
+      padding: EdgeInsets.only(bottom: AppStyles.spacingS),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            margin: const EdgeInsets.only(top: 6),
+            width: 6,
+            height: 6,
+            decoration: BoxDecoration(
+              color: accentColor,
+              shape: BoxShape.circle,
+            ),
+          ),
+          AppStyles.spacingSHorizontal,
+          Expanded(
+            child: Text(text, style: AppStyles.bodyStyle.copyWith(height: 1.4)),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     // Navigation Logic
     final currentWeekIndex = _getCurrentWeekIndex();
+    final isReadabilityPilot = currentWeekIndex == 4;
+    final isWideLayout = MediaQuery.sizeOf(context).width >= 900;
     final hasPrev = currentWeekIndex > 1;
     final hasNext = currentWeekIndex < 8;
+    final horizontalPadding = _responsiveHorizontalPadding(
+      MediaQuery.sizeOf(context).width,
+    );
 
     return Scaffold(
       backgroundColor: AppStyles.bgColor,
@@ -148,6 +613,7 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
         ],
       ),
       body: DecorativeBlobs(
+        alphaMultiplier: isReadabilityPilot ? 0.55 : 1.0,
         child: Column(
           children: [
             // Offline-Banner
@@ -158,9 +624,9 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
             Expanded(
               child: ListView(
                 padding: EdgeInsets.fromLTRB(
-                  AppStyles.spacingL,
+                  horizontalPadding,
                   AppStyles.spacingS,
-                  AppStyles.spacingL,
+                  horizontalPadding,
                   20, // Weniger Padding unten, da Nav-Bar kommt
                 ),
                 children: [
@@ -233,20 +699,129 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
                     AppStyles.spacingXLBox,
                   ],
 
-                  // PRAXIS (AUDIOS)
+                  // Hinweise zu den Übungen + Audio-Praxis (früh für klare Orientierung)
+                  if (widget.wochenAufgaben.isNotEmpty) ...[
+                    Container(
+                      padding: AppStyles.cardPadding,
+                      decoration: BoxDecoration(
+                        color: isReadabilityPilot
+                            ? _pilotPrimaryReadable.withValues(alpha: 0.05)
+                            : AppStyles.primaryOrange.withValues(alpha: 0.05),
+                        borderRadius: BorderRadius.circular(28),
+                        border: Border.all(
+                          color: isReadabilityPilot
+                              ? _pilotPrimaryReadable.withValues(alpha: 0.22)
+                              : AppStyles.primaryOrange.withValues(alpha: 0.1),
+                          width: isReadabilityPilot ? 1.4 : 1.5,
+                        ),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              Icon(
+                                Icons.assignment_outlined,
+                                color: isReadabilityPilot
+                                    ? _pilotPrimaryReadable
+                                    : AppStyles.primaryOrange,
+                                size: 24,
+                              ),
+                              SizedBox(
+                                width: AppStyles.spacingM - AppStyles.spacingS,
+                              ),
+                              Text(
+                                "Hinweise zu deinen Übungen dieser Woche",
+                                style: AppStyles.headingStyle.copyWith(
+                                  fontSize: 18,
+                                  color: isReadabilityPilot
+                                      ? _pilotTextStrong
+                                      : AppStyles.primaryOrange,
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: AppStyles.spacingL - AppStyles.spacingS,
+                          ),
+                          ...widget.wochenAufgaben.map(
+                            (aufgabe) => Padding(
+                              padding: EdgeInsets.only(
+                                bottom: AppStyles.spacingM,
+                              ),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    margin: const EdgeInsets.only(top: 2),
+                                    child: Icon(
+                                      Icons.check_circle_outline,
+                                      color: isReadabilityPilot
+                                          ? _pilotSuccessReadable
+                                          : AppStyles.sageGreen,
+                                      size: 20,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width:
+                                        AppStyles.spacingM - AppStyles.spacingS,
+                                  ),
+                                  Expanded(
+                                    child: Text(
+                                      aufgabe,
+                                      style: AppStyles.bodyStyle.copyWith(
+                                        height: isReadabilityPilot ? 1.7 : 1.6,
+                                        fontWeight: isReadabilityPilot
+                                            ? FontWeight.w600
+                                            : FontWeight.w500,
+                                        color: isReadabilityPilot
+                                            ? _pilotTextDefault
+                                            : AppStyles.textDark,
+                                        fontSize: isReadabilityPilot
+                                            ? (isWideLayout ? 18 : 17)
+                                            : AppStyles.bodyStyle.fontSize,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: AppStyles.spacingXL + AppStyles.spacingS),
+                  ],
+
+                  _buildNotfallKofferCard(),
+                  AppStyles.spacingXLBox,
+
+                  if (currentWeekIndex >= 5 && currentWeekIndex <= 8) ...[
+                    _buildWeekSupportTipps(currentWeekIndex),
+                    AppStyles.spacingXLBox,
+                  ],
+
                   if (widget.audioRefs != null &&
                       widget.audioRefs!.isNotEmpty) ...[
-                    _buildSectionHeader("DEINE PRAXIS DIESE WOCHE"),
+                    _buildSectionHeader(
+                      "DEINE PRAXIS DIESE WOCHE",
+                      readabilityPilot: isReadabilityPilot,
+                    ),
                     AppStyles.spacingMBox,
                     if (currentWeekIndex <= 2) ...[
                       Container(
                         padding: AppStyles.cardPadding,
                         margin: EdgeInsets.only(bottom: AppStyles.spacingM),
                         decoration: BoxDecoration(
-                          color: AppStyles.infoBlue.withValues(alpha: 0.1),
+                          color: isReadabilityPilot
+                              ? _pilotInfoReadable.withValues(alpha: 0.07)
+                              : AppStyles.infoBlue.withValues(alpha: 0.1),
                           borderRadius: BorderRadius.circular(20),
                           border: Border.all(
-                            color: AppStyles.infoBlue.withValues(alpha: 0.3),
+                            color: isReadabilityPilot
+                                ? _pilotInfoReadable.withValues(alpha: 0.24)
+                                : AppStyles.infoBlue.withValues(alpha: 0.3),
+                            width: isReadabilityPilot ? 1.4 : 1.0,
                           ),
                         ),
                         child: Row(
@@ -254,7 +829,9 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
                           children: [
                             Icon(
                               Icons.info_outline,
-                              color: AppStyles.infoBlue,
+                              color: isReadabilityPilot
+                                  ? _pilotInfoReadable
+                                  : AppStyles.infoBlue,
                               size: 24,
                             ),
                             AppStyles.spacingMHorizontal,
@@ -262,8 +839,16 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
                               child: Text(
                                 "Hinweis: In der Mediathek findest du auch längere Versionen des Body-Scans (27 & 35 Min), falls du mehr Zeit hast.",
                                 style: AppStyles.bodyStyle.copyWith(
-                                  fontSize: 13,
-                                  color: AppStyles.textDark,
+                                  fontSize: isReadabilityPilot
+                                      ? (isWideLayout ? 18 : 17)
+                                      : 13,
+                                  color: isReadabilityPilot
+                                      ? _pilotTextDefault
+                                      : AppStyles.textDark,
+                                  fontWeight: isReadabilityPilot
+                                      ? FontWeight.w600
+                                      : AppStyles.fontWeightRegular,
+                                  height: isReadabilityPilot ? 1.7 : 1.5,
                                 ),
                               ),
                             ),
@@ -297,15 +882,23 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
 
                   // ALLTAGSTIPP
                   if (widget.alltagsTipp != null) ...[
-                    _buildSectionHeader("FÜR DEN ALLTAG"),
+                    _buildSectionHeader(
+                      "FÜR DEN ALLTAG",
+                      readabilityPilot: isReadabilityPilot,
+                    ),
                     AppStyles.spacingMBox,
                     Container(
                       padding: AppStyles.cardPadding,
                       decoration: BoxDecoration(
-                        color: AppStyles.successGreen.withValues(alpha: 0.1),
+                        color: isReadabilityPilot
+                            ? _pilotSuccessReadable.withValues(alpha: 0.07)
+                            : AppStyles.successGreen.withValues(alpha: 0.1),
                         borderRadius: BorderRadius.circular(20),
                         border: Border.all(
-                          color: AppStyles.successGreen.withValues(alpha: 0.3),
+                          color: isReadabilityPilot
+                              ? _pilotSuccessReadable.withValues(alpha: 0.24)
+                              : AppStyles.successGreen.withValues(alpha: 0.3),
+                          width: isReadabilityPilot ? 1.4 : 1.0,
                         ),
                       ),
                       child: Row(
@@ -313,7 +906,9 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
                         children: [
                           Icon(
                             Icons.lightbulb_outline,
-                            color: AppStyles.successGreen,
+                            color: isReadabilityPilot
+                                ? _pilotSuccessReadable
+                                : AppStyles.successGreen,
                             size: 28,
                           ),
                           AppStyles.spacingMHorizontal,
@@ -321,8 +916,16 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
                             child: Text(
                               widget.alltagsTipp!,
                               style: AppStyles.bodyStyle.copyWith(
-                                color: AppStyles.textDark,
-                                height: 1.5,
+                                color: isReadabilityPilot
+                                    ? _pilotTextDefault
+                                    : AppStyles.textDark,
+                                height: isReadabilityPilot ? 1.7 : 1.5,
+                                fontSize: isReadabilityPilot
+                                    ? (isWideLayout ? 18 : 17)
+                                    : AppStyles.bodyStyle.fontSize,
+                                fontWeight: isReadabilityPilot
+                                    ? FontWeight.w600
+                                    : AppStyles.fontWeightRegular,
                               ),
                             ),
                           ),
@@ -335,7 +938,10 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
                   // REFLEXION
                   if (widget.reflexionsFragen != null &&
                       widget.reflexionsFragen!.isNotEmpty) ...[
-                    _buildSectionHeader("REFLEXION"),
+                    _buildSectionHeader(
+                      "REFLEXION",
+                      readabilityPilot: isReadabilityPilot,
+                    ),
                     AppStyles.spacingMBox,
                     ...widget.reflexionsFragen!.map(
                       (frage) => Padding(
@@ -345,7 +951,9 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
                           children: [
                             Icon(
                               Icons.edit_note,
-                              color: AppStyles.accentPink,
+                              color: isReadabilityPilot
+                                  ? _pilotPinkReadable
+                                  : AppStyles.accentPink,
                               size: 24,
                             ),
                             AppStyles.spacingMHorizontal,
@@ -353,7 +961,19 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
                               child: Text(
                                 frage,
                                 style: AppStyles.bodyStyle.copyWith(
-                                  fontStyle: FontStyle.italic,
+                                  fontStyle: isReadabilityPilot
+                                      ? FontStyle.normal
+                                      : FontStyle.italic,
+                                  color: isReadabilityPilot
+                                      ? _pilotTextDefault
+                                      : AppStyles.textDark,
+                                  fontSize: isReadabilityPilot
+                                      ? (isWideLayout ? 18 : 17)
+                                      : AppStyles.bodyStyle.fontSize,
+                                  fontWeight: isReadabilityPilot
+                                      ? FontWeight.w600
+                                      : AppStyles.fontWeightRegular,
+                                  height: isReadabilityPilot ? 1.7 : 1.62,
                                 ),
                               ),
                             ),
@@ -364,95 +984,25 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
                     AppStyles.spacingXLBox,
                   ],
 
-                  // Wochenaufgaben Sektion
-                  if (widget.wochenAufgaben.isNotEmpty) ...[
-                    Container(
-                      padding: AppStyles.cardPadding,
-                      decoration: BoxDecoration(
-                        color: AppStyles.primaryOrange.withValues(alpha: 0.05),
-                        borderRadius: BorderRadius.circular(28),
-                        border: Border.all(
-                          color: AppStyles.primaryOrange.withValues(alpha: 0.1),
-                          width: 1.5,
-                        ),
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            children: [
-                              Icon(
-                                Icons.assignment_outlined,
-                                color: AppStyles.primaryOrange,
-                                size: 24,
-                              ),
-                              SizedBox(
-                                width: AppStyles.spacingM - AppStyles.spacingS,
-                              ), // 12px
-                              Text(
-                                "Deine Übungen",
-                                style: AppStyles.headingStyle.copyWith(
-                                  fontSize: 18,
-                                  color: AppStyles.primaryOrange,
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: AppStyles.spacingL - AppStyles.spacingS,
-                          ), // 20px
-                          ...widget.wochenAufgaben.map(
-                            (aufgabe) => Padding(
-                              padding: EdgeInsets.only(
-                                bottom: AppStyles.spacingM,
-                              ),
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Container(
-                                    margin: const EdgeInsets.only(top: 2),
-                                    child: Icon(
-                                      Icons.check_circle_outline,
-                                      color: AppStyles.sageGreen,
-                                      size: 20,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width:
-                                        AppStyles.spacingM - AppStyles.spacingS,
-                                  ), // 12px
-                                  Expanded(
-                                    child: Text(
-                                      aufgabe,
-                                      style: AppStyles.bodyStyle.copyWith(
-                                        height: 1.6,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
+                  if (widget.readingCards.isNotEmpty) ...[
+                    WeeklyReadingSection(
+                      readingCards: widget.readingCards,
+                      readingSummary: widget.readingSummary,
+                      archiveEligible: widget.archiveEligible,
+                      readabilityPilot: isReadabilityPilot,
+                      showIntroSummary: !isReadabilityPilot,
+                      showSourceRef: !isReadabilityPilot,
+                      onOpenArchive: _openTextArchiv,
                     ),
-                    SizedBox(
-                      height: AppStyles.spacingXL + AppStyles.spacingS,
-                    ), // 40px
+                    AppStyles.spacingXLBox,
                   ],
 
                   if (widget.pdfs.isNotEmpty) ...[
                     Padding(
-                      padding: const EdgeInsets.only(left: 8, bottom: 16),
-                      child: Text(
+                      padding: const EdgeInsets.only(bottom: 16),
+                      child: _buildSectionHeader(
                         "UNTERLAGEN",
-                        style: AppStyles.bodyStyle.copyWith(
-                          letterSpacing: 1.5,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 12,
-                          color: AppStyles.softBrown.withValues(alpha: 0.5),
-                        ),
+                        readabilityPilot: isReadabilityPilot,
                       ),
                     ),
                     ...widget.pdfs.map((pdf) => _buildPdfCard(pdf)),
@@ -474,6 +1024,20 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
     final allAudios = AppDaten.getAlleAudios();
     return allAudios
         .where((audio) => widget.audioRefs!.contains(audio['title']))
+        .toList();
+  }
+
+  List<Map<String, String>> _extractReadingCards(
+    Map<String, dynamic> weekData,
+  ) {
+    final raw = weekData['readingCards'];
+    if (raw is! List) {
+      return const [];
+    }
+
+    return raw
+        .whereType<Map>()
+        .map((item) => Map<String, String>.from(item.cast<String, String>()))
         .toList();
   }
 
@@ -524,6 +1088,9 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
               ? List<String>.from(nextWeekData['audioRefs'])
               : null,
           teaser: nextWeekData['teaser'],
+          readingCards: _extractReadingCards(nextWeekData),
+          readingSummary: nextWeekData['readingSummary'] as String?,
+          archiveEligible: nextWeekData['archiveEligible'] == true,
         ),
       ),
     );
@@ -1126,16 +1693,34 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
     );
   }
 
-  Widget _buildSectionHeader(String title) {
+  Widget _buildSectionHeader(String title, {bool readabilityPilot = false}) {
     return Padding(
       padding: EdgeInsets.only(left: AppStyles.spacingS),
       child: Text(
         title,
-        style: AppStyles.bodyStyle.copyWith(
-          letterSpacing: 1.5,
-          fontWeight: FontWeight.bold,
-          fontSize: 12,
-          color: AppStyles.softBrown.withValues(alpha: 0.8),
+        style: readabilityPilot
+            ? AppStyles.bodyStyle.copyWith(
+                letterSpacing: 1.1,
+                fontWeight: FontWeight.w700,
+                fontSize: 14,
+                color: _pilotTextStrong,
+              )
+            : AppStyles.bodyStyle.copyWith(
+                letterSpacing: 1.5,
+                fontWeight: FontWeight.bold,
+                fontSize: 12,
+                color: AppStyles.softBrown.withValues(alpha: 0.8),
+              ),
+      ),
+    );
+  }
+
+  void _openTextArchiv() {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (_) => TextArchivSeite(
+          wochenDaten: AppDaten.wochenDaten,
+          initialWeekNumber: _getCurrentWeekIndex(),
         ),
       ),
     );

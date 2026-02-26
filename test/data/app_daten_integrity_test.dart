@@ -48,6 +48,7 @@ void main() {
         final audioRefs = (woche['audioRefs'] as List<dynamic>?);
         final pdfs = (woche['pdfs'] as List<dynamic>?);
         final aufgaben = (woche['wochenAufgaben'] as List<dynamic>?);
+        final readingCards = (woche['readingCards'] as List<dynamic>?);
 
         expect(audioRefs, isNotNull);
         expect(audioRefs, isNotEmpty);
@@ -70,6 +71,18 @@ void main() {
           final appwriteId = pdfMap['appwrite_id'] as String?;
           expect(title?.trim(), isNotEmpty);
           expect(appwriteId?.trim(), isNotEmpty);
+        }
+
+        if (readingCards != null && readingCards.isNotEmpty) {
+          for (final card in readingCards) {
+            final cardMap = Map<String, dynamic>.from(card as Map);
+            final id = cardMap['id'] as String?;
+            final title = cardMap['title'] as String?;
+            final body = cardMap['body'] as String?;
+            expect(id?.trim(), isNotEmpty);
+            expect(title?.trim(), isNotEmpty);
+            expect(body?.trim(), isNotEmpty);
+          }
         }
       }
     });

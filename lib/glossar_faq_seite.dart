@@ -117,7 +117,7 @@ class GlossarFaqSeite extends StatelessWidget {
             'Eigene Grenzen ernst nehmen und stimmige Entscheidungen treffen: anpassen, pausieren, dosieren, Unterstützung holen.',
       },
       {
-        'term': 'Schwierige Kommunikation',
+        'term': 'Achtsame Kommunikation',
         'def':
             'Praxisfeld ab Woche 6: in belastenden Gesprächen bewusster sprechen, zuhören und Pausen nutzen statt automatisch zu eskalieren.',
       },

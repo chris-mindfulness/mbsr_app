@@ -7,15 +7,24 @@ import '../core/app_styles.dart';
 /// für einen modernen, lebendigen Look
 class DecorativeBlobs extends StatelessWidget {
   final Widget child;
+  final double alphaMultiplier;
 
-  const DecorativeBlobs({super.key, required this.child});
+  const DecorativeBlobs({
+    super.key,
+    required this.child,
+    this.alphaMultiplier = 1.0,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
         // Dekorative Blobs im Hintergrund
-        Positioned.fill(child: CustomPaint(painter: _BlobPainter())),
+        Positioned.fill(
+          child: CustomPaint(
+            painter: _BlobPainter(alphaMultiplier: alphaMultiplier),
+          ),
+        ),
         // Inhalt darüber
         child,
       ],
@@ -24,9 +33,13 @@ class DecorativeBlobs extends StatelessWidget {
 }
 
 class _BlobPainter extends CustomPainter {
+  final double alphaMultiplier;
+
+  const _BlobPainter({required this.alphaMultiplier});
+
   @override
   void paint(Canvas canvas, Size size) {
-    final alphaScale = AppStyles.decorativeBlobAlphaScale;
+    final alphaScale = AppStyles.decorativeBlobAlphaScale * alphaMultiplier;
 
     // Blob 1 - Links oben (Korallenrot)
     final paint1 = Paint()
@@ -199,5 +212,7 @@ class _BlobPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(_BlobPainter oldDelegate) => false;
+  bool shouldRepaint(_BlobPainter oldDelegate) {
+    return oldDelegate.alphaMultiplier != alphaMultiplier;
+  }
 }

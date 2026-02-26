@@ -1,6 +1,6 @@
 # Plan: Nächste Schritte zur App-Optimierung
 
-Stand: 25.02.2026 (konsolidiert)
+Stand: 26.02.2026 (aktualisiert)
 
 ## Was bereits erledigt ist
 
@@ -21,9 +21,28 @@ Stand: 25.02.2026 (konsolidiert)
 - Inhaltliche Schärfung umgesetzt:
   - Tipps pro Übung/Phase konsistenter verfügbar
   - Glossar/FAQ deutlich fokussierter und verständlicher
-- Letzte technische Basis-Checks waren erfolgreich:
-  - `flutter analyze --no-pub`
-  - `flutter test --no-pub test/data/app_daten_integrity_test.dart`
+- Struktur- und Benennungs-Update umgesetzt (8-Wochen-Logik):
+  - Wochentitel originalnäher ausgerichtet:
+    - Woche 1: `Achtsamkeit`
+    - Woche 4: `Stress in Körper und Geist`
+    - Woche 5: `Achtsamkeit gegenüber stressverschärfenden Gedanken`
+    - Woche 6: `Achtsame Kommunikation`
+    - Woche 8: `Abschied und Neubeginn`
+  - Begriff im Glossar angepasst:
+    - `Schwierige Kommunikation` -> `Achtsame Kommunikation`
+  - Wochenblock umbenannt:
+    - `Deine Übungen` -> `Hinweise zu deinen Übungen dieser Woche`
+  - Reihenfolge in der Wochenansicht neu geordnet:
+    - `Titel/Teaser/Fokus -> Zitat -> Hinweise zu deinen Übungen dieser Woche -> Deine Praxis diese Woche`
+- Notfall-Koffer in Wochenansichten ergänzt:
+  - pro Woche direkter Einstieg ohne Umweg über Mediathek
+  - Bottom-Sheet mit Akuthilfe + Schnellstart `Ankommen`
+- Woche 5-8 inhaltlich geschärft:
+  - neue kompakte Hilfekarten je Woche mit `Wenn es schwierig wird`
+  - Fokus auf typische Hürden (Gedanken, Kommunikation, Selbstfürsorge, Transfer nach Kursende)
+- Technische Checks nach den Änderungen erfolgreich:
+  - `flutter analyze --no-pub` grün
+  - `flutter test --no-pub` grün
 
 ## Was offen bleibt (sinnvoll, aber nicht kritisch)
 
@@ -37,21 +56,12 @@ Akzeptanz:
 - `/account` bleibt nach Refresh stabil gültig.
 - Profil wird direkt gefunden, ohne Zwischenfehlerseite.
 
-### 2) Visuelles Refresh-Feintuning
-Status: optional
+### 2) Typografie-Abgleich App vs. Website (bewusst geparkt)
+Status: offen (separater Schritt)
 
 Ziel:
-Restliches Mikro-Flickern beim Reload weiter glätten.
+Lesbarkeit feiner angleichen ohne Übersteuerung.
 
 Akzeptanz:
-- Beim Refresh kein spürbares Doppel-Rendering im sichtbaren Bereich.
-
-### 3) Leichte technische Aufräumung (nur bei Bedarf)
-Status: optional
-
-Ziel:
-Wartbarkeit verbessern, ohne neue Komplexität.
-
-Akzeptanz:
-- Kleine refactorings nur dort, wo klarer Nutzen besteht (z. B. wiederkehrende UI-Bausteine).
-- Keine Verhaltensänderung in Login/Audio/Kursfluss.
+- Fließtext wirkt weder zu blass noch zu hart.
+- Ergebnis orientiert sich sichtbar am Website-Lesegefühl.

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'literatur_seite.dart';
 import 'glossar_faq_seite.dart';
+import 'text_archiv_seite.dart';
+import 'app_daten.dart';
 import 'core/app_styles.dart';
 import 'widgets/decorative_blobs.dart';
 
@@ -124,6 +126,65 @@ class VertiefungSeite extends StatelessWidget {
                           const SizedBox(height: 4),
                           Text(
                             "Glossar und häufige Fragen",
+                            style: AppStyles.bodyStyle.copyWith(
+                              fontSize: 13,
+                              color: AppStyles.softBrown.withValues(alpha: 0.6),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Icon(Icons.chevron_right, color: AppStyles.borderColor),
+                  ],
+                ),
+              ),
+            ),
+          ),
+
+          AppStyles.spacingMBox,
+
+          Card(
+            elevation: 0,
+            color: Colors.white,
+            shape: AppStyles.cardShape,
+            child: InkWell(
+              onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => TextArchivSeite(
+                    wochenDaten: AppDaten.wochenDaten,
+                    initialWeekNumber: 4,
+                  ),
+                ),
+              ),
+              borderRadius: BorderRadius.circular(28),
+              child: Padding(
+                padding: AppStyles.cardPadding,
+                child: Row(
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.all(12),
+                      decoration: BoxDecoration(
+                        color: AppStyles.primaryOrange.withValues(alpha: 0.1),
+                        borderRadius: BorderRadius.circular(14),
+                      ),
+                      child: Icon(
+                        Icons.library_books_outlined,
+                        color: AppStyles.primaryOrange,
+                        size: 24,
+                      ),
+                    ),
+                    SizedBox(
+                      width: AppStyles.spacingL - AppStyles.spacingS,
+                    ), // 20px
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text("Textarchiv", style: AppStyles.subTitleStyle),
+                          const SizedBox(height: 4),
+                          Text(
+                            "Volltexte zu den Kurswochen",
                             style: AppStyles.bodyStyle.copyWith(
                               fontSize: 13,
                               color: AppStyles.softBrown.withValues(alpha: 0.6),

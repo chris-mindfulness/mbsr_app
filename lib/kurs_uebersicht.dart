@@ -38,6 +38,20 @@ class _KursUebersichtState extends State<KursUebersicht> {
       GlobalKey<NavigatorState>();
   final AudioService _audioService = AudioService();
 
+  List<Map<String, String>> _extractReadingCards(
+    Map<String, dynamic> weekData,
+  ) {
+    final raw = weekData['readingCards'];
+    if (raw is! List) {
+      return const [];
+    }
+
+    return raw
+        .whereType<Map>()
+        .map((item) => Map<String, String>.from(item.cast<String, String>()))
+        .toList();
+  }
+
   @override
   void initState() {
     super.initState();
@@ -809,6 +823,9 @@ class _KursUebersichtState extends State<KursUebersicht> {
                   ? List<String>.from(woche['audioRefs'])
                   : null,
               teaser: woche['teaser'],
+              readingCards: _extractReadingCards(woche),
+              readingSummary: woche['readingSummary'] as String?,
+              archiveEligible: woche['archiveEligible'] == true,
             ),
           ),
         ),

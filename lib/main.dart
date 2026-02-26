@@ -92,8 +92,8 @@ class MyApp extends StatelessWidget {
               seedColor: AppStyles.primaryOrange,
               surface: AppStyles.bgColor,
             ),
-            // Lokale Nunito-Schrift (keine Verbindung zu Google)
-            fontFamily: 'Nunito',
+            // Web: näher an Website-Typografie; Mobile/Desktop: Nunito wie bisher
+            fontFamily: kIsWeb ? 'Helvetica Neue' : 'Nunito',
           ),
           home: const AuthWrapper(),
         );
