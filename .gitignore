@@ -39,6 +39,9 @@ migrate_working_dir/
 
 # Lokale Arbeitsdateien (nicht Teil der App)
 mbsr_audiofiles.xlsx
+.env
+.env.*
+!.env.example
 
 # Symbolication related
 app.*.symbols

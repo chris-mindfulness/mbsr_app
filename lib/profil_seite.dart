@@ -10,6 +10,8 @@ import 'package:url_launcher/url_launcher.dart';
 import 'downloads_seite.dart';
 import 'core/theme_mode_controller.dart';
 import 'core/theme_tokens.dart';
+import 'widgets/section_header_label.dart';
+import 'widgets/standard_action_card.dart';
 
 class ProfilSeite extends StatelessWidget {
   const ProfilSeite({super.key});
@@ -144,138 +146,49 @@ class ProfilSeite extends StatelessWidget {
             // Funktionen
             Padding(
               padding: EdgeInsets.only(
-                left: AppStyles.spacingS,
                 bottom: AppStyles.spacingM - AppStyles.spacingS,
-              ), // 12px
-              child: Text(
-                "FUNKTIONEN",
-                style: AppStyles.bodyStyle.copyWith(
-                  letterSpacing: 1.5,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 12,
-                  color: AppStyles.softBrown.withValues(alpha: 0.5),
-                ),
               ),
+              child: const SectionHeaderLabel(title: "FUNKTIONEN"),
             ),
             _buildThemeModeCard(),
             // Statistiken
-            Card(
+            StandardActionCard(
               margin: EdgeInsets.only(bottom: AppStyles.spacingM),
-              elevation: 0,
-              color: Colors.white,
-              shape: AppStyles.cardShape,
-              child: InkWell(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const StatistikenSeite(),
-                    ),
-                  );
-                },
-                borderRadius: BorderRadius.circular(AppStyles.borderRadius),
-                child: Padding(
-                  padding: AppStyles.cardPadding,
-                  child: Row(
-                    children: [
-                      Container(
-                        width: 48,
-                        height: 48,
-                        decoration: BoxDecoration(
-                          color: AppStyles.sageGreen.withValues(alpha: 0.1),
-                          borderRadius: BorderRadius.circular(14),
-                        ),
-                        child: Icon(
-                          Icons.bar_chart_outlined,
-                          color: AppStyles.sageGreen,
-                          size: 24,
-                        ),
-                      ),
-                      SizedBox(
-                        width: AppStyles.spacingL - AppStyles.spacingS,
-                      ), // 20px
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text("Statistiken", style: AppStyles.subTitleStyle),
-                            AppStyles.spacingXSBox,
-                            Text(
-                              "Deine Praxis im Überblick",
-                              style: AppStyles.bodyStyle.copyWith(
-                                fontSize: 13,
-                                color: AppStyles.softBrown.withValues(
-                                  alpha: 0.6,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Icon(Icons.chevron_right, color: AppStyles.borderColor),
-                    ],
-                  ),
-                ),
+              title: "Statistiken",
+              subtitle: "Deine Praxis im Überblick",
+              leadingIcon: Icons.bar_chart_outlined,
+              accentColor: AppStyles.sageGreen,
+              subtitleStyle: AppStyles.bodyStyle.copyWith(
+                fontSize: 13,
+                color: AppStyles.softBrown.withValues(alpha: 0.6),
               ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const StatistikenSeite(),
+                  ),
+                );
+              },
             ),
 
             // Downloads
-            Card(
+            StandardActionCard(
               margin: EdgeInsets.only(bottom: AppStyles.spacingM),
-              elevation: 0,
-              color: Colors.white,
-              shape: AppStyles.cardShape,
-              child: InkWell(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => DownloadsSeite()),
-                  );
-                },
-                borderRadius: BorderRadius.circular(AppStyles.borderRadius),
-                child: Padding(
-                  padding: AppStyles.cardPadding,
-                  child: Row(
-                    children: [
-                      Container(
-                        width: 48,
-                        height: 48,
-                        decoration: BoxDecoration(
-                          color: AppStyles.primaryOrange.withValues(alpha: 0.1),
-                          borderRadius: BorderRadius.circular(14),
-                        ),
-                        child: Icon(
-                          Icons.file_download_outlined,
-                          color: AppStyles.primaryOrange,
-                          size: 24,
-                        ),
-                      ),
-                      SizedBox(
-                        width: AppStyles.spacingL - AppStyles.spacingS,
-                      ), // 20px
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text("Downloads", style: AppStyles.subTitleStyle),
-                            AppStyles.spacingXSBox,
-                            Text(
-                              "Alle Kursunterlagen & PDFs",
-                              style: AppStyles.bodyStyle.copyWith(
-                                fontSize: 13,
-                                color: AppStyles.softBrown.withValues(
-                                  alpha: 0.6,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Icon(Icons.chevron_right, color: AppStyles.borderColor),
-                    ],
-                  ),
-                ),
+              title: "Downloads",
+              subtitle: "Alle Kursunterlagen & PDFs",
+              leadingIcon: Icons.file_download_outlined,
+              accentColor: AppStyles.primaryOrange,
+              subtitleStyle: AppStyles.bodyStyle.copyWith(
+                fontSize: 13,
+                color: AppStyles.softBrown.withValues(alpha: 0.6),
               ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => DownloadsSeite()),
+                );
+              },
             ),
             AppStyles.spacingXLBox,
             // Abmelden

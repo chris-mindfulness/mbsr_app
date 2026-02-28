@@ -13,9 +13,6 @@ class TextArchivSeite extends StatelessWidget {
     this.initialWeekNumber,
   });
 
-  static const Color _readingTextColor = Color(0xFF111827);
-  static const Color _readingMetaColor = Color(0xFF374151);
-
   double _responsiveHorizontalPadding(double width) {
     if (width >= 1400) return 72;
     if (width >= 1100) return 56;
@@ -260,11 +257,11 @@ class TextArchivSeite extends StatelessWidget {
                 child: Text(
                   summary,
                   style: AppStyles.bodyStyle.copyWith(
-                    fontSize: isWideLayout ? 17 : 16,
-                    fontWeight: FontWeight.w600,
-                    height: 1.72,
-                    color: _readingTextColor,
-                    letterSpacing: 0.1,
+                    fontSize: isWideLayout ? 17 : 17,
+                    fontWeight: AppStyles.fontWeightRegular,
+                    height: 1.6,
+                    color: AppStyles.textDark,
+                    letterSpacing: 0.0,
                   ),
                 ),
               ),
@@ -306,19 +303,19 @@ class TextArchivSeite extends StatelessWidget {
             title,
             style: AppStyles.subTitleStyle.copyWith(
               fontSize: 17,
-              fontWeight: FontWeight.w600,
-              color: _readingTextColor,
+              fontWeight: AppStyles.fontWeightSemiBold,
+              color: AppStyles.textDark,
             ),
           ),
           AppStyles.spacingMBox,
           Text(
             body,
             style: AppStyles.bodyStyle.copyWith(
-              fontSize: isWideLayout ? 17.5 : 16.5,
-              fontWeight: FontWeight.w600,
-              height: 1.75,
-              color: _readingTextColor,
-              letterSpacing: 0.08,
+              fontSize: isWideLayout ? 17 : 17,
+              fontWeight: AppStyles.fontWeightRegular,
+              height: 1.6,
+              color: AppStyles.textDark,
+              letterSpacing: 0.0,
             ),
           ),
           if (sourceRef != null && sourceRef.isNotEmpty) ...[
@@ -327,8 +324,8 @@ class TextArchivSeite extends StatelessWidget {
               "Quelle: $sourceRef",
               style: AppStyles.smallTextStyle.copyWith(
                 fontSize: 13,
-                color: _readingMetaColor,
-                fontWeight: FontWeight.w600,
+                color: AppStyles.textMuted,
+                fontWeight: AppStyles.fontWeightRegular,
               ),
             ),
           ],

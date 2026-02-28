@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'core/app_styles.dart';
 import 'widgets/decorative_blobs.dart';
+import 'widgets/section_header_label.dart';
+import 'widgets/standard_action_card.dart';
 
 class LiteraturSeite extends StatelessWidget {
   const LiteraturSeite({super.key});
@@ -142,130 +144,46 @@ class LiteraturSeite extends StatelessWidget {
   }
 
   Widget _buildSectionHeader(String title) {
-    return Padding(
-      padding: EdgeInsets.only(left: AppStyles.spacingS),
-      child: Text(
-        title,
-        style: AppStyles.bodyStyle.copyWith(
-          letterSpacing: 1.5,
-          fontWeight: FontWeight.bold,
-          fontSize: 12,
-          color: AppStyles.softBrown.withValues(alpha: 0.5),
-        ),
-      ),
-    );
+    return SectionHeaderLabel(title: title);
   }
 
   Widget _buildBookCard(Map<String, String> buch) {
     final url = buch['url'];
     final isLinkAvailable = url != null && url.isNotEmpty;
 
-    return Card(
-      margin: EdgeInsets.only(bottom: AppStyles.spacingM),
-      elevation: 0,
-      color: Colors.white,
-      shape: AppStyles.cardShape,
-      child: InkWell(
-        onTap: isLinkAvailable ? () => _oeffneUrl(url) : null,
-        borderRadius: BorderRadius.circular(28),
-        child: Padding(
-          padding: EdgeInsets.all(
-            AppStyles.spacingL - AppStyles.spacingS,
-          ), // 20px
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                padding: const EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                  color: AppStyles.softBrown.withValues(alpha: 0.1),
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Icon(Icons.book_outlined, color: AppStyles.softBrown),
-              ),
-              SizedBox(width: AppStyles.spacingL - AppStyles.spacingS), // 20px
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(buch['titel']!, style: AppStyles.subTitleStyle),
-                    AppStyles.spacingXSBox,
-                    Text(
-                      buch['autor']!,
-                      style: AppStyles.bodyStyle.copyWith(
-                        fontWeight: FontWeight.bold,
-                        color: AppStyles.sageGreen,
-                      ),
-                    ),
-                    AppStyles.spacingSBox,
-                    Text(
-                      buch['info']!,
-                      style: AppStyles.bodyStyle.copyWith(
-                        fontSize: 13,
-                        color: AppStyles.softBrown.withValues(alpha: 0.7),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Icon(
-                isLinkAvailable ? Icons.open_in_new : Icons.info_outline,
-                color: AppStyles.borderColor,
-                size: 18,
-              ),
-            ],
-          ),
-        ),
+    return StandardActionCard(
+      title: buch['titel']!,
+      meta: buch['autor'],
+      subtitle: buch['info'],
+      leadingIcon: Icons.book_outlined,
+      accentColor: AppStyles.softBrown,
+      onTap: isLinkAvailable ? () => _oeffneUrl(url) : null,
+      trailingIcon: isLinkAvailable ? Icons.open_in_new : Icons.info_outline,
+      alignTop: true,
+      contentPadding: EdgeInsets.all(AppStyles.spacingL - AppStyles.spacingS),
+      metaStyle: AppStyles.bodyStyle.copyWith(
+        fontWeight: FontWeight.bold,
+        color: AppStyles.sageGreen,
+      ),
+      subtitleStyle: AppStyles.bodyStyle.copyWith(
+        fontSize: 13,
+        color: AppStyles.softBrown.withValues(alpha: 0.7),
       ),
     );
   }
 
   Widget _buildArticleCard(Map<String, String> art) {
-    return Card(
-      margin: EdgeInsets.only(bottom: AppStyles.spacingM),
-      elevation: 0,
-      color: Colors.white,
-      shape: AppStyles.cardShape,
-      child: InkWell(
-        onTap: () => _oeffneUrl(art['url']!),
-        borderRadius: BorderRadius.circular(28),
-        child: Padding(
-          padding: EdgeInsets.all(
-            AppStyles.spacingL - AppStyles.spacingS,
-          ), // 20px
-          child: Row(
-            children: [
-              Container(
-                padding: EdgeInsets.all(
-                  AppStyles.spacingM - AppStyles.spacingS,
-                ), // 12px
-                decoration: BoxDecoration(
-                  color: AppStyles.sageGreen.withValues(alpha: 0.1),
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Icon(Icons.science_outlined, color: AppStyles.sageGreen),
-              ),
-              SizedBox(width: AppStyles.spacingL - AppStyles.spacingS), // 20px
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(art['titel']!, style: AppStyles.subTitleStyle),
-                    AppStyles.spacingXSBox,
-                    Text(
-                      art['journal']!,
-                      style: AppStyles.bodyStyle.copyWith(
-                        fontSize: 12,
-                        color: AppStyles.softBrown.withValues(alpha: 0.6),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Icon(Icons.open_in_new, color: AppStyles.borderColor, size: 18),
-            ],
-          ),
-        ),
+    return StandardActionCard(
+      title: art['titel']!,
+      subtitle: art['journal'],
+      leadingIcon: Icons.science_outlined,
+      accentColor: AppStyles.sageGreen,
+      onTap: () => _oeffneUrl(art['url']!),
+      trailingIcon: Icons.open_in_new,
+      contentPadding: EdgeInsets.all(AppStyles.spacingL - AppStyles.spacingS),
+      subtitleStyle: AppStyles.bodyStyle.copyWith(
+        fontSize: 12,
+        color: AppStyles.softBrown.withValues(alpha: 0.6),
       ),
     );
   }

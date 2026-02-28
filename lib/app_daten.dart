@@ -82,16 +82,16 @@ class AppDaten {
       'n': '1',
       't': 'Achtsamkeit',
       'teaser':
-          'Zum Auftakt geht es darum, im Kurs anzukommen und erste Erfahrungen mit Achtsamkeit zu sammeln. Wir erkunden, was es bedeutet, den Autopiloten zu bemerken und dem eigenen Erleben im Moment Aufmerksamkeit zu schenken. Der Körper dient dabei als erster Anker.',
-      'fokus': 'Vom Tun ins Sein kommen.',
+          'In Woche 1 geht es ums Ankommen im Kurs. Du übst, automatische Abläufe (Autopilot) zu bemerken und den Körper als Aufmerksamkeitsanker zu nutzen. Für die Zeit zwischen den Terminen sind kurze, regelmäßige Übungseinheiten ausreichend.',
+      'fokus': 'Ankommen, Autopilot bemerken, Körper als Anker.',
       'zitat':
           'Du kannst die Wellen nicht stoppen, aber du kannst lernen zu surfen.',
       'zitatAutor': 'Jon Kabat-Zinn',
       'alltagsTipp':
-          'Nimm heute 3 bewusste Atemzüge, bevor du morgens aufstehst.',
+          'Lege heute zwei kurze Stopps ein: je 3 bewusste Atemzüge, zum Beispiel vor dem Start in den Tag und vor einer Mahlzeit.',
       'reflexionsFragen': [
-        'Wann warst du heute im Autopiloten unterwegs?',
-        'In welchen Momenten warst du ganz präsent?',
+        'Wann warst du heute im Autopiloten unterwegs, ohne es sofort zu merken?',
+        'Was hat dir geholfen, wieder in den Körperkontakt zurückzukehren?',
       ],
       'audioRefs': ['Ankommen', 'Body-Scan (kurz)'],
       'pdfs': [
@@ -102,9 +102,9 @@ class AppDaten {
         {'title': 'Neun-Punkte-Übung', 'appwrite_id': '697d0fc80030febb4db5'},
       ],
       'wochenAufgaben': [
-        '1.	Body-Scan mehrmals pro Woche mit Audiodatei üben.',
-        '2.	Eine Mahlzeit in dieser Woche achtsam einnehmen.',
-        '3.	Die Neun-Punkte-Übung bearbeiten.',
+        '1.	Body-Scan an mehreren Tagen mit der Audiodatei üben (kurze Einheiten sind ausreichend).',
+        '2.	Mindestens eine Mahlzeit in dieser Woche achtsam einnehmen (ohne nebenbei zu scrollen oder zu lesen).',
+        '3.	Die Neun-Punkte-Übung durchführen und kurz notieren, was dir aufgefallen ist.',
         '4.	Die Geschichte vom Oberfluss und Unterfluss lesen.',
       ],
       'readingCards': <Map<String, String>>[],

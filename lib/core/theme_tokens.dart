@@ -31,6 +31,13 @@ class AppThemeTokens {
   final double glassBackgroundAlpha;
   final double glassBorderAlpha;
 
+  final Color softCardShadowColor;
+  final double softCardShadowBlur;
+  final double softCardShadowOffsetY;
+  final double featureChipRadius;
+  final EdgeInsets featureChipPadding;
+  final double featureChipGap;
+
   final double decorativeBlobAlphaScale;
   final double ambientBlobAlphaScale;
 
@@ -60,6 +67,12 @@ class AppThemeTokens {
     required this.glassSigma,
     required this.glassBackgroundAlpha,
     required this.glassBorderAlpha,
+    required this.softCardShadowColor,
+    required this.softCardShadowBlur,
+    required this.softCardShadowOffsetY,
+    required this.featureChipRadius,
+    required this.featureChipPadding,
+    required this.featureChipGap,
     required this.decorativeBlobAlphaScale,
     required this.ambientBlobAlphaScale,
   });
@@ -91,6 +104,12 @@ const AppThemeTokens calmDefaultTokens = AppThemeTokens(
   glassSigma: 9,
   glassBackgroundAlpha: 0.82,
   glassBorderAlpha: 0.34,
+  softCardShadowColor: Color(0x14000000),
+  softCardShadowBlur: 10,
+  softCardShadowOffsetY: 3,
+  featureChipRadius: 14,
+  featureChipPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+  featureChipGap: 12,
   decorativeBlobAlphaScale: 0.5,
   ambientBlobAlphaScale: 0.45,
 );
@@ -121,6 +140,12 @@ const AppThemeTokens calmVividTokens = AppThemeTokens(
   glassSigma: 15,
   glassBackgroundAlpha: 0.6,
   glassBorderAlpha: 0.2,
+  softCardShadowColor: Color(0x14000000),
+  softCardShadowBlur: 10,
+  softCardShadowOffsetY: 3,
+  featureChipRadius: 14,
+  featureChipPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+  featureChipGap: 12,
   decorativeBlobAlphaScale: 0.9,
   ambientBlobAlphaScale: 0.9,
 );

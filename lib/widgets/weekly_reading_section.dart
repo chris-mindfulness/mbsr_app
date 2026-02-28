@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../core/app_styles.dart';
+import 'section_header_label.dart';
 
 class WeeklyReadingSection extends StatelessWidget {
   final List<Map<String, String>> readingCards;
@@ -31,24 +32,13 @@ class WeeklyReadingSection extends StatelessWidget {
     }
 
     final screenWidth = MediaQuery.sizeOf(context).width;
-    final bodyFontSize = screenWidth >= 900 ? 17.0 : 17.0;
-    final sectionHeaderStyle = AppStyles.bodyStyle.copyWith(
-      letterSpacing: 1.2,
-      fontWeight: AppStyles.fontWeightSemiBold,
-      fontSize: 12,
-      color: AppStyles.textMuted,
-    );
-
     return Center(
       child: ConstrainedBox(
         constraints: BoxConstraints(maxWidth: _maxReadingWidth()),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(
-              padding: EdgeInsets.only(left: AppStyles.spacingS),
-              child: Text("LESEN (VOLLTEXT)", style: sectionHeaderStyle),
-            ),
+            const SectionHeaderLabel(title: "LESEN (VOLLTEXT)"),
             AppStyles.spacingMBox,
             if (showIntroSummary &&
                 readingSummary != null &&
@@ -77,7 +67,7 @@ class WeeklyReadingSection extends StatelessWidget {
                       child: Text(
                         readingSummary!,
                         style: AppStyles.bodyStyle.copyWith(
-                          fontSize: bodyFontSize,
+                          fontSize: 17,
                           fontWeight: AppStyles.fontWeightRegular,
                           color: AppStyles.textDark,
                           height: 1.6,

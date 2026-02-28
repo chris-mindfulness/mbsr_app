@@ -4,8 +4,6 @@ Flutter-Web-App für die MBSR-Kursbegleitung.
 
 ## Schnellstart
 
-Im Projektordner:
-
 ```bash
 cd /Users/ch70bure/ki_projects/privat/mbsr_app
 ```
@@ -23,10 +21,27 @@ Abhängigkeiten laden und App lokal starten:
 /Users/ch70bure/ki_projects/privat/flutter/bin/flutter run -d chrome
 ```
 
+Optional können Appwrite-Werte per `--dart-define` gesetzt werden:
+
+```bash
+/Users/ch70bure/ki_projects/privat/flutter/bin/flutter run -d chrome \
+  --dart-define=APPWRITE_ENDPOINT=https://api.mindfulpractice.de/v1 \
+  --dart-define=APPWRITE_PROJECT_ID=696befd00018180d10ff
+```
+
+Alternativ auf macOS testen:
+
+```bash
+/Users/ch70bure/ki_projects/privat/flutter/bin/flutter run -d macos
+```
+
+Wichtige Tasten im laufenden Terminal: `r` Hot Reload, `R` Hot Restart, `q` Beenden.
+
 ## Qualitätscheck
 
 ```bash
 HOME=/tmp /Users/ch70bure/ki_projects/privat/flutter/bin/flutter analyze --no-pub
+HOME=/tmp /Users/ch70bure/ki_projects/privat/flutter/bin/flutter test --no-pub
 HOME=/tmp /Users/ch70bure/ki_projects/privat/flutter/bin/flutter build web --no-pub
 ```
 
@@ -36,13 +51,10 @@ Deployment läuft über GitHub Actions nach Push auf `main`.
 Workflow: `.github/workflows/deploy.yml`
 Ziel: Cloudflare Pages (`mindfulpractice-app`).
 
-## Wichtige Doku-Dateien
+## Dokumentation
 
-- `PLAN_APP_OPTIMIERUNG_NAECHSTE_SCHRITTE.md` (aktueller Gesamtstatus)
-- `NOTIZ_REFRESH_LOGOUT.md` (Login/Refresh-Verhalten)
-- `AUDIOPLAYER_CHECK_2026-02-25.md` (Audio-Status)
-- `DESIGN_THEME_UMSETZUNG_2026-02-25.md` (UI-Modi)
-- `APPWRITE_SETUP.md` + `CHECKLISTE_APPWRITE_PRUEFEN.md` (Backend-Prüfung)
-- `OFFENE_PUNKTE_9_10.md` (inhaltliche Punkte)
-- `PRUEFUNG_MD_TXT_DATEIEN_2026-02-25.md` (Doku-Bereinigung)
-- `SNYK_KURZANLEITUNG.md` (optional, Security-Check)
+- `PLAN_APP_OPTIMIERUNG_NAECHSTE_SCHRITTE.md` — Roadmap und offene Punkte
+- `APPWRITE_SETUP.md` — Backend-Konfiguration (DB, Storage, Auth)
+- `CHECKLISTE_APPWRITE_PRUEFEN.md` — Troubleshooting bei Login-/Profil-Problemen
+- `SECURITY_AUDIT_2026-02-28.md` — Go-Live-Audit mit Entscheidungsgrundlage
+- `REGEL_ZUSAMMENARBEIT_MD.md` — Arbeitsregeln für AI-Sessions

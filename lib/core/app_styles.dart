@@ -102,6 +102,18 @@ class AppStyles {
   static Color get glassBorder =>
       Colors.white.withValues(alpha: _tokens.glassBorderAlpha);
 
+  static List<BoxShadow> get softCardShadow => [
+    BoxShadow(
+      color: _tokens.softCardShadowColor,
+      blurRadius: _tokens.softCardShadowBlur,
+      offset: Offset(0, _tokens.softCardShadowOffsetY),
+    ),
+  ];
+
+  static double get featureChipRadius => _tokens.featureChipRadius;
+  static EdgeInsets get featureChipPadding => _tokens.featureChipPadding;
+  static double get featureChipGap => _tokens.featureChipGap;
+
   // Spacing
   static const double spacingXS = 4.0;
   static const double spacingS = 8.0;

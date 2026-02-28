@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'core/app_config.dart';
 import 'core/app_styles.dart';
+import 'widgets/pdf_link_card.dart';
+import 'widgets/section_header_label.dart';
 
 class TagDerAchtsamkeitSeite extends StatelessWidget {
   final Map<String, dynamic> daten;
@@ -235,18 +237,7 @@ class TagDerAchtsamkeitSeite extends StatelessWidget {
   }
 
   Widget _buildSectionHeader(String title) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 8),
-      child: Text(
-        title,
-        style: AppStyles.bodyStyle.copyWith(
-          letterSpacing: 1.5,
-          fontWeight: FontWeight.bold,
-          fontSize: 12,
-          color: AppStyles.softBrown.withValues(alpha: 0.5),
-        ),
-      ),
-    );
+    return SectionHeaderLabel(title: title);
   }
 
   Widget _buildPDFCard(Map<String, dynamic> pdf) {
@@ -260,41 +251,17 @@ class TagDerAchtsamkeitSeite extends StatelessWidget {
     final url =
         '${AppConfig.appwriteEndpoint}/storage/buckets/${AppConfig.pdfsBucketId}/files/$appwriteId/view?project=${AppConfig.appwriteProjectId}';
 
-    return Card(
+    return PdfLinkCard(
+      title: title,
+      onTap: () => launchUrl(Uri.parse(url)),
+      isPending: isPending,
+      pendingText: 'Wird zeitnah bereitgestellt.',
+      leadingIcon: Icons.picture_as_pdf_outlined,
+      leadingColor: AppStyles.primaryOrange,
+      readyTrailingIcon: Icons.download_outlined,
+      pendingTrailingIcon: Icons.schedule,
+      layout: PdfCardLayout.listTile,
       margin: const EdgeInsets.only(bottom: 16),
-      elevation: 0,
-      color: Colors.white,
-      shape: AppStyles.cardShape,
-      child: ListTile(
-        onTap: isPending ? null : () => launchUrl(Uri.parse(url)),
-        contentPadding: const EdgeInsets.symmetric(
-          horizontal: 24,
-          vertical: 12,
-        ),
-        leading: Container(
-          width: 48,
-          height: 48,
-          decoration: BoxDecoration(
-            color: AppStyles.primaryOrange.withValues(alpha: 0.1),
-            borderRadius: BorderRadius.circular(14),
-          ),
-          child: Icon(
-            Icons.picture_as_pdf_outlined,
-            color: AppStyles.primaryOrange,
-          ),
-        ),
-        title: Text(title, style: AppStyles.subTitleStyle),
-        subtitle: isPending
-            ? Text(
-                'Wird zeitnah bereitgestellt.',
-                style: AppStyles.bodyStyle.copyWith(fontSize: 12),
-              )
-            : null,
-        trailing: Icon(
-          isPending ? Icons.schedule : Icons.download_outlined,
-          color: AppStyles.borderColor,
-        ),
-      ),
     );
   }
 }

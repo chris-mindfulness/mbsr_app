@@ -38,3 +38,14 @@ Bei UI-Entscheidungen gilt:
 1. Erst Klarheit und Lesbarkeit.
 2. Dann konsistente Bedienlogik.
 3. Dann visuelle Details.
+
+## Test-Regel vor jedem Push (ohne Hintergrund-Automatik)
+
+Stand: 26.02.2026
+
+- Tests laufen nur, wenn wir sie aktiv starten.
+- Es läuft nichts dauerhaft im Hintergrund.
+- Vor jedem Commit/Push wird lokal geprüft:
+  1. `flutter analyze --no-pub`
+  2. `flutter test --no-pub`
+- Nur wenn beide Prüfungen grün sind, wird gepusht.

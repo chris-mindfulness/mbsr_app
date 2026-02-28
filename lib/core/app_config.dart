@@ -1,15 +1,17 @@
-import 'package:flutter_dotenv/flutter_dotenv.dart';
-
 /// Zentrale App-Konfiguration
 ///
 /// Enthält alle sensiblen Daten und Endpoints
-/// In Production sollten diese Werte aus Environment-Variablen geladen werden
+/// In Production sollten diese Werte via `--dart-define` gesetzt werden.
 class AppConfig {
   // Appwrite Configuration
-  static String get appwriteEndpoint =>
-      dotenv.env['APPWRITE_ENDPOINT'] ?? 'https://api.mindfulpractice.de/v1';
-  static String get appwriteProjectId =>
-      dotenv.env['APPWRITE_PROJECT_ID'] ?? '696befd00018180d10ff';
+  static const String appwriteEndpoint = String.fromEnvironment(
+    'APPWRITE_ENDPOINT',
+    defaultValue: 'https://api.mindfulpractice.de/v1',
+  );
+  static const String appwriteProjectId = String.fromEnvironment(
+    'APPWRITE_PROJECT_ID',
+    defaultValue: '696befd00018180d10ff',
+  );
 
   // Database IDs
   static const String databaseId = 'mbsr_database';

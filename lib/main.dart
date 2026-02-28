@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart' show kIsWeb, kDebugMode, debugPrint;
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'core/appwrite_client.dart';
 import 'services/auth_service.dart';
 import 'auth/auth_wrapper.dart';
@@ -41,16 +40,6 @@ class _AppLifecycleObserver extends WidgetsBindingObserver {
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
-  // Lade .env Konfiguration (Fehlertolerant für Web)
-  try {
-    await dotenv.load(fileName: ".env");
-    if (kDebugMode) debugPrint('✅ .env Datei geladen');
-  } catch (e) {
-    if (kDebugMode) {
-      debugPrint('ℹ️ Keine .env Datei gefunden, nutze Standardwerte');
-    }
-  }
 
   // Initialisiere Appwrite Client
   AppwriteClient();

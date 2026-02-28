@@ -4,11 +4,13 @@ import 'app_daten.dart';
 import 'audio_service.dart';
 import 'constants/app_texts.dart';
 import 'core/app_styles.dart';
-import 'widgets/animated_play_button.dart';
+import 'widgets/audio_item_card.dart';
 import 'widgets/decorative_blobs.dart';
 import 'widgets/exercise_tips_sheet.dart';
 import 'widgets/offline_banner.dart';
+import 'widgets/sos_item_card.dart';
 import 'widgets/subtle_divider.dart';
+import 'widgets/surface_icon_button.dart';
 
 class MediathekSeite extends StatefulWidget {
   const MediathekSeite({super.key});
@@ -155,52 +157,12 @@ class _MediathekSeiteState extends State<MediathekSeite> {
     required String description,
     VoidCallback? onTap,
   }) {
-    return InkWell(
+    return SosItemCard(
+      icon: icon,
+      title: title,
+      description: description,
       onTap: onTap,
-      borderRadius: BorderRadius.circular(16),
-      child: Container(
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: AppStyles.errorRed.withValues(alpha: 0.05),
-          borderRadius: BorderRadius.circular(16),
-          border: Border.all(color: AppStyles.errorRed.withValues(alpha: 0.1)),
-        ),
-        child: Row(
-          children: [
-            Container(
-              padding: const EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                shape: BoxShape.circle,
-              ),
-              child: Icon(icon, color: AppStyles.errorRed, size: 24),
-            ),
-            const SizedBox(width: 16),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    title,
-                    style: AppStyles.subTitleStyle.copyWith(fontSize: 16),
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    description,
-                    style: AppStyles.bodyStyle.copyWith(fontSize: 13),
-                  ),
-                ],
-              ),
-            ),
-            if (onTap != null)
-              Icon(
-                Icons.play_circle_outline,
-                color: AppStyles.errorRed,
-                size: 32,
-              ),
-          ],
-        ),
-      ),
+      accentColor: AppStyles.errorRed,
     );
   }
 
@@ -210,23 +172,10 @@ class _MediathekSeiteState extends State<MediathekSeite> {
     required String tooltip,
     required VoidCallback onPressed,
   }) {
-    return IconButton(
-      icon: Icon(icon, size: 22, color: color),
+    return SurfaceIconButton(
+      icon: icon,
+      color: color,
       tooltip: tooltip,
-      style: IconButton.styleFrom(
-        foregroundColor: color,
-        backgroundColor: Colors.white.withValues(alpha: 0.98),
-        minimumSize: const Size(40, 40),
-        fixedSize: const Size(40, 40),
-        padding: EdgeInsets.zero,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-          side: BorderSide(
-            color: AppStyles.borderColor.withValues(alpha: 0.6),
-            width: 1,
-          ),
-        ),
-      ),
       onPressed: onPressed,
     );
   }
@@ -425,133 +374,22 @@ class _MediathekSeiteState extends State<MediathekSeite> {
                           isCurrent &&
                           _audioService.status == AudioServiceStatus.loading;
 
-                      return Card(
+                      return AudioItemCard(
+                        audio: audio,
+                        isCurrent: isCurrent,
+                        isPlaying: isPlaying,
+                        isLoading: isLoading,
+                        onPlay: () => _play(audio),
+                        onTips: () => _showExerciseTipsForAudio(audio),
+                        onInfo:
+                            (audio['description'] != null &&
+                                audio['description']!.isNotEmpty)
+                            ? () => _showAudioInfo(audio)
+                            : null,
+                        idleTitleColor: AppStyles.textDark,
+                        showPlayingIndicator: true,
+                        durationPrefix: '• ',
                         margin: const EdgeInsets.only(bottom: 16),
-                        elevation: 0,
-                        color: Colors.white,
-                        shape: AppStyles.cardShape.copyWith(
-                          side: BorderSide(
-                            color: isCurrent
-                                ? AppStyles.primaryOrange.withValues(alpha: 0.5)
-                                : Colors.grey.withValues(alpha: 0.15),
-                            width: isCurrent ? 2 : 1.5,
-                          ),
-                        ),
-                        child: InkWell(
-                          onTap: () => _play(audio),
-                          borderRadius: BorderRadius.circular(28),
-                          child: Padding(
-                            padding: EdgeInsets.all(
-                              AppStyles.spacingL - AppStyles.spacingS,
-                            ), // 20px
-                            child: Row(
-                              children: [
-                                // Play/Pause Button
-                                isLoading
-                                    ? Container(
-                                        width: 56,
-                                        height: 56,
-                                        decoration: BoxDecoration(
-                                          color: AppStyles.primaryOrange,
-                                          shape: BoxShape.circle,
-                                        ),
-                                        child: const Center(
-                                          child: SizedBox(
-                                            width: 24,
-                                            height: 24,
-                                            child: CircularProgressIndicator(
-                                              strokeWidth: 2.5,
-                                              valueColor:
-                                                  AlwaysStoppedAnimation<Color>(
-                                                    Colors.white,
-                                                  ),
-                                            ),
-                                          ),
-                                        ),
-                                      )
-                                    : AnimatedPlayButton(
-                                        isPlaying: isPlaying,
-                                        size: 56,
-                                        showShadow: false,
-                                        onPressed: () => _play(audio),
-                                      ),
-                                SizedBox(
-                                  width:
-                                      AppStyles.spacingL - AppStyles.spacingS,
-                                ), // 20px
-                                // Title & Duration
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        audio['title']!,
-                                        style: AppStyles.subTitleStyle.copyWith(
-                                          color: isCurrent
-                                              ? AppStyles.primaryOrange
-                                              : AppStyles.textDark,
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height:
-                                            AppStyles.spacingM -
-                                            AppStyles.spacingS -
-                                            AppStyles.spacingXS,
-                                      ), // 6px
-                                      Row(
-                                        children: [
-                                          Icon(
-                                            Icons.access_time,
-                                            size: 14,
-                                            color: AppStyles.textMuted,
-                                          ),
-                                          AppStyles.spacingXSHorizontal,
-                                          Text(
-                                            '• ${audio['duration'] ?? ''}',
-                                            style: AppStyles.smallTextStyle
-                                                .copyWith(
-                                                  color: AppStyles.textMuted,
-                                                ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                // Info Button
-                                _buildSurfaceIconButton(
-                                  icon: Icons.lightbulb_outline,
-                                  color: AppStyles.infoBlue,
-                                  tooltip: 'Tipps zur Übung',
-                                  onPressed: () =>
-                                      _showExerciseTipsForAudio(audio),
-                                ),
-                                if (audio['description'] != null &&
-                                    audio['description']!.isNotEmpty)
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 6),
-                                    child: _buildSurfaceIconButton(
-                                      icon: Icons.info_outline,
-                                      color: AppStyles.textDark,
-                                      tooltip: 'Info zur Übung',
-                                      onPressed: () => _showAudioInfo(audio),
-                                    ),
-                                  ),
-                                // Indicator for playing
-                                if (isPlaying)
-                                  Container(
-                                    width: 10,
-                                    height: 10,
-                                    decoration: BoxDecoration(
-                                      color: AppStyles.primaryOrange,
-                                      shape: BoxShape.circle,
-                                    ),
-                                  ),
-                              ],
-                            ),
-                          ),
-                        ),
                       );
                     },
                   );

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:math' as math;
 import 'wochen_detail_seite.dart';
 import 'vertiefung_seite.dart';
 import 'profil_seite.dart';
@@ -14,6 +15,7 @@ import 'widgets/animated_play_button.dart';
 import 'widgets/decorative_blobs.dart';
 import 'widgets/offline_banner.dart';
 import 'widgets/subtle_divider.dart';
+import 'audio/seek_policy.dart';
 
 class KursUebersicht extends StatefulWidget {
   final String kursTyp;
@@ -81,19 +83,11 @@ class _KursUebersichtState extends State<KursUebersicht> {
   }
 
   Future<void> _seekRelative(Duration offset) async {
-    final current = _audioService.position;
-    var target = current + offset;
-    if (target < Duration.zero) {
-      target = Duration.zero;
-    }
-
-    final knownDuration = _audioService.duration;
-    if (knownDuration != null &&
-        knownDuration > Duration.zero &&
-        target > knownDuration) {
-      target = knownDuration;
-    }
-
+    final target = resolveSeekTarget(
+      current: _audioService.position,
+      offset: offset,
+      knownDuration: _audioService.duration,
+    );
     await _audioService.seek(target);
   }
 
@@ -686,12 +680,37 @@ class _KursUebersichtState extends State<KursUebersicht> {
                     children: [
                       _buildFilterRow(),
                       const SubtleDivider(),
-                      ...AppDaten.wochenDaten.asMap().entries.map((entry) {
-                        final index = entry.key;
-                        final woche = entry.value;
-                        return _buildWochenCard(context, woche, index);
-                      }),
-                      AppStyles.spacingSBox,
+                      LayoutBuilder(
+                        builder: (context, constraints) {
+                          final mediaWidth = MediaQuery.sizeOf(context).width;
+                          final availableWidth = constraints.maxWidth.isFinite
+                              ? constraints.maxWidth
+                              : math
+                                    .max(320.0, mediaWidth - (2 * 20))
+                                    .toDouble();
+                          final useTwoColumns = availableWidth >= 860;
+                          final gap = AppStyles.featureChipGap;
+                          final cardWidth = useTwoColumns
+                              ? (availableWidth - gap) / 2
+                              : availableWidth;
+
+                          return Wrap(
+                            spacing: gap,
+                            runSpacing: gap,
+                            children: AppDaten.wochenDaten.asMap().entries.map((
+                              entry,
+                            ) {
+                              final index = entry.key;
+                              final woche = entry.value;
+                              return SizedBox(
+                                width: cardWidth,
+                                child: _buildWochenCard(context, woche, index),
+                              );
+                            }).toList(),
+                          );
+                        },
+                      ),
+                      AppStyles.spacingMBox,
                       _buildTagDerAchtsamkeitCard(context),
                     ],
                   ),
@@ -756,74 +775,138 @@ class _KursUebersichtState extends State<KursUebersicht> {
     );
   }
 
+  Color _weekCardAccent(int index) {
+    const palette = [
+      Color(0xFF5D988F),
+      Color(0xFF6D8FB3),
+      Color(0xFF6F9FA1),
+      Color(0xFFE06E5A),
+    ];
+    return palette[index % palette.length];
+  }
+
+  void _openWeekDetail(BuildContext context, Map<String, dynamic> woche) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => WochenDetailSeite(
+          wochenNummer: "Woche ${woche['n']}",
+          titel: woche['t'],
+          audios: const [],
+          pdfs: List<Map<String, String>>.from(woche['pdfs']),
+          wochenAufgaben: List<String>.from(woche['wochenAufgaben'] ?? []),
+          fokus: woche['fokus'],
+          zitat: woche['zitat'],
+          zitatAutor: woche['zitatAutor'],
+          alltagsTipp: woche['alltagsTipp'],
+          reflexionsFragen: woche['reflexionsFragen'] != null
+              ? List<String>.from(woche['reflexionsFragen'])
+              : null,
+          audioRefs: woche['audioRefs'] != null
+              ? List<String>.from(woche['audioRefs'])
+              : null,
+          teaser: woche['teaser'],
+          readingCards: _extractReadingCards(woche),
+          readingSummary: woche['readingSummary'] as String?,
+          archiveEligible: woche['archiveEligible'] == true,
+        ),
+      ),
+    );
+  }
+
   Widget _buildWochenCard(
     BuildContext context,
     Map<String, dynamic> woche,
     int index,
   ) {
-    // Einheitlicher Grünton für alle Wochen-Karten
-    final cardColor = AppStyles.successGreen;
+    final accentColor = _weekCardAccent(index);
+    final teaser = (woche['teaser'] as String?)?.trim();
 
-    return Card(
-      margin: EdgeInsets.only(bottom: AppStyles.spacingM),
-      shape: AppStyles.cardShape,
-      elevation: 0,
-      color: Colors.white,
-      child: ListTile(
-        contentPadding: EdgeInsets.symmetric(
-          horizontal: AppStyles.spacingL,
-          vertical: AppStyles.spacingM - AppStyles.spacingS,
-        ),
-        leading: Container(
-          width: 48,
-          height: 48,
-          decoration: BoxDecoration(
-            color: cardColor.withValues(alpha: 0.15),
-            shape: BoxShape.circle,
-            border: Border.all(
-              color: cardColor.withValues(alpha: 0.3),
-              width: 2,
-            ),
-          ),
-          child: Center(
-            child: Text(
-              woche['n'],
-              style: TextStyle(
-                color: cardColor,
-                fontWeight: FontWeight.bold,
-                fontSize: 18,
-              ),
-            ),
-          ),
-        ),
-        title: Text(woche['t'], style: AppStyles.subTitleStyle),
-        trailing: Icon(
-          Icons.chevron_right,
-          color: AppStyles.borderColor,
-          size: AppStyles.iconSizeM,
-        ),
-        onTap: () => Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) => WochenDetailSeite(
-              wochenNummer: "Woche ${woche['n']}",
-              titel: woche['t'],
-              audios: const [],
-              pdfs: List<Map<String, String>>.from(woche['pdfs']),
-              wochenAufgaben: List<String>.from(woche['wochenAufgaben'] ?? []),
-              fokus: woche['fokus'],
-              zitat: woche['zitat'],
-              zitatAutor: woche['zitatAutor'],
-              alltagsTipp: woche['alltagsTipp'],
-              reflexionsFragen: woche['reflexionsFragen'] != null
-                  ? List<String>.from(woche['reflexionsFragen'])
-                  : null,
-              audioRefs: woche['audioRefs'] != null
-                  ? List<String>.from(woche['audioRefs'])
-                  : null,
-              teaser: woche['teaser'],
-              readingCards: _extractReadingCards(woche),
-              readingSummary: woche['readingSummary'] as String?,
-              archiveEligible: woche['archiveEligible'] == true,
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(AppStyles.borderRadius),
+        boxShadow: AppStyles.softCardShadow,
+      ),
+      child: Card(
+        margin: EdgeInsets.zero,
+        shape: AppStyles.cardShape,
+        elevation: 0,
+        color: Colors.white,
+        child: InkWell(
+          borderRadius: BorderRadius.circular(AppStyles.borderRadius),
+          onTap: () => _openWeekDetail(context, woche),
+          child: Padding(
+            padding: AppStyles.cardPadding,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 8,
+                  ),
+                  decoration: BoxDecoration(
+                    color: accentColor.withValues(alpha: 0.12),
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(
+                      color: accentColor.withValues(alpha: 0.28),
+                      width: 1,
+                    ),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(Icons.calendar_today, size: 14, color: accentColor),
+                      AppStyles.spacingSHorizontal,
+                      Text(
+                        'Woche ${woche['n']}',
+                        style: AppStyles.smallTextStyle.copyWith(
+                          color: accentColor,
+                          fontWeight: AppStyles.fontWeightSemiBold,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                AppStyles.spacingMBox,
+                Text(
+                  woche['t'],
+                  style: AppStyles.subTitleStyle.copyWith(
+                    color: AppStyles.textDark,
+                    fontSize: 28,
+                    height: 1.25,
+                  ),
+                ),
+                AppStyles.spacingSBox,
+                if (teaser != null && teaser.isNotEmpty)
+                  Text(
+                    teaser,
+                    maxLines: 3,
+                    overflow: TextOverflow.ellipsis,
+                    style: AppStyles.bodyStyle.copyWith(
+                      color: AppStyles.textMuted,
+                      height: 1.55,
+                    ),
+                  ),
+                SizedBox(height: AppStyles.spacingL),
+                Row(
+                  children: [
+                    Text(
+                      'Woche öffnen',
+                      style: AppStyles.bodyStyle.copyWith(
+                        color: accentColor,
+                        fontWeight: AppStyles.fontWeightSemiBold,
+                      ),
+                    ),
+                    AppStyles.spacingXSHorizontal,
+                    Icon(
+                      Icons.chevron_right,
+                      color: accentColor,
+                      size: AppStyles.iconSizeM,
+                    ),
+                  ],
+                ),
+              ],
             ),
           ),
         ),
@@ -832,57 +915,82 @@ class _KursUebersichtState extends State<KursUebersicht> {
   }
 
   Widget _buildTagDerAchtsamkeitCard(BuildContext context) {
-    return Card(
-      margin: const EdgeInsets.only(bottom: 16),
-      shape: AppStyles.cardShape.copyWith(
-        side: BorderSide(
-          color: AppStyles.accentPink.withValues(alpha: 0.4),
-          width: 2,
-        ),
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(AppStyles.borderRadius),
+        boxShadow: AppStyles.softCardShadow,
       ),
-      elevation: 0,
-      color: AppStyles.accentPink.withValues(alpha: 0.08),
-      child: ListTile(
-        contentPadding: const EdgeInsets.symmetric(
-          horizontal: 24,
-          vertical: 12,
+      child: Card(
+        margin: EdgeInsets.zero,
+        shape: AppStyles.cardShape.copyWith(
+          side: BorderSide(
+            color: AppStyles.accentPink.withValues(alpha: 0.38),
+            width: 1.6,
+          ),
         ),
-        leading: Container(
-          width: 48,
-          height: 48,
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [AppStyles.accentPink, AppStyles.accentCoral],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
+        elevation: 0,
+        color: AppStyles.accentPink.withValues(alpha: 0.08),
+        child: InkWell(
+          borderRadius: BorderRadius.circular(AppStyles.borderRadius),
+          onTap: () => Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) =>
+                  TagDerAchtsamkeitSeite(daten: AppDaten.tagDerAchtsamkeit),
             ),
-            shape: BoxShape.circle,
-            boxShadow: [
-              BoxShadow(
-                color: AppStyles.accentPink.withValues(alpha: 0.3),
-                blurRadius: 8,
-                offset: const Offset(0, 4),
-              ),
-            ],
           ),
-          child: Icon(Icons.spa, color: Colors.white),
-        ),
-        title: Text(
-          'Tag der Achtsamkeit',
-          style: AppStyles.subTitleStyle.copyWith(
-            color: AppStyles.accentPink,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        trailing: Icon(
-          Icons.chevron_right,
-          color: AppStyles.accentPink,
-          size: AppStyles.iconSizeM,
-        ),
-        onTap: () => Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) =>
-                TagDerAchtsamkeitSeite(daten: AppDaten.tagDerAchtsamkeit),
+          child: Padding(
+            padding: AppStyles.cardPadding,
+            child: Row(
+              children: [
+                Container(
+                  width: 52,
+                  height: 52,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [AppStyles.accentPink, AppStyles.accentCoral],
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                    ),
+                    shape: BoxShape.circle,
+                    boxShadow: [
+                      BoxShadow(
+                        color: AppStyles.accentPink.withValues(alpha: 0.24),
+                        blurRadius: 8,
+                        offset: const Offset(0, 3),
+                      ),
+                    ],
+                  ),
+                  child: const Icon(Icons.spa, color: Colors.white),
+                ),
+                AppStyles.spacingMHorizontal,
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Tag der Achtsamkeit',
+                        style: AppStyles.subTitleStyle.copyWith(
+                          color: AppStyles.accentPink,
+                          fontWeight: AppStyles.fontWeightBold,
+                        ),
+                      ),
+                      AppStyles.spacingXSBox,
+                      Text(
+                        'Vertiefungstag mit längerer gemeinsamer Praxis.',
+                        style: AppStyles.bodyStyle.copyWith(
+                          color: AppStyles.textMuted,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Icon(
+                  Icons.chevron_right,
+                  color: AppStyles.accentPink,
+                  size: AppStyles.iconSizeM,
+                ),
+              ],
+            ),
           ),
         ),
       ),

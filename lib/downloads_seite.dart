@@ -3,6 +3,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'core/app_config.dart';
 import 'core/app_styles.dart';
 import 'app_daten.dart';
+import 'widgets/pdf_link_card.dart';
 import 'widgets/decorative_blobs.dart';
 
 class DownloadsSeite extends StatelessWidget {
@@ -96,56 +97,18 @@ class DownloadsSeite extends StatelessWidget {
     final url =
         '${AppConfig.appwriteEndpoint}/storage/buckets/${AppConfig.pdfsBucketId}/files/$appwriteId/view?project=${AppConfig.appwriteProjectId}';
 
-    return Card(
+    return PdfLinkCard(
+      title: title,
+      onTap: () => launchUrl(Uri.parse(url)),
+      isPending: isPending,
+      pendingText: 'Wird zeitnah bereitgestellt.',
+      leadingIcon: Icons.description_outlined,
+      leadingColor: AppStyles.softBrown,
+      readyTrailingIcon: Icons.open_in_new,
+      pendingTrailingIcon: Icons.schedule,
+      layout: PdfCardLayout.row,
       margin: EdgeInsets.only(bottom: AppStyles.spacingM),
-      elevation: 0,
-      color: Colors.white,
-      shape: AppStyles.cardShape,
-      child: InkWell(
-        onTap: isPending ? null : () => launchUrl(Uri.parse(url)),
-        borderRadius: BorderRadius.circular(AppStyles.borderRadius),
-        child: Padding(
-          padding: AppStyles.cardPadding,
-          child: Row(
-            children: [
-              Container(
-                width: 56,
-                height: 56,
-                decoration: BoxDecoration(
-                  color: AppStyles.softBrown.withValues(alpha: 0.1),
-                  borderRadius: BorderRadius.circular(18),
-                ),
-                child: Icon(
-                  Icons.description_outlined,
-                  color: AppStyles.softBrown,
-                  size: 28,
-                ),
-              ),
-              const SizedBox(width: 20),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(title, style: AppStyles.subTitleStyle),
-                    if (isPending) ...[
-                      const SizedBox(height: 4),
-                      Text(
-                        'Wird zeitnah bereitgestellt.',
-                        style: AppStyles.bodyStyle.copyWith(fontSize: 12),
-                      ),
-                    ],
-                  ],
-                ),
-              ),
-              Icon(
-                isPending ? Icons.schedule : Icons.open_in_new,
-                color: AppStyles.borderColor,
-                size: 20,
-              ),
-            ],
-          ),
-        ),
-      ),
+      showPendingSubtitle: true,
     );
   }
 }

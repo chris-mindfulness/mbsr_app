@@ -34,7 +34,6 @@ class _AuthWrapperState extends State<AuthWrapper> {
   bool _hasProcessedFirstAuthSnapshot = false;
   Future<RoleResolution>? _roleFuture;
   String? _roleFutureEmail;
-  String? _roleFutureName;
   StreamSubscription<models.User?>? _authSubscription;
 
   @override
@@ -100,16 +99,13 @@ class _AuthWrapperState extends State<AuthWrapper> {
     if (user == null) {
       _roleFuture = null;
       _roleFutureEmail = null;
-      _roleFutureName = null;
       return;
     }
 
     if (_roleFutureEmail == user.email && _roleFuture != null) return;
     _roleFutureEmail = user.email;
-    _roleFutureName = user.name;
     _roleFuture = AuthService().resolveRoleForEmail(
       email: user.email,
-      name: user.name,
     );
   }
 
@@ -123,7 +119,6 @@ class _AuthWrapperState extends State<AuthWrapper> {
     setState(() {
       _roleFuture = AuthService().resolveRoleForEmail(
         email: email,
-        name: _roleFutureName,
       );
     });
   }

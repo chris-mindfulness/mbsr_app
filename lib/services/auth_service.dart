@@ -4,6 +4,7 @@ import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart' as models;
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../auth/session_refresh_policy.dart';
 import '../core/appwrite_client.dart';
 import '../core/app_config.dart';
 
@@ -160,7 +161,6 @@ class AuthService {
 
   Future<RoleResolution> resolveRoleForEmail({
     required String email,
-    String? name,
     Duration timeout = const Duration(seconds: 5),
   }) async {
     final roleData = await _loadRoleProfile(email, timeout: timeout);
@@ -170,18 +170,10 @@ class AuthService {
 
     if (kDebugMode) {
       debugPrint('⛔ User $email hat kein Profil-Dokument');
-      debugPrint(
-        '⚠️ Nutze Fallback-Rolle mbsr, um Navigation nicht zu blockieren',
-      );
+      debugPrint('⛔ Kein Rollen-Fallback: Zugriff bleibt gesperrt');
     }
 
-    final fallbackRole = <String, dynamic>{
-      'email': email,
-      'role': AppConfig.mbsrRole,
-      'name': name,
-    };
-    await _saveCachedRole(fallbackRole);
-    return const RoleResolution(role: AppConfig.mbsrRole, fromFallback: true);
+    return const RoleResolution(role: null);
   }
 
   /// Initialisiert den Auth-Service und prüft bestehende Session
@@ -226,25 +218,29 @@ class AuthService {
         }
         return; // Erfolg - beende
       } on AppwriteException catch (e) {
-        // 401 = wirklich keine gültige Session
-        if (e.code == 401) {
-          if (cachedUser != null) {
-            _currentUser = cachedUser;
-            _authStateController.add(cachedUser);
-            if (kDebugMode) {
-              debugPrint(
-                '⚠️ Session-Check 401, nutze lokalen Fallback-User: ${cachedUser.email}',
-              );
-            }
-            return;
-          } else {
-            if (kDebugMode) {
-              debugPrint('ℹ️ Keine aktive Session (401 Unauthorized)');
-            }
-            _currentUser = null;
-            _authStateController.add(null);
-            return; // Definitiv ausgeloggt
+        final refreshDecision = resolveSessionRefreshDecision(
+          errorCode: e.code,
+          hasCachedUser: cachedUser != null,
+        );
+
+        if (refreshDecision == SessionRefreshDecision.useCachedUser) {
+          _currentUser = cachedUser;
+          _authStateController.add(cachedUser);
+          if (kDebugMode) {
+            debugPrint(
+              '⚠️ Session-Check 401, nutze lokalen Fallback-User: ${cachedUser!.email}',
+            );
           }
+          return;
+        }
+
+        if (refreshDecision == SessionRefreshDecision.setLoggedOut) {
+          if (kDebugMode) {
+            debugPrint('ℹ️ Keine aktive Session (401 Unauthorized)');
+          }
+          _currentUser = null;
+          _authStateController.add(null);
+          return; // Definitiv ausgeloggt
         }
 
         // Andere Appwrite-Fehler: bei letztem Versuch aufgeben
