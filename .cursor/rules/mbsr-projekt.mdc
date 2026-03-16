@@ -1,0 +1,42 @@
+---
+description: Projektregeln fuer die MBSR-Kursbegleit-App (Flutter Web + Appwrite)
+alwaysApply: true
+---
+
+# MBSR App — Projektregeln
+
+## Sprache & Kommunikation
+- Antworte immer auf Deutsch.
+- Kurze, einfache Saetze. Keine Fachsprache ohne Erklaerung.
+- Notizen und To-dos als `.md`-Datei im Projektordner ablegen.
+
+## Tech-Stack
+- Flutter Web (SDK ^3.10.4), Deployment auf Cloudflare Pages.
+- Backend: Appwrite (Session-Auth, TablesDB, Storage Bucket `mbsr_content`).
+- Konfiguration via `--dart-define` (kein dotenv, keine .env im Bundle).
+- Lokaler Storage: `SharedPreferences` (nur fuer UX-Cache, nicht fuer Security-Entscheidungen).
+
+## Architektur
+- Services als Singletons: `AuthService`, `AudioService`, `AppwriteClient`, `ThemeModeController`.
+- Auth ist fail-closed: Kein Zugriff ohne serverseitig bestaetigtes Rollenprofil (`role == 'mbsr'`).
+- Policies als reine Funktionen mit eigenen Tests: `SessionRefreshPolicy`, `SeekPolicy`.
+- Zentrale Kursdaten in `lib/app_daten.dart` (Single Source of Truth).
+
+## Code-Regeln
+- Kein `print()` — nur `debugPrint()` mit `kDebugMode`-Guard.
+- Keine neue Dependency ohne Absprache.
+- Fehlerbehandlung: try/catch in allen Service-Methoden, benutzerfreundliche Meldungen in Production.
+- Vor jedem Commit: `flutter analyze --no-pub` und `flutter test --no-pub` muessen gruen sein.
+
+## UI-Praeferenzen
+1. Klarheit und Lesbarkeit zuerst.
+2. Dann konsistente Bedienlogik.
+3. Dann visuelle Details.
+- Ruhige Oberflaeche, keine versteckten Hover-Elemente.
+- Eindeutige Buttons, klare Schliessen-Optionen bei Sheets/Dialogs.
+- Einfache Bedienung fuer nicht-technikaffine Teilnehmende.
+
+## Dokumentation
+- `PLAN_APP_OPTIMIERUNG_NAECHSTE_SCHRITTE.md` — Roadmap und offene Punkte.
+- `APPWRITE_SETUP.md` — Backend-Konfiguration.
+- `SECURITY_AUDIT_2026-02-28.md` — Go-Live-Audit.

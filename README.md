@@ -57,4 +57,4 @@ Ziel: Cloudflare Pages (`mindfulpractice-app`).
 - `APPWRITE_SETUP.md` — Backend-Konfiguration (DB, Storage, Auth)
 - `CHECKLISTE_APPWRITE_PRUEFEN.md` — Troubleshooting bei Login-/Profil-Problemen
 - `SECURITY_AUDIT_2026-02-28.md` — Go-Live-Audit mit Entscheidungsgrundlage
-- `REGEL_ZUSAMMENARBEIT_MD.md` — Arbeitsregeln für AI-Sessions
+- `.cursor/rules/mbsr-projekt.mdc` — Projektregeln (automatisch in jeder AI-Session aktiv)
