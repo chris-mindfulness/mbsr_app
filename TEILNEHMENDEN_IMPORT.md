@@ -1,37 +1,10 @@
-# Teilnehmenden-Import (Batch)
+# Teilnehmenden-Import (nur das Nötige)
 
-Mit diesem Skript legst du in **einem Lauf** an:
-
-- Auth-Account in Appwrite
-- Rollenprofil in der `users`-Tabelle (`role=mbsr`)
-
-## 1) CSV vorbereiten
-
-Datei z. B. unter `import/teilnehmende.csv` anlegen.
-
-Header:
-
-`email;name;password;role`
-
-`role` ist optional (Default ist `mbsr`).
-
-Beispiel liegt in:
-
-`import/teilnehmende.example.csv`
-
-## 2) API-Zugang setzen
-
-Das Skript braucht eine Appwrite API Key mit Rechten für:
-
-- Users lesen/schreiben
-- TablesDB Rows lesen/schreiben
-
-Umgebungsvariablen:
+## 1) API-Zugang setzen (sicher)
 
 ```bash
-export APPWRITE_ENDPOINT="https://api.mindfulpractice.de/v1"
-export APPWRITE_PROJECT_ID="696befd00018180d10ff"
-export APPWRITE_API_KEY="dein_appwrite_api_key"
+export APPWRITE_ENDPOINT="https://api.mindfulpractice.de/v1" && export APPWRITE_PROJECT_ID="696befd00018180d10ff"
+read -rs "APPWRITE_API_KEY?Appwrite API Key: "; echo; export APPWRITE_API_KEY
 ```
 
 Optional:
@@ -54,13 +27,10 @@ dart run tool/import_participants.dart --file import/teilnehmende.csv --dry-run
 dart run tool/import_participants.dart --file import/teilnehmende.csv
 ```
 
-## Verhalten
+Optional danach Key wieder aus der Session entfernen:
 
-- E-Mails werden normalisiert (`trim`, lowercase)
-- Bereits vorhandene Auth-Accounts werden nicht doppelt angelegt
-- Bereits vorhandene Profile in `users` werden nicht doppelt angelegt
-- Es wird eine Ergebnis-Zusammenfassung ausgegeben
+```bash
+unset APPWRITE_API_KEY
+```
 
-## Wichtiger Hinweis
-
-Passwörter stehen in der CSV im Klartext. Datei nur lokal nutzen und nach dem Import löschen oder sicher ablegen.
+Hinweis: Den Key niemals als `APPWRITE_API_KEY=...` in die Shell schreiben, sonst ist er sichtbar.

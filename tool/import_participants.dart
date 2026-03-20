@@ -337,6 +337,39 @@ Future<_CreateStatus> _createProfileRow({
     },
   );
 
+  // Manche Appwrite-Setups (oder API-Versionen) nutzen weiterhin die
+  // Legacy-Documents-Route statt Tables-Route.
+  if (response.statusCode == 404) {
+    final legacyResponse = await _appwriteRequest(
+      method: 'POST',
+      endpoint: endpoint,
+      path: '/databases/$databaseId/collections/$tableId/documents',
+      projectId: projectId,
+      apiKey: apiKey,
+      body: {
+        'documentId': 'unique()',
+        'data': {
+          'email': normalizedEmail,
+          'role': participant.role,
+          'name': participant.name,
+        },
+      },
+    );
+
+    if (_isAlreadyExists(legacyResponse)) {
+      return _CreateStatus.existing;
+    }
+    if (legacyResponse.statusCode >= 200 && legacyResponse.statusCode < 300) {
+      stdout.writeln(
+        'Profil angelegt (legacy): ${participant.email} (${participant.role})',
+      );
+      return _CreateStatus.created;
+    }
+    throw Exception(
+      'Profil fehlgeschlagen (legacy) für ${participant.email}: ${legacyResponse.statusCode} ${legacyResponse.body}',
+    );
+  }
+
   if (_isAlreadyExists(response)) {
     return _CreateStatus.existing;
   }
