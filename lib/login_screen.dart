@@ -45,6 +45,18 @@ class _LoginScreenState extends State<LoginScreen> {
     return null;
   }
 
+  String _toUiErrorMessage(
+    Object error, {
+    String fallback = "Ein unerwarteter Fehler ist aufgetreten.",
+  }) {
+    if (error is AuthException) return error.message;
+    final raw = error.toString();
+    if (raw.contains('XMLHttpRequest error') || raw.contains('Failed to fetch')) {
+      return "Verbindungsfehler. Bitte prüfe Internet, Appwrite-Status und Web-Plattform (CORS).";
+    }
+    return fallback;
+  }
+
   Future<void> _resetPassword() async {
     final email = _emailController.text.trim();
     if (email.isEmpty) {
@@ -71,7 +83,15 @@ class _LoginScreenState extends State<LoginScreen> {
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text("Fehler: $e"), backgroundColor: Colors.red),
+          SnackBar(
+            content: Text(
+              _toUiErrorMessage(
+                e,
+                fallback: "Passwort-Reset konnte nicht gestartet werden.",
+              ),
+            ),
+            backgroundColor: Colors.red,
+          ),
         );
       }
     } finally {
@@ -95,14 +115,9 @@ class _LoginScreenState extends State<LoginScreen> {
       }
     } catch (e) {
       if (mounted) {
-        String errorMsg = e.toString();
-        if (errorMsg.contains('XMLHttpRequest error')) {
-          errorMsg =
-              "Verbindungsfehler (CORS). Bitte stelle sicher, dass die neue Domain in Appwrite unter 'Platforms' hinzugefügt wurde.";
-        }
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text(errorMsg),
+            content: Text(_toUiErrorMessage(e)),
             backgroundColor: Colors.red,
             duration: const Duration(seconds: 8),
           ),

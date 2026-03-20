@@ -502,7 +502,6 @@ class AuthException implements Exception {
 
 class RoleResolution {
   final String? role;
-  final bool fromFallback;
 
-  const RoleResolution({required this.role, this.fromFallback = false});
+  const RoleResolution({required this.role});
 }

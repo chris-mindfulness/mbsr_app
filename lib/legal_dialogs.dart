@@ -13,11 +13,35 @@ class LegalDialogs {
       'Web: www.mindfulpractice.de';
 
   static const String datenschutzText =
-      'Diese App wird über Appwrite und Cloudflare bereitgestellt. '
-      'Zur Bereitstellung und Absicherung (CDN, DDoS-Schutz) nutzen wir Cloudflare. '
-      'Dabei werden technisch notwendige Verbindungsdaten verarbeitet.\n\n'
-      'Für die Funktion werden lokal im Browser technisch notwendige Daten gespeichert '
-      '(z. B. Sitzungs- und Rolleninformationen für stabilen Login).';
+      'Verantwortlicher:\n'
+      'Dr. Christian Hahn, Salomonstr. 2, 04103 Leipzig, '
+      'E-Mail: achtsamkeit@belight-leipzig.de\n\n'
+      'Zwecke der Verarbeitung:\n'
+      'Bereitstellung der Kurs-App, Anmeldung, Rollenprüfung für den Kurszugang, '
+      'Auslieferung von Audio- und PDF-Inhalten sowie technische Stabilität.\n\n'
+      'Rechtsgrundlagen:\n'
+      'Art. 6 Abs. 1 lit. b DSGVO (Vertrag/Kursdurchführung) und '
+      'Art. 6 Abs. 1 lit. f DSGVO (technischer Betrieb, Sicherheit).\n\n'
+      'Verarbeitete Daten:\n'
+      'E-Mail-Adresse, Name (falls hinterlegt), technische Verbindungsdaten '
+      '(z. B. IP-Adresse, Zeitstempel), Sitzungs- und Rolleninformationen.\n\n'
+      'Empfänger/Auftragsverarbeitung:\n'
+      'Appwrite (Authentifizierung, Datenbank, Dateispeicher) und Cloudflare '
+      '(CDN, DDoS-Schutz). Es können Daten in Drittländern verarbeitet werden. '
+      'Hierfür werden geeignete Garantien (z. B. EU-Standardvertragsklauseln) verwendet.\n\n'
+      'Speicherdauer:\n'
+      'Daten werden nur so lange gespeichert, wie es für Kursdurchführung, '
+      'Betrieb und gesetzliche Pflichten erforderlich ist.\n\n'
+      'Betroffenenrechte:\n'
+      'Du hast das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung, '
+      'Datenübertragbarkeit und Widerspruch sowie das Recht auf Beschwerde bei '
+      'einer Datenschutzaufsichtsbehörde.\n\n'
+      'Lokale Speicherung:\n'
+      'Im Browser werden technisch notwendige Informationen gespeichert '
+      '(z. B. Sitzungs-/Rollen-Cache und Nutzungsdaten), um Anmeldung und Nutzung '
+      'stabil bereitzustellen.\n\n'
+      'Hinweis:\n'
+      'Diese Kurzfassung ersetzt keine vollständige juristische Datenschutzprüfung.';
 
   /// Zeigt Impressum-Dialog
   static Future<void> showImpressum(BuildContext context) {

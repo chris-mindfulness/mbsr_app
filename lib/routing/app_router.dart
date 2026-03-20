@@ -20,6 +20,7 @@ class AppRouter {
   static const String literatur = '/literatur';
   static const String profil = '/profil';
   static const String login = '/login';
+  static const String resetPassword = '/reset-password';
   static const String root = '/';
 
   /// Gibt das Widget für eine Route zurück
@@ -45,6 +46,7 @@ class AppRouter {
       case profil:
         return const ProfilSeite();
       case login:
+      case resetPassword:
         return const LoginScreen();
       case root:
         return const MBSRHomePage();
@@ -56,7 +58,11 @@ class AppRouter {
 
   /// Prüft, ob eine Route eine Login/Auth-Route ist
   static bool isAuthRoute(String? route) {
-    return route == login || route == root || route == null || route.isEmpty;
+    return route == login ||
+        route == resetPassword ||
+        route == root ||
+        route == null ||
+        route.isEmpty;
   }
 
   /// Gibt die Standard-Route nach erfolgreichem Login zurück
@@ -70,6 +76,7 @@ class AppRouter {
     literatur,
     profil,
     login,
+    resetPassword,
     root,
   ];
 }

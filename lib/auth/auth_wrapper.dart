@@ -183,10 +183,12 @@ class _AuthWrapperState extends State<AuthWrapper> {
     }
 
     // Nicht eingeloggt -> Zeige Auswahlseite (MBSRHomePage)
-    // ABER: Wenn die Route /login ist, zeige direkt LoginScreen
+    // ABER: Wenn die Route eine Auth-Route ist, zeige direkt LoginScreen
     if (user == null) {
-      if (route == '/login') {
-        if (kDebugMode) debugPrint('✅ Navigation: LoginScreen (Route /login)');
+      if (route == AppRouter.login || route == AppRouter.resetPassword) {
+        if (kDebugMode) {
+          debugPrint('✅ Navigation: LoginScreen (Auth-Route: $route)');
+        }
         return const LoginScreen();
       }
       if (kDebugMode) {
@@ -322,11 +324,6 @@ class _AuthWrapperState extends State<AuthWrapper> {
             }
 
             final resolution = roleSnapshot.data!;
-            if (kDebugMode && resolution.fromFallback) {
-              debugPrint(
-                '⚠️ Navigation mit Fallback-Rolle für ${user.email} (kein Profil gefunden)',
-              );
-            }
 
             return _getTargetPage(
               currentRoute,
