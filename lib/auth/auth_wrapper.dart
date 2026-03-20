@@ -119,6 +119,7 @@ class _AuthWrapperState extends State<AuthWrapper> {
     setState(() {
       _roleFuture = AuthService().resolveRoleForEmail(
         email: email,
+        timeout: const Duration(seconds: 8),
       );
     });
   }
@@ -199,13 +200,15 @@ class _AuthWrapperState extends State<AuthWrapper> {
 
     // PRIORITÄT 1: Eingeloggt, aber keine gültige Rolle
     // WICHTIG: Kein automatisches Logout, um Refresh-Logout-Schleifen zu vermeiden.
-    if (role != 'mbsr') {
+    final normalizedRole = role?.trim().toLowerCase();
+    if (normalizedRole != 'mbsr') {
       if (kDebugMode) debugPrint('⛔ Kein MBSR-Zugriff für ${user.email}');
       return _buildErrorScreen(
         title: 'Profil wird geprüft',
         message:
             'Du bist angemeldet, aber dein Kursprofil konnte noch nicht eindeutig zugeordnet werden.',
         icon: Icons.lock_outline,
+        showLogoutAction: true,
       );
     }
 
@@ -342,6 +345,7 @@ class _AuthWrapperState extends State<AuthWrapper> {
     String title = 'Verbindungsfehler',
     String message = 'Bitte prüfe deine Internetverbindung.',
     IconData icon = Icons.cloud_off,
+    bool showLogoutAction = false,
   }) {
     return Scaffold(
       backgroundColor: AppStyles.bgColor,
@@ -384,6 +388,18 @@ class _AuthWrapperState extends State<AuthWrapper> {
                   ),
                 ),
               ),
+              if (showLogoutAction) ...[
+                AppStyles.spacingMBox,
+                OutlinedButton.icon(
+                  onPressed: () async {
+                    await AuthService().logout();
+                    if (!mounted) return;
+                    setRoute(AppRouter.login);
+                  },
+                  icon: const Icon(Icons.logout),
+                  label: const Text('Abmelden'),
+                ),
+              ],
             ],
           ),
         ),

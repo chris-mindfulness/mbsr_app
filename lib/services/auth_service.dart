@@ -36,6 +36,8 @@ class AuthService {
   models.User? _currentUser;
   models.User? get currentUser => _currentUser;
 
+  String _normalizeEmail(String email) => email.trim().toLowerCase();
+
   Future<void> _saveCachedUser(models.User user) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString(_cachedUserKey, jsonEncode(user.toMap()));
@@ -60,13 +62,18 @@ class AuthService {
   }
 
   Future<Map<String, dynamic>?> _loadCachedRoleForEmail(String email) async {
+    final normalizedEmail = _normalizeEmail(email);
     final prefs = await SharedPreferences.getInstance();
     final json = prefs.getString(_cachedRoleKey);
     if (json == null || json.isEmpty) return null;
 
     try {
       final map = (jsonDecode(json) as Map).cast<String, dynamic>();
-      if ((map['email'] as String?) == email) return map;
+      final cachedEmail = map['email'] as String?;
+      if (cachedEmail != null &&
+          _normalizeEmail(cachedEmail) == normalizedEmail) {
+        return map;
+      }
       return null;
     } catch (_) {
       return null;
@@ -83,8 +90,11 @@ class AuthService {
     String email, {
     Duration timeout = const Duration(seconds: 5),
   }) async {
+    final normalizedEmail = _normalizeEmail(email);
     if (kDebugMode) {
-      debugPrint('🔍 Auth-Service: Lade Rollenprofil für $email...');
+      debugPrint(
+        '🔍 Auth-Service: Lade Rollenprofil für $normalizedEmail (raw: $email)...',
+      );
     }
 
     // 1) Primär: TablesDB (neues Schema)
@@ -93,7 +103,7 @@ class AuthService {
           .listRows(
             databaseId: AppConfig.databaseId,
             tableId: AppConfig.usersCollectionId,
-            queries: [Query.equal('email', email), Query.limit(1)],
+            queries: [Query.equal('email', normalizedEmail), Query.limit(1)],
           )
           .timeout(timeout);
 
@@ -123,7 +133,7 @@ class AuthService {
       final legacyFuture = _appwrite.databases.listDocuments(
         databaseId: AppConfig.databaseId,
         collectionId: AppConfig.usersCollectionId,
-        queries: [Query.equal('email', email), Query.limit(1)],
+        queries: [Query.equal('email', normalizedEmail), Query.limit(1)],
       );
       final legacy = await legacyFuture.timeout(timeout);
 
@@ -166,6 +176,16 @@ class AuthService {
     final roleData = await _loadRoleProfile(email, timeout: timeout);
     if (roleData != null) {
       return RoleResolution(role: roleData['role'] as String?);
+    }
+
+    // Kurzer zweiter Versuch für temporäre Backend-/Netzwerkspitzen nach Reload.
+    await Future.delayed(const Duration(milliseconds: 800));
+    final retryRoleData = await _loadRoleProfile(
+      email,
+      timeout: Duration(seconds: timeout.inSeconds + 3),
+    );
+    if (retryRoleData != null) {
+      return RoleResolution(role: retryRoleData['role'] as String?);
     }
 
     if (kDebugMode) {
