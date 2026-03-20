@@ -18,6 +18,7 @@ import '../core/app_config.dart';
 class AuthService {
   static const String _cachedUserKey = 'auth_cached_user_v1';
   static const String _cachedRoleKey = 'auth_cached_role_v1';
+  static const Duration _cachedRoleTtl = Duration(hours: 24);
 
   static final AuthService _instance = AuthService._internal();
   factory AuthService() => _instance;
@@ -45,7 +46,11 @@ class AuthService {
 
   Future<void> _saveCachedRole(Map<String, dynamic> roleData) async {
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setString(_cachedRoleKey, jsonEncode(roleData));
+    final payload = <String, dynamic>{
+      'savedAtEpochMs': DateTime.now().millisecondsSinceEpoch,
+      'data': roleData,
+    };
+    await prefs.setString(_cachedRoleKey, jsonEncode(payload));
   }
 
   Future<models.User?> _loadCachedUser() async {
@@ -68,7 +73,27 @@ class AuthService {
     if (json == null || json.isEmpty) return null;
 
     try {
-      final map = (jsonDecode(json) as Map).cast<String, dynamic>();
+      final decoded = (jsonDecode(json) as Map).cast<String, dynamic>();
+      final savedAtEpochMs = decoded['savedAtEpochMs'] as int?;
+      final wrappedData = decoded['data'];
+
+      // Backward compatibility: alte Cache-Struktur war direkt das Rollenobjekt.
+      final map = wrappedData is Map
+          ? wrappedData.cast<String, dynamic>()
+          : decoded;
+
+      if (savedAtEpochMs != null) {
+        final savedAt = DateTime.fromMillisecondsSinceEpoch(savedAtEpochMs);
+        final age = DateTime.now().difference(savedAt);
+        if (age > _cachedRoleTtl) {
+          await prefs.remove(_cachedRoleKey);
+          if (kDebugMode) {
+            debugPrint('⏰ Rollen-Cache abgelaufen (${age.inHours}h) -> gelöscht');
+          }
+          return null;
+        }
+      }
+
       final cachedEmail = map['email'] as String?;
       if (cachedEmail != null &&
           _normalizeEmail(cachedEmail) == normalizedEmail) {
