@@ -10,16 +10,18 @@
 
 ## Zusammenfassung
 
-| Dimension | Note | Stärke | Schwäche | Top-Empfehlung |
-|---|:---:|---|---|---|
-| 1. Architektur & Modularität | 3 | Klare Singleton-Services, saubere Routing-Trennung | `wochen_detail_seite.dart` (1.754 Z.) und `kurs_uebersicht.dart` (999 Z.) zu groß | Große Seiten in Sub-Widgets aufteilen |
-| 2. Testabdeckung | 2–3 | Tests auf kritische Pfade fokussiert (Auth, Seek, Design-Tokens, Datenintegrität) | Nur 8 Testdateien / 28 Testfälle bei 51 Quelldateien; keine Integrations-/E2E-Tests | Integrationstests für Login→Role-Gate→Routing ergänzen |
-| 3. Sicherheit & Auth | 3–4 | Fail-closed Rollenzuweisung, Session-Retry mit Backoff, benutzerfreundliche Fehlermeldungen | Rollen-Cache in SharedPreferences ohne TTL; Error-Leak in `login_screen.dart` | TTL für gecachte Rollen einführen |
-| 4. Code-Qualität | 3 | Konsistente AppStyles-Nutzung, gute Kommentierung, `kDebugMode`-Guards | Magic Numbers, nicht-zentralisierte Texte, Legacy-Datei `app_colors.dart` | Magic Numbers extrahieren, `app_colors.dart` entfernen |
-| 5. UX-Architektur | 4 | Responsive Zwei-Spalten-Layout, Offline-Banner, glassmorphe Navigation | Inkonsistente Breakpoints (760px vs. 860px), keine Skeleton-Loading-States | Breakpoints vereinheitlichen |
-| 6. Performance | 3 | Audio-Debouncing, Preloading, Recovery-Mechanismus | Kein Lazy Loading der Seiten, vollständige Listen-Rebuilds bei Suche | IndexedStack oder PageView für Tab-Navigation |
-| 7. DSGVO & Rechtliches | 2 | Datenschutz-Dialog vorhanden, lokale Statistiken, keine Google-Fonts-Verbindung | Pflichtangaben nach Art. 13 DSGVO fehlen fast vollständig | Datenschutzerklärung dringend vervollständigen |
-| 8. Dependency-Hygiene | 3 | Schlankes Dependency-Set (6 Packages), keine unnötigen Abhängigkeiten | `appwrite` ein Major-Release zurück (20.3.3 → 22.0.0), `app_colors.dart` verwaist | Appwrite-Major-Upgrade mit Regressionstests planen |
+
+| Dimension                    | Note | Stärke                                                                                      | Schwäche                                                                            | Top-Empfehlung                                         |
+| ---------------------------- | ---- | ------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ------------------------------------------------------ |
+| 1. Architektur & Modularität | 3    | Klare Singleton-Services, saubere Routing-Trennung                                          | `wochen_detail_seite.dart` (1.754 Z.) und `kurs_uebersicht.dart` (999 Z.) zu groß   | Große Seiten in Sub-Widgets aufteilen                  |
+| 2. Testabdeckung             | 2–3  | Tests auf kritische Pfade fokussiert (Auth, Seek, Design-Tokens, Datenintegrität)           | Nur 8 Testdateien / 28 Testfälle bei 51 Quelldateien; keine Integrations-/E2E-Tests | Integrationstests für Login→Role-Gate→Routing ergänzen |
+| 3. Sicherheit & Auth         | 3–4  | Fail-closed Rollenzuweisung, Session-Retry mit Backoff, benutzerfreundliche Fehlermeldungen | Rollen-Cache in SharedPreferences ohne TTL; Error-Leak in `login_screen.dart`       | TTL für gecachte Rollen einführen                      |
+| 4. Code-Qualität             | 3    | Konsistente AppStyles-Nutzung, gute Kommentierung, `kDebugMode`-Guards                      | Magic Numbers, nicht-zentralisierte Texte, Legacy-Datei `app_colors.dart`           | Magic Numbers extrahieren, `app_colors.dart` entfernen |
+| 5. UX-Architektur            | 4    | Responsive Zwei-Spalten-Layout, Offline-Banner, glassmorphe Navigation                      | Inkonsistente Breakpoints (760px vs. 860px), keine Skeleton-Loading-States          | Breakpoints vereinheitlichen                           |
+| 6. Performance               | 3    | Audio-Debouncing, Preloading, Recovery-Mechanismus                                          | Kein Lazy Loading der Seiten, vollständige Listen-Rebuilds bei Suche                | IndexedStack oder PageView für Tab-Navigation          |
+| 7. DSGVO & Rechtliches       | 2    | Datenschutz-Dialog vorhanden, lokale Statistiken, keine Google-Fonts-Verbindung             | Pflichtangaben nach Art. 13 DSGVO fehlen fast vollständig                           | Datenschutzerklärung dringend vervollständigen         |
+| 8. Dependency-Hygiene        | 3    | Schlankes Dependency-Set (6 Packages), keine unnötigen Abhängigkeiten                       | `appwrite` ein Major-Release zurück (20.3.3 → 22.0.0), `app_colors.dart` verwaist   | Appwrite-Major-Upgrade mit Regressionstests planen     |
+
 
 **Gesamtnote: 3,0 / 5** — Solide Basis mit klaren Verbesserungspunkten vor einem Go-Live.
 
@@ -55,16 +57,18 @@ State Management erfolgt rein über `setState`, `StreamBuilder` und `FutureBuild
 
 ### Vorhandene Tests (8 Dateien, 28 Testfälle)
 
-| Testdatei | Testet | Fälle | Bewertung |
-|---|---|:---:|---|
-| `seek_policy_test.dart` | Audio-Seek-Grenzen | 4 | Gut, deckt Randfälle ab |
-| `app_daten_integrity_test.dart` | Datenstruktur-Konsistenz | 3 | Exzellent, prüft Duplikate und Referenzen |
-| `typografie_web_abgleich_tokens_test.dart` | Design-Token-Konsistenz | 3 | Gut |
-| `woche4_readability_tokens_test.dart` | WCAG-Kontrastverhältnisse | 3 | Sehr gut, prüft 4.5:1 und 3:1 |
-| `auth_exception_test.dart` | Fehler-Mapping (401, 429, 500, 503) | 5 | Gut |
-| `session_refresh_policy_test.dart` | Session-Entscheidungslogik | 3 | Gut, kritischer Pfad abgedeckt |
-| `vertiefung_feature_cards_pilot_test.dart` | Widget-Interaktivität | 4 | Gut |
-| `woche4_lesemodus_test.dart` | Lesemodus-Widget + Navigation | 3 | Exzellent, End-to-End für Woche 4 |
+
+| Testdatei                                  | Testet                              | Fälle | Bewertung                                 |
+| ------------------------------------------ | ----------------------------------- | ----- | ----------------------------------------- |
+| `seek_policy_test.dart`                    | Audio-Seek-Grenzen                  | 4     | Gut, deckt Randfälle ab                   |
+| `app_daten_integrity_test.dart`            | Datenstruktur-Konsistenz            | 3     | Exzellent, prüft Duplikate und Referenzen |
+| `typografie_web_abgleich_tokens_test.dart` | Design-Token-Konsistenz             | 3     | Gut                                       |
+| `woche4_readability_tokens_test.dart`      | WCAG-Kontrastverhältnisse           | 3     | Sehr gut, prüft 4.5:1 und 3:1             |
+| `auth_exception_test.dart`                 | Fehler-Mapping (401, 429, 500, 503) | 5     | Gut                                       |
+| `session_refresh_policy_test.dart`         | Session-Entscheidungslogik          | 3     | Gut, kritischer Pfad abgedeckt            |
+| `vertiefung_feature_cards_pilot_test.dart` | Widget-Interaktivität               | 4     | Gut                                       |
+| `woche4_lesemodus_test.dart`               | Lesemodus-Widget + Navigation       | 3     | Exzellent, End-to-End für Woche 4         |
+
 
 ### Fehlende Tests (priorisiert)
 
@@ -96,7 +100,7 @@ Die Auth-Architektur ist durchdacht: `AuthService` → `AuthWrapper` → `AppRou
 
 **Passwort-Reset ohne Zielseite:** Die Redirect-URL (`https://app.mindfulpractice.de/reset-password`) existiert laut Routing nicht als Route. Nutzer landen nach Klick auf den Reset-Link potentiell auf einer 404-Seite.
 
-**`RoleResolution.fromFallback` ungenutzt:** Das Feld `fromFallback` in `RoleResolution` wird zwar im Debug-Log geprüft, hat aber keinen Einfluss auf die Zugriffsentscheidung. Das ist entweder toter Code oder eine unvollständige Sicherheitsfunktion.
+`**RoleResolution.fromFallback` ungenutzt:** Das Feld `fromFallback` in `RoleResolution` wird zwar im Debug-Log geprüft, hat aber keinen Einfluss auf die Zugriffsentscheidung. Das ist entweder toter Code oder eine unvollständige Sicherheitsfunktion.
 
 ### Empfehlungen
 
@@ -205,15 +209,17 @@ Die Datenschutzerklärung in `legal_dialogs.dart` umfasst nur zwei kurze Absätz
 
 ### Aktuelle Dependencies
 
-| Package | Version | Status | Anmerkung |
-|---|---|---|---|
-| `appwrite` | ^20.3.3 | **Major-outdated** (→ 22.0.0) | Nutzt TablesDB API; Major-Upgrade erfordert Regressionstests |
-| `just_audio` | ^0.10.5 | Aktuell | Standard für Web-Audio |
-| `url_launcher` | ^6.3.2 | Aktuell | — |
-| `shared_preferences` | ^2.2.2 | Aktuell | — |
-| `web` | ^1.1.0 | Aktuell | Ersetzt `dart:html` |
-| `cupertino_icons` | ^1.0.8 | Aktuell | — |
-| `flutter_lints` | ^6.0.0 | Offiziell, aber Basisprofil | Optional: strengeres Profil via `very_good_analysis` oder erweiterte `analysis_options.yaml` |
+
+| Package              | Version | Status                        | Anmerkung                                                                                    |
+| -------------------- | ------- | ----------------------------- | -------------------------------------------------------------------------------------------- |
+| `appwrite`           | ^20.3.3 | **Major-outdated** (→ 22.0.0) | Nutzt TablesDB API; Major-Upgrade erfordert Regressionstests                                 |
+| `just_audio`         | ^0.10.5 | Aktuell                       | Standard für Web-Audio                                                                       |
+| `url_launcher`       | ^6.3.2  | Aktuell                       | —                                                                                            |
+| `shared_preferences` | ^2.2.2  | Aktuell                       | —                                                                                            |
+| `web`                | ^1.1.0  | Aktuell                       | Ersetzt `dart:html`                                                                          |
+| `cupertino_icons`    | ^1.0.8  | Aktuell                       | —                                                                                            |
+| `flutter_lints`      | ^6.0.0  | Offiziell, aber Basisprofil   | Optional: strengeres Profil via `very_good_analysis` oder erweiterte `analysis_options.yaml` |
+
 
 ### Empfehlungen
 
@@ -227,22 +233,27 @@ Die Datenschutzerklärung in `legal_dialogs.dart` umfasst nur zwei kurze Absätz
 ## Top 5 Maßnahmen (priorisiert)
 
 ### 1. Datenschutzerklärung vervollständigen (DSGVO)
+
 **Priorität: Kritisch / Blockiert Go-Live**
 Die aktuelle DSE erfüllt nicht die Mindestanforderungen nach Art. 13 DSGVO. Juristische Prüfung und Überarbeitung erforderlich.
 
 ### 2. Große Dateien refaktorisieren
+
 **Priorität: Hoch**
 `wochen_detail_seite.dart` (1.754 Z.) und `kurs_uebersicht.dart` (999 Z.) in semantische Sub-Widgets aufteilen. Das verbessert Wartbarkeit, Testbarkeit und Build-Performance.
 
 ### 3. Testabdeckung erhöhen
+
 **Priorität: Hoch**
 AuthService-Login-Flow, AudioService-Zustandsmaschine und NutzungsTracker-Statistiken testen. Ziel: mindestens 40% der Quelldateien mit Tests abgedeckt.
 
 ### 4. Sicherheitslücken schließen
+
 **Priorität: Hoch**
 TTL für Rollen-Cache, Error-Leak im LoginScreen beheben, Passwort-Reset-Route implementieren.
 
 ### 5. Code-Hygiene
+
 **Priorität: Mittel**
 Magic Numbers extrahieren, `app_colors.dart` entfernen, UI-Texte zentralisieren, `flutter_lints` aktualisieren, duplizierte PDF-Pending-Logik konsolidieren.
 
@@ -250,16 +261,19 @@ Magic Numbers extrahieren, `app_colors.dart` entfernen, UI-Texte zentralisieren,
 
 ## Anhang: Dateiübersicht
 
-| Verzeichnis | Dateien | Zeilen (ca.) | Funktion |
-|---|:---:|:---:|---|
-| `lib/` (Root) | 14 | ~5.800 | Seiten, Services, Daten |
-| `lib/core/` | 5 | ~450 | Konfiguration, Styling, Theme |
-| `lib/services/` | 2 | ~570 | Auth, Connectivity |
-| `lib/auth/` | 2 | ~440 | Auth-Wrapper, Session-Policy |
-| `lib/audio/` | 3 | ~220 | Audio-State, Bell, Seek |
-| `lib/widgets/` | 16 | ~1.900 | Wiederverwendbare UI-Komponenten |
-| `lib/routing/` | 1 | ~75 | Router |
-| `lib/pages/` | 1 | ~130 | Home-Page |
-| `lib/constants/` | 1 | ~43 | Text-Konstanten |
-| `test/` | 8 | ~350 | Unit- und Widget-Tests |
-| **Gesamt** | **53** | **~11.200** | |
+
+| Verzeichnis      | Dateien | Zeilen (ca.) | Funktion                         |
+| ---------------- | ------- | ------------ | -------------------------------- |
+| `lib/` (Root)    | 14      | ~5.800       | Seiten, Services, Daten          |
+| `lib/core/`      | 5       | ~450         | Konfiguration, Styling, Theme    |
+| `lib/services/`  | 2       | ~570         | Auth, Connectivity               |
+| `lib/auth/`      | 2       | ~440         | Auth-Wrapper, Session-Policy     |
+| `lib/audio/`     | 3       | ~220         | Audio-State, Bell, Seek          |
+| `lib/widgets/`   | 16      | ~1.900       | Wiederverwendbare UI-Komponenten |
+| `lib/routing/`   | 1       | ~75          | Router                           |
+| `lib/pages/`     | 1       | ~130         | Home-Page                        |
+| `lib/constants/` | 1       | ~43          | Text-Konstanten                  |
+| `test/`          | 8       | ~350         | Unit- und Widget-Tests           |
+| **Gesamt**       | **53**  | **~11.200**  |                                  |
+
+
