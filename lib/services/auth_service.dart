@@ -90,35 +90,51 @@ class AuthService {
     String email, {
     Duration timeout = const Duration(seconds: 5),
   }) async {
+    final rawEmail = email.trim();
     final normalizedEmail = _normalizeEmail(email);
     if (kDebugMode) {
       debugPrint(
-        '🔍 Auth-Service: Lade Rollenprofil für $normalizedEmail (raw: $email)...',
+        '🔍 Auth-Service: Lade Rollenprofil für $normalizedEmail (raw: $rawEmail)...',
+      );
+    }
+
+    Future<models.RowList> _queryTablesDbByEmail(String emailValue) {
+      return _appwrite.tablesDB.listRows(
+        databaseId: AppConfig.databaseId,
+        tableId: AppConfig.usersCollectionId,
+        queries: [Query.equal('email', emailValue), Query.limit(1)],
+      );
+    }
+
+    Future<models.DocumentList> _queryLegacyByEmail(String emailValue) {
+      // ignore: deprecated_member_use
+      return _appwrite.databases.listDocuments(
+        databaseId: AppConfig.databaseId,
+        collectionId: AppConfig.usersCollectionId,
+        queries: [Query.equal('email', emailValue), Query.limit(1)],
       );
     }
 
     // 1) Primär: TablesDB (neues Schema)
     try {
-      final response = await _appwrite.tablesDB
-          .listRows(
-            databaseId: AppConfig.databaseId,
-            tableId: AppConfig.usersCollectionId,
-            queries: [Query.equal('email', normalizedEmail), Query.limit(1)],
-          )
-          .timeout(timeout);
-
-      if (response.rows.isNotEmpty) {
-        final row = response.rows.first;
-        await _saveCachedRole(row.data);
-        if (kDebugMode) {
-          debugPrint('✅ Rollenprofil via TablesDB: ${row.data['role']}');
+      final tableEmailCandidates = <String>{rawEmail, normalizedEmail};
+      for (final candidate in tableEmailCandidates) {
+        final response = await _queryTablesDbByEmail(candidate).timeout(timeout);
+        if (response.rows.isNotEmpty) {
+          final row = response.rows.first;
+          await _saveCachedRole(row.data);
+          if (kDebugMode) {
+            debugPrint(
+              '✅ Rollenprofil via TablesDB (${candidate == normalizedEmail ? "normalized" : "raw"}): ${row.data['role']}',
+            );
+          }
+          return row.data;
         }
-        return row.data;
       }
 
       if (kDebugMode) {
         debugPrint(
-          'ℹ️ TablesDB ohne Treffer für $email, prüfe Legacy-Collection',
+          'ℹ️ TablesDB ohne Treffer für $rawEmail/$normalizedEmail, prüfe Legacy-Collection',
         );
       }
     } catch (e) {
@@ -129,26 +145,24 @@ class AuthService {
 
     // 2) Fallback: Legacy Databases/Collection
     try {
-      // ignore: deprecated_member_use
-      final legacyFuture = _appwrite.databases.listDocuments(
-        databaseId: AppConfig.databaseId,
-        collectionId: AppConfig.usersCollectionId,
-        queries: [Query.equal('email', normalizedEmail), Query.limit(1)],
-      );
-      final legacy = await legacyFuture.timeout(timeout);
-
-      if (legacy.documents.isNotEmpty) {
-        final data = legacy.documents.first.data;
-        await _saveCachedRole(data);
-        if (kDebugMode) {
-          debugPrint('✅ Rollenprofil via Legacy-Collection: ${data['role']}');
+      final legacyEmailCandidates = <String>{rawEmail, normalizedEmail};
+      for (final candidate in legacyEmailCandidates) {
+        final legacy = await _queryLegacyByEmail(candidate).timeout(timeout);
+        if (legacy.documents.isNotEmpty) {
+          final data = legacy.documents.first.data;
+          await _saveCachedRole(data);
+          if (kDebugMode) {
+            debugPrint(
+              '✅ Rollenprofil via Legacy-Collection (${candidate == normalizedEmail ? "normalized" : "raw"}): ${data['role']}',
+            );
+          }
+          return data;
         }
-        return data;
       }
 
       if (kDebugMode) {
         debugPrint(
-          '⛔ Kein Rollenprofil in TablesDB oder Legacy-Collection für $email',
+          '⛔ Kein Rollenprofil in TablesDB oder Legacy-Collection für $rawEmail/$normalizedEmail',
         );
       }
     } catch (e) {
