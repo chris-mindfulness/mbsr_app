@@ -79,7 +79,7 @@ class ProfilSeite extends StatelessWidget {
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text("Fehler beim Abmelden: $e"),
+            content: const Text("Abmelden fehlgeschlagen. Bitte erneut versuchen."),
             backgroundColor: Colors.orange,
             duration: const Duration(seconds: 3),
           ),

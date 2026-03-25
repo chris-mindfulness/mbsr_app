@@ -1718,12 +1718,15 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
             isCurrent && _audioService.status == AudioServiceStatus.playing;
         final bool isLoading =
             isCurrent && _audioService.status == AudioServiceStatus.loading;
+        final bool isError =
+            isCurrent && _audioService.status == AudioServiceStatus.error;
 
         return AudioItemCard(
           audio: audio,
           isCurrent: isCurrent,
           isPlaying: isPlaying,
           isLoading: isLoading,
+          isError: isError,
           onPlay: () => _play(audio),
           onTips: () => _showTipsForAudio(audio),
           idleTitleColor: AppStyles.softBrown,

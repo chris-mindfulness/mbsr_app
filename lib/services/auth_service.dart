@@ -123,7 +123,7 @@ class AuthService {
       );
     }
 
-    Future<models.RowList> _queryTablesDbByEmail(String emailValue) {
+    Future<models.RowList> queryTablesDbByEmail(String emailValue) {
       return _appwrite.tablesDB.listRows(
         databaseId: AppConfig.databaseId,
         tableId: AppConfig.usersCollectionId,
@@ -131,7 +131,7 @@ class AuthService {
       );
     }
 
-    Future<models.DocumentList> _queryLegacyByEmail(String emailValue) {
+    Future<models.DocumentList> queryLegacyByEmail(String emailValue) {
       // ignore: deprecated_member_use
       return _appwrite.databases.listDocuments(
         databaseId: AppConfig.databaseId,
@@ -144,7 +144,7 @@ class AuthService {
     try {
       final tableEmailCandidates = <String>{rawEmail, normalizedEmail};
       for (final candidate in tableEmailCandidates) {
-        final response = await _queryTablesDbByEmail(candidate).timeout(timeout);
+        final response = await queryTablesDbByEmail(candidate).timeout(timeout);
         if (response.rows.isNotEmpty) {
           final row = response.rows.first;
           await _saveCachedRole(row.data);
@@ -172,7 +172,7 @@ class AuthService {
     try {
       final legacyEmailCandidates = <String>{rawEmail, normalizedEmail};
       for (final candidate in legacyEmailCandidates) {
-        final legacy = await _queryLegacyByEmail(candidate).timeout(timeout);
+        final legacy = await queryLegacyByEmail(candidate).timeout(timeout);
         if (legacy.documents.isNotEmpty) {
           final data = legacy.documents.first.data;
           await _saveCachedRole(data);

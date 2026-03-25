@@ -245,14 +245,17 @@ class AudioService {
       if (kDebugMode) debugPrint("AudioService Error beim Laden/Abspielen: $e");
       _updateStatus(AudioServiceStatus.error);
       _shouldBePlaying = false;
-      rethrow;
     }
   }
 
   Future<void> pause() async {
     _shouldBePlaying = false;
     _clearBufferingTimer();
-    await _player.pause();
+    try {
+      await _player.pause();
+    } catch (e) {
+      if (kDebugMode) debugPrint('AudioService: Pause-Fehler: $e');
+    }
     _updateStatus(AudioServiceStatus.paused);
   }
 
@@ -268,7 +271,6 @@ class AudioService {
       if (kDebugMode) debugPrint("AudioService: Resume-Fehler: $e");
       _shouldBePlaying = false;
       _updateStatus(AudioServiceStatus.error);
-      rethrow;
     }
   }
 
@@ -276,7 +278,11 @@ class AudioService {
     _shouldBePlaying = false;
     _clearBufferingTimer();
     _saveCurrentStats();
-    await _player.stop();
+    try {
+      await _player.stop();
+    } catch (e) {
+      if (kDebugMode) debugPrint('AudioService: Stop-Fehler: $e');
+    }
     _currentAppwriteId = null;
     _currentTitle = null;
     _currentAudio = null;
@@ -287,7 +293,11 @@ class AudioService {
   }
 
   Future<void> seek(Duration position) async {
-    await _player.seek(position);
+    try {
+      await _player.seek(position);
+    } catch (e) {
+      if (kDebugMode) debugPrint('AudioService: Seek-Fehler: $e');
+    }
   }
 
   /// Startet das 80%-Tracking für das aktuelle Audio
@@ -298,10 +308,17 @@ class AudioService {
     _positionSubscription?.cancel();
 
     // Überwache Position-Stream
-    _positionSubscription = _player.positionStream.listen((position) {
-      _lastKnownPosition = position;
-      _check80PercentThreshold(position);
-    });
+    _positionSubscription = _player.positionStream.listen(
+      (position) {
+        _lastKnownPosition = position;
+        _check80PercentThreshold(position);
+      },
+      onError: (Object e, StackTrace st) {
+        if (kDebugMode) {
+          debugPrint('AudioService: Position-Stream Fehler: $e');
+        }
+      },
+    );
   }
 
   /// Prüft, ob 80% des Audios erreicht wurden

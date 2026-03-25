@@ -79,8 +79,24 @@ class MiniPlayerBar extends StatelessWidget {
                   StreamBuilder<AudioServiceStatus>(
                     stream: audioService.statusStream,
                     builder: (context, snapshot) {
+                      final status = audioService.status;
                       final isPlaying =
-                          audioService.status == AudioServiceStatus.playing;
+                          status == AudioServiceStatus.playing;
+                      final isError =
+                          status == AudioServiceStatus.error;
+                      if (isError) {
+                        return IconButton(
+                          icon: Icon(
+                            Icons.refresh_rounded,
+                            color: AppStyles.errorRed,
+                            size: 28,
+                          ),
+                          tooltip: 'Erneut versuchen',
+                          onPressed: () {
+                            audioService.resumeCurrent();
+                          },
+                        );
+                      }
                       return AnimatedPlayButton(
                         isPlaying: isPlaying,
                         size: 40,

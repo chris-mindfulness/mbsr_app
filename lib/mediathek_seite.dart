@@ -350,7 +350,19 @@ class _MediathekSeiteState extends State<MediathekSeite> {
               ),
             ),
             Expanded(
-              child: ListView.builder(
+              child: audios.isEmpty && _searchQuery.isNotEmpty
+                  ? Center(
+                      child: Padding(
+                        padding: EdgeInsets.all(AppStyles.spacingXL),
+                        child: Text(
+                          'Keine Übungen gefunden.',
+                          style: AppStyles.bodyStyle.copyWith(
+                            color: AppStyles.textMuted,
+                          ),
+                        ),
+                      ),
+                    )
+                  : ListView.builder(
                 itemCount: audios.length,
                 padding: EdgeInsets.fromLTRB(
                   AppStyles.spacingL,
@@ -373,12 +385,16 @@ class _MediathekSeiteState extends State<MediathekSeite> {
                       final bool isLoading =
                           isCurrent &&
                           _audioService.status == AudioServiceStatus.loading;
+                      final bool isError =
+                          isCurrent &&
+                          _audioService.status == AudioServiceStatus.error;
 
                       return AudioItemCard(
                         audio: audio,
                         isCurrent: isCurrent,
                         isPlaying: isPlaying,
                         isLoading: isLoading,
+                        isError: isError,
                         onPlay: () => _play(audio),
                         onTips: () => _showExerciseTipsForAudio(audio),
                         onInfo:

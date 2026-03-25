@@ -11,6 +11,7 @@ class AudioItemCard extends StatelessWidget {
     required this.isCurrent,
     required this.isPlaying,
     required this.isLoading,
+    this.isError = false,
     required this.onPlay,
     required this.onTips,
     this.onInfo,
@@ -24,6 +25,7 @@ class AudioItemCard extends StatelessWidget {
   final bool isCurrent;
   final bool isPlaying;
   final bool isLoading;
+  final bool isError;
   final VoidCallback onPlay;
   final VoidCallback onTips;
   final VoidCallback? onInfo;
@@ -56,7 +58,21 @@ class AudioItemCard extends StatelessWidget {
           padding: EdgeInsets.all(AppStyles.spacingL - AppStyles.spacingS),
           child: Row(
             children: [
-              isLoading
+              isError
+                  ? Container(
+                      width: 56,
+                      height: 56,
+                      decoration: BoxDecoration(
+                        color: AppStyles.errorRed.withValues(alpha: 0.1),
+                        shape: BoxShape.circle,
+                      ),
+                      child: Icon(
+                        Icons.refresh_rounded,
+                        color: AppStyles.errorRed,
+                        size: 28,
+                      ),
+                    )
+                  : isLoading
                   ? Container(
                       width: 56,
                       height: 56,

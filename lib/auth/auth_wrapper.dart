@@ -41,19 +41,26 @@ class _AuthWrapperState extends State<AuthWrapper> {
     super.initState();
 
     // Globaler Listener für Auth-Status (Sicherheitsnetz für Audio)
-    _authSubscription = AuthService().authStateChanges.listen((user) {
-      if (kDebugMode) {
-        debugPrint(
-          'AuthWrapper: Status-Update erhalten. User: ${user?.email ?? "ausgeloggt"}',
-        );
-      }
-      if (user == null) {
+    _authSubscription = AuthService().authStateChanges.listen(
+      (user) {
         if (kDebugMode) {
-          debugPrint('👤 Auth-Status: Abgemeldet -> Stoppe AudioService');
+          debugPrint(
+            'AuthWrapper: Status-Update erhalten. User: ${user?.email ?? "ausgeloggt"}',
+          );
         }
-        AudioService().stop();
-      }
-    });
+        if (user == null) {
+          if (kDebugMode) {
+            debugPrint('👤 Auth-Status: Abgemeldet -> Stoppe AudioService');
+          }
+          AudioService().stop();
+        }
+      },
+      onError: (Object e, StackTrace st) {
+        if (kDebugMode) {
+          debugPrint('AuthWrapper: Auth-Stream Fehler: $e');
+        }
+      },
+    );
 
     if (kDebugMode) {
       debugPrint('🚀 AuthWrapper gestartet (Appwrite)');
