@@ -121,6 +121,23 @@
    - `Profil`: Statistiken, Downloads
    - `Literatur`: Buecher- und Artikelkarten
 
+## Update 25.03.2026 — Go-Live-Haertung
+
+34. AudioService gegen Netzwerkfehler abgesichert:
+   - `play()`, `pause()`, `stop()`, `seek()`, `resumeCurrent()` fangen jetzt alle Exceptions ab
+   - kein `rethrow` mehr — Fehler werden ueber Status-Stream propagiert
+35. Fehlende Stream-Error-Handler ergaenzt:
+   - `onError` auf Position-Stream in AudioService
+   - `onError` auf Auth-Stream in AuthWrapper
+36. Audio-Error-Status in UI sichtbar gemacht:
+   - `AudioItemCard` zeigt bei Fehler ein Refresh-Icon statt Play-Button
+   - `MiniPlayerBar` zeigt bei Fehler einen Retry-Button
+   - `isError`-Parameter in Mediathek, Wochen-Detail und AudioItemCard durchgereicht
+37. Mediathek: leere Suchergebnisse zeigen "Keine Uebungen gefunden"
+38. Lint-Warnungen behoben (fuehrende Unterstriche in auth_service.dart entfernt)
+39. Logout-Fehlermeldung bereinigt (generischer Text statt technischem Error-String)
+40. Kursinhalte in app_daten.dart aktualisiert (Cowork-Session)
+
 ## Geprüft
 
 - `flutter analyze --no-pub`: ohne Befunde

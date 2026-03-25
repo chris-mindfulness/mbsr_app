@@ -90,6 +90,14 @@ Stand: 26.02.2026 (aktualisiert)
   - zentrale Inhaltskarten in Wochen 1-8 verwenden denselben neutralen Kartenmodus
   - Tippkarten der Wochen 3/4/5-8 ebenfalls auf denselben Modus angeglichen
 
+- Go-Live-Haertung AudioService + UI (25.03.2026):
+  - alle Player-Methoden (play, pause, stop, seek, resumeCurrent) gegen Exceptions abgesichert
+  - fehlende onError-Handler auf Position-Stream und Auth-Stream ergaenzt
+  - AudioItemCard und MiniPlayerBar zeigen bei Audio-Fehlern ein Retry-Icon
+  - Mediathek zeigt bei leerer Suche einen Hinweis
+  - Lint-Warnungen und technische Fehlertexte im Logout bereinigt
+  - Technische Checks nach den Aenderungen gruen (analyze + test)
+
 ## Was offen bleibt (sinnvoll, aber nicht kritisch)
 
 ### 1) Appwrite-Basis final manuell prüfen

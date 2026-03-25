@@ -187,9 +187,9 @@ Fehlende Pflichtangaben nach DSGVO:
 
 Die Redirect-URL `https://app.mindfulpractice.de/reset-password` ist in `auth_service.dart` hardcodiert, aber `/reset-password` existiert nicht in `AppRouter`. Wenn ein User auf den Link in der Reset-Mail klickt, greift der Fallback-Router. Manuell testen, ob der Appwrite-Reset-Flow trotzdem funktioniert.
 
-### Error-Leak im Login-Screen
+### ~~Error-Leak im Login-Screen~~ (behoben 25.03.2026)
 
-`login_screen.dart` zeigt `e.toString()` in der SnackBar. Für `AuthException` ist das sauber (benutzerfreundliche Texte). Aber `catch (e)` fängt auch unerwartete Fehler ab, deren `.toString()` technische Details enthalten könnte. Ein generischer Fallback-Text wäre sicherer.
+~~`login_screen.dart` zeigt `e.toString()` in der SnackBar.~~ Behoben: `profil_seite.dart` Logout-Fehlermeldung auf generischen Text umgestellt. `login_screen.dart` nutzt bereits `_toUiErrorMessage()` mit sauberem Fallback.
 
 ---
 
