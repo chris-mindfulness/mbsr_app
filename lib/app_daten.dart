@@ -107,9 +107,144 @@ class AppDaten {
         '3.	Die Neun-Punkte-Übung durchführen und kurz notieren, was dir aufgefallen ist.',
         '4.	Die Geschichte vom Oberfluss und Unterfluss lesen.',
       ],
-      'readingCards': <Map<String, String>>[],
-      'readingSummary': '',
-      'archiveEligible': false,
+      'readingSummary':
+          'Hier findest du die Volltexte aus Sitzung 1 in weitgehend vollständiger Form. Ziel ist Nachlesen ohne Informationsverlust zwischen den Treffen.',
+      'archiveEligible': true,
+      'readingCards': [
+        {
+          'id': 'wk1-anfaengergeist',
+          'title': 'Anfängergeist',
+          'body':
+              """„Im Geist des Anfängers gibt es viele Möglichkeiten, im Geist des Experten nur wenige." — Shunryū Suzuki
+
+Anfängergeist bedeutet, einer Situation zu begegnen, als würde man sie zum ersten Mal erleben — offen, neugierig, ohne vorgefertigte Schlüsse. Dieser Kurs beginnt mit genau dieser Einladung: der gewohnten Welt mit frischer Wahrnehmung zu begegnen.
+
+Das klingt einfach, ist aber eine echte Herausforderung. Unser Gehirn ist darauf trainiert, Muster zu erkennen und Erfahrungen in bekannte Kategorien einzusortieren. Das spart Energie und schützt uns — aber es sorgt auch dafür, dass wir vieles gar nicht mehr wirklich wahrnehmen.
+
+Anfängergeist ist keine Technik, sondern eine Haltung. Eine Einladung, das Vertraute noch einmal neu zu betrachten — den Geschmack des Kaffees, das Gefühl der Füße auf dem Boden, den Klang einer vertrauten Stimme.""",
+          'source_ref': 'MBSR Kursheft - Sitzung 1, S. 3',
+        },
+        {
+          'id': 'wk1-was-ist-achtsamkeit',
+          'title': 'Was ist Achtsamkeit?',
+          'body':
+              """Jon Kabat-Zinn, der Begründer von MBSR, definiert Achtsamkeit als „die Aufmerksamkeit absichtsvoll, im gegenwärtigen Moment und so gut wie möglich ohne Urteilen auf die Erfahrung zu richten."
+
+In diesem Satz stecken drei wesentliche Aspekte:
+
+Absichtsvoll — Achtsamkeit passiert nicht zufällig. Sie ist eine bewusste Entscheidung, die Aufmerksamkeit in eine bestimmte Richtung zu lenken.
+
+Im gegenwärtigen Moment — Nicht in Erinnerungen an gestern oder Sorgen über morgen, sondern hier, jetzt.
+
+Ohne Urteilen — Nicht die Bewertungen abstellen (das geht nicht), sondern bemerken, dass sie da sind. Das Gehirn bewertet ständig: gut, schlecht, gefährlich, sicher. Das ist evolutionär notwendig. Ziel der Achtsamkeit ist nicht, das Urteil zu stoppen, sondern es zu bemerken. Zwischen Urteil und Reaktion liegt ein kleiner Moment — genau dieser Moment ist der Gegenstand der Übung.
+
+Wichtig: Achtsamkeit ist keine Entspannungstechnik. Sie ist eine Schulung der Aufmerksamkeit. Manchmal führt sie zu Entspannung, manchmal nicht. Beides ist in Ordnung.""",
+          'source_ref': 'MBSR Kursheft - Sitzung 1, S. 5–6',
+        },
+        {
+          'id': 'wk1-tun-und-sein',
+          'title': 'Tun-Modus und Sein-Modus',
+          'body':
+              """Unser Geist bewegt sich zwischen zwei grundlegend verschiedenen Betriebsweisen:
+
+Tun-Modus:
+• Automatisch reagieren
+• Grübeln über Erfahrung
+• Ziel- und ergebnisorientiert
+• Probleme lösen wollen
+• Vergangenheit und Zukunft
+• Von Bewertungen gesteuert
+
+Sein-Modus:
+• Bewusst wahrnehmen
+• Unmittelbare Erfahrung
+• Prozess- und momentorientiert
+• Sein mit dem, was ist
+• Jetzt — dieser Moment
+• Wahrnehmung ohne sofortige Reaktion
+
+Die meisten Menschen verbringen fast den ganzen Tag im Tun-Modus, ohne es zu bemerken. Das ist an sich nicht problematisch — der Tun-Modus ist nützlich und notwendig. Schwierig wird es, wenn wir dauerhaft in ihm feststecken, auch dort, wo er uns nicht weiterhilft: beim Grübeln, beim Nicht-Einschlafen-Können, beim ständigen Vergleichen.
+
+Achtsamkeit ist keine Kritik am Tun-Modus. Es geht darum, zu bemerken, in welchem Modus man sich befindet, und wählen zu können, ob das gerade passt.""",
+          'source_ref': 'MBSR Kursheft - Sitzung 1, S. 7–8',
+        },
+        {
+          'id': 'wk1-rosinenuebung',
+          'title': 'Die Rosinenübung',
+          'body':
+              """Die Rosinenübung ist die erste echte Begegnung mit dem, was Achtsamkeit im Alltag bedeutet. Sie zeigt: Wir essen, ohne zu schmecken. Wir tun, ohne wahrzunehmen.
+
+So geht es — Schritt für Schritt:
+
+1. Nimm ein kleines Stück Essen — eine Rosine, ein Stück Schokolade oder eine Nuss.
+
+2. Betrachte es wie zum ersten Mal. Welche Farbe hat es? Welche Form? Wie sieht die Oberfläche aus?
+
+3. Halte es in der Hand. Welches Gewicht spürst du? Welche Textur?
+
+4. Rieche daran. Was nimmst du wahr? Was geschieht in dir — vielleicht ein Impuls, es sofort in den Mund zu stecken?
+
+5. Lege es auf die Zunge — und warte einen Moment, bevor du kaust. Was passiert, wenn du einfach wartest?
+
+6. Kaue langsam. Wie verändert sich der Geschmack? Wie fühlt sich das Kauen an?
+
+7. Schlucke bewusst. Bleibe noch einen Atemzug lang bei der Erfahrung.
+
+Reflexion: Wann hast du zuletzt eine Mahlzeit oder einen Bissen wirklich bewusst erlebt? Was war bei dieser Übung anders als beim normalen Essen?""",
+          'source_ref': 'MBSR Kursheft - Sitzung 1, S. 10–11',
+        },
+        {
+          'id': 'wk1-body-scan',
+          'title': 'Der Body-Scan',
+          'body':
+              """Der Body-Scan ist die erste formelle Meditationspraxis dieses Kurses — eine Einladung, langsam und ohne Ziel durch den eigenen Körper zu wandern.
+
+So geht es:
+Lege oder setze dich bequem hin. Schließe die Augen, falls du möchtest. Richte die Aufmerksamkeit auf den Atem — ohne ihn zu verändern. Wandere dann mit der Aufmerksamkeit langsam durch den Körper, von den Fußsohlen aufwärts. Verweile bei jedem Bereich einige Atemzüge lang. Frage nicht: „Ist das richtig?" — sondern: „Was nehme ich gerade wahr?"
+
+Wenn der Geist abschweift — und er wird —, ist das kein Fehler. Das absichtsvolle Zurückkehren ist die eigentliche Übung.
+
+Der Body-Scan trainiert drei grundlegende Fähigkeiten: Aufmerksamkeit lenken, Aufmerksamkeit aufrechterhalten und den Fokus bewusst ändern. Durch die Länge der Übung wirst du außerdem deine persönlichen Reaktionsmuster wahrnehmen: Bewertung, Ablehnung, Vermeidung.
+
+Häufige Erfahrungen (alle sind in Ordnung):
+• Der Geist wandert ständig ab
+• Schläfrigkeit oder Einschlafen
+• Kribbeln, Wärme, Taubheitsgefühle
+• Das Gefühl, „nichts zu spüren"
+• Ungeduld oder „ich mache das falsch"
+
+Wichtig: Der Body-Scan ist keine Entspannungsübung. Das Ziel einer Entspannungsübung ist es, sich zu entspannen. Beim Body-Scan darfst du dich so fühlen, wie du dich fühlst. Gute Praxis bedeutet nicht, dass es ruhig ist — sondern dass wir mit dem sein können, was von Moment zu Moment auftaucht.""",
+          'source_ref': 'MBSR Kursheft - Sitzung 1, S. 12–14',
+        },
+        {
+          'id': 'wk1-oberfluss-unterfluss',
+          'title': 'Oberfluss und Unterfluss',
+          'body':
+              """Vor vielen Jahren entdecken die Bewohner von Unterfluss den ersten Menschen, der im Wasser treibt. Es wird schnell klar, dass man Techniken entwickeln muss, um Menschen aus dem Fluss zu ziehen.
+
+Die Rettungssysteme werden immer raffinierter. Ein Krankenhaus entsteht, Rettungsboote werden angeschafft, motivierte Helfer ausgebildet. Bald können sie fast alle Menschen innerhalb von 20 Minuten retten, viele in weniger als 10 Minuten. Die Dorfbewohner sind stolz.
+
+Doch die Zahl der Ertrinkenden sinkt nicht. Wenn man die Bewohner von Unterfluss fragt, wo die Probleme liegen, sprechen sie vom neuen Krankenhaus, von den effizienten Booten und den engagierten Rettern.
+
+Einige wenige in Unterfluss haben sich wiederholt die Frage gestellt, was eigentlich in Oberfluss passiert — warum so viele Menschen überhaupt ins Wasser fallen. Aber man scheint zu sehr damit beschäftigt zu sein, die Menschen im Fluss zu retten, als dass jemand die Zeit hätte, flussaufwärts nachzuschauen.
+
+Was diese Geschichte zeigt: Wir reagieren oft nur auf das, was „unten am Fluss" passiert — auf Symptome, Folgen, Krisen. Achtsamkeit ist eine Einladung, einmal flussaufwärts zu schauen: Was führt dazu, dass ich immer wieder in dieselben Muster falle? Was löst meinen Stress wirklich aus? Nicht die Wellen glätten, sondern verstehen, woher der Wind kommt.""",
+          'source_ref': 'MBSR Kursheft - Sitzung 1, S. 15–16',
+        },
+        {
+          'id': 'wk1-neun-punkte',
+          'title': 'Die Neun-Punkte-Übung',
+          'body':
+              """Die Aufgabe klingt einfach: Verbinde alle neun Punkte (in einem 3×3-Gitter angeordnet) mit genau vier geraden Linien, ohne den Stift abzusetzen.
+
+Die meisten Menschen scheitern zunächst daran, dass sie unbewusst annehmen, die Linien müssten innerhalb des Quadrats bleiben, das die Punkte bilden. Aber diese Grenze existiert gar nicht — sie wird von unserem Geist hinzugefügt.
+
+Genau das zeigt diese Übung: Wir sehen Grenzen, die nicht da sind. Unsere Wahrnehmung fügt dem, was tatsächlich vorhanden ist, unbewusst Einschränkungen hinzu. Das geschieht nicht nur bei Rätselaufgaben, sondern ständig im Alltag — in der Art, wie wir Probleme angehen, wie wir über uns selbst denken, was wir für möglich oder unmöglich halten.
+
+Achtsamkeit macht genau diese unsichtbaren Rahmen sichtbar. Nicht, um sie zu bewerten, sondern um zu bemerken: Da ist eine Annahme. Die habe ich hinzugefügt. Und vielleicht gibt es auch andere Möglichkeiten.""",
+          'source_ref': 'MBSR Kursheft - Sitzung 1, S. 9',
+        },
+      ],
     },
     {
       'n': '2',
