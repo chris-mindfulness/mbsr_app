@@ -299,40 +299,38 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
   }
 
   Widget _buildNotfallKofferCard({bool neutralSurface = false}) {
-    return _buildAdaptiveCard(
-      accentColor: AppStyles.errorRed,
-      neutralSurface: neutralSurface,
-      fillAlpha: 0.06,
-      borderAlpha: 0.24,
-      radius: 20,
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Icon(Icons.support_agent, color: AppStyles.errorRed, size: 28),
-          AppStyles.spacingMHorizontal,
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "Notfall-Koffer",
-                  style: AppStyles.subTitleStyle.copyWith(
-                    color: AppStyles.errorRed,
-                  ),
-                ),
-                AppStyles.spacingSBox,
-                Text(
-                  "Wenn es dir gerade zu viel wird: Öffne den Notfall-Koffer für eine schnelle Stabilisierung.",
-                  style: AppStyles.bodyStyle.copyWith(height: 1.5),
-                ),
-              ],
-            ),
+    return Align(
+      alignment: Alignment.centerRight,
+      child: OutlinedButton.icon(
+        onPressed: _showNotfallKofferSheet,
+        icon: Icon(
+          Icons.support_agent,
+          size: 18,
+          color: AppStyles.errorRed.withValues(alpha: 0.9),
+        ),
+        label: Text(
+          "Notfall-Koffer",
+          style: AppStyles.bodyStyle.copyWith(
+            color: AppStyles.errorRed.withValues(alpha: 0.95),
+            fontSize: 14,
+            fontWeight: AppStyles.fontWeightBold,
           ),
-          TextButton(
-            onPressed: _showNotfallKofferSheet,
-            child: const Text("Öffnen"),
+        ),
+        style: OutlinedButton.styleFrom(
+          visualDensity: const VisualDensity(horizontal: -1, vertical: -2),
+          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+          minimumSize: const Size(0, 38),
+          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+          side: BorderSide(
+            color: AppStyles.errorRed.withValues(alpha: 0.35),
+            width: 1.0,
           ),
-        ],
+          backgroundColor: AppStyles.errorRed.withValues(alpha: 0.04),
+          foregroundColor: AppStyles.errorRed,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+        ),
       ),
     );
   }
@@ -815,7 +813,7 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
                           _buildNotfallKofferCard(
                             neutralSurface: useCleanCardsForWeeks,
                           ),
-                          AppStyles.spacingXLBox,
+                          AppStyles.spacingLBox,
 
                           if (currentWeekIndex >= 5 &&
                               currentWeekIndex <= 8) ...[
