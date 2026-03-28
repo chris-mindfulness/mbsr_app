@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -53,6 +54,22 @@ class _AvatarAudioClipState extends State<AvatarAudioClip> {
         '?project=${AppConfig.appwriteProjectId}';
   }
 
+  /// Nach Ende der Wiedergabe (v. a. Web) muss oft auf 0 gesprungen werden,
+  /// sonst reagiert [play] nicht erneut.
+  Future<void> _ensureAtStartIfFinished() async {
+    final p = _player!;
+    if (p.processingState == ProcessingState.completed) {
+      await p.seek(Duration.zero);
+      return;
+    }
+    final d = p.duration;
+    if (d != null && d > Duration.zero) {
+      if (p.position >= d - const Duration(milliseconds: 250)) {
+        await p.seek(Duration.zero);
+      }
+    }
+  }
+
   Future<void> _toggle() async {
     if (!_isAvailable) return;
 
@@ -66,7 +83,18 @@ class _AvatarAudioClipState extends State<AvatarAudioClip> {
     if (_isPlaying) {
       await _player!.pause();
     } else {
-      await _player!.play();
+      try {
+        await _ensureAtStartIfFinished();
+        await _player!.play();
+      } catch (e) {
+        if (kDebugMode) debugPrint('AvatarAudioClip: Wiederholen: $e');
+        if (mounted) {
+          setState(() {
+            _hasError = true;
+            _isLoading = false;
+          });
+        }
+      }
     }
   }
 
@@ -86,15 +114,15 @@ class _AvatarAudioClipState extends State<AvatarAudioClip> {
 
         setState(() {
           _isPlaying = playing && !done;
-          _isLoading = state.processingState == ProcessingState.loading ||
-              state.processingState == ProcessingState.buffering;
+          if (done) {
+            // Ende: kein „hängender“ Ladezustand; Fortschritt zurücksetzen.
+            _isLoading = false;
+            _progress = 0.0;
+          } else {
+            _isLoading = state.processingState == ProcessingState.loading ||
+                state.processingState == ProcessingState.buffering;
+          }
         });
-
-        if (done) {
-          _player!.seek(Duration.zero);
-          _player!.pause();
-          setState(() => _progress = 0.0);
-        }
       });
 
       _positionSub = _player!.positionStream.listen((pos) {
