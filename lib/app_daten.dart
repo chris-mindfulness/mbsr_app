@@ -101,6 +101,10 @@ class AppDaten {
           'Ankommen und den Autopiloten bemerken. Der Körper wird dein erster Aufmerksamkeitsanker.',
       'einfuehrung':
           'Der Kurs beginnt mit einer grundlegenden Beobachtung: Einen Großteil des Tages verbringen wir im sogenannten Autopilot-Modus — wir handeln, ohne wirklich wahrzunehmen. In dieser Woche lernst du, diesen Automatismus zu bemerken und den Körper als Anker für die Aufmerksamkeit zu nutzen. Mit dem Body-Scan und der Rosinenübung erkundest du zwei zentrale Zugänge zur achtsamen Wahrnehmung. Zwischen den Kursterminen genügen kurze, regelmäßige Übungseinheiten — es geht nicht um Dauer, sondern um Kontinuität.',
+      'infoClips': {
+        'begruessung': {'appwrite_id': '', 'duration': '0:30'},
+        'psychoedukation': {'appwrite_id': '', 'duration': '1:00'},
+      },
       'fokus': 'Ankommen, Autopilot bemerken, Körper als Anker.',
       'zitat':
           'Du kannst die Wellen nicht stoppen, aber du kannst lernen zu surfen.',
@@ -137,6 +141,10 @@ class AppDaten {
           'Wie Gewohnheiten und Bewertungen unsere Wahrnehmung formen — und was sich zeigt, wenn wir genauer hinschauen.',
       'einfuehrung':
           'Wir nehmen die Welt nicht so wahr, wie sie ist — sondern gefiltert durch Gewohnheiten, Erwartungen und Bewertungen. Diese Woche richtet den Blick darauf, wie schnell wir von der reinen Wahrnehmung zur Interpretation springen, oft ohne es zu bemerken. Du vertiefst die Körperarbeit aus Woche 1 und beginnst, angenehme Erfahrungen im Alltag bewusst wahrzunehmen. Der Kalender der angenehmen Erlebnisse hilft dir, Aufmerksamkeit für das zu entwickeln, was oft im Hintergrund bleibt.',
+      'infoClips': {
+        'begruessung': {'appwrite_id': '', 'duration': '0:30'},
+        'psychoedukation': {'appwrite_id': '', 'duration': '1:00'},
+      },
       'fokus': 'Wahrnehmung vs. Interpretation',
       'zitat':
           'Wir sehen die Dinge nicht, wie sie sind, wir sehen sie, wie wir sind.',
@@ -176,6 +184,10 @@ class AppDaten {
           'Den Körper in Bewegung spüren, eigene Grenzen wahrnehmen und angenehme Erfahrungen bewusster erleben.',
       'einfuehrung':
           'Achtsamkeit findet nicht nur im Sitzen statt. In dieser Woche erweitern wir die Praxis um achtsame Körperarbeit — sanfte Bewegungen, bei denen es nicht um Leistung geht, sondern darum, den Körper von innen heraus zu spüren. Dabei wirst du eigene Grenzen wahrnehmen und lernen, sie zu respektieren, statt sie zu übergehen. Gleichzeitig vertiefen wir die Arbeit mit angenehmen Erfahrungen. Der Kalender der unangenehmen Erlebnisse liegt bereits bei — er bereitet dich auf Woche 4 vor, in der wir uns dem Stress zuwenden.',
+      'infoClips': {
+        'begruessung': {'appwrite_id': '', 'duration': '0:30'},
+        'psychoedukation': {'appwrite_id': '', 'duration': '1:00'},
+      },
       'fokus': 'Grenzen spüren und respektieren',
       'zitat': 'Aufmerksamkeit ist der Weg zum Leben.',
       'zitatAutor': 'Buddha',
@@ -214,6 +226,10 @@ class AppDaten {
           'Wie Stress entsteht — und warum unsere Bewertung dabei eine Schlüsselrolle spielt.',
       'einfuehrung':
           'Ab dieser Woche wird es persönlicher: Wir wenden uns dem Thema Stress zu — nicht abstrakt, sondern anhand deiner eigenen Erfahrungen aus dem Kalender der unangenehmen Erlebnisse. Du lernst das transaktionale Stressmodell kennen: Stress entsteht nicht durch Situationen allein, sondern durch unsere Bewertung dieser Situationen. Wir untersuchen, wie sich Stressreaktionen im Körper anfühlen, welche Gedankenmuster sie begleiten und wo Achtsamkeit einen Unterschied machen kann.',
+      'infoClips': {
+        'begruessung': {'appwrite_id': '', 'duration': '0:30'},
+        'psychoedukation': {'appwrite_id': '', 'duration': '1:00'},
+      },
       'fokus': 'Stressreaktion verstehen',
       'zitat':
           'Nicht die Dinge selbst beunruhigen die Menschen, sondern ihre Meinungen über die Dinge.',
@@ -258,6 +274,10 @@ class AppDaten {
           'Gedanken beobachten, ohne ihnen zu folgen. Den Raum zwischen Reiz und Reaktion erkunden.',
       'einfuehrung':
           'Gedanken sind keine Tatsachen — aber sie können sich so anfühlen. In dieser Woche erkundest du, wie bestimmte Denkmuster Stress nicht nur begleiten, sondern aktiv verschärfen. Mit der Sitzmeditation übst du, Gedanken wahrzunehmen, ohne dich von ihnen mitreißen zu lassen. Dabei wird erfahrbar, dass zwischen einem Reiz und unserer Reaktion ein Raum liegt. In diesem Raum liegt die Freiheit, anders zu antworten, als es der Autopilot vorsieht.',
+      'infoClips': {
+        'begruessung': {'appwrite_id': '', 'duration': '0:30'},
+        'psychoedukation': {'appwrite_id': '', 'duration': '1:00'},
+      },
       'fokus': 'Zwischen Reiz und Reaktion liegt ein Raum',
       'zitat': 'Du bist nicht deine Gedanken.',
       'zitatAutor': 'Jon Kabat-Zinn',
@@ -301,6 +321,10 @@ class AppDaten {
           'Zuhören, ohne zu antworten. Sprechen, ohne zu reagieren. Achtsamkeit in der Begegnung.',
       'einfuehrung':
           'Achtsamkeit zeigt sich besonders deutlich in der Begegnung mit anderen. In dieser Woche übertragen wir die Praxis auf zwischenmenschliche Situationen: Wie reagierst du in schwierigen Gesprächen? Hörst du wirklich zu — oder formulierst du bereits deine Antwort? Der Kalender der schwierigen Kommunikation aus Woche 5 liefert dein persönliches Material. Wir erkunden, wie Präsenz und eine offene innere Haltung das Miteinander verändern können.',
+      'infoClips': {
+        'begruessung': {'appwrite_id': '', 'duration': '0:30'},
+        'psychoedukation': {'appwrite_id': '', 'duration': '1:00'},
+      },
       'fokus': 'Präsenz im Kontakt',
       'zitat':
           'Das kostbarste Geschenk, das wir einem anderen machen können, ist unsere Aufmerksamkeit.',
@@ -340,6 +364,10 @@ class AppDaten {
           'Den Blick nach innen richten: Was nährt mich, was zehrt an mir? Selbstfürsorge als bewusste Haltung.',
       'einfuehrung':
           'In den bisherigen Wochen hast du gelernt, genauer hinzuschauen — auf den Körper, auf Gedanken, auf Stress, auf Kommunikation. Jetzt richtest du diesen Blick auf dich selbst: Was nährt dich, was zehrt an dir? Selbstfürsorge ist hier keine Wellness-Empfehlung, sondern eine Frage bewusster Lebensgestaltung. Du beginnst, die formelle Praxis auch ohne Audioanleitung zu üben — ein wichtiger Schritt Richtung Eigenständigkeit.',
+      'infoClips': {
+        'begruessung': {'appwrite_id': '', 'duration': '0:30'},
+        'psychoedukation': {'appwrite_id': '', 'duration': '1:00'},
+      },
       'fokus': 'Was nährt mich, was zehrt an mir?',
       'zitat': 'Sei gut zu dir selbst, damit du gut zu anderen sein kannst.',
       'zitatAutor': 'Unbekannt',
@@ -378,6 +406,11 @@ class AppDaten {
           'Rückblick und Ausblick. Den eigenen Weg mit Achtsamkeit weitergehen.',
       'einfuehrung':
           'Acht Wochen bewusstes Üben liegen hinter dir. In dieser letzten Kurswoche schauen wir zurück: Was hat sich verändert — in deiner Wahrnehmung, im Umgang mit Stress, im Alltag? Gleichzeitig blicken wir nach vorn. Das Kursende ist kein Abschluss, sondern der Beginn einer eigenständigen Praxis. Du erstellst einen persönlichen Praxisplan, der dir hilft, Achtsamkeit dauerhaft in deinen Alltag zu integrieren.',
+      'infoClips': {
+        'begruessung': {'appwrite_id': '', 'duration': '0:30'},
+        'psychoedukation': {'appwrite_id': '', 'duration': '1:00'},
+        'verabschiedung': {'appwrite_id': '', 'duration': '0:45'},
+      },
       'fokus': 'Der Weg geht weiter',
       'zitat': 'Der Weg ist das Ziel.',
       'zitatAutor': 'Konfuzius',

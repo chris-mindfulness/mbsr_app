@@ -374,6 +374,7 @@ class _KursUebersichtState extends State<KursUebersicht> {
           readingSummary: woche['readingSummary'] as String?,
           archiveEligible: woche['archiveEligible'] == true,
           avatarImage: woche['avatarImage'] as String?,
+          infoClips: woche['infoClips'] as Map<String, dynamic>?,
         ),
       ),
     );

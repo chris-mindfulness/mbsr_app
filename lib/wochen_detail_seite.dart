@@ -7,6 +7,7 @@ import 'widgets/offline_banner.dart';
 import 'app_daten.dart';
 import 'audio_service.dart';
 import 'widgets/audio_item_card.dart';
+import 'widgets/avatar_audio_clip.dart';
 import 'widgets/exercise_tips_sheet.dart';
 import 'widgets/pdf_link_card.dart';
 import 'widgets/weekly_reading_section.dart';
@@ -33,6 +34,7 @@ class WochenDetailSeite extends StatefulWidget {
   final String? readingSummary;
   final bool archiveEligible;
   final String? avatarImage;
+  final Map<String, dynamic>? infoClips;
 
   const WochenDetailSeite({
     super.key,
@@ -53,6 +55,7 @@ class WochenDetailSeite extends StatefulWidget {
     this.readingSummary,
     this.archiveEligible = false,
     this.avatarImage,
+    this.infoClips,
   });
 
   @override
@@ -697,6 +700,21 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
                           Text(widget.titel, style: AppStyles.titleStyle),
                           AppStyles.spacingMBox,
                           _buildWeekAvatarBanner(),
+                          // Begrüßungs-Clip (unter Avatar, vor Einführungstext)
+                          if (widget.infoClips != null &&
+                              widget.infoClips!['begruessung'] != null) ...[
+                            AppStyles.spacingSBox,
+                            Center(
+                              child: AvatarAudioClip(
+                                appwriteId: (widget.infoClips!['begruessung']
+                                    as Map)['appwrite_id'],
+                                label: 'Begrüßung',
+                                durationHint: (widget.infoClips!['begruessung']
+                                    as Map)['duration'],
+                              ),
+                            ),
+                          ],
+                          AppStyles.spacingMBox,
                           if (widget.einfuehrung != null ||
                               widget.teaser != null)
                             Text(
@@ -714,6 +732,24 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
                                 color: AppStyles.primaryOrange,
                                 fontSize: 18,
                                 height: 1.4,
+                              ),
+                            ),
+                          ],
+
+                          // Psychoedukation-Clip (zwischen Fokus und Zitat)
+                          if (widget.infoClips != null &&
+                              widget.infoClips!['psychoedukation'] !=
+                                  null) ...[
+                            AppStyles.spacingLBox,
+                            Center(
+                              child: AvatarAudioClip(
+                                appwriteId:
+                                    (widget.infoClips!['psychoedukation']
+                                        as Map)['appwrite_id'],
+                                label: 'Zum Thema dieser Woche',
+                                durationHint:
+                                    (widget.infoClips!['psychoedukation']
+                                        as Map)['duration'],
                               ),
                             ),
                           ],
@@ -1121,6 +1157,7 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
           readingSummary: nextWeekData['readingSummary'] as String?,
           archiveEligible: nextWeekData['archiveEligible'] == true,
           avatarImage: nextWeekData['avatarImage'] as String?,
+          infoClips: nextWeekData['infoClips'] as Map<String, dynamic>?,
         ),
       ),
     );

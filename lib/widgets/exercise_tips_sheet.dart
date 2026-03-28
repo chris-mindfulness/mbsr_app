@@ -150,7 +150,7 @@ class ExerciseTipsSheet {
                               ),
                             ),
                             child: Text(
-                              'Du übst nicht allein: Gleichzeitig üben auch andere Menschen achtsam. Diese geteilte Menschlichkeit kann tragen.',
+                              'Du übst nicht allein: Gleichzeitig üben auch andere Menschen. Diese geteilte Menschlichkeit kann tragen.',
                               style: AppStyles.bodyStyle.copyWith(
                                 fontStyle: FontStyle.italic,
                                 height: 1.45,
@@ -214,17 +214,17 @@ class ExerciseTipsSheet {
           icon: Icons.self_improvement,
           accentColor: AppStyles.accentCyan,
           phaseHint: weekIndex != null && weekIndex <= 2
-              ? 'In Woche 1 und 2 ist der Body-Scan oft die Kernübung. Ein gleichbleibender Rahmen kann helfen, Veränderungen und Muster klarer wahrzunehmen.'
-              : 'Der Body-Scan bleibt über den Kurs hinweg ein stabiler Anker. Gerade später kann er helfen, wieder in den Körperkontakt zurückzufinden.',
+              ? 'Der Body-Scan begleitet dich durch die ersten Wochen. Wiederholung ist dabei kein Fehler — sie macht feinere Unterschiede spürbar.'
+              : 'Der Body-Scan bleibt über den gesamten Kurs ein vertrauter Anker. Gerade später hilft er, wieder in den Körperkontakt zurückzufinden.',
           orientationPoints: const [
-            'Nicht Intensität zählt, sondern die freundliche Rückkehr zum Spüren.',
-            'Ein wiederkehrender Ablauf kann die Selbstbeobachtung verlässlicher machen.',
-            'Auch neutrale oder langweilige Phasen sind Teil der Übung.',
+            'Es geht nicht darum, etwas Bestimmtes zu spüren — sondern darum, hinzuschauen, was da ist.',
+            'Auch wenn sich wenig tut oder es langweilig wird: Das gehört dazu.',
+            'Immer wieder zurückkommen ist die eigentliche Übung, nicht perfektes Dabeibleiben.',
           ],
           questionPoints: const [
-            'Die Frage „Warum wieder dieselbe Übung?“ taucht häufig auf, besonders in Woche 2.',
-            'Der Impuls, ständig neue Anleitungen zu suchen, kann selbst als Muster beobachtet werden.',
-            'Selbstfürsorge bleibt zentral: anpassen, pausieren, weitermachen in einem stimmigen Tempo.',
+            '„Schon wieder dieselbe Übung?” — ein verständlicher Gedanke, besonders am Anfang.',
+            'Den Wunsch nach Abwechslung kannst du selbst als Muster bemerken.',
+            'Pausen und Anpassungen sind kein Abbruch, sondern Teil der Praxis.',
           ],
         );
       case _ExerciseTipType.movement:
@@ -232,17 +232,17 @@ class ExerciseTipsSheet {
           icon: Icons.accessibility_new,
           accentColor: AppStyles.sageGreen,
           phaseHint: weekIndex == 3
-              ? 'In Woche 3 steht achtsame Bewegung im Fokus. Häufig geht es weniger um „richtig ausführen“ und mehr um Grenzen, Dosierung und Körperwahrnehmung.'
-              : 'Achtsame Bewegung kann in jeder Phase als körpernaher Zugang zur Achtsamkeit unterstützen.',
+              ? 'Ab dieser Woche kommt Bewegung dazu. Es geht nicht um sportliche Leistung — sondern darum, den Körper von innen heraus wahrzunehmen.'
+              : 'Achtsame Bewegung ist ein direkter, körpernaher Zugang zur Achtsamkeit — in jeder Kursphase.',
           orientationPoints: const [
-            'Bewegung kann als Erkundung statt als Leistung verstanden werden.',
-            'Grenzen geben Orientierung und sind kein Rückschritt.',
-            'Ruhiges Weiteratmen ist oft ein guter Hinweis auf stimmige Dosierung.',
+            'Erkunde, statt auszuführen. Neugier ist hilfreicher als Ehrgeiz.',
+            'Deine Grenzen sind Orientierung, kein Hindernis.',
+            'Wenn du ruhig weiteratmen kannst, passt die Intensität.',
           ],
           questionPoints: const [
-            'Wenn Unsicherheit entsteht, können kleinere Varianten und Pausen sinnvoll sein.',
-            'Wenn Selbstkritik auftaucht, kann sie als mentales Ereignis bemerkt werden.',
-            'Wesentlich bleibt ein würdevoller, sicherer Umgang mit dem eigenen Körper.',
+            'Unsicher, ob du es „richtig” machst? Mach es kleiner, nicht perfekter.',
+            'Selbstkritik taucht oft auf — du kannst sie bemerken und weitermachen.',
+            'Dein Körper verdient einen sicheren, freundlichen Umgang. Immer.',
           ],
         );
       case _ExerciseTipType.sitting:
@@ -250,17 +250,17 @@ class ExerciseTipsSheet {
           icon: Icons.airline_seat_recline_normal,
           accentColor: AppStyles.accentPink,
           phaseHint: weekIndex != null && weekIndex >= 4
-              ? 'Ab Woche 4 wird die Sitzmeditation meist zentral. Mit ihr tritt oft auch offenes Gewahrsein stärker in den Vordergrund.'
-              : 'Sitzmeditation vertieft die Aufmerksamkeitslenkung und kann schrittweise in offenes Gewahrsein übergehen.',
+              ? 'Die Sitzmeditation rückt jetzt stärker in den Mittelpunkt. Mit ihr öffnet sich der Blick: vom Atem hin zu einem weiten, offenen Gewahrsein.'
+              : 'Die Sitzmeditation vertieft deine Aufmerksamkeit — vom Atem als Anker bis hin zu offenem Gewahrsein.',
           orientationPoints: const [
-            'Der Atem kann als Anker dienen; Öffnung kann schrittweise erfolgen.',
-            'Gedanken und Gefühle können als Ereignisse wahrgenommen werden, nicht als Befehle.',
-            'Die Rückkehr zum Anker ist ein Kernmoment der Übung.',
+            'Der Atem ist dein Anker. Von dort aus darfst du dich schrittweise öffnen.',
+            'Gedanken und Gefühle sind Ereignisse — keine Befehle.',
+            'Immer wieder zum Anker zurückkehren: Das ist die Übung.',
           ],
           questionPoints: const [
-            'Bei offenem Gewahrsein kann ein temporärer Rückgang zum Atem stabilisieren.',
-            'Unruhe, Müdigkeit oder Abschweifen sind normale Phänomene in der Praxis.',
-            'Ein freundlicher Ton mit sich selbst ist oft wirksamer als Selbstdruck.',
+            'Wenn es zu weit wird, hilft es, zum Atem zurückzukehren.',
+            'Unruhe, Müdigkeit, Abschweifen — alles normal, alles Teil der Praxis.',
+            'Freundlichkeit mit dir selbst wirkt mehr als Selbstdruck.',
           ],
         );
       case _ExerciseTipType.arrival:
@@ -268,16 +268,16 @@ class ExerciseTipsSheet {
           icon: Icons.timer,
           accentColor: AppStyles.infoBlue,
           phaseHint:
-              'Kurze Ankommen-Übungen können als Übergang in den Moment dienen, zum Beispiel vor Gesprächen, Arbeit oder Erholung.',
+              'Eine kurze Übung, um im Moment anzukommen — vor einem Gespräch, vor der Arbeit oder einfach zwischendurch.',
           orientationPoints: const [
-            'Wenige Minuten können reichen, um das Nervensystem zu beruhigen.',
-            'Der Fokus liegt auf Präsenz, nicht auf besonderer Leistung.',
-            'Auch kurze Praxis kann eine kontinuierliche Übungshaltung stärken.',
+            'Schon wenige Minuten reichen, um zur Ruhe zu kommen.',
+            'Es geht um Präsenz, nicht um Leistung.',
+            'Auch kurze Praxis hält die Übungshaltung lebendig.',
           ],
           questionPoints: const [
-            'Wenn wenig Zeit da ist, kann eine sehr kurze, klare Sequenz hilfreich sein.',
-            'Wenn viel Unruhe da ist, kann der Kontakt zu Füßen und Atem stabilisieren.',
-            'Die Übung kann immer wieder neu begonnen werden, ohne „aufholen“ zu müssen.',
+            'Wenig Zeit? Eine kurze, klare Sequenz reicht völlig.',
+            'Viel Unruhe? Der Kontakt zu Füßen und Atem gibt Halt.',
+            'Du musst nichts nachholen — jedes Mal ist ein frischer Anfang.',
           ],
         );
       case _ExerciseTipType.compassion:
@@ -285,16 +285,16 @@ class ExerciseTipsSheet {
           icon: Icons.favorite_border,
           accentColor: AppStyles.primaryOrange,
           phaseHint:
-              'Mitgefühlsübungen vertiefen die Haltung von Freundlichkeit gegenüber sich selbst und anderen.',
+              'Mitgefühlsübungen stärken eine freundliche Haltung dir selbst und anderen gegenüber.',
           orientationPoints: const [
-            'Der Ton kann warm und undramatisch sein.',
-            'Wirkung zeigt sich oft subtil und über Zeit.',
-            'Selbstfreundlichkeit und Grenzen können zusammen bestehen.',
+            'Der Ton darf warm und undramatisch sein.',
+            'Die Wirkung zeigt sich oft leise und über Zeit.',
+            'Freundlichkeit und klare Grenzen schließen sich nicht aus.',
           ],
           questionPoints: const [
-            'Wenn Widerstand auftaucht, kann das mit achtsamem Interesse begleitet werden.',
-            'Wenn Formulierungen nicht passen, können stimmige eigene Worte gewählt werden.',
-            'Die Übung darf leicht bleiben und muss nicht „groß“ erlebt werden.',
+            'Widerstand ist kein Problem — du darfst ihn mit Interesse anschauen.',
+            'Wenn Formulierungen nicht passen, finde eigene Worte.',
+            'Die Übung darf leicht bleiben. Sie muss nicht „groß” sein.',
           ],
         );
       case _ExerciseTipType.senses:
@@ -302,16 +302,16 @@ class ExerciseTipsSheet {
           icon: Icons.visibility_outlined,
           accentColor: AppStyles.softBrown,
           phaseHint:
-              'Sinnesübungen schärfen die direkte Wahrnehmung und reduzieren den Autopiloten.',
+              'Sinnesübungen bringen dich zurück ins direkte Erleben — weg vom Autopiloten.',
           orientationPoints: const [
-            'Direkte Sinnesdaten können vor Bewertungen stehen.',
-            'Kurze Sequenzen im Alltag genügen oft als Training.',
-            'Neugier unterstützt den Zugang stärker als Kontrolle.',
+            'Erst wahrnehmen, dann bewerten. Nicht umgekehrt.',
+            'Kurze Momente im Alltag genügen als Übung.',
+            'Neugier hilft mehr als Kontrolle.',
           ],
           questionPoints: const [
-            'Wenn viele Gedanken auftauchen, kann sanft zu Sehen, Hören, Spüren zurückgekehrt werden.',
-            'Wenn es „nichts Besonderes“ wirkt, kann genau das Teil der Beobachtung sein.',
-            'Sinneswahrnehmung kann helfen, in belastenden Momenten wieder Boden zu finden.',
+            'Viele Gedanken? Komm sanft zurück zu Sehen, Hören, Spüren.',
+            'Wenn es sich „nach nichts” anfühlt — genau das beobachten.',
+            'Sinneswahrnehmung hilft, in belastenden Momenten wieder Boden zu finden.',
           ],
         );
       case _ExerciseTipType.generic:
@@ -319,16 +319,16 @@ class ExerciseTipsSheet {
           icon: Icons.lightbulb_outline,
           accentColor: AppStyles.softBrown,
           phaseHint:
-              'Diese Übung kann als Einladung verstanden werden, präsent zu sein und mit sich selbst freundlich in Kontakt zu bleiben.',
+              'Eine Einladung, für einen Moment präsent zu sein und freundlich mit dir in Kontakt zu bleiben.',
           orientationPoints: [
-            'Regelmäßigkeit ist meist hilfreicher als Perfektion.',
-            'Ein stimmiges Tempo unterstützt Nachhaltigkeit.',
-            'Wahrnehmen steht vor Bewerten.',
+            'Regelmäßigkeit zählt mehr als Perfektion.',
+            'Finde ein Tempo, das zu dir passt.',
+            'Wahrnehmen kommt vor Bewerten.',
           ],
           questionPoints: [
-            'Wenn Unsicherheit auftaucht, können kleine, klare Schritte helfen.',
-            'Wenn Druck entsteht, kann der Fokus auf Selbstfürsorge zurückgeführt werden.',
-            'Auch kurze Übungseinheiten sind ein valider Teil der Praxis.',
+            'Unsicher? Kleine, klare Schritte helfen.',
+            'Druck spürbar? Zurück zur Selbstfürsorge.',
+            'Auch kurze Einheiten sind echte Praxis.',
           ],
         );
     }
