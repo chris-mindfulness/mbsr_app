@@ -7,7 +7,7 @@ import 'package:just_audio/just_audio.dart';
 import '../core/app_config.dart';
 import '../core/app_styles.dart';
 
-/// Kompakter Audio-Clip-Player (z.B. Begrüßung neben Avatar).
+/// Kompakter Audio-Clip-Player (z.B. Begruessung neben Avatar).
 ///
 /// Nutzt eine **eigene** [AudioPlayer]-Instanz, damit laufende
 /// Meditationen im Haupt-AudioService nicht unterbrochen werden.
@@ -27,7 +27,8 @@ class AvatarAudioClip extends StatefulWidget {
   State<AvatarAudioClip> createState() => _AvatarAudioClipState();
 }
 
-class _AvatarAudioClipState extends State<AvatarAudioClip> {
+class _AvatarAudioClipState extends State<AvatarAudioClip>
+    with AutomaticKeepAliveClientMixin {
   AudioPlayer? _player;
   StreamSubscription<PlayerState>? _stateSub;
   StreamSubscription<Duration>? _positionSub;
@@ -36,6 +37,11 @@ class _AvatarAudioClipState extends State<AvatarAudioClip> {
   bool _isLoading = false;
   bool _hasError = false;
   double _progress = 0.0;
+
+  /// Solange Audio laeuft oder laedt, Widget-State am Leben halten
+  /// (verhindert dispose beim Aus-dem-Bild-Scrollen).
+  @override
+  bool get wantKeepAlive => _isPlaying || _isLoading;
 
   bool get _isAvailable =>
       widget.appwriteId != null && widget.appwriteId!.isNotEmpty;
@@ -103,6 +109,7 @@ class _AvatarAudioClipState extends State<AvatarAudioClip> {
       _isLoading = true;
       _hasError = false;
     });
+    updateKeepAlive();
 
     try {
       _player = AudioPlayer();
@@ -115,7 +122,6 @@ class _AvatarAudioClipState extends State<AvatarAudioClip> {
         setState(() {
           _isPlaying = playing && !done;
           if (done) {
-            // Ende: kein „hängender“ Ladezustand; Fortschritt zurücksetzen.
             _isLoading = false;
             _progress = 0.0;
           } else {
@@ -123,6 +129,7 @@ class _AvatarAudioClipState extends State<AvatarAudioClip> {
                 state.processingState == ProcessingState.buffering;
           }
         });
+        updateKeepAlive();
       });
 
       _positionSub = _player!.positionStream.listen((pos) {
@@ -130,7 +137,8 @@ class _AvatarAudioClipState extends State<AvatarAudioClip> {
         final total = _player?.duration;
         if (total != null && total.inMilliseconds > 0) {
           setState(() {
-            _progress = (pos.inMilliseconds / total.inMilliseconds).clamp(0, 1);
+            _progress =
+                (pos.inMilliseconds / total.inMilliseconds).clamp(0, 1);
           });
         }
       });
@@ -152,6 +160,7 @@ class _AvatarAudioClipState extends State<AvatarAudioClip> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     if (!_isAvailable) {
       return _buildPendingChip();
     }
