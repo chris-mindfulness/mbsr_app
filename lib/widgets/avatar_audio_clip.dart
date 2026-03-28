@@ -30,8 +30,6 @@ class AvatarAudioClip extends StatefulWidget {
 
 class _AvatarAudioClipState extends State<AvatarAudioClip>
     with AutomaticKeepAliveClientMixin {
-  /// Globale Referenz: welcher Clip gerade aktiv ist.
-  /// Beim Start eines Clips wird der vorherige pausiert.
   static _AvatarAudioClipState? _activeInstance;
 
   AudioPlayer? _player;
@@ -43,11 +41,17 @@ class _AvatarAudioClipState extends State<AvatarAudioClip>
   bool _hasError = false;
   double _progress = 0.0;
 
+  /// Waehrend der Nutzer den Slider zieht, Position nicht vom Stream
+  /// ueberschreiben lassen.
+  bool _isSeeking = false;
+
   @override
   bool get wantKeepAlive => _isPlaying || _isLoading;
 
   bool get _isAvailable =>
       widget.appwriteId != null && widget.appwriteId!.isNotEmpty;
+
+  bool get _hasPlayerState => _player != null && !_hasError;
 
   @override
   void dispose() {
@@ -58,7 +62,6 @@ class _AvatarAudioClipState extends State<AvatarAudioClip>
     super.dispose();
   }
 
-  /// Stoppt den aktuell spielenden Clip (falls ein anderer).
   void _stopOtherIfNeeded() {
     final other = _activeInstance;
     if (other != null && other != this && other._isPlaying) {
@@ -85,6 +88,13 @@ class _AvatarAudioClipState extends State<AvatarAudioClip>
         await p.seek(Duration.zero);
       }
     }
+  }
+
+  Future<void> _seekTo(double value) async {
+    final d = _player?.duration;
+    if (_player == null || d == null) return;
+    final target = Duration(milliseconds: (d.inMilliseconds * value).round());
+    await _player!.seek(target);
   }
 
   Future<void> _toggle() async {
@@ -147,7 +157,7 @@ class _AvatarAudioClipState extends State<AvatarAudioClip>
       });
 
       _positionSub = _player!.positionStream.listen((pos) {
-        if (!mounted) return;
+        if (!mounted || _isSeeking) return;
         final total = _player?.duration;
         if (total != null && total.inMilliseconds > 0) {
           setState(() {
@@ -179,21 +189,22 @@ class _AvatarAudioClipState extends State<AvatarAudioClip>
       return _buildPendingChip();
     }
 
-    return GestureDetector(
-      onTap: _toggle,
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-        decoration: BoxDecoration(
-          color: AppStyles.primaryOrange.withValues(alpha: 0.08),
-          borderRadius: BorderRadius.circular(24),
-          border: Border.all(
-            color: AppStyles.primaryOrange.withValues(alpha: 0.18),
-          ),
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+      decoration: BoxDecoration(
+        color: AppStyles.primaryOrange.withValues(alpha: 0.08),
+        borderRadius: BorderRadius.circular(24),
+        border: Border.all(
+          color: AppStyles.primaryOrange.withValues(alpha: 0.18),
         ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Row(
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          GestureDetector(
+            onTap: _toggle,
+            behavior: HitTestBehavior.opaque,
+            child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
                 _buildPlayIcon(),
@@ -221,23 +232,40 @@ class _AvatarAudioClipState extends State<AvatarAudioClip>
                 ],
               ],
             ),
-            if (_isPlaying || _progress > 0) ...[
-              const SizedBox(height: 6),
-              ClipRRect(
-                borderRadius: BorderRadius.circular(2),
-                child: LinearProgressIndicator(
-                  value: _progress,
-                  minHeight: 3,
-                  backgroundColor:
-                      AppStyles.primaryOrange.withValues(alpha: 0.12),
-                  valueColor: AlwaysStoppedAnimation<Color>(
-                    AppStyles.primaryOrange.withValues(alpha: 0.7),
-                  ),
-                ),
-              ),
-            ],
+          ),
+          if (_hasPlayerState) ...[
+            const SizedBox(height: 4),
+            _buildSeekBar(),
           ],
-        ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSeekBar() {
+    return SliderTheme(
+      data: SliderThemeData(
+        trackHeight: 6,
+        activeTrackColor: AppStyles.primaryOrange.withValues(alpha: 0.7),
+        inactiveTrackColor: AppStyles.primaryOrange.withValues(alpha: 0.12),
+        thumbColor: AppStyles.primaryOrange,
+        overlayColor: AppStyles.primaryOrange.withValues(alpha: 0.15),
+        thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 7),
+        overlayShape: const RoundSliderOverlayShape(overlayRadius: 14),
+        trackShape: const RoundedRectSliderTrackShape(),
+      ),
+      child: Slider(
+        value: _progress.clamp(0, 1),
+        onChangeStart: (_) {
+          _isSeeking = true;
+        },
+        onChanged: (v) {
+          setState(() => _progress = v);
+        },
+        onChangeEnd: (v) {
+          _isSeeking = false;
+          _seekTo(v);
+        },
       ),
     );
   }
