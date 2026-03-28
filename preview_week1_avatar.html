@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Vorschau: Woche 1 Avatar</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 24px;
+      font-family: system-ui, sans-serif;
+      background: #f6f4f1;
+      color: #2c2419;
+    }
+    .wrap {
+      max-width: 640px;
+      margin: 0 auto;
+    }
+    h1 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin: 0 0 16px 0;
+      line-height: 1.25;
+    }
+    .warn {
+      background: #fff8e6;
+      border: 1px solid #e8d4a8;
+      border-radius: 12px;
+      padding: 12px 16px;
+      margin-bottom: 20px;
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+    .warn code {
+      font-size: 0.82rem;
+      word-break: break-all;
+    }
+    .avatar-row {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 16px;
+    }
+    .avatar-frame {
+      max-width: 300px;
+      max-height: 220px;
+      border-radius: 16px;
+      overflow: hidden;
+      line-height: 0;
+      background: #fff;
+    }
+    .avatar-frame img {
+      width: 100%;
+      height: auto;
+      max-height: 220px;
+      object-fit: contain;
+      display: block;
+    }
+    p.teaser {
+      margin: 0;
+      line-height: 1.55;
+      font-size: 1rem;
+    }
+    .hint {
+      margin-top: 32px;
+      padding: 12px 16px;
+      background: #fff;
+      border-radius: 12px;
+      font-size: 0.85rem;
+      color: #5c5348;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="warn" id="fileProtoHint" hidden>
+      <strong>Bild wird nicht geladen?</strong> HTML per Doppelklick öffnen reicht meist nicht.
+      Im Terminal im Ordner <code>mbsr_app</code>:
+      <br /><br />
+      <code>bash tool/serve_avatar_preview.sh</code>
+      <br /><br />
+      Dann im Browser:
+      <br />
+      <code>http://127.0.0.1:8765/preview_week1_avatar.html</code>
+    </div>
+    <h1>Achtsamkeit</h1>
+    <div class="avatar-row">
+      <div class="avatar-frame">
+        <img
+          id="avatar"
+          src="assets/images/avatar/mbsr_avatar_autopilot_w1.png"
+          alt="Illustration Autopilot, Woche 1"
+        />
+      </div>
+    </div>
+    <p class="teaser">
+      In Woche 1 geht es ums Ankommen im Kurs. Du übst, automatische Abläufe
+      (Autopilot) zu bemerken und den Körper als Aufmerksamkeitsanker zu nutzen.
+    </p>
+    <p class="hint">
+      Echte App: <code>flutter run -d chrome</code> → Kursübersicht → Woche 1.
+      <br /><br />
+      Bild direkt testen:
+      <code>http://127.0.0.1:8765/assets/images/avatar/mbsr_avatar_autopilot_w1.png</code>
+      (Server muss laufen.)
+    </p>
+  </div>
+  <script>
+    (function () {
+      var img = document.getElementById("avatar");
+      var hint = document.getElementById("fileProtoHint");
+      if (window.location.protocol === "file:") {
+        hint.hidden = false;
+      }
+      img.addEventListener("error", function () {
+        hint.hidden = false;
+      });
+    })();
+  </script>
+</body>
+</html>
