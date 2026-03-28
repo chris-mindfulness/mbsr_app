@@ -1200,31 +1200,31 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
 
           // Intro
           Text(
-            "Der Body-Scan ist eine Einladung, deinen Körper so wahrzunehmen, wie er gerade ist - ohne etwas ändern zu müssen. Du erforschst, was da ist.",
+            "Du liegst da und wanderst mit der Aufmerksamkeit durch deinen Körper. Nicht um etwas zu verändern, sondern um wahrzunehmen, was gerade da ist.",
             style: AppStyles.bodyStyle.copyWith(height: 1.6),
           ),
           AppStyles.spacingLBox,
 
-          // 5 Kernprinzipien
+          // Orientierung
           Text(
-            "5 Kernprinzipien",
+            "Orientierung",
             style: AppStyles.subTitleStyle.copyWith(color: AppStyles.textDark),
           ),
           AppStyles.spacingSBox,
           _buildTippBullet(
-            "Was auch passiert - weitermachen. Auch Abschweifen gehört dazu.",
+            "Abschweifen gehört dazu. Zurückkommen ist die Übung.",
           ),
           _buildTippBullet(
-            "Gedanken bemerken, nicht stoppen. Dann sanft zurückkehren.",
+            "Gedanken tauchen auf — bemerke sie und kehre sanft zurück.",
           ),
           _buildTippBullet(
-            "Kein Wettbewerb. Regelmäßig üben zählt mehr als perfekt üben.",
+            "Regelmäßig üben zählt mehr als perfekt üben.",
           ),
           _buildTippBullet(
-            "Erwartungen nicht füttern. Da sein und schauen, was passiert.",
+            "Lass Erwartungen los. Schau, was passiert.",
           ),
           _buildTippBullet(
-            '"So ist es gerade." - Nicht gegen Unangenehmes kämpfen.',
+            "Auch Unangenehmes darf da sein — du musst nicht dagegen ankämpfen.",
           ),
 
           AppStyles.spacingMBox,
@@ -1254,7 +1254,7 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
                 AppStyles.spacingSHorizontal,
                 Expanded(
                   child: Text(
-                    "Es geht nicht darum, etwas zu erreichen - sondern zu bemerken, was schon da ist.",
+                    "Es geht nicht darum, etwas zu erreichen — sondern zu bemerken, was schon da ist.",
                     style: AppStyles.bodyStyle.copyWith(
                       fontStyle: FontStyle.italic,
                       color: AppStyles.textDark,
@@ -1283,39 +1283,39 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
               collapsedIconColor: AppStyles.accentCyan,
               children: [
                 _buildTippSektion("Abschweifen", [
-                  "Völlig normal - passiert allen, immer wieder.",
-                  "Bemerken ist bereits Achtsamkeit.",
-                  "Freundlich zurückkommen, ohne dich zu bewerten.",
+                  "Passiert allen, immer wieder — das ist völlig normal.",
+                  "Dass du es bemerkst, ist bereits Achtsamkeit.",
+                  "Komm freundlich zurück, ohne dich zu bewerten.",
                 ]),
                 _buildTippSektion("Schläfrigkeit", [
-                  "Augen leicht öffnen kann helfen.",
-                  "Ein paar tiefere Atemzüge nehmen.",
-                  "Position minimal verändern oder im Sitzen üben.",
+                  "Öffne die Augen leicht.",
+                  "Nimm ein paar tiefere Atemzüge.",
+                  "Verändere die Position oder übe im Sitzen.",
                 ]),
                 _buildTippSektion("Unruhe", [
-                  "Kleine Bewegungen sind erlaubt (schlucken, Schultern lösen).",
+                  "Kleine Bewegungen sind erlaubt — schlucken, Schultern lösen.",
                   "Du musst nicht verkrampft stillhalten.",
-                  "Unruhe wahrnehmen, nicht wegdrücken.",
+                  "Nimm die Unruhe wahr, statt sie wegzudrücken.",
                 ]),
                 _buildTippSektion("Schmerz / Unwohlsein", [
-                  "Erkunden statt ertragen: Was genau spürst du?",
+                  "Erkunde statt zu ertragen: Was genau spürst du?",
                   "Position anpassen ist jederzeit okay.",
-                  "Fokus weiten (ganzer Körper, Geräusche) oder neutralen Anker wählen.",
+                  "Weite den Fokus — ganzer Körper, Geräusche — oder wähle einen neutralen Anker.",
                 ]),
                 _buildTippSektion("Nichts spüren", [
-                  'Auch "neutral" oder "taub" ist eine Erfahrung.',
-                  "Kontaktpunkte nutzen: Wo liegt dein Körper auf?",
-                  "Wenn es sich zu viel oder abgeschnitten anfühlt: Augen öffnen, im Raum orientieren, dann neu entscheiden.",
+                  "Auch neutral oder taub ist eine Erfahrung.",
+                  "Spüre die Kontaktpunkte: Wo liegt dein Körper auf?",
+                  "Wenn es sich abgeschnitten anfühlt: Augen öffnen, im Raum orientieren, dann neu entscheiden.",
                 ]),
-                _buildTippSektion("Erwartungen & Leistungsdruck", [
-                  'Es gibt kein "richtig" oder "falsch".',
-                  "Ziel ist nicht, Gedanken zu steuern - sondern zu bemerken.",
-                  "Jede Übung ist anders. Vergleichen hilft nicht.",
+                _buildTippSektion("Erwartungen", [
+                  "Es gibt kein richtig oder falsch.",
+                  "Ziel ist nicht, Gedanken zu steuern — sondern sie zu bemerken.",
+                  "Jede Übung ist anders. Vergleichen bringt nichts.",
                 ]),
-                _buildTippSektion("Dranbleiben & Routine", [
-                  "Ein festes Zeitfenster hilft beim Dranbleiben.",
-                  "Wiederholung ist Teil des Lernens - nicht Langeweile.",
-                  "Optional: Kurze Notiz nach der Übung (Was war da?).",
+                _buildTippSektion("Dranbleiben", [
+                  "Ein festes Zeitfenster hilft.",
+                  "Wiederholung ist Lernen, nicht Langeweile.",
+                  "Wenn du magst: eine kurze Notiz nach der Übung — was war da?",
                 ]),
               ],
             ),
@@ -1406,31 +1406,31 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
 
           // Intro
           Text(
-            "Die Sitzmeditation ist eine Einladung, mit dem Atem als Anker da zu sein - und dich auch dem zu öffnen, was sonst noch auftaucht.",
+            "Du sitzt, spürst den Atem und bist da. Nicht mehr, nicht weniger. Von dort aus öffnest du dich schrittweise für alles, was auftaucht.",
             style: AppStyles.bodyStyle.copyWith(height: 1.6),
           ),
           AppStyles.spacingLBox,
 
-          // 5 Kernprinzipien
+          // Orientierung
           Text(
-            "5 Kernprinzipien",
+            "Orientierung",
             style: AppStyles.subTitleStyle.copyWith(color: AppStyles.textDark),
           ),
           AppStyles.spacingSBox,
           _buildSitzTippBullet(
-            "Den Atem spüren, ohne ihn zu steuern (Bauch, Brust oder Nase).",
+            "Spüre den Atem — an Bauch, Brust oder Nase — ohne ihn zu steuern.",
           ),
           _buildSitzTippBullet(
-            "Abschweifen ist normal. Bemerken, dann freundlich zurückkehren.",
+            "Abschweifen ist normal. Bemerken, zurückkehren — das ist die Übung.",
           ),
           _buildSitzTippBullet(
-            "Kein Wettbewerb. Immer wieder zurückkommen - das ist die Übung.",
+            "Regelmäßigkeit zählt mehr als Dauer.",
           ),
           _buildSitzTippBullet(
-            "Weite üben: Wahrnehmen, was im Vordergrund ist, ohne festzuhalten.",
+            "Nimm wahr, was im Vordergrund steht, ohne daran festzuhalten.",
           ),
           _buildSitzTippBullet(
-            '"So ist es gerade." - Auch Unruhe und Langeweile gehören dazu.',
+            "Auch Unruhe und Langeweile gehören dazu.",
           ),
 
           AppStyles.spacingMBox,
@@ -1481,39 +1481,39 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
               collapsedIconColor: AppStyles.accentPink,
               children: [
                 _buildSitzTippSektion("Abschweifen", [
-                  "Völlig normal - passiert allen, immer wieder.",
-                  'Kurzes Label hilft: "Planen", "Erinnern" - dann zurück.',
+                  "Passiert allen, immer wieder — völlig normal.",
+                  "Benenne kurz, was da war — Planen, Erinnern — und komm zurück.",
                   "Die Rückkehr ist der Übungsmoment, nicht das Stillsein.",
                 ]),
                 _buildSitzTippSektion("Schläfrigkeit", [
-                  "Augen leicht öffnen, Wirbelsäule aufrichten.",
-                  "Ein paar tiefere Atemzüge nehmen.",
-                  "Position minimal anpassen - aufrechter sitzen kann helfen.",
+                  "Öffne die Augen leicht, richte die Wirbelsäule auf.",
+                  "Nimm ein paar tiefere Atemzüge.",
+                  "Setz dich aufrechter hin — das allein verändert oft viel.",
                 ]),
                 _buildSitzTippSektion("Unruhe", [
-                  "Kleine Bewegungen sind erlaubt (Schultern lösen, schlucken).",
-                  "Kontaktpunkte spüren: Sitzfläche, Füße, Hände.",
-                  "Unruhe wahrnehmen, nicht wegdrücken.",
+                  "Kleine Bewegungen sind erlaubt — Schultern lösen, schlucken.",
+                  "Spüre die Kontaktpunkte: Sitzfläche, Füße, Hände.",
+                  "Nimm die Unruhe wahr, statt sie wegzudrücken.",
                 ]),
                 _buildSitzTippSektion("Atem zu subtil / Atem steuern", [
-                  "Atem kaum spürbar? Kontaktpunkte als Backup-Anker nutzen.",
-                  "Du steuerst den Atem? Lass ihn wieder von selbst kommen.",
-                  "Nur mitspüren, nicht machen. Der Körper atmet von allein.",
+                  "Atem kaum spürbar? Kontaktpunkte als Anker nutzen.",
+                  "Du steuerst den Atem? Lass ihn einfach von selbst kommen.",
+                  "Nur mitspüren, nicht machen. Dein Körper atmet von allein.",
                 ]),
-                _buildSitzTippSektion("Offenes Gewahrsein schwer", [
-                  "Stufenweise öffnen: Atem - Körper - Geräusche - offenes Feld.",
-                  "Nimm wahr, was gerade am deutlichsten ist.",
-                  "Zu viel? Kurz zurück zum Atem, dann wieder öffnen.",
+                _buildSitzTippSektion("Offenes Gewahrsein", [
+                  "Stufenweise öffnen: Atem, Körper, Geräusche, offenes Feld.",
+                  "Nimm wahr, was gerade am deutlichsten da ist.",
+                  "Zu weit? Kurz zurück zum Atem, dann wieder öffnen.",
                 ]),
-                _buildSitzTippSektion("Erwartungen & Leistungsdruck", [
-                  'Es gibt kein "richtig" oder "falsch".',
-                  'Ziel ist nicht "ruhig werden" - sondern bemerken.',
-                  "Jede Übung ist anders. Vergleichen hilft nicht.",
+                _buildSitzTippSektion("Erwartungen", [
+                  "Es gibt kein richtig oder falsch.",
+                  "Ziel ist nicht, ruhig zu werden — sondern zu bemerken.",
+                  "Jede Übung ist anders. Vergleichen bringt nichts.",
                 ]),
-                _buildSitzTippSektion("Dranbleiben & Routine", [
-                  "Ein festes Zeitfenster hilft beim Dranbleiben.",
-                  "Wiederholung ist Teil des Lernens - nicht Langeweile.",
-                  "Optional: Kurze Notiz nach der Übung (Was war da?).",
+                _buildSitzTippSektion("Dranbleiben", [
+                  "Ein festes Zeitfenster hilft.",
+                  "Wiederholung ist Lernen, nicht Langeweile.",
+                  "Wenn du magst: eine kurze Notiz nach der Übung — was war da?",
                 ]),
               ],
             ),
@@ -1604,31 +1604,31 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
 
           // Intro
           Text(
-            "Achtsame Bewegung ist eine Einladung, deinen Körper in Bewegung zu erforschen - nicht an einem Ideal, sondern so, wie er heute ist.",
+            "Du erkundest deinen Körper in Bewegung — nicht an einem Ideal gemessen, sondern so, wie er heute ist.",
             style: AppStyles.bodyStyle.copyWith(height: 1.6),
           ),
           AppStyles.spacingLBox,
 
-          // 5 Kernprinzipien
+          // Orientierung
           Text(
-            "5 Kernprinzipien",
+            "Orientierung",
             style: AppStyles.subTitleStyle.copyWith(color: AppStyles.textDark),
           ),
           AppStyles.spacingSBox,
           _buildBewegungTippBullet(
-            "Weniger ist oft mehr: sanft, klein und langsam statt zu viel.",
+            "Weniger ist oft mehr — sanft, klein und langsam statt zu viel.",
           ),
           _buildBewegungTippBullet(
-            "Grenzen respektieren. Intensität bei 3-5 von 10 halten.",
+            "Deine Grenzen geben Orientierung. Respektiere sie.",
           ),
           _buildBewegungTippBullet(
-            "Spüre Kontakt, Dehnung, Wärme - ohne zu bewerten.",
+            "Spüre Kontakt, Dehnung, Wärme — ohne zu bewerten.",
           ),
           _buildBewegungTippBullet(
-            "Pausen sind Teil der Übung. Jederzeit stoppen ist okay.",
+            "Pausen gehören dazu. Jederzeit stoppen ist okay.",
           ),
           _buildBewegungTippBullet(
-            "Wenn du ruhig weiteratmen kannst, ist die Intensität meist passend.",
+            "Wenn du ruhig weiteratmen kannst, passt die Intensität.",
           ),
 
           AppStyles.spacingMBox,
@@ -1650,7 +1650,7 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
                 AppStyles.spacingSHorizontal,
                 Expanded(
                   child: Text(
-                    "Es geht nicht darum, irgendwo anzukommen - sondern zu spüren, wo du gerade bist.",
+                    "Es geht nicht darum, irgendwo anzukommen — sondern zu spüren, wo du gerade bist.",
                     style: AppStyles.bodyStyle.copyWith(
                       fontStyle: FontStyle.italic,
                       color: AppStyles.textDark,
@@ -1679,39 +1679,39 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
               collapsedIconColor: AppStyles.sageGreen,
               children: [
                 _buildBewegungTippSektion("Grenzen & Dosierung", [
-                  "Bis zum ersten deutlichen Körpersignal gehen; dort bleiben oder etwas zurückgehen.",
+                  "Geh bis zum ersten deutlichen Körpersignal — bleib dort oder geh etwas zurück.",
                   "Kannst du dabei ruhig atmen? Wenn nein: weniger machen.",
-                  "Variationen nutzen: kleinerer Radius, langsamer, stabiler.",
+                  "Nutze Variationen: kleinerer Radius, langsamer, stabiler.",
                 ]),
                 _buildBewegungTippSektion("Schmerz / Unwohlsein", [
-                  "Erkunden statt ertragen: Dehnreiz okay, stechend nicht.",
+                  "Erkunde statt zu ertragen: Dehnreiz ist okay, stechend nicht.",
                   "Bei stechendem Schmerz: sofort raus, Position anpassen.",
-                  "Bei Unsicherheit: weniger machen oder Übung auslassen.",
+                  "Unsicher? Weniger machen oder die Übung auslassen.",
                 ]),
-                _buildBewegungTippSektion("Erwartungen & Leistungsdruck", [
-                  'Es gibt kein "richtig" oder "falsch". Jede Variation zählt.',
-                  "Wenn Vergleichen auftaucht: kurz bemerken, dann zurück zu Körperempfindungen.",
-                  "Jede Übung ist anders. Vergleichen hilft nicht.",
+                _buildBewegungTippSektion("Erwartungen", [
+                  "Es gibt kein richtig oder falsch. Jede Variation zählt.",
+                  "Vergleichen taucht auf? Kurz bemerken, dann zurück zum Spüren.",
+                  "Jede Übung ist anders. Vergleichen bringt nichts.",
                 ]),
                 _buildBewegungTippSektion("Unruhe", [
-                  "Verlangsame absichtlich: halbe Geschwindigkeit.",
-                  "Kontaktpunkte spüren: Füße, Hände, Boden.",
-                  "Unruhe wahrnehmen, nicht wegdrücken.",
+                  "Verlangsame absichtlich — halbe Geschwindigkeit.",
+                  "Spüre die Kontaktpunkte: Füße, Hände, Boden.",
+                  "Nimm die Unruhe wahr, statt sie wegzudrücken.",
                 ]),
-                _buildBewegungTippSektion("Körperbild / Selbstkritik", [
-                  'Selbstkritik als Ereignis erkennen ("Bewerten"), nicht als Wahrheit.',
-                  "Fokus auf neutrale Daten: Druck, Temperatur, Kontakt.",
-                  "So üben, dass es sicher und würdevoll bleibt.",
+                _buildBewegungTippSektion("Selbstkritik", [
+                  "Selbstkritik ist ein Ereignis — keine Wahrheit.",
+                  "Richte den Fokus auf neutrale Daten: Druck, Temperatur, Kontakt.",
+                  "Übe so, dass es sicher und würdevoll bleibt.",
                 ]),
                 _buildBewegungTippSektion("Nichts spüren", [
-                  'Auch "neutral" ist eine Erfahrung.',
-                  "Kontaktpunkte nutzen: Wo berührt dein Körper den Boden?",
-                  "Wenn es sich zu viel oder abgeschnitten anfühlt: Augen öffnen, im Raum orientieren, dann neu entscheiden.",
+                  "Auch neutral ist eine Erfahrung.",
+                  "Spüre die Kontaktpunkte: Wo berührt dein Körper den Boden?",
+                  "Wenn es sich abgeschnitten anfühlt: Augen öffnen, im Raum orientieren, dann neu entscheiden.",
                 ]),
-                _buildBewegungTippSektion("Dranbleiben & Routine", [
-                  "Ein festes Zeitfenster hilft beim Dranbleiben.",
-                  "Wiederholung ist Teil des Lernens - nicht Langeweile.",
-                  "Optional: Kurze Notiz nach der Übung (Was war da?).",
+                _buildBewegungTippSektion("Dranbleiben", [
+                  "Ein festes Zeitfenster hilft.",
+                  "Wiederholung ist Lernen, nicht Langeweile.",
+                  "Wenn du magst: eine kurze Notiz nach der Übung — was war da?",
                 ]),
               ],
             ),
