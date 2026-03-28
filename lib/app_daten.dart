@@ -13,7 +13,7 @@ class AppDaten {
   /// Kurze Audio-Clips (ElevenLabs-Stimme), werden per Appwrite-ID geladen.
   static const Map<String, String> begruessung = {
     'title': 'Hallo und willkommen',
-    'appwrite_id': '69c80484000673452f80',
+    'appwrite_id': '69c8441b000380002f99',
     'duration': '0:30',
   };
 
