@@ -10,6 +10,14 @@ class AppDaten {
   static const String welcomeHelloAvatarAsset =
       'assets/images/avatar/mbsr_avatar_profil.png';
 
+  /// Kurze Audio-Clips (ElevenLabs-Stimme), werden per Appwrite-ID geladen.
+  /// Die appwrite_id wird nach dem Upload der echten MP3 ersetzt.
+  static const Map<String, String> begruessung = {
+    'title': 'Hallo und willkommen',
+    'appwrite_id': '', // <- hier nach Upload die echte File-ID eintragen
+    'duration': '0:30',
+  };
+
   /// Zentrale Mediathek-Daten (Quelle für alle Audios)
   static const List<Map<String, String>> mediathekAudios = [
     {
