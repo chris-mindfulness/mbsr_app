@@ -31,6 +31,7 @@ class WochenDetailSeite extends StatefulWidget {
   final List<Map<String, String>> readingCards;
   final String? readingSummary;
   final bool archiveEligible;
+  final String? avatarImage;
 
   const WochenDetailSeite({
     super.key,
@@ -49,6 +50,7 @@ class WochenDetailSeite extends StatefulWidget {
     this.readingCards = const [],
     this.readingSummary,
     this.archiveEligible = false,
+    this.avatarImage,
   });
 
   @override
@@ -76,6 +78,37 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
           widget.wochenNummer.replaceAll(RegExp(r'[^0-9]'), ''),
         ) ??
         1;
+  }
+
+  Widget _buildWeekAvatarBanner() {
+    final path = widget.avatarImage ?? AppDaten.defaultWeekAvatarAsset;
+    return Center(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 300, maxHeight: 220),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(16),
+              child: Image.asset(
+                path,
+                fit: BoxFit.contain,
+                errorBuilder: (context, error, stackTrace) {
+                  return Center(
+                    child: Icon(
+                      Icons.self_improvement_rounded,
+                      size: 72,
+                      color: AppStyles.softBrown.withValues(alpha: 0.35),
+                    ),
+                  );
+                },
+              ),
+            ),
+          ),
+          const SizedBox(height: 16),
+        ],
+      ),
+    );
   }
 
   void _play(Map<String, String> audio) async {
@@ -660,15 +693,15 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(widget.titel, style: AppStyles.titleStyle),
-                          if (widget.teaser != null) ...[
-                            AppStyles.spacingMBox,
+                          AppStyles.spacingMBox,
+                          _buildWeekAvatarBanner(),
+                          if (widget.teaser != null)
                             Text(
                               widget.teaser!,
                               style: AppStyles.bodyStyle.copyWith(
                                 color: AppStyles.textDark,
                               ),
                             ),
-                          ],
                           AppStyles.spacingXLBox,
                           if (widget.fokus != null) ...[
                             AppStyles.spacingMBox,
@@ -1083,6 +1116,7 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
           readingCards: _extractReadingCards(nextWeekData),
           readingSummary: nextWeekData['readingSummary'] as String?,
           archiveEligible: nextWeekData['archiveEligible'] == true,
+          avatarImage: nextWeekData['avatarImage'] as String?,
         ),
       ),
     );

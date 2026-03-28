@@ -46,7 +46,7 @@ void main() {
 
       await tester.pumpAndSettle();
 
-      expect(find.text('LESEN (VOLLTEXT)'), findsOneWidget);
+      expect(find.text('LESEN'), findsOneWidget);
       expect(find.text('Dem Unangenehmen zuwenden'), findsOneWidget);
       expect(
         find.text('Kalender: Automatische Stressreaktionen'),
@@ -55,7 +55,7 @@ void main() {
       expect(find.text('Übungen für zu Hause nach Sitzung 4'), findsNothing);
       expect(
         find.textContaining(
-          'Hier findest du die Volltexte aus Sitzung 4 in weitgehend vollständiger Form',
+          'Hier findest du die Texte zu Woche 4 in weitgehend vollständiger Form',
         ),
         findsNothing,
       );
@@ -96,8 +96,8 @@ void main() {
       );
 
       await tester.pumpAndSettle();
-      await tester.ensureVisible(find.text('Alle Volltexte im Archiv'));
-      await tester.tap(find.text('Alle Volltexte im Archiv'));
+      await tester.ensureVisible(find.text('Alle Texte im Archiv'));
+      await tester.tap(find.text('Alle Texte im Archiv'));
       await tester.pumpAndSettle();
 
       expect(find.text('Textarchiv'), findsOneWidget);
@@ -119,7 +119,7 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.text('Woche 4: Stress in Körper und Geist'), findsOneWidget);
-      expect(find.text('Volltext verfügbar'), findsOneWidget);
+      expect(find.text('Texte verfügbar'), findsOneWidget);
       expect(
         find.text('Kalender: Automatische Stressreaktionen'),
         findsNothing,

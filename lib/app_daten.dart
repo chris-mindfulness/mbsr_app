@@ -2,6 +2,14 @@
 /// Diese Datei enthält alle Kursdaten, die sowohl im MBSR-Bereich
 /// als auch im Gastbereich verwendet werden
 class AppDaten {
+  /// Fallback-Avatar, wenn für eine Woche kein `avatarImage` gesetzt ist.
+  static const String defaultWeekAvatarAsset =
+      'assets/images/avatar/mbsr_avatar_default.png';
+
+  /// Willkommens-/Kopf-Illustration (Startseite nicht eingeloggt + Kursübersicht).
+  static const String welcomeHelloAvatarAsset =
+      'assets/images/avatar/mbsr_avatar_profil.png';
+
   /// Zentrale Mediathek-Daten (Quelle für alle Audios)
   static const List<Map<String, String>> mediathekAudios = [
     {
@@ -81,6 +89,7 @@ class AppDaten {
     {
       'n': '1',
       't': 'Achtsamkeit',
+      'avatarImage': 'assets/images/avatar/mbsr_avatar_autopilot_w1.png',
       'teaser':
           'In Woche 1 geht es ums Ankommen im Kurs. Du übst, automatische Abläufe (Autopilot) zu bemerken und den Körper als Aufmerksamkeitsanker zu nutzen. Für die Zeit zwischen den Terminen sind kurze, regelmäßige Übungseinheiten ausreichend.',
       'fokus': 'Ankommen, Autopilot bemerken, Körper als Anker.',
@@ -108,7 +117,7 @@ class AppDaten {
         '4.	Die Geschichte vom Oberfluss und Unterfluss lesen.',
       ],
       'readingSummary':
-          'Hier findest du die Volltexte aus Sitzung 1 in weitgehend vollständiger Form. Ziel ist Nachlesen ohne Informationsverlust zwischen den Treffen.',
+          'Hier findest du die Texte zu Woche 1 in weitgehend vollständiger Form. Ziel ist Nachlesen ohne Informationsverlust zwischen den Treffen.',
       'archiveEligible': true,
       'readingCards': [
         {
@@ -122,7 +131,6 @@ Anfängergeist bedeutet, einer Situation zu begegnen, als würde man sie zum ers
 Das klingt einfach, ist aber eine echte Herausforderung. Unser Gehirn ist darauf trainiert, Muster zu erkennen und Erfahrungen in bekannte Kategorien einzusortieren. Das spart Energie und schützt uns — aber es sorgt auch dafür, dass wir vieles gar nicht mehr wirklich wahrnehmen.
 
 Anfängergeist ist keine Technik, sondern eine Haltung. Eine Einladung, das Vertraute noch einmal neu zu betrachten — den Geschmack des Kaffees, das Gefühl der Füße auf dem Boden, den Klang einer vertrauten Stimme.""",
-          'source_ref': 'MBSR Kursheft - Sitzung 1, S. 3',
         },
         {
           'id': 'wk1-was-ist-achtsamkeit',
@@ -139,7 +147,6 @@ Im gegenwärtigen Moment — Nicht in Erinnerungen an gestern oder Sorgen über 
 Ohne Urteilen — Nicht die Bewertungen abstellen (das geht nicht), sondern bemerken, dass sie da sind. Das Gehirn bewertet ständig: gut, schlecht, gefährlich, sicher. Das ist evolutionär notwendig. Ziel der Achtsamkeit ist nicht, das Urteil zu stoppen, sondern es zu bemerken. Zwischen Urteil und Reaktion liegt ein kleiner Moment — genau dieser Moment ist der Gegenstand der Übung.
 
 Wichtig: Achtsamkeit ist keine Entspannungstechnik. Sie ist eine Schulung der Aufmerksamkeit. Manchmal führt sie zu Entspannung, manchmal nicht. Beides ist in Ordnung.""",
-          'source_ref': 'MBSR Kursheft - Sitzung 1, S. 5–6',
         },
         {
           'id': 'wk1-tun-und-sein',
@@ -166,7 +173,6 @@ Sein-Modus:
 Die meisten Menschen verbringen fast den ganzen Tag im Tun-Modus, ohne es zu bemerken. Das ist an sich nicht problematisch — der Tun-Modus ist nützlich und notwendig. Schwierig wird es, wenn wir dauerhaft in ihm feststecken, auch dort, wo er uns nicht weiterhilft: beim Grübeln, beim Nicht-Einschlafen-Können, beim ständigen Vergleichen.
 
 Achtsamkeit ist keine Kritik am Tun-Modus. Es geht darum, zu bemerken, in welchem Modus man sich befindet, und wählen zu können, ob das gerade passt.""",
-          'source_ref': 'MBSR Kursheft - Sitzung 1, S. 7–8',
         },
         {
           'id': 'wk1-rosinenuebung',
@@ -191,7 +197,6 @@ So geht es — Schritt für Schritt:
 7. Schlucke bewusst. Bleibe noch einen Atemzug lang bei der Erfahrung.
 
 Reflexion: Wann hast du zuletzt eine Mahlzeit oder einen Bissen wirklich bewusst erlebt? Was war bei dieser Übung anders als beim normalen Essen?""",
-          'source_ref': 'MBSR Kursheft - Sitzung 1, S. 10–11',
         },
         {
           'id': 'wk1-body-scan',
@@ -214,7 +219,6 @@ Häufige Erfahrungen (alle sind in Ordnung):
 • Ungeduld oder „ich mache das falsch"
 
 Wichtig: Der Body-Scan ist keine Entspannungsübung. Das Ziel einer Entspannungsübung ist es, sich zu entspannen. Beim Body-Scan darfst du dich so fühlen, wie du dich fühlst. Gute Praxis bedeutet nicht, dass es ruhig ist — sondern dass wir mit dem sein können, was von Moment zu Moment auftaucht.""",
-          'source_ref': 'MBSR Kursheft - Sitzung 1, S. 12–14',
         },
         {
           'id': 'wk1-oberfluss-unterfluss',
@@ -229,7 +233,6 @@ Doch die Zahl der Ertrinkenden sinkt nicht. Wenn man die Bewohner von Unterfluss
 Einige wenige in Unterfluss haben sich wiederholt die Frage gestellt, was eigentlich in Oberfluss passiert — warum so viele Menschen überhaupt ins Wasser fallen. Aber man scheint zu sehr damit beschäftigt zu sein, die Menschen im Fluss zu retten, als dass jemand die Zeit hätte, flussaufwärts nachzuschauen.
 
 Was diese Geschichte zeigt: Wir reagieren oft nur auf das, was „unten am Fluss" passiert — auf Symptome, Folgen, Krisen. Achtsamkeit ist eine Einladung, einmal flussaufwärts zu schauen: Was führt dazu, dass ich immer wieder in dieselben Muster falle? Was löst meinen Stress wirklich aus? Nicht die Wellen glätten, sondern verstehen, woher der Wind kommt.""",
-          'source_ref': 'MBSR Kursheft - Sitzung 1, S. 15–16',
         },
         {
           'id': 'wk1-neun-punkte',
@@ -242,13 +245,13 @@ Die meisten Menschen scheitern zunächst daran, dass sie unbewusst annehmen, die
 Genau das zeigt diese Übung: Wir sehen Grenzen, die nicht da sind. Unsere Wahrnehmung fügt dem, was tatsächlich vorhanden ist, unbewusst Einschränkungen hinzu. Das geschieht nicht nur bei Rätselaufgaben, sondern ständig im Alltag — in der Art, wie wir Probleme angehen, wie wir über uns selbst denken, was wir für möglich oder unmöglich halten.
 
 Achtsamkeit macht genau diese unsichtbaren Rahmen sichtbar. Nicht, um sie zu bewerten, sondern um zu bemerken: Da ist eine Annahme. Die habe ich hinzugefügt. Und vielleicht gibt es auch andere Möglichkeiten.""",
-          'source_ref': 'MBSR Kursheft - Sitzung 1, S. 9',
         },
       ],
     },
     {
       'n': '2',
       't': 'Wie wir die Welt wahrnehmen',
+      'avatarImage': 'assets/images/avatar/mbsr_avatar_perception_w2.png',
       'teaser':
           'In diesem Termin vertiefen wir die Aufmerksamkeit für den Körper und erforschen, wie Wahrnehmung durch Bewertungen und Gewohnheiten geprägt ist. Durch praktische Übungen wird erfahrbar, wie schnell wir interpretieren – und was sich verändert, wenn wir offener wahrnehmen.',
       'fokus': 'Wahrnehmung vs. Interpretation',
@@ -285,6 +288,7 @@ Achtsamkeit macht genau diese unsichtbaren Rahmen sichtbar. Nicht, um sie zu bew
     {
       'n': '3',
       't': 'Im Körper beheimatet sein',
+      'avatarImage': 'assets/images/avatar/mbsr_avatar_yoga_w3.png',
       'teaser':
           'Achtsame Bewegung eröffnet einen weiteren Zugang zum eigenen Erleben und zu persönlichen Grenzen. Gleichzeitig richten wir den Blick auf angenehme Erfahrungen im Alltag und darauf, wie sie bewusster wahrgenommen und verankert werden können. Der Kalender der unangenehmen Erlebnisse ist hier bereits hinterlegt, damit du ihn als Vorbereitung auf Woche 4 nutzen kannst.',
       'fokus': 'Grenzen spüren und respektieren',
@@ -320,6 +324,7 @@ Achtsamkeit macht genau diese unsichtbaren Rahmen sichtbar. Nicht, um sie zu bew
     {
       'n': '4',
       't': 'Stress in Körper und Geist',
+      'avatarImage': 'assets/images/avatar/mbsr_avatar_stress_w4.png',
       'teaser':
           'Dieser Termin widmet sich unangenehmen Erfahrungen und der Frage, wie Stress entsteht. Wir untersuchen persönliche Stressmuster und nähern uns dem Zusammenhang von Wahrnehmung, Reaktion und Belastung.',
       'fokus': 'Stressreaktion verstehen',
@@ -355,7 +360,7 @@ Achtsamkeit macht genau diese unsichtbaren Rahmen sichtbar. Nicht, um sie zu bew
         '4.	Stressreaktionen notieren.',
       ],
       'readingSummary':
-          'Hier findest du die Volltexte aus Sitzung 4 in weitgehend vollständiger Form. Ziel ist Nachlesen ohne Informationsverlust zwischen den Treffen.',
+          'Hier findest du die Texte zu Woche 4 in weitgehend vollständiger Form. Ziel ist Nachlesen ohne Informationsverlust zwischen den Treffen.',
       'archiveEligible': true,
       'readingCards': [
         {
@@ -378,7 +383,6 @@ und lade sie ein.
 Sei dankbar für jeden, wer es auch sei,
 denn alle wurden zu deiner Führung geschickt
 aus einer anderen Welt.""",
-          'source_ref': 'MBSR Kursheft - Sitzung 4, S. 31',
         },
         {
           'id': 'wk4-unangenehm',
@@ -395,7 +399,6 @@ Was sind Ihre persönlichen "Abneigungsmuster" (das typische Muster von körperl
 Nachdem Sie Ihr Abneigungsmuster kennengelernt haben, schauen Sie, ob es Ihnen hilft, sich zu sagen "da ist Abneigung", wann immer Sie bemerken, dass dieses Gefühl aufkommt.
 
 Notieren Sie regelmäßig Ihre Beobachtungen.""",
-          'source_ref': 'MBSR Kursheft - Sitzung 4, S. 31-32',
         },
         {
           'id': 'wk4-zwei-pfeile',
@@ -408,7 +411,6 @@ Aber bei den meisten von uns ist es, als würden sie nach dem ersten Pfeil von e
 In den meisten Fällen beschert uns dieser zweite Pfeil das größere Leiden. Die wichtige Botschaft dieses Bildes besteht darin, dass wir lernen können, uns vom Leiden des zweiten Pfeiles zu befreien.
 
 Wieso? Weil wir ihn selbst auf uns abschießen!""",
-          'source_ref': 'MBSR Kursheft - Sitzung 4, S. 32',
         },
         {
           'id': 'wk4-moegen-statt-wollen',
@@ -421,7 +423,6 @@ Mögen heißt auch schätzen und genießen. Mit Wollen meine ich alles von Getri
 Dass wir Annehmlichkeiten mögen, ist völlig normal und in Ordnung. Schwierig wird es erst dann, wenn wir Dinge wollen, die nicht gut für uns oder andere sind. Wenn wir zum Beispiel einen Drink zu viel trinken oder einen Streit auf Teufel komm raus gewinnen wollen. Schwierigkeiten entstehen auch dann, wenn wir Gutes wollen, aber mit unguten Mitteln zu erreichen versuchen. Wenn ich zum Beispiel zu schnell fahre (schlecht), um rechtzeitig zur Arbeit zu kommen (gut). Und ehrlich gesagt halte ich das Wollen an sich für eine problematische Erfahrung. Überlegen Sie, wie es sich anfühlt, ein starkes Verlangen zu haben oder unbedingt ein Ziel erreichen zu wollen. Etwas zu wollen hat wenig mit Inspiration, Sehnsucht, Leidenschaft oder Hingabe zu tun. Können wir lang-anhaltende Arbeit verrichten, ohne uns getrieben zu fühlen? Da das Wollen mit einem Defizit oder einem Mangel einhergeht, aktiviert es den reaktiven Modus unseres Gehirns, was uns unter Stress setzt. Es gibt ein Sprichwort: Mögen ohne Wollen ist der Himmel, Wollen ohne Mögen die Hölle.
 
 Die Kunst besteht darin, die Erfahrung zu genießen, wenn sie durch einen hindurchgeht, ohne sich an sie zu klammern, und gute Ziele mit guten Mitteln anzustreben, ohne sich getrieben zu fühlen. Wenn Sie etwas Gutes in Ihrer Erfahrung bemerken, dann versuchen Sie dieses behutsam zu fördern und auszubauen, ohne es krampfhaft festhalten zu wollen. Unser Gehirn neigt dazu, nach neuen Objekten unseres Willens Ausschau zu halten. Doch indem wir wiederholt die Erfahrung in uns aufnehmen, etwas zu mögen, ohne es zu wollen, können wir dieser Neigung entgegenwirken.""",
-          'source_ref': 'MBSR Kursheft - Sitzung 4, S. 33',
         },
         {
           'id': 'wk4-was-ist-stress',
@@ -438,7 +439,6 @@ Stress ist weder nur Reiz (Stressauslöser) noch nur Reaktion. Vielmehr stehen n
 Nach dieser Auffassung gibt es keine Reize, die per se "objektiv" als Stressauslöser wirken. Dazu werden sie erst durch die individuelle Bewertung der Person, welche die Situation erlebt. Diese Bewertungen entscheiden darüber, ob wir eine Situation als irrelevant, als angenehm positiv oder als stressbezogen erleben.
 
 Ebenso beeinflussen die Bewertungen maßgeblich die Art der Stressreaktion. Anders als zu Zeiten Selyes weiß man heute, dass die Stressreaktion nicht bei allen Menschen und in allen Belastungssituationen in gleicher stereotyper Weise abläuft. Sie kann je nach individueller Reaktionsspezifität und je nach Bewertung mit unterschiedlichen Emotionen verbunden sein.""",
-          'source_ref': 'MBSR Kursheft - Sitzung 4, S. 34-35',
         },
         {
           'id': 'wk4-folgen-stress',
@@ -466,7 +466,6 @@ Verhaltensebene
 - Unfälle
 - Gewalt
 - Geringere Leistungsfähigkeit""",
-          'source_ref': 'MBSR Kursheft - Sitzung 4, S. 35',
         },
         {
           'id': 'wk4-stresszyklus',
@@ -485,7 +484,6 @@ Mögliche Folgedynamiken:
 - chronische Überreizung (z. B. Hypertonie, Herzrhythmusstörungen, Schlafstörungen, Kopf-/Rückenschmerzen, Ängste)
 - maladaptive Verhaltensweisen (z. B. Arbeitswut, Hyperaktivität, Abhängigkeiten)
 - fortgesetzte Belastung bis zu starker physischer und psychischer Erschöpfung""",
-          'source_ref': 'MBSR Kursheft - Sitzung 4, S. 36 (Abbildung)',
         },
         {
           'id': 'wk4-arbeitsplatz',
@@ -514,13 +512,13 @@ Verwende Anhaltspunkte in deiner Umgebung als Erinnerung für deine Zentrierung 
 Nimm dir auf dem Nachhauseweg einen Moment Zeit, um bewusst den Wechsel von der Arbeit zu deinem Zuhause zu vollziehen.
 
 Wenn du zuhause angekommen bist, nimm dir einen Augenblick, um dich bewusst auf das Zuhause-Sein einzustimmen.""",
-          'source_ref': 'MBSR Kursheft - Sitzung 4, S. 38-39',
         },
       ],
     },
     {
       'n': '5',
       't': 'Achtsamkeit gegenüber stressverschärfenden Gedanken',
+      'avatarImage': 'assets/images/avatar/mbsr_avatar_meditation_w5.png',
       'teaser':
           'Gedanken stehen heute im Mittelpunkt: Wie tragen sie zur Entstehung von Stress bei? Durch Achtsamkeit wird erfahrbar, dass zwischen Reiz und Reaktion ein Spielraum liegt, der neue Handlungsmöglichkeiten eröffnet.',
       'fokus': 'Zwischen Reiz und Reaktion liegt ein Raum',
@@ -561,6 +559,7 @@ Wenn du zuhause angekommen bist, nimm dir einen Augenblick, um dich bewusst auf 
     {
       'n': '6',
       't': 'Achtsame Kommunikation',
+      'avatarImage': 'assets/images/avatar/mbsr_avatar_listening_w6.png',
       'teaser':
           'Achtsamkeit wird nun auf zwischenmenschliche Situationen übertragen. Wir erforschen, wie wir in schwierigen Gesprächen reagieren, zuhören und sprechen – und welche Rolle innere Haltung und Präsenz dabei spielen.',
       'fokus': 'Präsenz im Kontakt',
@@ -597,6 +596,7 @@ Wenn du zuhause angekommen bist, nimm dir einen Augenblick, um dich bewusst auf 
     {
       'n': '7',
       't': 'Selbstfürsorge',
+      'avatarImage': 'assets/images/avatar/mbsr_avatar_selfcare_w7.png',
       'teaser':
           'Dieser Termin lädt dazu ein, Selbstfürsorge als bewusste Haltung im Alltag zu betrachten. Wir erkunden, was uns nährt und was uns erschöpft, und wie Achtsamkeit helfen kann, stimmigere Entscheidungen zu treffen.',
       'fokus': 'Was nährt mich, was zehrt an mir?',
@@ -632,6 +632,7 @@ Wenn du zuhause angekommen bist, nimm dir einen Augenblick, um dich bewusst auf 
     {
       'n': '8',
       't': 'Abschied und Neubeginn',
+      'avatarImage': 'assets/images/avatar/mbsr_avatar_goon_w8.png',
       'teaser':
           'Zum Abschluss schauen wir auf den gemeinsamen Weg zurück und darauf, was sich verändert hat. Der Fokus liegt auf Integration: Wie kann die Praxis nach Kursende weitergetragen und im Alltag verankert werden?',
       'fokus': 'Der Weg geht weiter',

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../login_screen.dart';
 import '../legal_dialogs.dart';
 import '../core/app_styles.dart';
+import '../app_daten.dart';
 
 /// Landing Page mit Auswahl zwischen Stressprävention und MBSR Kursbereich
 class MBSRHomePage extends StatelessWidget {
@@ -19,10 +20,25 @@ class MBSRHomePage extends StatelessWidget {
           child: Column(
             children: [
               const Spacer(),
-              Icon(
-                Icons.self_improvement,
-                size: 120,
-                color: AppStyles.primaryOrange,
+              ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: ConstrainedBox(
+                  constraints: const BoxConstraints(
+                    maxWidth: 240,
+                    maxHeight: 200,
+                  ),
+                  child: Image.asset(
+                    AppDaten.welcomeHelloAvatarAsset,
+                    fit: BoxFit.contain,
+                    errorBuilder: (context, error, stackTrace) {
+                      return Icon(
+                        Icons.self_improvement,
+                        size: 120,
+                        color: AppStyles.primaryOrange,
+                      );
+                    },
+                  ),
+                ),
               ),
               SizedBox(
                 height: AppStyles.spacingXL + AppStyles.spacingS,

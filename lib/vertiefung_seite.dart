@@ -105,7 +105,7 @@ class VertiefungSeite extends StatelessWidget {
 
           StandardActionCard(
             title: "Textarchiv",
-            subtitle: "Volltexte zu den Kurswochen",
+            subtitle: "Texte zu den Kurswochen",
             leadingIcon: Icons.library_books_outlined,
             accentColor: AppStyles.primaryOrange,
             onTap: () => Navigator.push(

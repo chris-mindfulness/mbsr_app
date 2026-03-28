@@ -37,6 +37,9 @@ class KursUebersicht extends StatefulWidget {
 }
 
 class _KursUebersichtState extends State<KursUebersicht> {
+  /// Einheitliche Kartenhöhe in der Wochen-Übersicht (Wrap mit 2 Spalten).
+  static const double _weekOverviewCardHeight = 364.0;
+
   late int _currentIndex;
   final ScrollController _scrollController = ScrollController();
   final TextEditingController _searchController = TextEditingController();
@@ -287,7 +290,8 @@ class _KursUebersichtState extends State<KursUebersicht> {
                               : math
                                     .max(320.0, mediaWidth - (2 * 20))
                                     .toDouble();
-                          final useTwoColumns = availableWidth >= 860;
+                          // Etwas höherer Breakpoint: breitere Einzelkarten, mehr Platz für Text + Avatar.
+                          final useTwoColumns = availableWidth >= 960;
                           final gap = AppStyles.featureChipGap;
                           final cardWidth = useTwoColumns
                               ? (availableWidth - gap) / 2
@@ -368,6 +372,7 @@ class _KursUebersichtState extends State<KursUebersicht> {
           readingCards: _extractReadingCards(woche),
           readingSummary: woche['readingSummary'] as String?,
           archiveEligible: woche['archiveEligible'] == true,
+          avatarImage: woche['avatarImage'] as String?,
         ),
       ),
     );
@@ -396,77 +401,126 @@ class _KursUebersichtState extends State<KursUebersicht> {
           onTap: () => _openWeekDetail(context, woche),
           child: Padding(
             padding: AppStyles.cardPadding,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 12,
-                    vertical: 8,
-                  ),
-                  decoration: BoxDecoration(
-                    color: accentColor.withValues(alpha: 0.12),
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border.all(
-                      color: accentColor.withValues(alpha: 0.28),
-                      width: 1,
+            child: SizedBox(
+              height: _weekOverviewCardHeight -
+                  AppStyles.cardPadding.vertical,
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 12,
+                            vertical: 8,
+                          ),
+                          decoration: BoxDecoration(
+                            color: accentColor.withValues(alpha: 0.12),
+                            borderRadius: BorderRadius.circular(12),
+                            border: Border.all(
+                              color: accentColor.withValues(alpha: 0.28),
+                              width: 1,
+                            ),
+                          ),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Icon(
+                                Icons.calendar_today,
+                                size: 14,
+                                color: accentColor,
+                              ),
+                              AppStyles.spacingSHorizontal,
+                              Text(
+                                'Woche ${woche['n']}',
+                                style: AppStyles.smallTextStyle.copyWith(
+                                  color: accentColor,
+                                  fontWeight: AppStyles.fontWeightSemiBold,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        AppStyles.spacingMBox,
+                        Text(
+                          woche['t'],
+                          maxLines: 3,
+                          overflow: TextOverflow.ellipsis,
+                          style: AppStyles.subTitleStyle.copyWith(
+                            color: AppStyles.textDark,
+                            fontSize: 28,
+                            height: 1.25,
+                          ),
+                        ),
+                        AppStyles.spacingSBox,
+                        Expanded(
+                          child: Align(
+                            alignment: Alignment.topLeft,
+                            child: teaser != null && teaser.isNotEmpty
+                                ? Text(
+                                    teaser,
+                                    maxLines: 3,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: AppStyles.bodyStyle.copyWith(
+                                      color: AppStyles.textMuted,
+                                      height: 1.55,
+                                    ),
+                                  )
+                                : const SizedBox.shrink(),
+                          ),
+                        ),
+                        SizedBox(height: AppStyles.spacingL),
+                        Row(
+                          children: [
+                            Text(
+                              'Woche öffnen',
+                              style: AppStyles.bodyStyle.copyWith(
+                                color: accentColor,
+                                fontWeight: AppStyles.fontWeightSemiBold,
+                              ),
+                            ),
+                            AppStyles.spacingXSHorizontal,
+                            Icon(
+                              Icons.chevron_right,
+                              color: accentColor,
+                              size: AppStyles.iconSizeM,
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
                   ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Icon(Icons.calendar_today, size: 14, color: accentColor),
-                      AppStyles.spacingSHorizontal,
-                      Text(
-                        'Woche ${woche['n']}',
-                        style: AppStyles.smallTextStyle.copyWith(
-                          color: accentColor,
-                          fontWeight: AppStyles.fontWeightSemiBold,
+                  SizedBox(width: AppStyles.spacingM),
+                  SizedBox(
+                    width: 118,
+                    child: Center(
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(12),
+                        child: ConstrainedBox(
+                          constraints: const BoxConstraints(
+                            maxWidth: 118,
+                            maxHeight: 118,
+                          ),
+                          child: Image.asset(
+                            (woche['avatarImage'] as String?) ??
+                                AppDaten.defaultWeekAvatarAsset,
+                            fit: BoxFit.contain,
+                            errorBuilder: (context, error, stackTrace) {
+                              return Icon(
+                                Icons.self_improvement_rounded,
+                                size: 48,
+                                color: accentColor.withValues(alpha: 0.35),
+                              );
+                            },
+                          ),
                         ),
                       ),
-                    ],
-                  ),
-                ),
-                AppStyles.spacingMBox,
-                Text(
-                  woche['t'],
-                  style: AppStyles.subTitleStyle.copyWith(
-                    color: AppStyles.textDark,
-                    fontSize: 28,
-                    height: 1.25,
-                  ),
-                ),
-                AppStyles.spacingSBox,
-                if (teaser != null && teaser.isNotEmpty)
-                  Text(
-                    teaser,
-                    maxLines: 3,
-                    overflow: TextOverflow.ellipsis,
-                    style: AppStyles.bodyStyle.copyWith(
-                      color: AppStyles.textMuted,
-                      height: 1.55,
                     ),
                   ),
-                SizedBox(height: AppStyles.spacingL),
-                Row(
-                  children: [
-                    Text(
-                      'Woche öffnen',
-                      style: AppStyles.bodyStyle.copyWith(
-                        color: accentColor,
-                        fontWeight: AppStyles.fontWeightSemiBold,
-                      ),
-                    ),
-                    AppStyles.spacingXSHorizontal,
-                    Icon(
-                      Icons.chevron_right,
-                      color: accentColor,
-                      size: AppStyles.iconSizeM,
-                    ),
-                  ],
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

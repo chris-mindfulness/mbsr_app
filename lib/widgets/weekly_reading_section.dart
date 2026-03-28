@@ -38,7 +38,7 @@ class WeeklyReadingSection extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SectionHeaderLabel(title: "LESEN (VOLLTEXT)"),
+            const SectionHeaderLabel(title: "LESEN"),
             AppStyles.spacingMBox,
             if (showIntroSummary &&
                 readingSummary != null &&
@@ -93,7 +93,7 @@ class WeeklyReadingSection extends StatelessWidget {
                 child: ElevatedButton.icon(
                   onPressed: onOpenArchive,
                   icon: const Icon(Icons.library_books_outlined),
-                  label: const Text("Alle Volltexte im Archiv"),
+                  label: const Text("Alle Texte im Archiv"),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppStyles.primaryOrange,
                     foregroundColor: Colors.white,

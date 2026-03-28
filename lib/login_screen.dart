@@ -107,7 +107,7 @@ class _LoginScreenState extends State<LoginScreen> {
         email: _emailController.text.trim(),
         password: _passwordController.text.trim(),
       );
-      await AuthService().authStateChanges.first;
+      // login() setzt Session und _currentUser; kein Warten auf weiteres Stream-Event nötig.
       if (mounted) {
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: (context) => const KursUebersicht()),

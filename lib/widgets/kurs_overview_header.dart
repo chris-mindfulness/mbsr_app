@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../app_daten.dart';
 import '../core/app_styles.dart';
 
 class KursOverviewHeader extends StatelessWidget {
@@ -15,16 +16,31 @@ class KursOverviewHeader extends StatelessWidget {
       ),
       child: Column(
         children: [
-          Container(
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              color: AppStyles.primaryOrange.withValues(alpha: 0.1),
-              shape: BoxShape.circle,
-            ),
-            child: Icon(
-              Icons.self_improvement,
-              color: AppStyles.primaryOrange,
-              size: AppStyles.iconSizeXL,
+          ClipRRect(
+            borderRadius: BorderRadius.circular(24),
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(
+                maxWidth: 140,
+                maxHeight: 140,
+              ),
+              child: Image.asset(
+                AppDaten.welcomeHelloAvatarAsset,
+                fit: BoxFit.contain,
+                errorBuilder: (context, error, stackTrace) {
+                  return Container(
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: AppStyles.primaryOrange.withValues(alpha: 0.1),
+                      shape: BoxShape.circle,
+                    ),
+                    child: Icon(
+                      Icons.self_improvement,
+                      color: AppStyles.primaryOrange,
+                      size: AppStyles.iconSizeXL,
+                    ),
+                  );
+                },
+              ),
             ),
           ),
           SizedBox(height: AppStyles.spacingL + AppStyles.spacingS),

@@ -102,7 +102,7 @@ class TextArchivSeite extends StatelessWidget {
                           AppStyles.spacingMHorizontal,
                           Expanded(
                             child: Text(
-                              "Hier findest du die Volltexte der Kurswochen. Für den Pilot ist Woche 4 vollständig freigeschaltet, weitere Wochen folgen schrittweise.",
+                              "Hier findest du die Texte der Kurswochen. Für den Pilot ist Woche 4 vollständig freigeschaltet, weitere Wochen folgen schrittweise.",
                               style: AppStyles.bodyStyle.copyWith(
                                 color: AppStyles.textDark,
                               ),
@@ -163,7 +163,7 @@ class TextArchivSeite extends StatelessWidget {
           subtitle: Padding(
             padding: const EdgeInsets.only(top: 4),
             child: Text(
-              'Volltexte folgen',
+              'Texte folgen',
               style: AppStyles.smallTextStyle.copyWith(
                 color: AppStyles.softBrown.withValues(alpha: 0.65),
               ),
@@ -236,7 +236,7 @@ class TextArchivSeite extends StatelessWidget {
           subtitle: Padding(
             padding: const EdgeInsets.only(top: 4),
             child: Text(
-              'Volltext verfügbar',
+              'Texte verfügbar',
               style: AppStyles.smallTextStyle.copyWith(
                 color: AppStyles.primaryOrange.withValues(alpha: 0.9),
               ),
