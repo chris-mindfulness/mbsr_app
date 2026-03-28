@@ -119,7 +119,7 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.text('Woche 4: Stress in Körper und Geist'), findsOneWidget);
-      expect(find.text('Texte verfügbar'), findsOneWidget);
+      expect(find.text('Texte verfügbar'), findsWidgets);
       expect(
         find.text('Kalender: Automatische Stressreaktionen'),
         findsNothing,

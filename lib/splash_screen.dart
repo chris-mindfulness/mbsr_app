@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'dart:async';
 import 'widgets/ambient_background.dart';
+import 'widgets/branding_header.dart';
 import 'core/app_styles.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -42,53 +42,7 @@ class _SplashScreenState extends State<SplashScreen> {
             scale: _scale,
             duration: const Duration(milliseconds: 420),
             curve: Curves.easeOut,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                // Symbol / Logo-Ersatz
-                Icon(
-                  Icons.spa_outlined,
-                  size: 80,
-                  color: AppStyles.primaryOrange,
-                ),
-                SizedBox(height: AppStyles.spacingL - AppStyles.spacingS), // 20px
-
-                // Haupttitel
-                Text(
-                  "Achtsamkeitstraining",
-                  style: TextStyle(
-                    fontSize: 28,
-                    fontWeight: FontWeight.w300,
-                    color: AppStyles.textDark,
-                    letterSpacing: 1.2,
-                  ),
-                ),
-
-                // Dein Name
-                Text(
-                  "Dr. Christian Hahn",
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w400,
-                    color: AppStyles.successGreen,
-                    letterSpacing: 1.0,
-                ),
-              ),
-
-              SizedBox(height: AppStyles.spacingXL + AppStyles.spacingS), // 40px
-
-              // Die drei Begriffe (Unterschrift)
-                Text(
-                  "Präsenz • Verbundenheit • Mitgefühl",
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontStyle: FontStyle.italic,
-                    color: AppStyles.textDark.withValues(alpha: 0.7),
-                    letterSpacing: 0.5,
-                  ),
-                ),
-              ],
-            ),
+            child: const BrandingHeader(),
           ),
         ),
         ),

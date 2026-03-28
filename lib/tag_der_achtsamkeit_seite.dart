@@ -120,16 +120,29 @@ class TagDerAchtsamkeitSeite extends StatelessWidget {
                       ),
                       SizedBox(
                         width: AppStyles.spacingM - AppStyles.spacingS,
-                      ), // 12px
-                      Text('Datum folgt', style: AppStyles.subTitleStyle),
+                      ),
+                      Text(
+                        (daten['datum'] as String?) ?? 'Datum folgt',
+                        style: AppStyles.subTitleStyle,
+                      ),
                     ],
                   ),
-                  SizedBox(
-                    height: AppStyles.spacingM - AppStyles.spacingS,
-                  ), // 12px
-                  Text(
-                    'Die Termine werden rechtzeitig per E-Mail bekannt gegeben.',
-                    style: AppStyles.bodyStyle,
+                  AppStyles.spacingSBox,
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.access_time_outlined,
+                        color: AppStyles.sageGreen,
+                        size: 20,
+                      ),
+                      SizedBox(
+                        width: AppStyles.spacingM - AppStyles.spacingS,
+                      ),
+                      Text(
+                        (daten['uhrzeit'] as String?) ?? '',
+                        style: AppStyles.bodyStyle,
+                      ),
+                    ],
                   ),
                 ],
               ),

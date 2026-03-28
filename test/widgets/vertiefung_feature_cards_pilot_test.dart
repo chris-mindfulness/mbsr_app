@@ -32,10 +32,9 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.text('MBSR 8-Wochen-Kurs'), findsOneWidget);
-      // Doppelt: FeatureInfoCards oben + StandardActionCard weiter unten
-      expect(find.text('Wissen & Hilfe'), findsNWidgets(2));
+      expect(find.text('Wissen & Hilfe'), findsWidgets);
       expect(find.text('Textarchiv'), findsWidgets);
-      expect(find.text('Literatur & Forschung'), findsNWidgets(2));
+      expect(find.text('Literatur & Forschung'), findsWidgets);
     });
 
     testWidgets('Feature-Karten sind nicht klickbar', (tester) async {

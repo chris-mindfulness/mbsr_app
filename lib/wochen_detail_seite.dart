@@ -28,6 +28,7 @@ class WochenDetailSeite extends StatefulWidget {
   final List<String>? reflexionsFragen;
   final List<String>? audioRefs;
   final String? teaser;
+  final String? einfuehrung;
   final List<Map<String, String>> readingCards;
   final String? readingSummary;
   final bool archiveEligible;
@@ -47,6 +48,7 @@ class WochenDetailSeite extends StatefulWidget {
     this.reflexionsFragen,
     this.audioRefs,
     this.teaser,
+    this.einfuehrung,
     this.readingCards = const [],
     this.readingSummary,
     this.archiveEligible = false,
@@ -695,9 +697,10 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
                           Text(widget.titel, style: AppStyles.titleStyle),
                           AppStyles.spacingMBox,
                           _buildWeekAvatarBanner(),
-                          if (widget.teaser != null)
+                          if (widget.einfuehrung != null ||
+                              widget.teaser != null)
                             Text(
-                              widget.teaser!,
+                              widget.einfuehrung ?? widget.teaser!,
                               style: AppStyles.bodyStyle.copyWith(
                                 color: AppStyles.textDark,
                               ),
@@ -1113,6 +1116,7 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
               ? List<String>.from(nextWeekData['audioRefs'])
               : null,
           teaser: nextWeekData['teaser'],
+          einfuehrung: nextWeekData['einfuehrung'],
           readingCards: _extractReadingCards(nextWeekData),
           readingSummary: nextWeekData['readingSummary'] as String?,
           archiveEligible: nextWeekData['archiveEligible'] == true,

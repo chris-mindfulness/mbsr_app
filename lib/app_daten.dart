@@ -91,7 +91,9 @@ class AppDaten {
       't': 'Achtsamkeit',
       'avatarImage': 'assets/images/avatar/mbsr_avatar_autopilot_w1.png',
       'teaser':
-          'In Woche 1 geht es ums Ankommen im Kurs. Du übst, automatische Abläufe (Autopilot) zu bemerken und den Körper als Aufmerksamkeitsanker zu nutzen. Für die Zeit zwischen den Terminen sind kurze, regelmäßige Übungseinheiten ausreichend.',
+          'Ankommen und den Autopiloten bemerken. Der Körper wird dein erster Aufmerksamkeitsanker.',
+      'einfuehrung':
+          'Der Kurs beginnt mit einer grundlegenden Beobachtung: Einen Großteil des Tages verbringen wir im sogenannten Autopilot-Modus — wir handeln, ohne wirklich wahrzunehmen. In dieser Woche lernst du, diesen Automatismus zu bemerken und den Körper als Anker für die Aufmerksamkeit zu nutzen. Mit dem Body-Scan und der Rosinenübung erkundest du zwei zentrale Zugänge zur achtsamen Wahrnehmung. Zwischen den Kursterminen genügen kurze, regelmäßige Übungseinheiten — es geht nicht um Dauer, sondern um Kontinuität.',
       'fokus': 'Ankommen, Autopilot bemerken, Körper als Anker.',
       'zitat':
           'Du kannst die Wellen nicht stoppen, aber du kannst lernen zu surfen.',
@@ -253,7 +255,9 @@ Achtsamkeit macht genau diese unsichtbaren Rahmen sichtbar. Nicht, um sie zu bew
       't': 'Wie wir die Welt wahrnehmen',
       'avatarImage': 'assets/images/avatar/mbsr_avatar_perception_w2.png',
       'teaser':
-          'In diesem Termin vertiefen wir die Aufmerksamkeit für den Körper und erforschen, wie Wahrnehmung durch Bewertungen und Gewohnheiten geprägt ist. Durch praktische Übungen wird erfahrbar, wie schnell wir interpretieren – und was sich verändert, wenn wir offener wahrnehmen.',
+          'Wie Gewohnheiten und Bewertungen unsere Wahrnehmung formen — und was sich zeigt, wenn wir genauer hinschauen.',
+      'einfuehrung':
+          'Wir nehmen die Welt nicht so wahr, wie sie ist — sondern gefiltert durch Gewohnheiten, Erwartungen und Bewertungen. Diese Woche richtet den Blick darauf, wie schnell wir von der reinen Wahrnehmung zur Interpretation springen, oft ohne es zu bemerken. Du vertiefst die Körperarbeit aus Woche 1 und beginnst, angenehme Erfahrungen im Alltag bewusst wahrzunehmen. Der Kalender der angenehmen Erlebnisse hilft dir, Aufmerksamkeit für das zu entwickeln, was oft im Hintergrund bleibt.',
       'fokus': 'Wahrnehmung vs. Interpretation',
       'zitat':
           'Wir sehen die Dinge nicht, wie sie sind, wir sehen sie, wie wir sind.',
@@ -290,7 +294,9 @@ Achtsamkeit macht genau diese unsichtbaren Rahmen sichtbar. Nicht, um sie zu bew
       't': 'Im Körper beheimatet sein',
       'avatarImage': 'assets/images/avatar/mbsr_avatar_yoga_w3.png',
       'teaser':
-          'Achtsame Bewegung eröffnet einen weiteren Zugang zum eigenen Erleben und zu persönlichen Grenzen. Gleichzeitig richten wir den Blick auf angenehme Erfahrungen im Alltag und darauf, wie sie bewusster wahrgenommen und verankert werden können. Der Kalender der unangenehmen Erlebnisse ist hier bereits hinterlegt, damit du ihn als Vorbereitung auf Woche 4 nutzen kannst.',
+          'Den Körper in Bewegung spüren, eigene Grenzen wahrnehmen und angenehme Erfahrungen bewusster erleben.',
+      'einfuehrung':
+          'Achtsamkeit findet nicht nur im Sitzen statt. In dieser Woche erweitern wir die Praxis um achtsame Körperarbeit — sanfte Bewegungen, bei denen es nicht um Leistung geht, sondern darum, den Körper von innen heraus zu spüren. Dabei wirst du eigene Grenzen wahrnehmen und lernen, sie zu respektieren, statt sie zu übergehen. Gleichzeitig vertiefen wir die Arbeit mit angenehmen Erfahrungen. Der Kalender der unangenehmen Erlebnisse liegt bereits bei — er bereitet dich auf Woche 4 vor, in der wir uns dem Stress zuwenden.',
       'fokus': 'Grenzen spüren und respektieren',
       'zitat': 'Aufmerksamkeit ist der Weg zum Leben.',
       'zitatAutor': 'Buddha',
@@ -326,7 +332,9 @@ Achtsamkeit macht genau diese unsichtbaren Rahmen sichtbar. Nicht, um sie zu bew
       't': 'Stress in Körper und Geist',
       'avatarImage': 'assets/images/avatar/mbsr_avatar_stress_w4.png',
       'teaser':
-          'Dieser Termin widmet sich unangenehmen Erfahrungen und der Frage, wie Stress entsteht. Wir untersuchen persönliche Stressmuster und nähern uns dem Zusammenhang von Wahrnehmung, Reaktion und Belastung.',
+          'Wie Stress entsteht — und warum unsere Bewertung dabei eine Schlüsselrolle spielt.',
+      'einfuehrung':
+          'Ab dieser Woche wird es persönlicher: Wir wenden uns dem Thema Stress zu — nicht abstrakt, sondern anhand deiner eigenen Erfahrungen aus dem Kalender der unangenehmen Erlebnisse. Du lernst das transaktionale Stressmodell kennen: Stress entsteht nicht durch Situationen allein, sondern durch unsere Bewertung dieser Situationen. Wir untersuchen, wie sich Stressreaktionen im Körper anfühlen, welche Gedankenmuster sie begleiten und wo Achtsamkeit einen Unterschied machen kann.',
       'fokus': 'Stressreaktion verstehen',
       'zitat':
           'Nicht die Dinge selbst beunruhigen die Menschen, sondern ihre Meinungen über die Dinge.',
@@ -520,7 +528,9 @@ Wenn du zuhause angekommen bist, nimm dir einen Augenblick, um dich bewusst auf 
       't': 'Achtsamkeit gegenüber stressverschärfenden Gedanken',
       'avatarImage': 'assets/images/avatar/mbsr_avatar_meditation_w5.png',
       'teaser':
-          'Gedanken stehen heute im Mittelpunkt: Wie tragen sie zur Entstehung von Stress bei? Durch Achtsamkeit wird erfahrbar, dass zwischen Reiz und Reaktion ein Spielraum liegt, der neue Handlungsmöglichkeiten eröffnet.',
+          'Gedanken beobachten, ohne ihnen zu folgen. Den Raum zwischen Reiz und Reaktion erkunden.',
+      'einfuehrung':
+          'Gedanken sind keine Tatsachen — aber sie können sich so anfühlen. In dieser Woche erkundest du, wie bestimmte Denkmuster Stress nicht nur begleiten, sondern aktiv verschärfen. Mit der Sitzmeditation übst du, Gedanken wahrzunehmen, ohne dich von ihnen mitreißen zu lassen. Dabei wird erfahrbar, dass zwischen einem Reiz und unserer Reaktion ein Raum liegt. In diesem Raum liegt die Freiheit, anders zu antworten, als es der Autopilot vorsieht.',
       'fokus': 'Zwischen Reiz und Reaktion liegt ein Raum',
       'zitat': 'Du bist nicht deine Gedanken.',
       'zitatAutor': 'Jon Kabat-Zinn',
@@ -561,7 +571,9 @@ Wenn du zuhause angekommen bist, nimm dir einen Augenblick, um dich bewusst auf 
       't': 'Achtsame Kommunikation',
       'avatarImage': 'assets/images/avatar/mbsr_avatar_listening_w6.png',
       'teaser':
-          'Achtsamkeit wird nun auf zwischenmenschliche Situationen übertragen. Wir erforschen, wie wir in schwierigen Gesprächen reagieren, zuhören und sprechen – und welche Rolle innere Haltung und Präsenz dabei spielen.',
+          'Zuhören, ohne zu antworten. Sprechen, ohne zu reagieren. Achtsamkeit in der Begegnung.',
+      'einfuehrung':
+          'Achtsamkeit zeigt sich besonders deutlich in der Begegnung mit anderen. In dieser Woche übertragen wir die Praxis auf zwischenmenschliche Situationen: Wie reagierst du in schwierigen Gesprächen? Hörst du wirklich zu — oder formulierst du bereits deine Antwort? Der Kalender der schwierigen Kommunikation aus Woche 5 liefert dein persönliches Material. Wir erkunden, wie Präsenz und eine offene innere Haltung das Miteinander verändern können.',
       'fokus': 'Präsenz im Kontakt',
       'zitat':
           'Das kostbarste Geschenk, das wir einem anderen machen können, ist unsere Aufmerksamkeit.',
@@ -598,7 +610,9 @@ Wenn du zuhause angekommen bist, nimm dir einen Augenblick, um dich bewusst auf 
       't': 'Selbstfürsorge',
       'avatarImage': 'assets/images/avatar/mbsr_avatar_selfcare_w7.png',
       'teaser':
-          'Dieser Termin lädt dazu ein, Selbstfürsorge als bewusste Haltung im Alltag zu betrachten. Wir erkunden, was uns nährt und was uns erschöpft, und wie Achtsamkeit helfen kann, stimmigere Entscheidungen zu treffen.',
+          'Den Blick nach innen richten: Was nährt mich, was zehrt an mir? Selbstfürsorge als bewusste Haltung.',
+      'einfuehrung':
+          'In den bisherigen Wochen hast du gelernt, genauer hinzuschauen — auf den Körper, auf Gedanken, auf Stress, auf Kommunikation. Jetzt richtest du diesen Blick auf dich selbst: Was nährt dich, was zehrt an dir? Selbstfürsorge ist hier keine Wellness-Empfehlung, sondern eine Frage bewusster Lebensgestaltung. Du beginnst, die formelle Praxis auch ohne Audioanleitung zu üben — ein wichtiger Schritt Richtung Eigenständigkeit.',
       'fokus': 'Was nährt mich, was zehrt an mir?',
       'zitat': 'Sei gut zu dir selbst, damit du gut zu anderen sein kannst.',
       'zitatAutor': 'Unbekannt',
@@ -634,7 +648,9 @@ Wenn du zuhause angekommen bist, nimm dir einen Augenblick, um dich bewusst auf 
       't': 'Abschied und Neubeginn',
       'avatarImage': 'assets/images/avatar/mbsr_avatar_goon_w8.png',
       'teaser':
-          'Zum Abschluss schauen wir auf den gemeinsamen Weg zurück und darauf, was sich verändert hat. Der Fokus liegt auf Integration: Wie kann die Praxis nach Kursende weitergetragen und im Alltag verankert werden?',
+          'Rückblick und Ausblick. Den eigenen Weg mit Achtsamkeit weitergehen.',
+      'einfuehrung':
+          'Acht Wochen bewusstes Üben liegen hinter dir. In dieser letzten Kurswoche schauen wir zurück: Was hat sich verändert — in deiner Wahrnehmung, im Umgang mit Stress, im Alltag? Gleichzeitig blicken wir nach vorn. Das Kursende ist kein Abschluss, sondern der Beginn einer eigenständigen Praxis. Du erstellst einen persönlichen Praxisplan, der dir hilft, Achtsamkeit dauerhaft in deinen Alltag zu integrieren.',
       'fokus': 'Der Weg geht weiter',
       'zitat': 'Der Weg ist das Ziel.',
       'zitatAutor': 'Konfuzius',
@@ -671,6 +687,8 @@ Wenn du zuhause angekommen bist, nimm dir einen Augenblick, um dich bewusst auf 
 
   static const Map<String, dynamic> tagDerAchtsamkeit = {
     'titel': 'Tag der Achtsamkeit',
+    'datum': '17. Mai 2026',
+    'uhrzeit': '9:30–15:00 Uhr',
     'beschreibung':
         'Ein vertiefender Übungstag in Stille für Kursteilnehmer und Ehemalige. Wir üben im Wechsel Sitzmeditation, Body-Scan, achtsame Bewegung und Gehmeditation. Selbstfürsorge hat Vorrang: Du kannst jederzeit anpassen oder pausieren.',
     'pdfs': [

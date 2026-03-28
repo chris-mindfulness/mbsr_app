@@ -369,6 +369,7 @@ class _KursUebersichtState extends State<KursUebersicht> {
               ? List<String>.from(woche['audioRefs'])
               : null,
           teaser: woche['teaser'],
+          einfuehrung: woche['einfuehrung'],
           readingCards: _extractReadingCards(woche),
           readingSummary: woche['readingSummary'] as String?,
           archiveEligible: woche['archiveEligible'] == true,
@@ -586,6 +587,15 @@ class _KursUebersichtState extends State<KursUebersicht> {
                         style: AppStyles.subTitleStyle.copyWith(
                           color: AppStyles.accentPink,
                           fontWeight: AppStyles.fontWeightBold,
+                        ),
+                      ),
+                      AppStyles.spacingXSBox,
+                      Text(
+                        '${AppDaten.tagDerAchtsamkeit['datum']} · ${AppDaten.tagDerAchtsamkeit['uhrzeit']}',
+                        style: AppStyles.bodyStyle.copyWith(
+                          color: AppStyles.accentPink.withValues(alpha: 0.8),
+                          fontWeight: FontWeight.w500,
+                          fontSize: 13,
                         ),
                       ),
                       AppStyles.spacingXSBox,
