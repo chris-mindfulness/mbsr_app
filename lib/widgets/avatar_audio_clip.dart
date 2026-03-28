@@ -11,6 +11,7 @@ import '../core/app_styles.dart';
 ///
 /// Nutzt eine **eigene** [AudioPlayer]-Instanz, damit laufende
 /// Meditationen im Haupt-AudioService nicht unterbrochen werden.
+/// Es spielt immer nur **ein** Clip gleichzeitig.
 class AvatarAudioClip extends StatefulWidget {
   final String? appwriteId;
   final String label;
@@ -29,6 +30,10 @@ class AvatarAudioClip extends StatefulWidget {
 
 class _AvatarAudioClipState extends State<AvatarAudioClip>
     with AutomaticKeepAliveClientMixin {
+  /// Globale Referenz: welcher Clip gerade aktiv ist.
+  /// Beim Start eines Clips wird der vorherige pausiert.
+  static _AvatarAudioClipState? _activeInstance;
+
   AudioPlayer? _player;
   StreamSubscription<PlayerState>? _stateSub;
   StreamSubscription<Duration>? _positionSub;
@@ -38,8 +43,6 @@ class _AvatarAudioClipState extends State<AvatarAudioClip>
   bool _hasError = false;
   double _progress = 0.0;
 
-  /// Solange Audio laeuft oder laedt, Widget-State am Leben halten
-  /// (verhindert dispose beim Aus-dem-Bild-Scrollen).
   @override
   bool get wantKeepAlive => _isPlaying || _isLoading;
 
@@ -48,10 +51,20 @@ class _AvatarAudioClipState extends State<AvatarAudioClip>
 
   @override
   void dispose() {
+    if (_activeInstance == this) _activeInstance = null;
     _stateSub?.cancel();
     _positionSub?.cancel();
     _player?.dispose();
     super.dispose();
+  }
+
+  /// Stoppt den aktuell spielenden Clip (falls ein anderer).
+  void _stopOtherIfNeeded() {
+    final other = _activeInstance;
+    if (other != null && other != this && other._isPlaying) {
+      other._player?.pause();
+    }
+    _activeInstance = this;
   }
 
   String _buildUrl(String fileId) {
@@ -60,8 +73,6 @@ class _AvatarAudioClipState extends State<AvatarAudioClip>
         '?project=${AppConfig.appwriteProjectId}';
   }
 
-  /// Nach Ende der Wiedergabe (v. a. Web) muss oft auf 0 gesprungen werden,
-  /// sonst reagiert [play] nicht erneut.
   Future<void> _ensureAtStartIfFinished() async {
     final p = _player!;
     if (p.processingState == ProcessingState.completed) {
@@ -89,6 +100,7 @@ class _AvatarAudioClipState extends State<AvatarAudioClip>
     if (_isPlaying) {
       await _player!.pause();
     } else {
+      _stopOtherIfNeeded();
       try {
         await _ensureAtStartIfFinished();
         await _player!.play();
@@ -105,6 +117,8 @@ class _AvatarAudioClipState extends State<AvatarAudioClip>
   }
 
   Future<void> _initAndPlay() async {
+    _stopOtherIfNeeded();
+
     setState(() {
       _isLoading = true;
       _hasError = false;
