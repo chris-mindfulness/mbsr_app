@@ -102,7 +102,7 @@ class TextArchivSeite extends StatelessWidget {
                           AppStyles.spacingMHorizontal,
                           Expanded(
                             child: Text(
-                              "Hier findest du die Texte der Kurswochen. Für den Pilot ist Woche 4 vollständig freigeschaltet, weitere Wochen folgen schrittweise.",
+                              "Hier findest du die Lesetexte der Kurswochen, sobald sie freigeschaltet sind. Aktuell liegen die Inhalte in den PDFs der jeweiligen Woche und in der Mediathek.",
                               style: AppStyles.bodyStyle.copyWith(
                                 color: AppStyles.textDark,
                               ),

@@ -783,7 +783,7 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
                                             AppStyles.spacingS,
                                       ),
                                       Text(
-                                        "Hinweise zu deinen Übungen dieser Woche",
+                                        "Deine Praxis",
                                         style: AppStyles.headingStyle.copyWith(
                                           fontSize: 18,
                                           color: AppStyles.primaryOrange,

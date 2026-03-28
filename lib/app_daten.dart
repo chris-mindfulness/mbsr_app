@@ -11,10 +11,9 @@ class AppDaten {
       'assets/images/avatar/mbsr_avatar_profil.png';
 
   /// Kurze Audio-Clips (ElevenLabs-Stimme), werden per Appwrite-ID geladen.
-  /// Die appwrite_id wird nach dem Upload der echten MP3 ersetzt.
   static const Map<String, String> begruessung = {
     'title': 'Hallo und willkommen',
-    'appwrite_id': '', // <- hier nach Upload die echte File-ID eintragen
+    'appwrite_id': '69c80484000673452f80',
     'duration': '0:30',
   };
 
@@ -121,142 +120,14 @@ class AppDaten {
         {'title': 'Neun-Punkte-Übung', 'appwrite_id': '697d0fc80030febb4db5'},
       ],
       'wochenAufgaben': [
-        '1.	Body-Scan an mehreren Tagen mit der Audiodatei üben (kurze Einheiten sind ausreichend).',
-        '2.	Mindestens eine Mahlzeit in dieser Woche achtsam einnehmen (ohne nebenbei zu scrollen oder zu lesen).',
-        '3.	Die Neun-Punkte-Übung durchführen und kurz notieren, was dir aufgefallen ist.',
-        '4.	Die Geschichte vom Oberfluss und Unterfluss lesen.',
+        'Die Audioanleitung zum Body-Scan findest du in der Mediathek. Kurze Einheiten an mehreren Tagen sind ein guter Einstieg.',
+        'Nimm dir eine Mahlzeit in dieser Woche bewusst vor — ohne Bildschirm, ohne Lesen. Einfach schmecken.',
+        'Die Neun-Punkte-Übung liegt in den Kursunterlagen bereit. Probiere sie aus und beobachte, was dir dabei auffällt.',
+        'In den Kursunterlagen findest du die Geschichte vom Oberfluss und Unterfluss — sie gibt einen ersten Impuls zum Thema Achtsamkeit.',
       ],
-      'readingSummary':
-          'Hier findest du die Texte zu Woche 1 in weitgehend vollständiger Form. Ziel ist Nachlesen ohne Informationsverlust zwischen den Treffen.',
-      'archiveEligible': true,
-      'readingCards': [
-        {
-          'id': 'wk1-anfaengergeist',
-          'title': 'Anfängergeist',
-          'body':
-              """„Im Geist des Anfängers gibt es viele Möglichkeiten, im Geist des Experten nur wenige." — Shunryū Suzuki
-
-Anfängergeist bedeutet, einer Situation zu begegnen, als würde man sie zum ersten Mal erleben — offen, neugierig, ohne vorgefertigte Schlüsse. Dieser Kurs beginnt mit genau dieser Einladung: der gewohnten Welt mit frischer Wahrnehmung zu begegnen.
-
-Das klingt einfach, ist aber eine echte Herausforderung. Unser Gehirn ist darauf trainiert, Muster zu erkennen und Erfahrungen in bekannte Kategorien einzusortieren. Das spart Energie und schützt uns — aber es sorgt auch dafür, dass wir vieles gar nicht mehr wirklich wahrnehmen.
-
-Anfängergeist ist keine Technik, sondern eine Haltung. Eine Einladung, das Vertraute noch einmal neu zu betrachten — den Geschmack des Kaffees, das Gefühl der Füße auf dem Boden, den Klang einer vertrauten Stimme.""",
-        },
-        {
-          'id': 'wk1-was-ist-achtsamkeit',
-          'title': 'Was ist Achtsamkeit?',
-          'body':
-              """Jon Kabat-Zinn, der Begründer von MBSR, definiert Achtsamkeit als „die Aufmerksamkeit absichtsvoll, im gegenwärtigen Moment und so gut wie möglich ohne Urteilen auf die Erfahrung zu richten."
-
-In diesem Satz stecken drei wesentliche Aspekte:
-
-Absichtsvoll — Achtsamkeit passiert nicht zufällig. Sie ist eine bewusste Entscheidung, die Aufmerksamkeit in eine bestimmte Richtung zu lenken.
-
-Im gegenwärtigen Moment — Nicht in Erinnerungen an gestern oder Sorgen über morgen, sondern hier, jetzt.
-
-Ohne Urteilen — Nicht die Bewertungen abstellen (das geht nicht), sondern bemerken, dass sie da sind. Das Gehirn bewertet ständig: gut, schlecht, gefährlich, sicher. Das ist evolutionär notwendig. Ziel der Achtsamkeit ist nicht, das Urteil zu stoppen, sondern es zu bemerken. Zwischen Urteil und Reaktion liegt ein kleiner Moment — genau dieser Moment ist der Gegenstand der Übung.
-
-Wichtig: Achtsamkeit ist keine Entspannungstechnik. Sie ist eine Schulung der Aufmerksamkeit. Manchmal führt sie zu Entspannung, manchmal nicht. Beides ist in Ordnung.""",
-        },
-        {
-          'id': 'wk1-tun-und-sein',
-          'title': 'Tun-Modus und Sein-Modus',
-          'body':
-              """Unser Geist bewegt sich zwischen zwei grundlegend verschiedenen Betriebsweisen:
-
-Tun-Modus:
-• Automatisch reagieren
-• Grübeln über Erfahrung
-• Ziel- und ergebnisorientiert
-• Probleme lösen wollen
-• Vergangenheit und Zukunft
-• Von Bewertungen gesteuert
-
-Sein-Modus:
-• Bewusst wahrnehmen
-• Unmittelbare Erfahrung
-• Prozess- und momentorientiert
-• Sein mit dem, was ist
-• Jetzt — dieser Moment
-• Wahrnehmung ohne sofortige Reaktion
-
-Die meisten Menschen verbringen fast den ganzen Tag im Tun-Modus, ohne es zu bemerken. Das ist an sich nicht problematisch — der Tun-Modus ist nützlich und notwendig. Schwierig wird es, wenn wir dauerhaft in ihm feststecken, auch dort, wo er uns nicht weiterhilft: beim Grübeln, beim Nicht-Einschlafen-Können, beim ständigen Vergleichen.
-
-Achtsamkeit ist keine Kritik am Tun-Modus. Es geht darum, zu bemerken, in welchem Modus man sich befindet, und wählen zu können, ob das gerade passt.""",
-        },
-        {
-          'id': 'wk1-rosinenuebung',
-          'title': 'Die Rosinenübung',
-          'body':
-              """Die Rosinenübung ist die erste echte Begegnung mit dem, was Achtsamkeit im Alltag bedeutet. Sie zeigt: Wir essen, ohne zu schmecken. Wir tun, ohne wahrzunehmen.
-
-So geht es — Schritt für Schritt:
-
-1. Nimm ein kleines Stück Essen — eine Rosine, ein Stück Schokolade oder eine Nuss.
-
-2. Betrachte es wie zum ersten Mal. Welche Farbe hat es? Welche Form? Wie sieht die Oberfläche aus?
-
-3. Halte es in der Hand. Welches Gewicht spürst du? Welche Textur?
-
-4. Rieche daran. Was nimmst du wahr? Was geschieht in dir — vielleicht ein Impuls, es sofort in den Mund zu stecken?
-
-5. Lege es auf die Zunge — und warte einen Moment, bevor du kaust. Was passiert, wenn du einfach wartest?
-
-6. Kaue langsam. Wie verändert sich der Geschmack? Wie fühlt sich das Kauen an?
-
-7. Schlucke bewusst. Bleibe noch einen Atemzug lang bei der Erfahrung.
-
-Reflexion: Wann hast du zuletzt eine Mahlzeit oder einen Bissen wirklich bewusst erlebt? Was war bei dieser Übung anders als beim normalen Essen?""",
-        },
-        {
-          'id': 'wk1-body-scan',
-          'title': 'Der Body-Scan',
-          'body':
-              """Der Body-Scan ist die erste formelle Meditationspraxis dieses Kurses — eine Einladung, langsam und ohne Ziel durch den eigenen Körper zu wandern.
-
-So geht es:
-Lege oder setze dich bequem hin. Schließe die Augen, falls du möchtest. Richte die Aufmerksamkeit auf den Atem — ohne ihn zu verändern. Wandere dann mit der Aufmerksamkeit langsam durch den Körper, von den Fußsohlen aufwärts. Verweile bei jedem Bereich einige Atemzüge lang. Frage nicht: „Ist das richtig?" — sondern: „Was nehme ich gerade wahr?"
-
-Wenn der Geist abschweift — und er wird —, ist das kein Fehler. Das absichtsvolle Zurückkehren ist die eigentliche Übung.
-
-Der Body-Scan trainiert drei grundlegende Fähigkeiten: Aufmerksamkeit lenken, Aufmerksamkeit aufrechterhalten und den Fokus bewusst ändern. Durch die Länge der Übung wirst du außerdem deine persönlichen Reaktionsmuster wahrnehmen: Bewertung, Ablehnung, Vermeidung.
-
-Häufige Erfahrungen (alle sind in Ordnung):
-• Der Geist wandert ständig ab
-• Schläfrigkeit oder Einschlafen
-• Kribbeln, Wärme, Taubheitsgefühle
-• Das Gefühl, „nichts zu spüren"
-• Ungeduld oder „ich mache das falsch"
-
-Wichtig: Der Body-Scan ist keine Entspannungsübung. Das Ziel einer Entspannungsübung ist es, sich zu entspannen. Beim Body-Scan darfst du dich so fühlen, wie du dich fühlst. Gute Praxis bedeutet nicht, dass es ruhig ist — sondern dass wir mit dem sein können, was von Moment zu Moment auftaucht.""",
-        },
-        {
-          'id': 'wk1-oberfluss-unterfluss',
-          'title': 'Oberfluss und Unterfluss',
-          'body':
-              """Vor vielen Jahren entdecken die Bewohner von Unterfluss den ersten Menschen, der im Wasser treibt. Es wird schnell klar, dass man Techniken entwickeln muss, um Menschen aus dem Fluss zu ziehen.
-
-Die Rettungssysteme werden immer raffinierter. Ein Krankenhaus entsteht, Rettungsboote werden angeschafft, motivierte Helfer ausgebildet. Bald können sie fast alle Menschen innerhalb von 20 Minuten retten, viele in weniger als 10 Minuten. Die Dorfbewohner sind stolz.
-
-Doch die Zahl der Ertrinkenden sinkt nicht. Wenn man die Bewohner von Unterfluss fragt, wo die Probleme liegen, sprechen sie vom neuen Krankenhaus, von den effizienten Booten und den engagierten Rettern.
-
-Einige wenige in Unterfluss haben sich wiederholt die Frage gestellt, was eigentlich in Oberfluss passiert — warum so viele Menschen überhaupt ins Wasser fallen. Aber man scheint zu sehr damit beschäftigt zu sein, die Menschen im Fluss zu retten, als dass jemand die Zeit hätte, flussaufwärts nachzuschauen.
-
-Was diese Geschichte zeigt: Wir reagieren oft nur auf das, was „unten am Fluss" passiert — auf Symptome, Folgen, Krisen. Achtsamkeit ist eine Einladung, einmal flussaufwärts zu schauen: Was führt dazu, dass ich immer wieder in dieselben Muster falle? Was löst meinen Stress wirklich aus? Nicht die Wellen glätten, sondern verstehen, woher der Wind kommt.""",
-        },
-        {
-          'id': 'wk1-neun-punkte',
-          'title': 'Die Neun-Punkte-Übung',
-          'body':
-              """Die Aufgabe klingt einfach: Verbinde alle neun Punkte (in einem 3×3-Gitter angeordnet) mit genau vier geraden Linien, ohne den Stift abzusetzen.
-
-Die meisten Menschen scheitern zunächst daran, dass sie unbewusst annehmen, die Linien müssten innerhalb des Quadrats bleiben, das die Punkte bilden. Aber diese Grenze existiert gar nicht — sie wird von unserem Geist hinzugefügt.
-
-Genau das zeigt diese Übung: Wir sehen Grenzen, die nicht da sind. Unsere Wahrnehmung fügt dem, was tatsächlich vorhanden ist, unbewusst Einschränkungen hinzu. Das geschieht nicht nur bei Rätselaufgaben, sondern ständig im Alltag — in der Art, wie wir Probleme angehen, wie wir über uns selbst denken, was wir für möglich oder unmöglich halten.
-
-Achtsamkeit macht genau diese unsichtbaren Rahmen sichtbar. Nicht, um sie zu bewerten, sondern um zu bemerken: Da ist eine Annahme. Die habe ich hinzugefügt. Und vielleicht gibt es auch andere Möglichkeiten.""",
-        },
-      ],
+      'readingSummary': '',
+      'archiveEligible': false,
+      'readingCards': <Map<String, String>>[],
     },
     {
       'n': '2',
@@ -288,10 +159,10 @@ Achtsamkeit macht genau diese unsichtbaren Rahmen sichtbar. Nicht, um sie zu bew
         },
       ],
       'wochenAufgaben': [
-        '1.	Body-Scan mit Audiodatei mehrmals pro Woche üben.',
-        '2.	Eine alltägliche Tätigkeit mit Anfängergeist ausführen (z. B. Zähneputzen, Duschen, Geschirrspülen).',
-        '3.	Möglichst täglich für einige Minuten die Aufmerksamkeit auf den Atem richten.',
-        '4.	Den Kalender der angenehmen Erlebnisse nutzen.',
+        'Der Body-Scan steht dir weiterhin als Audioanleitung zur Verfügung — mehrmals pro Woche ist ein gutes Maß.',
+        'Wähle eine alltägliche Tätigkeit und führe sie mit Anfängergeist aus, als würdest du sie zum ersten Mal tun — Zähneputzen, Duschen, der Weg zur Arbeit.',
+        'Richte zwischendurch für einige Minuten die Aufmerksamkeit auf deinen Atem. Kein besonderer Ort nötig.',
+        'Der Kalender der angenehmen Erlebnisse liegt in den Kursunterlagen — eine Gelegenheit, das Angenehme bewusster wahrzunehmen.',
       ],
       'readingCards': <Map<String, String>>[],
       'readingSummary': '',
@@ -327,9 +198,9 @@ Achtsamkeit macht genau diese unsichtbaren Rahmen sichtbar. Nicht, um sie zu bew
         },
       ],
       'wochenAufgaben': [
-        '1.	Mehrmals pro Woche Body-Scan oder achtsame Körperarbeit üben.',
-        '2.	Möglichst täglich den Atem im Alltag beobachten.',
-        '3.	Den Kalender der unangenehmen Erlebnisse als Vorbereitung auf Woche 4 ausfüllen.',
+        'Wechsle diese Woche zwischen Body-Scan und achtsamer Körperarbeit ab — beides findest du in der Mediathek.',
+        'Beobachte zwischendurch im Alltag deinen Atem. Ein paar bewusste Atemzüge reichen.',
+        'Der Kalender der unangenehmen Erlebnisse liegt in den Kursunterlagen bereit — er ist eine Vorbereitung auf das Thema der nächsten Woche.',
       ],
       'readingCards': <Map<String, String>>[],
       'readingSummary': '',
@@ -370,166 +241,14 @@ Achtsamkeit macht genau diese unsichtbaren Rahmen sichtbar. Nicht, um sie zu bew
         },
       ],
       'wochenAufgaben': [
-        '1.	Regelmäßige formelle Praxis (Body-Scan, Körperarbeit oder Sitzmeditation).',
-        '2.	Atembeobachtung im Alltag.',
-        '3.	Abschnitt „Achtsamkeit am Arbeitsplatz“ lesen.',
-        '4.	Stressreaktionen notieren.',
+        'Übe regelmäßig mit einer der Anleitungen aus der Mediathek — Body-Scan, Körperarbeit oder Sitzmeditation, je nachdem, was dich gerade anspricht.',
+        'Beobachte zwischendurch deinen Atem im Alltag.',
+        'In den Lesetexten findest du Impulse zum Thema Achtsamkeit am Arbeitsplatz.',
+        'Wenn du magst, halte kurz fest, wann dir Stressreaktionen auffallen — im Körper, in Gedanken oder im Verhalten.',
       ],
-      'readingSummary':
-          'Hier findest du die Texte zu Woche 4 in weitgehend vollständiger Form. Ziel ist Nachlesen ohne Informationsverlust zwischen den Treffen.',
-      'archiveEligible': true,
-      'readingCards': [
-        {
-          'id': 'wk4-gasthaus',
-          'title': 'Das Gasthaus',
-          'body': """Das menschliche Dasein ist ein Gasthaus.
-Jeden Morgen ein neuer Gast.
-Freude, Depression und Niedertracht,
-auch ein kurzer Moment der Achtsamkeit kommt
-als unverhoffter Besucher.
-Begrüße und bewirte sie alle!
-Selbst wenn es eine Schar von Sorgen ist,
-die gewaltsam dein Haus seiner Möbel entledigt,
-selbst dann behandle jeden Gast mit Respekt,
-vielleicht bereitet er dich vor
-auf ganz neue Freuden.
-Die dunklen Gedanken der Scham, der Bosheit -
-Begegne ihnen lachend an der Tür
-und lade sie ein.
-Sei dankbar für jeden, wer es auch sei,
-denn alle wurden zu deiner Führung geschickt
-aus einer anderen Welt.""",
-        },
-        {
-          'id': 'wk4-unangenehm',
-          'title': 'Dem Unangenehmen zuwenden',
-          'body':
-              """Im Laufe der letzten Wochen werden Sie vielleicht in Situationen gekommen sein, in denen Sie eine Abneigung gespürt haben. Nicht nur im Berufsleben, sondern vielleicht auch im MBSR-Kurs ("Diese Übung mag ich nicht.", "Mein Knie tut mir weh, wieso tue ich mir das an?").
-
-Wenden Sie sich bewusst unangenehmen oder unfreundlichen Gefühlen, Empfindungen und Gedanken zu, und registrieren Sie, wie Sie darauf reagieren - insbesondere körperlich.
-
-Schauen Sie, ob Sie nach und nach die Symptome der Abneigung erkennen können - Wie fühlt sich Abneigung an? Wo und wie spüren Sie sie im Körper? Wie wirkt sie sich auf Ihr Denken aus?
-
-Was sind Ihre persönlichen "Abneigungsmuster" (das typische Muster von körperlichen Empfindungen, durch die Sie erkennen, dass Abneigung da ist)?
-
-Nachdem Sie Ihr Abneigungsmuster kennengelernt haben, schauen Sie, ob es Ihnen hilft, sich zu sagen "da ist Abneigung", wann immer Sie bemerken, dass dieses Gefühl aufkommt.
-
-Notieren Sie regelmäßig Ihre Beobachtungen.""",
-        },
-        {
-          'id': 'wk4-zwei-pfeile',
-          'title': 'Die zwei Pfeile',
-          'body':
-              """Wenn wir von einem Pfeil getroffen würden, würde natürlich jeder von uns physischen Schmerz und Unbehagen verspüren.
-
-Aber bei den meisten von uns ist es, als würden sie nach dem ersten Pfeil von einem zweiten Pfeil getroffen - der Abneigung -, dem Leiden also, das durch Reaktionen wie Wut, Angst, Niedergeschlagenheit und so weiter verursacht wird und das wir dem Schmerz und Leiden des ersten Pfeiles hinzufügen.
-
-In den meisten Fällen beschert uns dieser zweite Pfeil das größere Leiden. Die wichtige Botschaft dieses Bildes besteht darin, dass wir lernen können, uns vom Leiden des zweiten Pfeiles zu befreien.
-
-Wieso? Weil wir ihn selbst auf uns abschießen!""",
-        },
-        {
-          'id': 'wk4-moegen-statt-wollen',
-          'title': 'Mögen statt Wollen',
-          'body':
-              """Sobald Sie eine positive Erfahrung machen, entsteht der natürliche Wunsch, an ihr festzuhalten. Doch wenn Sie dies tun, befinden Sie sich nicht mehr im Flow dieser Erfahrung, sondern entfernen sich von ihr, indem sie versuchen, sie "einzufrieden" und zu besitzen. Und das ist keine gute Erfahrung mehr. Es ist wie beim Musikhören. Wenn Sie versuchen, eine großartige Stelle in Ihrem Kopf zu wiederholen, während die Musik weitergeht, dann verlieren Sie den Kontakt zu ihr und der Genuss schwindet. Deshalb kommt es auf die Kunst an, die gute Erfahrung zu mögen, ohne sie zu wollen.
-
-Mögen heißt auch schätzen und genießen. Mit Wollen meine ich alles von Getriebenheit, Beharrlichkeit, innerem Zwang, Druck und Gier bis hin zu sozialer Bindung, Sehnsucht und Verlangen. In unserem limbischen System und im Hirnstamm werden das Mögen und das Wollen durch verschiedene miteinander verbundene Schaltkreise gesteuert. Das bedeutet, dass man Dinge mögen kann, ohne sie zu wollen. Zum Beispiel kann man sich nach einer ausgiebigen Mahlzeit ein Eis zum Dessert verkneifen, obgleich man durchaus Lust darauf hätte. Andere Dinge kann man wollen, ohne sie zu mögen. Ich habe schon Leute gelangweilt und teilnahmslos am Spielautomaten sitzen sehen. Immer und immer wieder haben sie ihn in Gang gesetzt, doch nicht einmal zwischenzeitliche Gewinne schienen sie zu interessieren.
-
-Dass wir Annehmlichkeiten mögen, ist völlig normal und in Ordnung. Schwierig wird es erst dann, wenn wir Dinge wollen, die nicht gut für uns oder andere sind. Wenn wir zum Beispiel einen Drink zu viel trinken oder einen Streit auf Teufel komm raus gewinnen wollen. Schwierigkeiten entstehen auch dann, wenn wir Gutes wollen, aber mit unguten Mitteln zu erreichen versuchen. Wenn ich zum Beispiel zu schnell fahre (schlecht), um rechtzeitig zur Arbeit zu kommen (gut). Und ehrlich gesagt halte ich das Wollen an sich für eine problematische Erfahrung. Überlegen Sie, wie es sich anfühlt, ein starkes Verlangen zu haben oder unbedingt ein Ziel erreichen zu wollen. Etwas zu wollen hat wenig mit Inspiration, Sehnsucht, Leidenschaft oder Hingabe zu tun. Können wir lang-anhaltende Arbeit verrichten, ohne uns getrieben zu fühlen? Da das Wollen mit einem Defizit oder einem Mangel einhergeht, aktiviert es den reaktiven Modus unseres Gehirns, was uns unter Stress setzt. Es gibt ein Sprichwort: Mögen ohne Wollen ist der Himmel, Wollen ohne Mögen die Hölle.
-
-Die Kunst besteht darin, die Erfahrung zu genießen, wenn sie durch einen hindurchgeht, ohne sich an sie zu klammern, und gute Ziele mit guten Mitteln anzustreben, ohne sich getrieben zu fühlen. Wenn Sie etwas Gutes in Ihrer Erfahrung bemerken, dann versuchen Sie dieses behutsam zu fördern und auszubauen, ohne es krampfhaft festhalten zu wollen. Unser Gehirn neigt dazu, nach neuen Objekten unseres Willens Ausschau zu halten. Doch indem wir wiederholt die Erfahrung in uns aufnehmen, etwas zu mögen, ohne es zu wollen, können wir dieser Neigung entgegenwirken.""",
-        },
-        {
-          'id': 'wk4-was-ist-stress',
-          'title': 'Was ist Stress?',
-          'body':
-              """Obwohl jeder weiß, was gemeint ist, wenn man "gestresst" ist, ist der Begriff Stress komplexer und schwerer zu fassen. Aus evolutionärer Sicht ist Stress ein uralter, biologisch sinnvoller Mechanismus, der dem Menschen durch einen reflexhaften Angriffs- oder Fluchtmechanismus das Überleben sichert. Bei drohender Gefahr wird dem Menschen durch eine blitzschnelle Kräftemobilisierung des Organismus eine schnelle Anpassung an Belastungen und Herausforderungen ermöglicht.
-
-Diese durch Stress ausgelöste körperliche Aktivierung ist nun nicht per se gesundheitsschädlich, sondern kann, wenn sie von regelmäßigen Phasen der Entspannung abgelöst wird, sogar als "Würze des Leben", betrachtet werden, wie Selye ein Pionier der Stressforschung dies getan hat. Der "steinzeitliche" Mechanismus Stress, der uns im positiven Fall reflexartiges und hellwaches Reagieren ermöglicht, wird für den heutigen Menschen erst dadurch zum Problem, dass er in einer modernen Gesellschaft durch eine Vielzahl von Reizen zwar unzählige Male am Tag ausgelöst wird, zugleich aber die durch die Stressreaktion produzierte Energie nicht mehr in Kampf oder Flucht verbraucht wird.
-
-Mit dem Stressbegriff ist nun aber keineswegs nur die Stressreaktion gemeint, die sich in vielfältigen körperlichen Symptomen ebenso zeigt wie in Gedanken, in Gefühlen und im Verhalten. Genauso einseitig wäre es auch beim Stressbegriff nur an die Stressauslöser bzw. Stressoren zu denken.
-
-Stress ist weder nur Reiz (Stressauslöser) noch nur Reaktion. Vielmehr stehen nach heute verbreitetem Verständnis, welches auf den Stressforscher Lazarus zurückgeht, beide Aspekte (Stressor und Stressreaktion) in einer Beziehung der wechselseitigen Beeinflussung (Transaktion) zueinander.
-
-Nach dieser Auffassung gibt es keine Reize, die per se "objektiv" als Stressauslöser wirken. Dazu werden sie erst durch die individuelle Bewertung der Person, welche die Situation erlebt. Diese Bewertungen entscheiden darüber, ob wir eine Situation als irrelevant, als angenehm positiv oder als stressbezogen erleben.
-
-Ebenso beeinflussen die Bewertungen maßgeblich die Art der Stressreaktion. Anders als zu Zeiten Selyes weiß man heute, dass die Stressreaktion nicht bei allen Menschen und in allen Belastungssituationen in gleicher stereotyper Weise abläuft. Sie kann je nach individueller Reaktionsspezifität und je nach Bewertung mit unterschiedlichen Emotionen verbunden sein.""",
-        },
-        {
-          'id': 'wk4-folgen-stress',
-          'title': 'Folgen von Stress auf verschiedenen Ebenen',
-          'body': """Physische Ebene
-- Herzkrankheiten
-- Verdauungsprobleme
-- Rückenschmerzen
-- Kopfschmerzen
-- Hoher Blutdruck
-- Ungleichgewicht auf hormoneller Ebene
-
-Psychologische/gedankliche Ebene
-- Burnout
-- Depressive Symptomatik bis hin zu Depressionen
-- Angst
-- Familiäre Probleme
-- Schlafprobleme
-- Jobunzufriedenheit/Schulunzufriedenheit
-- Schlechte Informationsverarbeitung
-
-Verhaltensebene
-- Abwesenheit, Verspätung
-- Suchtverhalten
-- Unfälle
-- Gewalt
-- Geringere Leistungsfähigkeit""",
-        },
-        {
-          'id': 'wk4-stresszyklus',
-          'title': 'Abbildung: Folgen von Stress auf Körper und Geist',
-          'body':
-              """Vereinfachte Lesefassung des Stresszyklus aus der Abbildung:
-
-Äußere Stressoren + innere Stressoren
--> Wahrnehmung und Beurteilung
--> Warnsystem / Kampf oder Flucht
--> Stressreaktion (Hypothalamus, Hypophyse, Nebennieren)
--> Aktivierung von Herz- und Gefäßsystem, Skelettmuskulatur, Nervensystem, Immunsystem
-
-Mögliche Folgedynamiken:
-- akute Übererregung (Puls und Blutdruck steigen)
-- chronische Überreizung (z. B. Hypertonie, Herzrhythmusstörungen, Schlafstörungen, Kopf-/Rückenschmerzen, Ängste)
-- maladaptive Verhaltensweisen (z. B. Arbeitswut, Hyperaktivität, Abhängigkeiten)
-- fortgesetzte Belastung bis zu starker physischer und psychischer Erschöpfung""",
-        },
-        {
-          'id': 'wk4-arbeitsplatz',
-          'title': 'Achtsamkeit am Arbeitsplatz / im Unialltag',
-          'body':
-              """Nimm dir jeden Morgen ein paar Minuten Zeit, um still zu sein und zu meditieren. Setze oder lege dich hin, um ganz bei dir zu sein. Blicke aus dem Fenster, höre den Geräuschen der Natur zu, mache einen kurzen Spaziergang.
-
-Wenn du deinen Arbeitsweg beginnst, nimm dir eine Minute Zeit, um auf deinen Atem zu achten.
-
-Auf dem Weg zur Arbeit nimm die Spannungen im Körper wahr (z. B. verkrampfte Hände, hochgezogene Schultern, angespannter Magen). Erlaube diesen Spannungen, sich zu lösen.
-
-Entscheide dich dafür, das Autoradio nicht einzuschalten und mit dir selbst zu sein.
-
-Wenn du zu einer roten Ampel kommst, nutze die Zeit, um deinen Atem wahrzunehmen, ebenso die Bäume, den Himmel oder deine Gedanken in diesem Moment.
-
-Wenn du an deinem Arbeitsplatz angekommen bist, nimm dir einen Moment Zeit, um wirklich anzukommen. Werde dir bewusst, wo du bist und wohin du gehst.
-
-Werde dir an deinem Arbeitsplatz immer wieder deiner körperlichen Wahrnehmungen bewusst und entlasse unnötige Anspannung.
-
-Nutze die Pausen, um dich wirklich zu entspannen. Vielleicht machst du einen kurzen Spaziergang, anstatt Kaffee zu trinken oder zu rauchen.
-
-Entscheide dich, jede Stunde einen "Stopp" von 1-X Minuten einzulegen, während dessen du dir deines Atems und deiner Körperwahrnehmungen bewusst wirst.
-
-Verwende Anhaltspunkte in deiner Umgebung als Erinnerung für deine Zentrierung auf dich selbst (z. B. das Klingeln des Telefons, die rote Ampel).
-
-Nimm dir auf dem Nachhauseweg einen Moment Zeit, um bewusst den Wechsel von der Arbeit zu deinem Zuhause zu vollziehen.
-
-Wenn du zuhause angekommen bist, nimm dir einen Augenblick, um dich bewusst auf das Zuhause-Sein einzustimmen.""",
-        },
-      ],
+      'readingSummary': '',
+      'archiveEligible': false,
+      'readingCards': <Map<String, String>>[],
     },
     {
       'n': '5',
@@ -566,9 +285,9 @@ Wenn du zuhause angekommen bist, nimm dir einen Augenblick, um dich bewusst auf 
         },
       ],
       'wochenAufgaben': [
-        '1.	Sitzmeditation üben, im Wechsel mit Body-Scan oder Körperarbeit.',
-        '2.	Achtsamkeit in stressigen Situationen anwenden.',
-        '3.	Kalender der „Schwierigen Kommunikation“ zur Vorbereitung auf Woche 6 ausfüllen.',
+        'Die Sitzmeditation steht in der Mediathek bereit. Du kannst sie im Wechsel mit Body-Scan oder Körperarbeit nutzen.',
+        'Beobachte in stressigen Momenten, welche Gedanken auftauchen — und was passiert, wenn du sie einfach wahrnimmst.',
+        'Der Kalender der schwierigen Kommunikation liegt in den Kursunterlagen — er ist eine Vorbereitung auf das Thema der nächsten Woche.',
       ],
       'readingCards': <Map<String, String>>[],
       'readingSummary': '',
@@ -605,9 +324,9 @@ Wenn du zuhause angekommen bist, nimm dir einen Augenblick, um dich bewusst auf 
         },
       ],
       'wochenAufgaben': [
-        '1. Sitzmeditation üben, im Wechsel mit Body-Scan oder Körperarbeit.',
-        '2.	Reaktionen in zwischenmenschlichen Situationen beobachten.',
-        '3.	Sinneseindrücke bewusst wahrnehmen.',
+        'Setze deine Meditationspraxis fort — wähle aus der Mediathek, was dich anspricht.',
+        'Beobachte in einem Gespräch pro Tag, wie du zuhörst und was dabei in dir passiert.',
+        'Nimm dir zwischendurch einen Moment, um bewusst wahrzunehmen, was deine Sinne gerade aufnehmen.',
       ],
       'readingCards': <Map<String, String>>[],
       'readingSummary': '',
@@ -643,9 +362,9 @@ Wenn du zuhause angekommen bist, nimm dir einen Augenblick, um dich bewusst auf 
         },
       ],
       'wochenAufgaben': [
-        '1.	Übungen ohne Anleitung praktizieren.',
-        '2.	Reflexion über das Kursende und die Fortführung der Praxis.',
-        '3.	Unterscheidung zwischen Wahrnehmung und Interpretation üben.',
+        'Probiere diese Woche, auch ohne Audioanleitung zu üben — in Stille, in deinem eigenen Rhythmus.',
+        'Schau auf deine Woche: Was nährt dich, was zehrt an dir? Wo könntest du etwas Kleines verändern?',
+        'Beobachte im Alltag, wann du wahrnimmst und wann du bereits interpretierst.',
       ],
       'readingCards': <Map<String, String>>[],
       'readingSummary': '',
@@ -681,11 +400,10 @@ Wenn du zuhause angekommen bist, nimm dir einen Augenblick, um dich bewusst auf 
         },
       ],
       'wochenAufgaben': [
-        '1. Eigene Praxis dauerhaft im Alltag verankern.',
-        '2. Rückblick auf die 8 Wochen.',
-        '3. Dankbarkeitspraxis kultivieren.',
-        '4. Einen 4-Wochen-Praxisplan erstellen (Wann, welche Übung, Mindestdauer, Ausweichoption).',
-        '5. Stille Meditation praktizieren.',
+        'Alle Übungen aus dem Kurs stehen dir weiterhin in der Mediathek zur Verfügung — auch stille Meditation ohne Anleitung.',
+        'Schau zurück: Was hat sich in den letzten acht Wochen für dich verändert?',
+        'Erstelle dir einen persönlichen Praxisplan — wann, welche Übung, wie lange. Auch eine Ausweichoption für stressige Wochen ist hilfreich.',
+        'Wenn du magst, nimm dir täglich einen Moment für Dankbarkeit — für etwas Konkretes, das dir an diesem Tag begegnet ist.',
       ],
       'readingCards': <Map<String, String>>[],
       'readingSummary': '',
