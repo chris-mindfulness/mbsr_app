@@ -89,6 +89,13 @@ class AppDaten {
       'description':
           'Erforsche die Welt durch deine Sinne – Hören, Spüren, Riechen. Eine Einladung, die Welt ganz neu wahrzunehmen.',
     },
+    {
+      'title': 'Meditation auf den Atem',
+      'duration': '5 Min',
+      'appwrite_id': '69c84048001c5b268c72',
+      'description':
+          'Kurze geführte Übung: die Aufmerksamkeit ruht beim Atem. Keine feste Zuordnung zu einer Kurswoche — ideal für zwischendurch.',
+    },
   ];
 
   // Alle Wochen-Daten (Audios entfernt, nur PDFs und Aufgaben)
@@ -102,8 +109,14 @@ class AppDaten {
       'einfuehrung':
           'Der Kurs beginnt mit einer grundlegenden Beobachtung: Einen Großteil des Tages verbringen wir im sogenannten Autopilot-Modus — wir handeln, ohne wirklich wahrzunehmen. In dieser Woche lernst du, diesen Automatismus zu bemerken und den Körper als Anker für die Aufmerksamkeit zu nutzen. Mit dem Body-Scan und der Rosinenübung erkundest du zwei zentrale Zugänge zur achtsamen Wahrnehmung. Zwischen den Kursterminen genügen kurze, regelmäßige Übungseinheiten — es geht nicht um Dauer, sondern um Kontinuität.',
       'infoClips': {
-        'begruessung': {'appwrite_id': '', 'duration': '0:30'},
-        'psychoedukation': {'appwrite_id': '', 'duration': '1:00'},
+        'begruessung': {
+          'appwrite_id': '69c84141002248cc4659',
+          'duration': '0:30',
+        },
+        'psychoedukation': {
+          'appwrite_id': '69c841740011913fa054',
+          'duration': '1:00',
+        },
       },
       'fokus': 'Ankommen, Autopilot bemerken, Körper als Anker.',
       'zitat':
