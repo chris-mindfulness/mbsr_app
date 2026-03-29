@@ -8,7 +8,7 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   group('Lesetexte & Textarchiv', () {
-    testWidgets('leere readingCards: keine LESEN-Sektion', (tester) async {
+    testWidgets('leere readingCards: keine PSYCHOEDUKATION-Sektion', (tester) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
@@ -29,11 +29,11 @@ void main() {
 
       await tester.pumpAndSettle();
 
-      expect(find.text('LESEN'), findsNothing);
+      expect(find.text('PSYCHOEDUKATION'), findsNothing);
       expect(find.text('Alle Texte im Archiv'), findsNothing);
     });
 
-    testWidgets('WeeklyReadingSection mit Karten zeigt LESEN und Archiv-CTA', (
+    testWidgets('WeeklyReadingSection mit Karten zeigt PSYCHOEDUKATION und Archiv-CTA', (
       tester,
     ) async {
       final sampleCards = [
@@ -64,7 +64,7 @@ void main() {
 
       await tester.pumpAndSettle();
 
-      expect(find.text('LESEN'), findsOneWidget);
+      expect(find.text('PSYCHOEDUKATION'), findsOneWidget);
       expect(find.text('Beispiel-Lesetext'), findsOneWidget);
       expect(find.text('Alle Texte im Archiv'), findsOneWidget);
 

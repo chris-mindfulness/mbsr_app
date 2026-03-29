@@ -38,7 +38,7 @@ class WeeklyReadingSection extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SectionHeaderLabel(title: "LESEN"),
+            const SectionHeaderLabel(title: "PSYCHOEDUKATION"),
             AppStyles.spacingMBox,
             if (showIntroSummary &&
                 readingSummary != null &&
