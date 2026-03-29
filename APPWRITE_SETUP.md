@@ -104,3 +104,9 @@ Nutze diese Checkliste:
 - `CHECKLISTE_APPWRITE_PRUEFEN.md`
 
 Dort ist die Fehlersuche Schritt für Schritt beschrieben.
+
+## 9) Passwort-Reset-Redirect
+
+Die Redirect-URL für `createRecovery` kommt aus dem Build (`APP_PASSWORD_RESET_REDIRECT_URL` oder Standard `https://app.mindfulpractice.de/reset-password`). Sie muss in Appwrite unter den erlaubten Auth-URLs eingetragen sein.
+
+**Fester Ablauf für Menschen und KI:** `docs/prozesse/PASSWORT_RESET_REDIRECT.md`

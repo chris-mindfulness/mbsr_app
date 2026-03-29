@@ -13,6 +13,15 @@ class AppConfig {
     defaultValue: '696befd00018180d10ff',
   );
 
+  /// Ziel-URL nach Passwort-Reset (Appwrite `createRecovery`).
+  ///
+  /// Nur per `--dart-define=APP_PASSWORD_RESET_REDIRECT_URL=...` überschreiben.
+  /// Niemals aus Nutzereingaben setzen. In Appwrite muss die exakte URL erlaubt sein.
+  static const String passwordResetRedirectUrl = String.fromEnvironment(
+    'APP_PASSWORD_RESET_REDIRECT_URL',
+    defaultValue: 'https://app.mindfulpractice.de/reset-password',
+  );
+
   // Database IDs
   static const String databaseId = 'mbsr_database';
 

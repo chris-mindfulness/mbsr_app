@@ -29,6 +29,8 @@ Optional können Appwrite-Werte per `--dart-define` gesetzt werden:
   --dart-define=APPWRITE_PROJECT_ID=696befd00018180d10ff
 ```
 
+Passwort-Reset-Redirect (Standard: Produktions-URL): nur bei Bedarf überschreiben, siehe `docs/prozesse/PASSWORT_RESET_REDIRECT.md`.
+
 Alternativ auf macOS testen:
 
 ```bash

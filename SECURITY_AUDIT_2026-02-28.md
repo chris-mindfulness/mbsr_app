@@ -183,9 +183,9 @@ Fehlende Pflichtangaben nach DSGVO:
 
 ## 8. Weitere Befunde
 
-### Passwort-Reset-Route fehlt
+### Passwort-Reset-Redirect
 
-Die Redirect-URL `https://app.mindfulpractice.de/reset-password` ist in `auth_service.dart` hardcodiert, aber `/reset-password` existiert nicht in `AppRouter`. Wenn ein User auf den Link in der Reset-Mail klickt, greift der Fallback-Router. Manuell testen, ob der Appwrite-Reset-Flow trotzdem funktioniert.
+**Update 29.03.2026:** Redirect-URL kommt aus `AppConfig.passwordResetRedirectUrl` (Standard: `https://app.mindfulpractice.de/reset-password`, optional `APP_PASSWORD_RESET_REDIRECT_URL` per `--dart-define`). Prozess: `docs/prozesse/PASSWORT_RESET_REDIRECT.md`. Route `/reset-password` ist in `AppRouter` vorgesehen (zeigt wie Login die Login-Oberfläche). Vollständigen Reset-Flow inkl. neuem Passwort in der App weiterhin manuell gegen Produktion testen.
 
 ### ~~Error-Leak im Login-Screen~~ (behoben 25.03.2026)
 
@@ -206,7 +206,7 @@ Die Redirect-URL `https://app.mindfulpractice.de/reset-password` ist in `auth_se
 | CI/CD | Sauber | — |
 | Code-Qualität | Sauber | — |
 | Datenschutzerklärung | Unvollständig | **Vor öffentlichem Go-Live nachbessern** |
-| Passwort-Reset-Route | Unklar | **Manuell testen** |
+| Passwort-Reset-Redirect | Konfigurierbar + dokumentiert | **Manuell testen** (E-Mail + Appwrite-URLs) |
 | Appwrite Server-Permissions | Ungeprüft | **Manuell prüfen** |
 | Toter Code (`fromFallback`) | Kosmetik | Niedrig |
 

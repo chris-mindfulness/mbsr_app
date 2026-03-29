@@ -482,9 +482,12 @@ class AuthService {
     try {
       if (kDebugMode) debugPrint('📧 Sende Passwort-Reset-Email an: $email');
 
-      // Appwrite benötigt eine Redirect-URL für den Reset-Link
-      // Diese sollte zu deiner App zurückführen
-      final redirectUrl = 'https://app.mindfulpractice.de/reset-password';
+      final redirectUrl = AppConfig.passwordResetRedirectUrl;
+      if (redirectUrl.isEmpty) {
+        throw AuthException(
+          'Passwort-Reset ist momentan nicht konfiguriert. Bitte später erneut versuchen.',
+        );
+      }
 
       await _appwrite.account.createRecovery(email: email, url: redirectUrl);
 
