@@ -5,44 +5,42 @@ import 'core/app_styles.dart';
 import 'app_daten.dart';
 import 'widgets/pdf_link_card.dart';
 import 'widgets/decorative_blobs.dart';
+import 'widgets/section_header_label.dart';
+
+typedef _DownloadRow = ({String sectionTitle, Map<String, String> pdf});
 
 class DownloadsSeite extends StatelessWidget {
   DownloadsSeite({super.key});
 
-  final List<Map<String, String>> _pdfs = _collectPdfs();
+  final List<_DownloadRow> _rows = _collectRows();
 
-  static List<Map<String, String>> _collectPdfs() {
-    final pdfs = <Map<String, String>>[];
+  static List<_DownloadRow> _collectRows() {
+    final rows = <_DownloadRow>[];
 
     for (final woche in AppDaten.wochenDaten) {
-      final entries = woche['pdfs'];
-      if (entries is List) {
-        for (final entry in entries) {
-          if (entry is Map) {
-            final title = entry['title'];
-            final appwriteId = entry['appwrite_id'];
-            if (title is String && appwriteId is String) {
-              pdfs.add({'title': title, 'appwrite_id': appwriteId});
-            }
-          }
-        }
+      final n = '${woche['n'] ?? ''}';
+      final t = '${woche['t'] ?? ''}';
+      final sectionTitle = 'Woche $n: $t';
+      final list = AppDaten.pdfMapsFromRaw(woche['pdfs'] as List<dynamic>?);
+      list.sort((a, b) {
+        final oa =
+            AppDaten.pdfKindOf(a) == AppDaten.pdfKindArbeitsblatt ? 1 : 0;
+        final ob =
+            AppDaten.pdfKindOf(b) == AppDaten.pdfKindArbeitsblatt ? 1 : 0;
+        return oa.compareTo(ob);
+      });
+      for (final pdf in list) {
+        rows.add((sectionTitle: sectionTitle, pdf: pdf));
       }
     }
 
-    final tagPdfs = AppDaten.tagDerAchtsamkeit['pdfs'];
-    if (tagPdfs is List) {
-      for (final entry in tagPdfs) {
-        if (entry is Map) {
-          final title = entry['title'];
-          final appwriteId = entry['appwrite_id'];
-          if (title is String && appwriteId is String) {
-            pdfs.add({'title': title, 'appwrite_id': appwriteId});
-          }
-        }
-      }
+    final tag = AppDaten.tagDerAchtsamkeit;
+    final tagTitle = '${tag['titel'] ?? 'Tag der Achtsamkeit'}';
+    for (final pdf in AppDaten.pdfMapsFromRaw(tag['pdfs'] as List<dynamic>?)) {
+      rows.add((sectionTitle: tagTitle, pdf: pdf));
     }
 
-    return pdfs;
+    return rows;
   }
 
   @override
@@ -72,18 +70,39 @@ class DownloadsSeite extends StatelessWidget {
           children: [
             Text('Alle Kursunterlagen & PDFs', style: AppStyles.subTitleStyle),
             AppStyles.spacingMBox,
-            if (_pdfs.isEmpty)
+            if (_rows.isEmpty)
               Text(
                 'Noch keine Downloads verfügbar.',
                 style: AppStyles.bodyStyle,
               )
             else
-              ..._pdfs.map(_buildPdfCard),
+              ..._buildGroupedChildren(),
             AppStyles.spacingXLBox,
           ],
         ),
       ),
     );
+  }
+
+  List<Widget> _buildGroupedChildren() {
+    final out = <Widget>[];
+    String? lastSection;
+    for (final row in _rows) {
+      if (row.sectionTitle != lastSection) {
+        lastSection = row.sectionTitle;
+        if (out.isNotEmpty) {
+          out.add(AppStyles.spacingMBox);
+        }
+        out.add(
+          Padding(
+            padding: const EdgeInsets.only(bottom: 4),
+            child: SectionHeaderLabel(title: row.sectionTitle),
+          ),
+        );
+      }
+      out.add(_buildPdfCard(row.pdf));
+    }
+    return out;
   }
 
   Widget _buildPdfCard(Map<String, String> pdf) {
@@ -96,14 +115,19 @@ class DownloadsSeite extends StatelessWidget {
         appwriteId == '696c0000000000000008';
     final url =
         '${AppConfig.appwriteEndpoint}/storage/buckets/${AppConfig.pdfsBucketId}/files/$appwriteId/view?project=${AppConfig.appwriteProjectId}';
+    final isArbeitsblatt =
+        AppDaten.pdfKindOf(pdf) == AppDaten.pdfKindArbeitsblatt;
 
     return PdfLinkCard(
       title: title,
       onTap: () => launchUrl(Uri.parse(url)),
       isPending: isPending,
       pendingText: 'Wird zeitnah bereitgestellt.',
-      leadingIcon: Icons.description_outlined,
-      leadingColor: AppStyles.softBrown,
+      leadingIcon: isArbeitsblatt
+          ? Icons.edit_note_outlined
+          : Icons.description_outlined,
+      leadingColor:
+          isArbeitsblatt ? AppStyles.primaryOrange : AppStyles.softBrown,
       readyTrailingIcon: Icons.open_in_new,
       pendingTrailingIcon: Icons.schedule,
       layout: PdfCardLayout.row,

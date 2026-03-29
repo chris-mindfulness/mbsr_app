@@ -138,12 +138,36 @@
 39. Logout-Fehlermeldung bereinigt (generischer Text statt technischem Error-String)
 40. Kursinhalte in app_daten.dart aktualisiert (Cowork-Session)
 
+## Update 28.03.2026 — Avatar-Audio-Clips
+
+41. Neues Widget `AvatarAudioClip` erstellt (`lib/widgets/avatar_audio_clip.dart`):
+   - kompakter Pillen-Player mit eigenem `AudioPlayer` (unabhaengig vom Haupt-AudioService)
+   - Begrüßungs-Clip im Kurskopf-Header eingebaut
+   - Wochen-Info-Clips (infoClips) in Wochen-Detailseite eingebaut
+42. Fix: Wiederholtes Abspielen nach Ende:
+   - vor erneutem `play()`: `seek(Duration.zero)` wenn `completed` oder Position nahe am Ende
+   - Listener bei `completed`: Loading/Progress sauber zuruecksetzen, kein async seek/pause im Listener
+43. Fix: Audio stoppt nicht mehr beim Aus-dem-Bild-Scrollen:
+   - `AutomaticKeepAliveClientMixin` eingebaut
+   - `wantKeepAlive` ist `true` solange Audio spielt oder laedt
+44. Fix: Nur ein Avatar-Clip gleichzeitig abspielbar:
+   - statische `_activeInstance`-Referenz koordiniert alle Clip-Instanzen
+   - beim Start eines neuen Clips wird der vorherige automatisch pausiert
+45. Interaktive Seek-Bar statt statischer Fortschrittslinie:
+   - `Slider` mit 6px Track und rundem Thumb (statt 3px `LinearProgressIndicator`)
+   - Nutzer kann per Drag oder Tap an beliebige Stelle springen (z.B. zum Anfang)
+   - Seek-Bar bleibt sichtbar sobald Player initialisiert (auch bei Pause nach Seitenwechsel)
+   - `_isSeeking`-Flag verhindert Positions-Ueberschreibung waehrend Drag
+   - Play/Pause-Tap nur auf obere Zeile, Slider darunter unabhaengig bedienbar
+
 ## Geprüft
 
 - `flutter analyze --no-pub`: ohne Befunde
-- `flutter test --no-pub`: alle Tests grün
+- `flutter test --no-pub`: alle Tests gruen (29/29)
+- Letzter Commit: `46ecf18` auf `main`, gepusht, Cloudflare-Deploy aktiv
 
-## Offene nächste Schritte
+## Offene naechste Schritte
 
-1. Kurze visuelle Feinabnahme im Browser (Woche 4 + Mediathek + Vertiefung) abschließen.
-2. Appwrite-Basisprüfung manuell abschließen (Stabilität ohne Fallback-Layer verifizieren).
+1. Manueller Browser-Test der Avatar-Clips (Seek-Bar, Wiederabspielen, Scroll-Verhalten).
+2. Kurze visuelle Feinabnahme im Browser (Woche 4 + Mediathek + Vertiefung) abschliessen.
+3. Appwrite-Basispruefung manuell abschliessen (Stabilitaet ohne Fallback-Layer verifizieren).

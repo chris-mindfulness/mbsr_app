@@ -133,8 +133,13 @@ class AppDaten {
         {
           'title': 'Kursunterlagen Woche 1',
           'appwrite_id': '696bfa6b0039f0497205',
+          'kind': 'kursunterlage',
         },
-        {'title': 'Neun-Punkte-Übung', 'appwrite_id': '697d0fc80030febb4db5'},
+        {
+          'title': 'Neun-Punkte-Übung',
+          'appwrite_id': '697d0fc80030febb4db5',
+          'kind': 'arbeitsblatt',
+        },
       ],
       'wochenAufgaben': [
         'Die Audioanleitung zum Body-Scan findest du in der Mediathek. Kurze Einheiten an mehreren Tagen sind ein guter Einstieg.',
@@ -142,9 +147,46 @@ class AppDaten {
         'Die Neun-Punkte-Übung liegt in den Kursunterlagen bereit. Probiere sie aus und beobachte, was dir dabei auffällt.',
         'In den Kursunterlagen findest du die Geschichte vom Oberfluss und Unterfluss — sie gibt einen ersten Impuls zum Thema Achtsamkeit.',
       ],
-      'readingSummary': '',
-      'archiveEligible': false,
-      'readingCards': <Map<String, String>>[],
+      'readingSummary':
+          'Kurze Impulse aus der Forschung — alltagsnah und mit ehrlicher Einordnung. Der Audio-Clip „Zum Thema dieser Woche“ ergänzt die Texte.',
+      'archiveEligible': true,
+      'readingCards': [
+        {
+          'id': 'w1-goldberg-meta',
+          'title': 'Was Studien zu Achtsamkeitsprogrammen zeigen',
+          'body':
+              'Die Forschung zu Programmen wie MBSR und MBCT ist inzwischen breit: In großen Übersichten wurden Hunderte Studien mit vielen tausend Teilnehmenden ausgewertet. Danach können achtsamkeitsbasierte Programme Stress, depressive Symptome und Angst messbar lindern; in vielen Arbeiten sind sie mit etablierten Verfahren vergleichbar.\n\n'
+              'Wichtig für ein faires Bild: Wenn man sie nicht mit einer Warteliste vergleicht, sondern mit anderen aktiven Programmen, wirken die Vorteile oft kleiner. Das macht die Praxis nicht wertlos — es erinnert daran, dass Achtsamkeit kein Wundermittel ist. Bei schwerer Erkrankung bleibt professionelle Hilfe der richtige Ort.',
+        },
+        {
+          'id': 'w1-autopilot',
+          'title': 'Geist abwesend — und trotzdem da?',
+          'body':
+              'In einer bekannten Studie wurden Menschen per Smartphone zu zufälligen Zeiten gefragt: Was tust du gerade? Wo ist dein Geist? Wie fühlst du dich? Im Mittel war die Aufmerksamkeit oft nicht bei der aktuellen Tätigkeit — in der Öffentlichkeit wurde daraus die einprägsame Zahl von etwa der Hälfte der Wachzeit.\n\n'
+              'Neuere Arbeiten zeigen: So einfach ist es nicht; es kommt darauf an, wie genau man fragt, und nicht jedes Abschweifen ist „schlecht“. Entscheidend für diesen Kurs ist etwas anderes: Du kannst üben, früher zu merken, wohin der Geist gewandert ist — und freundlich zu entscheiden, ob du zurück zum Moment kehrst.',
+        },
+        {
+          'id': 'w1-anfangsunruhe',
+          'title': 'Wenn die erste Zeit unruhiger wirkt',
+          'body':
+              'Manche Menschen berichten: In den ersten Tagen der Meditation fühlt sich innen eher mehr an — mehr Unruhe, mehr Gedanken, mehr Spannung. Das kann bedeuten, dass du genauer hinhörst, nicht dass du es falsch machst. Sanft dranbleiben und kürzere Einheiten wählen hilft oft.\n\n'
+              'Wenn du dich dauerhaft stark überfordert oder krank fühlst, ist das kein Bereich zum Durchbeißen: Dann ist professionelle Unterstützung der richtige nächste Schritt.',
+        },
+        {
+          'id': 'w1-formal-alltag',
+          'title': 'Sitzen oder im Alltag üben?',
+          'body':
+              'Für Einsteigerinnen und Einsteiger können kurze formale Sitzübungen und achtsame Momente im Alltag vergleichbare Effekte zeigen — entscheidend ist, was du wirklich regelmäßig tun kannst. Auf dem Stuhl, beim Gehen, beim Spülen: Die beste Praxis ist die, die stattfindet.\n\n'
+              'Kontinuität schlägt oft die perfekte Dauer.',
+        },
+        {
+          'id': 'w1-fuenf-minuten',
+          'title': 'Kurz üben — reicht das?',
+          'body':
+              'In Studien mit etwa fünf Minuten täglicher Praxis über mehrere Wochen fanden Forschende Verbesserungen bei Stress, Stimmung und Wohlbefinden. Die Arbeiten stammen überwiegend aus einem Forschungskontext; strengere Kontrollen und unabhängige Wiederholungen gibt es noch vergleichsweise wenige.\n\n'
+              'Für den Alltag bleibt die Botschaft dennoch ermutigend: Schon wenige Minuten können einen Unterschied machen, wenn du sie einplanst und dir nicht das Gefühl gibst, es müsse immer „länger“ sein.',
+        },
+      ],
     },
     {
       'n': '2',
@@ -173,10 +215,12 @@ class AppDaten {
         {
           'title': 'Kursunterlagen Woche 2',
           'appwrite_id': '696bfc7f003e17db0a1e',
+          'kind': 'kursunterlage',
         },
         {
           'title': 'Kalender der angenehmen Erlebnisse',
           'appwrite_id': '697d0fc1003193371a6a',
+          'kind': 'arbeitsblatt',
         },
       ],
       'wochenAufgaben': [
@@ -185,9 +229,24 @@ class AppDaten {
         'Richte zwischendurch für einige Minuten die Aufmerksamkeit auf deinen Atem. Kein besonderer Ort nötig.',
         'Der Kalender der angenehmen Erlebnisse liegt in den Kursunterlagen — eine Gelegenheit, das Angenehme bewusster wahrzunehmen.',
       ],
-      'readingCards': <Map<String, String>>[],
       'readingSummary': '',
-      'archiveEligible': false,
+      'archiveEligible': true,
+      'readingCards': [
+        {
+          'id': 'w2-kino-gleichnis',
+          'title': 'Zwei Arten, ganz bei etwas zu sein',
+          'body':
+              'Stell dir einen Film vor. Manchmal tauchst du so ein, dass du vergisst, überhaupt im Kino zu sitzen — alles ist Geschichte und Bild. Eine andere Qualität ist möglich: Du bist gefesselt vom Film, und doch ist im Hintergrund ein leises Gewahrsein da: Ich schaue zu.\n\n'
+              'In der Achtsamkeitspraxis geht es oft um diese zweite Form: voll dabei und zugleich ein wenig Freiraum zum Beobachten. Das ist kein kühles Abwerten — sondern eine freundlichere Beziehung zu dem, was gerade passiert.',
+        },
+        {
+          'id': 'w2-fa-om',
+          'title': 'Fokus weit oder eng — beides ist Praxis',
+          'body':
+              'Zwei Grundformen der Übung begegnen dir in diesem Kurs: Bei der Aufmerksamkeit auf einen Anker — etwa den Atem — bleibt der Fokus wie ein Scheinwerfer auf einem Punkt. In offeneren Formen wird die Aufmerksamkeit weiter, eher wie eine weiche Flutlicht-Qualität: Was immer auftaucht, darf registriert werden.\n\n'
+              'Beides zählt als Achtsamkeit. Mit der Zeit findest du heraus, welche Form dir wann guttut.',
+        },
+      ],
     },
     {
       'n': '3',
@@ -215,11 +274,13 @@ class AppDaten {
         {
           'title': 'Kursunterlagen Woche 3',
           'appwrite_id': '696bfc8c001ab2d0d7fb',
+          'kind': 'kursunterlage',
         },
         {
           'title':
               'Kalender der unangenehmen Erlebnisse (Vorbereitung für Woche 4)',
           'appwrite_id': '697d0fba00014e013bd4',
+          'kind': 'arbeitsblatt',
         },
       ],
       'wochenAufgaben': [
@@ -227,9 +288,17 @@ class AppDaten {
         'Beobachte zwischendurch im Alltag deinen Atem. Ein paar bewusste Atemzüge reichen.',
         'Der Kalender der unangenehmen Erlebnisse liegt in den Kursunterlagen bereit — er ist eine Vorbereitung auf das Thema der nächsten Woche.',
       ],
-      'readingCards': <Map<String, String>>[],
       'readingSummary': '',
-      'archiveEligible': false,
+      'archiveEligible': true,
+      'readingCards': [
+        {
+          'id': 'w3-freundschaft-geist',
+          'title': 'Freundschaft mit dem Geist statt Kampf',
+          'body':
+              'Viele starten mit dem Gefühl, „die Gedanken sollen endlich aufhören“. Der Kurs lädt zu einem anderen Verhältnis ein: Nicht gegen Ablenkung kämpfen, sondern bemerken, was da ist, und freundlich wieder zum Anker zurückgehen — oder die offene Haltung weiterführen.\n\n'
+              'Leichtigkeit statt Anstrengung ist kein bequemer Trick, sondern oft der Weg, der länger tragfähig ist. Das passt zu Body-Scan und achtsamer Bewegung: Grenzen wahrnehmen statt sie zu überrennen.',
+        },
+      ],
     },
     {
       'n': '4',
@@ -263,10 +332,12 @@ class AppDaten {
         {
           'title': 'Kursunterlagen Woche 4',
           'appwrite_id': '696bfd3d00077e7e2c0b',
+          'kind': 'kursunterlage',
         },
         {
           'title': 'Automatische Stressreaktion',
           'appwrite_id': '697d0fad0011caa23f03',
+          'kind': 'arbeitsblatt',
         },
       ],
       'wochenAufgaben': [
@@ -276,8 +347,23 @@ class AppDaten {
         'Wenn du magst, halte kurz fest, wann dir Stressreaktionen auffallen — im Körper, in Gedanken oder im Verhalten.',
       ],
       'readingSummary': '',
-      'archiveEligible': false,
-      'readingCards': <Map<String, String>>[],
+      'archiveEligible': true,
+      'readingCards': [
+        {
+          'id': 'w4-stresszeitskalen',
+          'title': 'Stress ist nicht gleich Stress',
+          'body':
+              'Stressforscher unterscheiden Zeiträume: Sekunden oder Minuten (akuter Stress), belastende Ereignisse, alltägliche kleine Reibungen und dauerhafte Belastung über Wochen oder Jahre. Der Körper reagiert darauf unterschiedlich: Kurz und klar kann Stress mobilisieren; dauerhaft belastet er Nervensystem, Stimmung und Gesundheit.\n\n'
+              'Für die Praxis heißt das: Manchmal brauchst du eine schnelle Regulation, manchmal eine tägliche Routine, manchmal soziale oder strukturelle Unterstützung. Ein Werkzeug ersetzt nicht das andere.',
+        },
+        {
+          'id': 'w4-stress-gedaechtnis',
+          'title': 'Stress und Lernen — ein feiner Unterschied',
+          'body':
+              'Überblicksarbeiten beschreiben: Leichter Stress kann kurzfristig Wachheit und Fokus unterstützen. Länger anhaltender, hoher Stress hingegen kann das Lernen und Erinnern erschweren — während emotional geprägte Erfahrungen intensiver wahrgenommen werden können.\n\n'
+              'Praktisch: In sehr stressigen Phasen ist weniger „Theorie im Kopf“ und mehr spürende Übung oft hilfreicher. Genau dafür gibt es Atem, Body-Scan und Bewegung.',
+        },
+      ],
     },
     {
       'n': '5',
@@ -310,11 +396,13 @@ class AppDaten {
         {
           'title': 'Kursunterlagen Woche 5',
           'appwrite_id': '696bfd450038aba59bcf',
+          'kind': 'kursunterlage',
         },
         {
           'title':
               'Kalender der schwierigen Kommunikation (Vorbereitung für Woche 6)',
           'appwrite_id': '697d0f9a0021e3f24219',
+          'kind': 'arbeitsblatt',
         },
       ],
       'wochenAufgaben': [
@@ -322,9 +410,24 @@ class AppDaten {
         'Beobachte in stressigen Momenten, welche Gedanken auftauchen — und was passiert, wenn du sie einfach wahrnimmst.',
         'Der Kalender der schwierigen Kommunikation liegt in den Kursunterlagen — er ist eine Vorbereitung auf das Thema der nächsten Woche.',
       ],
-      'readingCards': <Map<String, String>>[],
       'readingSummary': '',
-      'archiveEligible': false,
+      'archiveEligible': true,
+      'readingCards': [
+        {
+          'id': 'w5-tun-sein',
+          'title': 'Vom Tun zum Sein — ohne Kampf gegen Gedanken',
+          'body':
+              'In offeneren Übungsformen geht es nicht darum, Gedanken zu stoppen. Wenn du merkst, dass du planst oder grübelst, reicht oft: freundlich bemerken — „Ah, der Geist ist beim Planen“ — und die Haltung weiterführen. Das Gehirn produziert Gedanken; sie alle unterdrücken zu wollen, macht die Praxis oft härter als nötig.\n\n'
+              'So wird der Raum zwischen Reiz und Reaktion erfahrbar: nicht als Leistung, sondern als kleine Pause vor der nächsten Entscheidung.',
+        },
+        {
+          'id': 'w5-gefuehle-beobachten',
+          'title': 'Gefühle ansehen, bis sie sich leicht verschieben',
+          'body':
+              'Ein einfacher Impuls bei unangenehmen Gefühlen: weder wegdrücken noch dramatisieren, sondern neugierig bleiben. Manchmal verändert sich die Qualität ein wenig, wenn du wirklich da bleibst — ohne Bewertung, ohne Eile.\n\n'
+              'Das ist keine Anweisung, alles allein auszuhalten. Wenn etwas zu viel wird, ist Pause, Bewegung oder Hilfe der richtige Weg.',
+        },
+      ],
     },
     {
       'n': '6',
@@ -358,6 +461,7 @@ class AppDaten {
         {
           'title': 'Kursunterlagen Woche 6',
           'appwrite_id': '696bfd4f0037e7e16a9f',
+          'kind': 'kursunterlage',
         },
       ],
       'wochenAufgaben': [
@@ -365,9 +469,31 @@ class AppDaten {
         'Beobachte in einem Gespräch pro Tag, wie du zuhörst und was dabei in dir passiert.',
         'Nimm dir zwischendurch einen Moment, um bewusst wahrzunehmen, was deine Sinne gerade aufnehmen.',
       ],
-      'readingCards': <Map<String, String>>[],
       'readingSummary': '',
-      'archiveEligible': false,
+      'archiveEligible': true,
+      'readingCards': [
+        {
+          'id': 'w6-mitgefuehl',
+          'title': 'Mitgefühl und Verhalten',
+          'body':
+              'In Studien zu kurzen Mitgefühls- oder Compassion-Trainings fanden Forschende Veränderungen: stärkere Beteiligung in Situationen, in denen andere leiden, und häufig auch großzügigeres Verhalten in Übungsszenarien. Das sind Labor- und Gruppenbefunde — kein Automatismus im Alltag.\n\n'
+              'Sie zeigen aber: Die „weichen“ Übungen haben eine nachvollziehbare Wirkung auf Innenwelt und Handeln — nicht nur auf den Fragebogen.',
+        },
+        {
+          'id': 'w6-flourishing',
+          'title': 'Wenn du aufblühst, wirkt das weiter',
+          'body':
+              'Aus dem Umfeld der Stress- und Achtsamkeitsforschung wird berichtet, dass die eigene innere Stabilität das soziale Umfeld spürbar beeinflussen kann — etwa wenn Lehrende regelmäßig kurz üben und anschließend ruhiger und klarer im Alltag agieren. Einzelne große Studien dazu sind noch selten öffentlich und sollten mit Zurückhaltung zitiert werden.\n\n'
+              'Unabhängig davon ist erlebbar: Wenn du weniger im Autopiloten reagierst, verändert sich oft der Ton im Kontakt — ohne dass du andere „reparieren“ musst.',
+        },
+        {
+          'id': 'w6-prosozial-luberto',
+          'title': 'Prosoziales Verhalten messbar verändert?',
+          'body':
+              'Eine Meta-Analyse zu Meditation und prosozialem Verhalten fand über viele Studien hinweg kleine bis mittlere Effekte — sowohl in Fragebögen als auch in beobachtbaren Verhaltensmaßen (zum Beispiel Stuhl weitergeben, Spenden). Die stärksten Hinweise gibt es, wenn die Praxis ausdrücklich Mitgefühl oder liebevolle Güte trainiert — nicht bei jeder reinen Achtsamkeitsübung.\n\n'
+              'Das passt zu dieser Woche: Kommunikation lebt auch von innerer Haltung.',
+        },
+      ],
     },
     {
       'n': '7',
@@ -400,6 +526,7 @@ class AppDaten {
         {
           'title': 'Kursunterlagen Woche 7',
           'appwrite_id': '696bfd57000f4bb29d10',
+          'kind': 'kursunterlage',
         },
       ],
       'wochenAufgaben': [
@@ -407,9 +534,24 @@ class AppDaten {
         'Schau auf deine Woche: Was nährt dich, was zehrt an dir? Wo könntest du etwas Kleines verändern?',
         'Beobachte im Alltag, wann du wahrnimmst und wann du bereits interpretierst.',
       ],
-      'readingCards': <Map<String, String>>[],
       'readingSummary': '',
-      'archiveEligible': false,
+      'archiveEligible': true,
+      'readingCards': [
+        {
+          'id': 'w7-freundlichkeit',
+          'title': 'Freundlichkeit braucht Übung — wie Sprache',
+          'body':
+              'Qualitäten wie Güte oder Mitgefühl sind keine Luxus-Extras, die nur „spirituellen“ Menschen vorbehalten sind. Sie entwickeln sich in Beziehung und Übung — ähnlich wie Sprache: angeboren in der Anlage, aber ohne lebendigen Austausch verkümmert sie.\n\n'
+              'Selbstfürsorge meint hier: diese Anlagen bewusst nähren, statt sie nur zu beanspruchen.',
+        },
+        {
+          'id': 'w7-digitale-hygiene',
+          'title': 'Achtsamkeit mit dem Smartphone',
+          'body':
+              'Viele Menschen greifen täglich sehr oft zum Handy — oft unbewusst. Digitale Hygiene heißt nicht „alles weg“, sondern bewusste Grenzen: etwa handy-freie Zonen, feste Zeiten offline oder das Gerät sichtbar liegen lassen und trotzdem nicht greifen — als kleine Willensübung.\n\n'
+              'Einzelne spektakuläre Studien zum „Handy auf dem Tisch“ haben nicht überall Bestand; das allgemeine Phänomen Ablenkung ist trotzdem alltagstauglich. Gesundheitsbehörden weisen etwa auf Schutzfaktoren und Risiken bei sozialen Medien hin — besonders für junge Menschen.',
+        },
+      ],
     },
     {
       'n': '8',
@@ -443,6 +585,7 @@ class AppDaten {
         {
           'title': 'Kursunterlagen Woche 8',
           'appwrite_id': '696bfd5f002394219efb',
+          'kind': 'kursunterlage',
         },
       ],
       'wochenAufgaben': [
@@ -451,9 +594,24 @@ class AppDaten {
         'Erstelle dir einen persönlichen Praxisplan — wann, welche Übung, wie lange. Auch eine Ausweichoption für stressige Wochen ist hilfreich.',
         'Wenn du magst, nimm dir täglich einen Moment für Dankbarkeit — für etwas Konkretes, das dir an diesem Tag begegnet ist.',
       ],
-      'readingCards': <Map<String, String>>[],
       'readingSummary': '',
-      'archiveEligible': false,
+      'archiveEligible': true,
+      'readingCards': [
+        {
+          'id': 'w8-vier-saeulen',
+          'title': 'Vier Säulen des Wohlergehens',
+          'body':
+              'Ein Rahmen aus der Forschung zu Meditation und Wohlbefinden ordnet Praxis in vier Bereiche: Gewahrsein und Aufmerksamkeit, Verbindung und Wertschätzung, Einblick in innere Geschichten, und Sinn im Alltag. Nicht jede Übung muss in eine Schublade passen — aber beim Rückblick kannst du fragen: Wo habe ich Achtsamkeit geübt? Wo Verbindung? Wo Klarheit über Erzählungen? Wo etwas Sinnvolles im Kleinen?\n\n'
+              'So wird sichtbar, wie breit der Kurs dich begleitet hat.',
+        },
+        {
+          'id': 'w8-konsistenz',
+          'title': 'Dranbleiben schlägt Perfektion',
+          'body':
+              'Erfahrene Übende betonen selten die längste Session — sondern dass sie überhaupt wiederkommen. Ein paar Minuten heute und morgen nützen mehr als der Plan, „bald einmal eine Stunde“. Nach dem Kurs gilt: Dein Rhythmus darf sich an dein Leben anpassen; Strenge ist selten der beste Motivator.\n\n'
+              'Die Mediathek und dein persönlicher Plan bleiben deine Verbündeten.',
+        },
+      ],
     },
   ];
 
@@ -467,9 +625,31 @@ class AppDaten {
       {
         'title': 'Ablaufplan Praxistag (folgt)',
         'appwrite_id': '696c0000000000000008', // Wird nach Upload ersetzt
+        'kind': 'kursunterlage',
       },
     ],
   };
+
+  /// PDF-Kategorie: Sammelmappe / Wochen-PDF.
+  static const String pdfKindKursunterlage = 'kursunterlage';
+
+  /// PDF-Kategorie: einzelnes Übungs- oder Arbeitsblatt (max. eines pro Woche).
+  static const String pdfKindArbeitsblatt = 'arbeitsblatt';
+
+  /// Normalisiert Roh-Einträge aus [wochenDaten] zu einheitlichen String-Maps.
+  static List<Map<String, String>> pdfMapsFromRaw(List<dynamic>? raw) {
+    if (raw == null) return [];
+    return raw
+        .whereType<Map>()
+        .map((m) => m.map((k, v) => MapEntry('$k', '${v ?? ''}')))
+        .toList();
+  }
+
+  static String pdfKindOf(Map<String, String> pdf) {
+    final k = pdf['kind']?.trim();
+    if (k == pdfKindArbeitsblatt) return pdfKindArbeitsblatt;
+    return pdfKindKursunterlage;
+  }
 
   /// Gibt alle Audios aus der zentralen Mediathek zurück
   static List<Map<String, String>> getAlleAudios() {

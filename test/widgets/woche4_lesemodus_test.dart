@@ -4,37 +4,19 @@ import 'package:mbsr_app/app_daten.dart';
 import 'package:mbsr_app/text_archiv_seite.dart';
 import 'package:mbsr_app/widgets/weekly_reading_section.dart';
 
-List<Map<String, String>> _extractReadingCards(Map<String, dynamic> weekData) {
-  final raw = weekData['readingCards'];
-  if (raw is! List) {
-    return const [];
-  }
-
-  return raw
-      .whereType<Map>()
-      .map((item) => Map<String, String>.from(item.cast<String, String>()))
-      .toList();
-}
-
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   group('Lesetexte & Textarchiv', () {
-    testWidgets('leere readingCards: keine LESEN-Sektion (Woche 4)', (
-      tester,
-    ) async {
-      final week4 = AppDaten.wochenDaten.firstWhere((week) => week['n'] == '4');
-      final readingCards = _extractReadingCards(week4);
-      expect(readingCards, isEmpty);
-
+    testWidgets('leere readingCards: keine LESEN-Sektion', (tester) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
             body: SingleChildScrollView(
               child: WeeklyReadingSection(
-                readingCards: readingCards,
-                readingSummary: week4['readingSummary'] as String?,
-                archiveEligible: week4['archiveEligible'] == true,
+                readingCards: const [],
+                readingSummary: null,
+                archiveEligible: false,
                 readabilityPilot: true,
                 showIntroSummary: false,
                 showSourceRef: false,
@@ -139,7 +121,7 @@ void main() {
       expect(find.text('Woche 4: Stress in Körper und Geist'), findsOneWidget);
     });
 
-    testWidgets('Textarchiv: alle Wochen ohne freigeschaltete Lesetexte', (
+    testWidgets('Textarchiv: alle Wochen mit Lesetexten (Archiv freigeschaltet)', (
       tester,
     ) async {
       await tester.pumpWidget(
@@ -155,9 +137,9 @@ void main() {
 
       expect(find.text('Textarchiv'), findsOneWidget);
       expect(find.text('Woche 4: Stress in Körper und Geist'), findsOneWidget);
-      expect(find.text('Texte verfügbar'), findsNothing);
-      expect(find.text('Texte folgen'), findsNWidgets(8));
-      expect(find.text('folgt'), findsNWidgets(8));
+      expect(find.text('Texte verfügbar'), findsNWidgets(8));
+      expect(find.text('Texte folgen'), findsNothing);
+      expect(find.text('folgt'), findsNothing);
       expect(find.text('Woche 1: Achtsamkeit'), findsOneWidget);
       await tester.scrollUntilVisible(
         find.text('Woche 8: Abschied und Neubeginn'),

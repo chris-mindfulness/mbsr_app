@@ -1065,7 +1065,7 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
                               padding: const EdgeInsets.only(bottom: 16),
                               child: _buildSectionHeader("UNTERLAGEN"),
                             ),
-                            ...widget.pdfs.map((pdf) => _buildPdfCard(pdf)),
+                            ..._buildUnterlagenPdfWidgets(),
                             const SizedBox(height: 40),
                           ],
                         ],
@@ -1137,7 +1137,7 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
           wochenNummer: "Woche ${nextWeekData['n']}",
           titel: nextWeekData['t'],
           audios: const [],
-          pdfs: List<Map<String, String>>.from(nextWeekData['pdfs']),
+          pdfs: AppDaten.pdfMapsFromRaw(nextWeekData['pdfs'] as List<dynamic>?),
           wochenAufgaben: List<String>.from(
             nextWeekData['wochenAufgaben'] ?? [],
           ),
@@ -1769,6 +1769,40 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
     return SectionHeaderLabel(title: title);
   }
 
+  List<Widget> _buildUnterlagenPdfWidgets() {
+    final kurs = widget.pdfs
+        .where(
+          (p) => AppDaten.pdfKindOf(p) == AppDaten.pdfKindKursunterlage,
+        )
+        .toList();
+    final arbeitsblatt = widget.pdfs
+        .where(
+          (p) => AppDaten.pdfKindOf(p) == AppDaten.pdfKindArbeitsblatt,
+        )
+        .toList();
+    final out = <Widget>[];
+    if (kurs.isNotEmpty) {
+      out.add(
+        Padding(
+          padding: const EdgeInsets.only(bottom: 8),
+          child: _buildSectionHeader("KURSUNTERLAGEN"),
+        ),
+      );
+      out.addAll(kurs.map((pdf) => _buildPdfCard(pdf)));
+    }
+    if (arbeitsblatt.isNotEmpty) {
+      out.add(AppStyles.spacingMBox);
+      out.add(
+        Padding(
+          padding: const EdgeInsets.only(bottom: 8),
+          child: _buildSectionHeader("ARBEITSBLATT"),
+        ),
+      );
+      out.addAll(arbeitsblatt.map((pdf) => _buildPdfCard(pdf)));
+    }
+    return out;
+  }
+
   void _openTextArchiv() {
     Navigator.of(context).push(
       MaterialPageRoute(
@@ -1813,14 +1847,19 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
     final title = pdf['title'] ?? 'PDF';
     final url =
         '${AppConfig.appwriteEndpoint}/storage/buckets/${AppConfig.pdfsBucketId}/files/$appwriteId/view?project=${AppConfig.appwriteProjectId}';
+    final isArbeitsblatt =
+        AppDaten.pdfKindOf(pdf) == AppDaten.pdfKindArbeitsblatt;
 
     return PdfLinkCard(
       title: title,
       onTap: () => launchUrl(Uri.parse(url)),
       isPending: false,
       showPendingSubtitle: false,
-      leadingIcon: Icons.description_outlined,
-      leadingColor: AppStyles.softBrown,
+      leadingIcon: isArbeitsblatt
+          ? Icons.edit_note_outlined
+          : Icons.description_outlined,
+      leadingColor:
+          isArbeitsblatt ? AppStyles.primaryOrange : AppStyles.softBrown,
       readyTrailingIcon: Icons.open_in_new,
       pendingTrailingIcon: Icons.schedule,
       layout: PdfCardLayout.row,

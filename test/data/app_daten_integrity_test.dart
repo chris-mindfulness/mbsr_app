@@ -65,13 +65,32 @@ void main() {
           );
         }
 
+        var arbeitsblattCount = 0;
         for (final pdf in pdfs!) {
           final pdfMap = pdf as Map<String, dynamic>;
           final title = pdfMap['title'] as String?;
           final appwriteId = pdfMap['appwrite_id'] as String?;
+          final kind = (pdfMap['kind'] as String?)?.trim();
           expect(title?.trim(), isNotEmpty);
           expect(appwriteId?.trim(), isNotEmpty);
+          if (kind != null && kind.isNotEmpty) {
+            expect(
+              kind == AppDaten.pdfKindKursunterlage ||
+                  kind == AppDaten.pdfKindArbeitsblatt,
+              isTrue,
+              reason: 'Unbekanntes PDF-kind: $kind',
+            );
+          }
+          if (kind == AppDaten.pdfKindArbeitsblatt) {
+            arbeitsblattCount++;
+          }
         }
+        expect(
+          arbeitsblattCount,
+          lessThanOrEqualTo(1),
+          reason:
+              'Pro Woche höchstens ein Arbeitsblatt (kind: ${AppDaten.pdfKindArbeitsblatt})',
+        );
 
         if (readingCards != null && readingCards.isNotEmpty) {
           for (final card in readingCards) {
@@ -100,6 +119,14 @@ void main() {
         final pdfMap = pdf as Map<String, dynamic>;
         expect((pdfMap['title'] as String?)?.trim(), isNotEmpty);
         expect((pdfMap['appwrite_id'] as String?)?.trim(), isNotEmpty);
+        final kind = (pdfMap['kind'] as String?)?.trim();
+        if (kind != null && kind.isNotEmpty) {
+          expect(
+            kind == AppDaten.pdfKindKursunterlage ||
+                kind == AppDaten.pdfKindArbeitsblatt,
+            isTrue,
+          );
+        }
       }
     });
   });

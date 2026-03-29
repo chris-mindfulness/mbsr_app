@@ -102,7 +102,7 @@ class TextArchivSeite extends StatelessWidget {
                           AppStyles.spacingMHorizontal,
                           Expanded(
                             child: Text(
-                              "Hier findest du die Lesetexte der Kurswochen, sobald sie freigeschaltet sind. Aktuell liegen die Inhalte in den PDFs der jeweiligen Woche und in der Mediathek.",
+                              "Hier findest du die Lesetexte der Kurswochen, sobald sie freigeschaltet sind. PDFs der Wochenmappe und Arbeitsblätter findest du gebündelt unter Profil → Downloads; die Mediathek enthält die Audioanleitungen.",
                               style: AppStyles.bodyStyle.copyWith(
                                 color: AppStyles.textDark,
                               ),

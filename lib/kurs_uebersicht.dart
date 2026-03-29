@@ -363,7 +363,7 @@ class _KursUebersichtState extends State<KursUebersicht> {
           wochenNummer: "Woche ${woche['n']}",
           titel: woche['t'],
           audios: const [],
-          pdfs: List<Map<String, String>>.from(woche['pdfs']),
+          pdfs: AppDaten.pdfMapsFromRaw(woche['pdfs'] as List<dynamic>?),
           wochenAufgaben: List<String>.from(woche['wochenAufgaben'] ?? []),
           fokus: woche['fokus'],
           zitat: woche['zitat'],
