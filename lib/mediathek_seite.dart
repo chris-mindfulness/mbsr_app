@@ -141,7 +141,10 @@ class _MediathekSeiteState extends State<MediathekSeite> {
                 icon: Icons.waves,
                 title: "Physiologischer Seufzer",
                 description:
-                    "Zwei kurze Einatmungen durch die Nase, dann lang und weich durch den Mund ausatmen – wie ein Seufzer. Ein- bis dreimal in deinem Tempo.",
+                    "1) Einmal durch die Nase einatmen.\n"
+                    "2) Ohne auszuatmen: gleich noch einen kurzen zweiten Zug durch die Nase – die Lunge wird noch ein bisschen voller.\n"
+                    "3) Dann langsam und weich durch den Mund ausatmen, wie ein erleichterter Seufzer.\n"
+                    "Wichtig: Zwischen Schritt 1 und 2 keine Pause zum Ausatmen. Das Ganze ein- bis dreimal, in deinem Tempo.",
                 onTap: null, // Nur Info
               ),
               const SizedBox(height: 16),

@@ -235,7 +235,9 @@ Arbeitsvorlagen für ElevenLabs-Clips (ca. 60–90 s).
 
 [thoughtful] Wenn du merkst, dass du stark angespannt bist oder schnell atmest, gibt es ein einfaches Werkzeug, das du überall einsetzen kannst: den physiologischen Seufzer.
 
-[thoughtful] Atme einmal kurz durch die Nase ein. Gleich noch einen zweiten, kleinen Nachzug durch die Nase. Dann atme lang und weich durch den Mund aus – wie ein Seufzer.
+[thoughtful] So geht es in einfachen Schritten: Atme einmal durch die Nase ein. Wichtig: Atme jetzt nicht aus. Stattdessen: noch einen kurzen zweiten Zug durch die Nase – als würdest du die Lunge noch ein Stück auffüllen. Erst danach öffnest du den Mund leicht und atmest lang und weich aus – wie ein Seufzer.
+
+[thoughtful] Kurz gesagt: zweimal hintereinander ein durch die Nase, ohne dazwischen auszuatmen – dann der lange Ausatem durch den Mund.
 
 [slows down] Die doppelte Einatmung bläht kollabierte Lungenbläschen auf. Die lange Ausatmung aktiviert den Parasympathikus. Das Ergebnis: mehr CO₂-Ausstoß, niedrigere Herzfrequenz.
 
@@ -265,7 +267,7 @@ Arbeitsvorlagen für ElevenLabs-Clips (ca. 60–90 s).
 
 *Einbau nach anstrengender Phase. Exzerpt-Ref: Hub-Solo. Prio B (SA).*
 
-> Wenn du in den letzten Minuten sehr angespannt warst – zwei kurze Einatmungen durch die Nase, dann lang und weich durch den Mund ausatmen. Wie ein Seufzer. Wenn du magst, ein- bis zweimal wiederholen. Dann zurück zu dem, was wir gerade üben.
+> Wenn du in den letzten Minuten sehr angespannt warst: einmal durch die Nase einatmen, ohne auszuatmen noch einen kurzen zweiten Zug durch die Nase, dann lang und weich durch den Mund ausatmen – wie ein Seufzer. Wenn du magst, ein- bis zweimal wiederholen. Dann zurück zu dem, was wir gerade üben.
 
 ### 5.2 Open Monitoring / Reiz–Reaktion (Woche 5)
 

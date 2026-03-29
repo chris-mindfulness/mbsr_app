@@ -149,7 +149,7 @@ class GlossarFaqSeite extends StatelessWidget {
       {
         'term': 'Physiologischer Seufzer',
         'def':
-            'Atemtechnik zur schnellen Stressregulation: doppelte kurze Einatmung durch die Nase, dann lange Ausatmung durch den Mund. Aktiviert den Parasympathikus und senkt die Herzfrequenz.',
+            'Kurze Atemübung bei Stress: Zuerst durch die Nase einatmen. Ohne zwischendurch auszuatmen noch einen zweiten, kleinen Zug durch die Nase nachlegen (die Lunge wird noch etwas voller). Erst danach lang und weich durch den Mund ausatmen – wie ein Seufzer. Nicht verwechseln mit „einatmen, ausatmen, nochmal einatmen“: Die beiden Einatmungen folgen direkt hintereinander. Hilft vielen Menschen, schneller zur Ruhe zu kommen.',
       },
       {
         'term': 'States und Traits',

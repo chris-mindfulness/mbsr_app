@@ -54,7 +54,10 @@ class SosItemCard extends StatelessWidget {
                   const SizedBox(height: 4),
                   Text(
                     description,
-                    style: AppStyles.bodyStyle.copyWith(fontSize: 13),
+                    style: AppStyles.bodyStyle.copyWith(
+                      fontSize: 13,
+                      height: 1.45,
+                    ),
                   ),
                 ],
               ),
