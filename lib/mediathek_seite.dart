@@ -138,6 +138,14 @@ class _MediathekSeiteState extends State<MediathekSeite> {
               ),
               const SizedBox(height: 16),
               _buildSOSItem(
+                icon: Icons.waves,
+                title: "Physiologischer Seufzer",
+                description:
+                    "Zwei kurze Einatmungen durch die Nase, dann lang und weich durch den Mund ausatmen – wie ein Seufzer. Ein- bis dreimal in deinem Tempo.",
+                onTap: null, // Nur Info
+              ),
+              const SizedBox(height: 16),
+              _buildSOSItem(
                 icon: Icons.accessibility_new,
                 title: "Körper spüren",
                 description:

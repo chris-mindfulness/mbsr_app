@@ -219,6 +219,13 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
               ),
               const SizedBox(height: 16),
               _buildNotfallItem(
+                icon: Icons.waves,
+                title: "Physiologischer Seufzer",
+                description:
+                    "Zwei kurze Einatmungen durch die Nase, dann lang und weich durch den Mund ausatmen – wie ein Seufzer. Ein- bis dreimal in deinem Tempo.",
+              ),
+              const SizedBox(height: 16),
+              _buildNotfallItem(
                 icon: Icons.accessibility_new,
                 title: "Körper orientieren",
                 description:
