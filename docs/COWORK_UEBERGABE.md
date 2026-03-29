@@ -1,6 +1,6 @@
 # Übergabe Cowork → Cursor
 
-Stand: 2026-03-29
+Stand: 2026-03-29 (inkl. Tages-Update: Glossar, FAQ, Notfall-Koffer, Texte)
 
 ## Kontext
 
@@ -12,7 +12,13 @@ In Cowork wurden evidenzbasierte Inhalte für die MindfulPractice-App aufbereite
 `lib/audio/bell_service.dart` ist fertig implementiert (Singleton, just_audio, einmalig/verzögert/Intervall). Fehlt: Einbindung im Player-Widget als Start-/End-Glocke und eine Nutzer-Einstellung (Glocke an/aus).
 
 ### readingCards befüllen
-`lib/app_daten.dart`: **Runde A und B** der Zuordnungstabelle sind komplett eingepflegt (alle 8 Wochen, jeweils `archiveEligible: true`, insgesamt 27 Karten). `source_ref` entfernt — Quellen nur noch in Vertiefung / Literatur. Redaktion und Feinschliff können weiter in den Texten erfolgen.
+`lib/app_daten.dart`: **Runde A und B** der Zuordnungstabelle sind komplett eingepflegt (alle 8 Wochen, jeweils `archiveEligible: true`, insgesamt **28** Karten inkl. `w5-stickiness`). `source_ref` entfernt — Quellen nur noch in Vertiefung / Literatur. Redaktion und Feinschliff können weiter in den Texten erfolgen.
+
+### Weitere umgesetzte Punkte (nach Cowork-Stand)
+- UI-Label **PSYCHOEDUKATION** statt „Lesen“ (`WeeklyReadingSection`).
+- **Glossar & Häufige Fragen** (`lib/glossar_faq_seite.dart`): u. a. Decentering, FA/OM, Seufzer, States/Traits, Stickiness; FAQ z. B. Schlaf vs. Meditation, Smartphone.
+- **Notfall-Koffer** (Wochenansicht + Mediathek): Physiologischer Seufzer mit Schritt-für-Schritt-Text (zwei Nasen-Einatmungen ohne Pause dazwischen, dann Mund-Ausatem).
+- Arbeitskopie aller Karten-Texte: `docs/SKRIPTE_PSYCHOEDUKATION_Entwuerfe.md`.
 
 ### Psychoedukations-Skripte (Entwürfe)
 Kurze Clip-Skripte und Snippets für Meditationsanreicherung: `docs/SKRIPTE_PSYCHOEDUKATION_Entwuerfe.md`. Technische Zuordnung: `docs/MAPPING_TOP10_PSYCHOEDUKATION_APP.md`.
@@ -27,7 +33,7 @@ Kurze Clip-Skripte und Snippets für Meditationsanreicherung: `docs/SKRIPTE_PSYC
 7. Konfigurierbare Übungserinnerungen (Opt-in, nicht aufdringlich)
 8. Reflexions-Kurzjournal nach Übungen (optional, lokal gespeichert)
 9. BellService als Session-Rahmen (siehe oben)
-10. Evidenz-Transparenz: Quellenangabe unter readingCards ("Basiert auf: Autor, Jahr")
+10. Evidenz-Transparenz unter readingCards — **bewusst nicht** umgesetzt (`source_ref` entfernt; Quellen in Vertiefung / Literatur)
 
 ### Bewusst weggelassen
 Social Features, Streaks, Badges, Community – die soziale Einbettung passiert im Präsenzkurs.

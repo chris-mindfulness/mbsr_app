@@ -1,7 +1,7 @@
 # Mapping: Psychoedukation → App-Oberflächen
 
 **Bezug:** `Hahn_2026_Zuordnungstabelle_Huberman.md` (Runde A/B-Items) + `COWORK_UEBERGABE.md`
-**Stand:** 2026-03-29 — Runde A + B readingCards komplett in `app_daten.dart`.
+**Stand:** 2026-03-29 — **28** readingCards in `app_daten.dart` (Runde A + B, inkl. `w5-stickiness`). UI-Abschnitt **PSYCHOEDUKATION**. Stickiness als readingCard statt Audio-Clip.
 
 ---
 
@@ -11,9 +11,11 @@
 |--------|-----|-----------|
 | 1 | Tab **Kurs** (Start nach Login) | `KursUebersicht` (`lib/kurs_uebersicht.dart`), Route `/home` |
 | 2 | Wochenkarte antippen | `Navigator` pusht `WochenDetailSeite` |
-| 3 | Längere Texte | Abschnitt **LESEN** → `WeeklyReadingSection` (`lib/widgets/weekly_reading_section.dart`) |
+| 3 | Längere Texte | Abschnitt **PSYCHOEDUKATION** → `WeeklyReadingSection` (`lib/widgets/weekly_reading_section.dart`) |
 | 4 | Kurz-Audio „Zum Thema dieser Woche" | `AvatarAudioClip` in `WochenDetailSeite` (nach **Fokus**, vor Zitat) |
 | 5 | Alle Wochentexte | **Vertiefung** → Textarchiv (`TextArchivSeite`, `lib/text_archiv_seite.dart`) – dieselben `readingCards` |
+| 6 | Begriffe & FAQ | **Vertiefung** → Wissen & Hilfe (`GlossarFaqSeite`, `lib/glossar_faq_seite.dart`) |
+| 7 | Akut-Hilfe (Text) | **Notfall-Koffer** in `WochenDetailSeite` und `MediathekSeite` (u. a. Seufzer, Ankommen) |
 
 **Single Source of Truth:** `AppDaten.wochenDaten` in `lib/app_daten.dart`.
 **Index:** `wochenDaten[0]` = Woche **1**, …, `wochenDaten[7]` = Woche **8**.

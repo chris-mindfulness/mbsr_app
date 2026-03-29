@@ -3,7 +3,7 @@
 **Zweck:** Arbeitskopie aller Psychoedukations-Inhalte. Textänderungen hier vornehmen, dann in `lib/app_daten.dart` übertragen.
 **Mapping:** Siehe `MAPPING_TOP10_PSYCHOEDUKATION_APP.md` für technische Zuordnung.
 **Stilvorlage:** `avatar/audios_anleitungen/Hahn_2026_Stilrichtlinien.md`
-**Stand:** 2026-03-29 — alle 28 readingCards (Runde A + B) gespiegelt.
+**Stand:** 2026-03-29 — alle 28 readingCards (Runde A + B) gespiegelt. Physiologischer Seufzer: Schritt-für-Schritt-Formulierung (zwei Nasen-Einatmungen ohne Ausatem dazwischen) in Teil 2, Snippet 5.1 und abgestimmt mit Notfall-Koffer + Glossar.
 
 **UI-Label in der App:** Abschnitt heißt **PSYCHOEDUKATION** (in `WeeklyReadingSection`).
 
