@@ -3,7 +3,7 @@
 **Zweck:** Arbeitskopie aller Psychoedukations-Inhalte. Textänderungen hier vornehmen, dann in `lib/app_daten.dart` übertragen.
 **Mapping:** Siehe `MAPPING_TOP10_PSYCHOEDUKATION_APP.md` für technische Zuordnung.
 **Stilvorlage:** `avatar/audios_anleitungen/Hahn_2026_Stilrichtlinien.md`
-**Stand:** 2026-03-29 — alle 27 readingCards (Runde A + B) gespiegelt.
+**Stand:** 2026-03-29 — alle 28 readingCards (Runde A + B) gespiegelt.
 
 **UI-Label in der App:** Abschnitt heißt **PSYCHOEDUKATION** (in `WeeklyReadingSection`).
 
@@ -127,6 +127,12 @@ In der Forschung taucht ein Begriff auf, der gut beschreibt, was in der Praxis p
 
 Studien zeigen, dass dieser Perspektivwechsel ein Schlüsselmechanismus sein kann, über den Achtsamkeitsprogramme wirken — etwa bei der Vorbeugung von Rückfällen in Depression.
 
+### w5-stickiness: Emotionale Klebrigkeit — wenn alte Erfahrungen mitreagieren
+
+Manchmal reagierst du stärker, als die Situation eigentlich verlangt. Ein kleiner Kommentar trifft dich wie ein großer Vorwurf. Davidson nennt das „Stickiness" — emotionale Klebrigkeit. Erfahrungen aus früheren Situationen kleben an dem, was gerade passiert, und trüben die Wahrnehmung.
+
+Achtsamkeit trainiert nicht, dass nichts mehr weh tut. Sie verändert, wie schnell du es bemerkst: Ah, da klebt etwas, das nicht hierhin gehört. Jede Übung, in der du das übst, reduziert die Klebrigkeit — nicht sofort, aber messbar über die Zeit.
+
 ### w5-stimulus-response: Kurz raus aus Reiz und Reaktion
 
 Jeden Tag kurz aus dem Kreislauf von Anforderung und Antwort heraustreten — nicht weil die aktive Welt schlecht ist, sondern weil du dich nur so selbst kennenlernen kannst. Wer regelmässig innehält, reagiert danach oft klarer und weniger automatisch.
@@ -249,15 +255,7 @@ Arbeitsvorlagen für ElevenLabs-Clips (ca. 60–90 s).
 
 [thoughtful] Deshalb zählt Regelmäßigkeit mehr als Dauer. Ein kurzer, ehrlicher Moment heute ist wirksamer als der Plan, morgen lang zu üben.
 
-## 4. Woche 5 — Stickiness
-
-*Kanal: `infoClips.psychoedukation` oder RC Woche 5 | Exzerpt-Ref: 3.2 | Prio B*
-
-[thoughtful] Manchmal reagierst du stärker, als die Situation eigentlich verlangt. Ein kleiner Kommentar trifft dich wie ein großer Vorwurf. Davidson nennt das „Stickiness" – emotionale Klebrigkeit. Erfahrungen aus früheren Situationen kleben an dem, was gerade passiert, und trüben die Wahrnehmung.
-
-[thoughtful] Achtsamkeit trainiert nicht, dass nichts mehr weh tut. Sie verändert, wie schnell du es bemerkst: *Ah, da klebt etwas, das nicht hierhin gehört.*
-
-[thoughtful] Das Ziel ist nicht, Gefühle wegzudrücken, sondern sie klarer zu sehen. Jede Übung, in der du das übst, reduziert die Klebrigkeit – nicht sofort, aber messbar über die Zeit.
+*(Stickiness ist jetzt readingCard `w5-stickiness` — siehe Teil 1, Woche 5.)*
 
 ---
 

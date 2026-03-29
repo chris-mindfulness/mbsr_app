@@ -100,7 +100,7 @@ Direkt abgeleitet aus Zuordnungstabelle (Prio A). Das sind die Items, die zuerst
 | 3 | RC | 4.3 | Wertschätzung beim Essen | `w3-essen` | **done** |
 | 4 | RC | 3.3 | Meditation als Grundversorgung | `w4-grundversorgung` | **done** |
 | 4 | SA | Hub-Solo | Panorama-Vision in Sitzmeditation | — | offen (SA) |
-| 5 | AC | 3.2 | Stickiness (Clip) | — | offen (Audio) |
+| 5 | RC | 3.2 | Stickiness (Emotionale Klebrigkeit) | `w5-stickiness` | **done** |
 | 5 | RC | 1.15 | Decentering (Creswell) | `w5-decentering` | **done** |
 | 5 | RC | 3.10 | Raus aus Stimulus und Response | `w5-stimulus-response` | **done** |
 | 6 | SA | 4.5 | Metta-Abgleich mit Davidson-Protokoll | — | offen (SA) |
@@ -122,7 +122,7 @@ Skripte in `docs/SKRIPTE_PSYCHOEDUKATION_Entwuerfe.md` decken folgende Slots ab:
 | 1. Laktat des Geistes | W1 `infoClips.psychoedukation` | A | Entwurf |
 | 2. Physiologischer Seufzer | W4 `infoClips.psychoedukation` | A | Entwurf |
 | 3. States → Traits | W2 `infoClips.psychoedukation` | B | Entwurf |
-| 4. Stickiness | W5 `infoClips.psychoedukation` oder RC | B | Entwurf |
+| 4. Stickiness | → readingCard `w5-stickiness` | B | **done** |
 | 5.1 Seufzer-Snippet | SA in Sitzmeditation W4–5 | B | Entwurf |
 | 5.2 OM-Snippet | SA in Sitzmeditation W5 | A | Entwurf |
 | 5.3 Decentering-Snippet | SA in Reflexion W5 | B | Entwurf |

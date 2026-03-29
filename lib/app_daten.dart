@@ -456,6 +456,13 @@ class AppDaten {
               'Studien zeigen, dass dieser Perspektivwechsel ein Schlüsselmechanismus sein kann, über den Achtsamkeitsprogramme wirken — etwa bei der Vorbeugung von Rückfällen in Depression.',
         },
         {
+          'id': 'w5-stickiness',
+          'title': 'Emotionale Klebrigkeit — wenn alte Erfahrungen mitreagieren',
+          'body':
+              'Manchmal reagierst du stärker, als die Situation eigentlich verlangt. Ein kleiner Kommentar trifft dich wie ein großer Vorwurf. Davidson nennt das „Stickiness" — emotionale Klebrigkeit. Erfahrungen aus früheren Situationen kleben an dem, was gerade passiert, und trüben die Wahrnehmung.\n\n'
+              'Achtsamkeit trainiert nicht, dass nichts mehr weh tut. Sie verändert, wie schnell du es bemerkst: Ah, da klebt etwas, das nicht hierhin gehört. Jede Übung, in der du das übst, reduziert die Klebrigkeit — nicht sofort, aber messbar über die Zeit.',
+        },
+        {
           'id': 'w5-stimulus-response',
           'title': 'Kurz raus aus Reiz und Reaktion',
           'body':
