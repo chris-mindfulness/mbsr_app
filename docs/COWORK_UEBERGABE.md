@@ -12,7 +12,7 @@ In Cowork wurden evidenzbasierte Inhalte für die MindfulPractice-App aufbereite
 `lib/audio/bell_service.dart` ist fertig implementiert (Singleton, just_audio, einmalig/verzögert/Intervall). Fehlt: Einbindung im Player-Widget als Start-/End-Glocke und eine Nutzer-Einstellung (Glocke an/aus).
 
 ### readingCards befüllen
-`lib/app_daten.dart`: **Runde A** der Zuordnungstabelle ist eingepflegt (alle 8 Wochen, jeweils `archiveEligible: true`). Woche 1 zusätzlich Runde B (formale/Alltagspraxis, 5 Minuten). Redaktion und Feinschliff können weiter in den Texten erfolgen.
+`lib/app_daten.dart`: **Runde A und B** der Zuordnungstabelle sind komplett eingepflegt (alle 8 Wochen, jeweils `archiveEligible: true`, insgesamt 27 Karten). `source_ref` entfernt — Quellen nur noch in Vertiefung / Literatur. Redaktion und Feinschliff können weiter in den Texten erfolgen.
 
 ### Psychoedukations-Skripte (Entwürfe)
 Kurze Clip-Skripte und Snippets für Meditationsanreicherung: `docs/SKRIPTE_PSYCHOEDUKATION_Entwuerfe.md`. Technische Zuordnung: `docs/MAPPING_TOP10_PSYCHOEDUKATION_APP.md`.

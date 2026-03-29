@@ -1,7 +1,7 @@
 # Mapping: Psychoedukation → App-Oberflächen
 
 **Bezug:** `Hahn_2026_Zuordnungstabelle_Huberman.md` (Runde A/B-Items) + `COWORK_UEBERGABE.md`
-**Stand:** 2026-03-29 — überarbeitet, konsistent mit Zuordnungstabelle.
+**Stand:** 2026-03-29 — Runde A + B readingCards komplett in `app_daten.dart`.
 
 ---
 
@@ -31,7 +31,7 @@ Jede Karte ist ein `Map<String, String>` mit:
 | `id` | ja (sobald Liste nicht leer) | Stabile ID, z. B. `w1-goldberg-meta` |
 | `title` | ja | Kartenüberschrift |
 | `body` | ja | Fließtext |
-| `source_ref` | optional | Kurzquelle unter der Karte (z. B. „Goldberg et al., 2021") |
+| `source_ref` | entfernt | Quellen nur noch in Vertiefung / Literatur |
 
 **Test:** `test/data/app_daten_integrity_test.dart` prüft `id`, `title`, `body`, wenn `readingCards` nicht leer ist.
 
@@ -91,22 +91,22 @@ Direkt abgeleitet aus Zuordnungstabelle (Prio A). Das sind die Items, die zuerst
 
 ## Runde B: Ergänzungen
 
-| Woche | Kanal | Exzerpt-Ref | Inhalt | ID-Vorschlag |
-|-------|-------|-------------|--------|--------------|
-| 1 | RC | 2.3 | Formale vs. Alltagspraxis | `w1-formal-alltag` |
-| 1 | RC | 1.1 | 5 Minuten reichen (mit Limitation) | `w1-fuenf-minuten` |
-| 2 | AC | 2.1 | States → Traits (Clip) | — |
-| 2 | RC | 1.16 | Arbeitsgedächtnis (Whitfield) | `w2-arbeitsgedaechtnis` |
-| 3 | RC | 4.3 | Wertschätzung beim Essen | `w3-essen` |
-| 4 | RC | 3.3 | Meditation als Grundversorgung | `w4-grundversorgung` |
-| 4 | SA | Hub-Solo | Panorama-Vision in Sitzmeditation | — |
-| 5 | AC | 3.2 | Stickiness (Clip) | — |
-| 5 | RC | 1.15 | Decentering (Creswell) | `w5-decentering` |
-| 5 | RC | 3.10 | Raus aus Stimulus und Response | `w5-stimulus-response` |
-| 6 | SA | 4.5 | Metta-Abgleich mit Davidson-Protokoll | — |
-| 7 | RC | 2.8 | Meditation ersetzt keinen Schlaf | `w7-schlaf-mythos` |
-| 8 | RC | 3.6 | Unabgelenktes Nicht-Meditieren | `w8-nicht-meditieren` |
-| 8 | RC | 2.5 | Deklarativ + Prozedural | `w8-deklarativ-prozedural` |
+| Woche | Kanal | Exzerpt-Ref | Inhalt | ID | Status |
+|-------|-------|-------------|--------|----|--------|
+| 1 | RC | 2.3 | Formale vs. Alltagspraxis | `w1-formal-alltag` | **done** |
+| 1 | RC | 1.1 | 5 Minuten reichen (mit Limitation) | `w1-fuenf-minuten` | **done** |
+| 2 | AC | 2.1 | States → Traits (Clip) | — | offen (Audio) |
+| 2 | RC | 1.16 | Arbeitsgedächtnis (Whitfield) | `w2-arbeitsgedaechtnis` | **done** |
+| 3 | RC | 4.3 | Wertschätzung beim Essen | `w3-essen` | **done** |
+| 4 | RC | 3.3 | Meditation als Grundversorgung | `w4-grundversorgung` | **done** |
+| 4 | SA | Hub-Solo | Panorama-Vision in Sitzmeditation | — | offen (SA) |
+| 5 | AC | 3.2 | Stickiness (Clip) | — | offen (Audio) |
+| 5 | RC | 1.15 | Decentering (Creswell) | `w5-decentering` | **done** |
+| 5 | RC | 3.10 | Raus aus Stimulus und Response | `w5-stimulus-response` | **done** |
+| 6 | SA | 4.5 | Metta-Abgleich mit Davidson-Protokoll | — | offen (SA) |
+| 7 | RC | 2.8 | Meditation ersetzt keinen Schlaf | `w7-schlaf-mythos` | **done** |
+| 8 | RC | 3.6 | Unabgelenktes Nicht-Meditieren | `w8-nicht-meditieren` | **done** |
+| 8 | RC | 2.5 | Deklarativ + Prozedural | `w8-deklarativ-prozedural` | **done** |
 
 **Kanalübergreifend (SA, Runde B):**
 - Physiologischer Seufzer als Snippet in Sitzmeditation W4–5

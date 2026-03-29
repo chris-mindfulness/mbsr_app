@@ -246,6 +246,13 @@ class AppDaten {
               'Zwei Grundformen der Übung begegnen dir in diesem Kurs: Bei der Aufmerksamkeit auf einen Anker — etwa den Atem — bleibt der Fokus wie ein Scheinwerfer auf einem Punkt. In offeneren Formen wird die Aufmerksamkeit weiter, eher wie eine weiche Flutlicht-Qualität: Was immer auftaucht, darf registriert werden.\n\n'
               'Beides zählt als Achtsamkeit. Mit der Zeit findest du heraus, welche Form dir wann guttut.',
         },
+        {
+          'id': 'w2-arbeitsgedaechtnis',
+          'title': 'Aufmerksamkeit trainiert das Arbeitsgedächtnis',
+          'body':
+              'In einer großen Auswertung von über 50 Studien mit objektiven Tests zeigte sich: Achtsamkeitsprogramme verbessern das Arbeitsgedächtnis — also die Fähigkeit, Informationen im Kopf zu behalten und gleichzeitig damit zu arbeiten. Das ist die kognitive Domäne, in der die Ergebnisse am stabilsten sind.\n\n'
+              'Der Effekt ist klein, aber konsistent. Und er verschwindet, wenn man gegen andere aktive Trainings vergleicht — Achtsamkeit ist also kein Gehirnjogging-Ersatz. Sie schärft etwas, das du ohnehin jeden Tag brauchst.',
+        },
       ],
     },
     {
@@ -297,6 +304,13 @@ class AppDaten {
           'body':
               'Viele starten mit dem Gefühl, „die Gedanken sollen endlich aufhören“. Der Kurs lädt zu einem anderen Verhältnis ein: Nicht gegen Ablenkung kämpfen, sondern bemerken, was da ist, und freundlich wieder zum Anker zurückgehen — oder die offene Haltung weiterführen.\n\n'
               'Leichtigkeit statt Anstrengung ist kein bequemer Trick, sondern oft der Weg, der länger tragfähig ist. Das passt zu Body-Scan und achtsamer Bewegung: Grenzen wahrnehmen statt sie zu überrennen.',
+        },
+        {
+          'id': 'w3-essen',
+          'title': 'Eine Mahlzeit — und wer alles daran beteiligt war',
+          'body':
+              'Eine einfache Übung für den Alltag: Halte vor dem Essen einen Moment inne. Nicht als Gebet, sondern als Wahrnehmung — wer hat dieses Essen angebaut, transportiert, zubereitet? Die Mahlzeit wird zum Anlass, Verbundenheit zu spüren, die sonst unsichtbar bleibt.\n\n'
+              'Feste Zeitpunkte wie Mahlzeiten eignen sich gut als Anker für kurze achtsame Momente. Kein Extra-Zeitaufwand, keine Ausrüstung — nur die Bereitschaft, dreißig Sekunden wirklich da zu sein.',
         },
       ],
     },
@@ -363,6 +377,13 @@ class AppDaten {
               'Überblicksarbeiten beschreiben: Leichter Stress kann kurzfristig Wachheit und Fokus unterstützen. Länger anhaltender, hoher Stress hingegen kann das Lernen und Erinnern erschweren — während emotional geprägte Erfahrungen intensiver wahrgenommen werden können.\n\n'
               'Praktisch: In sehr stressigen Phasen ist weniger „Theorie im Kopf“ und mehr spürende Übung oft hilfreicher. Genau dafür gibt es Atem, Body-Scan und Bewegung.',
         },
+        {
+          'id': 'w4-grundversorgung',
+          'title': 'Meditation als Grundversorgung, nicht als Extra',
+          'body':
+              'Aus der Hirnforschung kommt ein überraschendes Bild: Der angereicherte Laborkäfig mit Spielzeug und Platz ist nicht luxuriös — der Standardkäfig ist deprivierend. Übertragen auf uns: Meditation ist möglicherweise kein Wellness-Bonus, sondern stellt etwas wieder her, das unser Nervensystem braucht und im Alltag zu kurz kommt.\n\n'
+              'Das heisst nicht, dass es ohne Übung geht. Auch Sprache ist angeboren — aber ohne Pflege verkümmert sie. Meditation ist Grundversorgung und bewusste Kultivierung zugleich.',
+        },
       ],
     },
     {
@@ -426,6 +447,20 @@ class AppDaten {
           'body':
               'Ein einfacher Impuls bei unangenehmen Gefühlen: weder wegdrücken noch dramatisieren, sondern neugierig bleiben. Manchmal verändert sich die Qualität ein wenig, wenn du wirklich da bleibst — ohne Bewertung, ohne Eile.\n\n'
               'Das ist keine Anweisung, alles allein auszuhalten. Wenn etwas zu viel wird, ist Pause, Bewegung oder Hilfe der richtige Weg.',
+        },
+        {
+          'id': 'w5-decentering',
+          'title': 'Abstand gewinnen, ohne kalt zu werden',
+          'body':
+              'In der Forschung taucht ein Begriff auf, der gut beschreibt, was in der Praxis passiert: Decentering. Gemeint ist die Fähigkeit, Gedanken und Gefühle zu beobachten, ohne sich mit ihnen zu verschmelzen. Du denkst nicht weniger — aber du erkennst: Das ist ein Gedanke, nicht die Wirklichkeit.\n\n'
+              'Studien zeigen, dass dieser Perspektivwechsel ein Schlüsselmechanismus sein kann, über den Achtsamkeitsprogramme wirken — etwa bei der Vorbeugung von Rückfällen in Depression.',
+        },
+        {
+          'id': 'w5-stimulus-response',
+          'title': 'Kurz raus aus Reiz und Reaktion',
+          'body':
+              'Jeden Tag kurz aus dem Kreislauf von Anforderung und Antwort heraustreten — nicht weil die aktive Welt schlecht ist, sondern weil du dich nur so selbst kennenlernen kannst. Wer regelmässig innehält, reagiert danach oft klarer und weniger automatisch.\n\n'
+              'Kein grosser Rückzug nötig. Ein paar Minuten Stille, ein bewusster Atemzug vor einer Entscheidung — das reicht, um das Verhältnis von Signal und Rauschen im Kopf zu verbessern.',
         },
       ],
     },
@@ -551,6 +586,13 @@ class AppDaten {
               'Viele Menschen greifen täglich sehr oft zum Handy — oft unbewusst. Digitale Hygiene heißt nicht „alles weg“, sondern bewusste Grenzen: etwa handy-freie Zonen, feste Zeiten offline oder das Gerät sichtbar liegen lassen und trotzdem nicht greifen — als kleine Willensübung.\n\n'
               'Einzelne spektakuläre Studien zum „Handy auf dem Tisch“ haben nicht überall Bestand; das allgemeine Phänomen Ablenkung ist trotzdem alltagstauglich. Gesundheitsbehörden weisen etwa auf Schutzfaktoren und Risiken bei sozialen Medien hin — besonders für junge Menschen.',
         },
+        {
+          'id': 'w7-schlaf-mythos',
+          'title': 'Meditation ersetzt keinen Schlaf',
+          'body':
+              'Eine häufige Frage: Kann Meditation Schlaf ersetzen? Die Antwort aus der Forschung ist klar: Nein. Selbst sehr erfahrene Praktizierende mit Jahrzehnten täglicher Übung schlafen acht bis neun Stunden. Wer weniger schläft, profitiert davon, den Wecker abzuschaffen — nicht davon, morgens müde zu meditieren.\n\n'
+              'Meditation wirkt am besten, wenn du wach bist. Schläfrigkeit ist kein Zeichen von Entspannung, sondern ein Zeichen von Schlafmangel. Der beste Zeitpunkt zum Üben ist der, an dem du am klarsten bist.',
+        },
       ],
     },
     {
@@ -610,6 +652,20 @@ class AppDaten {
           'body':
               'Erfahrene Übende betonen selten die längste Session — sondern dass sie überhaupt wiederkommen. Ein paar Minuten heute und morgen nützen mehr als der Plan, „bald einmal eine Stunde“. Nach dem Kurs gilt: Dein Rhythmus darf sich an dein Leben anpassen; Strenge ist selten der beste Motivator.\n\n'
               'Die Mediathek und dein persönlicher Plan bleiben deine Verbündeten.',
+        },
+        {
+          'id': 'w8-nicht-meditieren',
+          'title': 'Unabgelenktes Nicht-Meditieren',
+          'body':
+              'Ein Zielbild aus der Meditationstradition klingt paradox: Die reifste Form der Praxis ist unabgelenktes Nicht-Meditieren — vollständig wach, vollständig gewahr, aber ohne Technik und ohne Anstrengung. Kein Objekt, kein Ziel, nur Dasein.\n\n'
+              'Für den Alltag nach dem Kurs heisst das: Meditation muss nicht immer eine formelle Übung sein. Manchmal reicht es, ganz da zu sein — beim Spaziergang, beim Warten, beim Zuhören.',
+        },
+        {
+          'id': 'w8-deklarativ-prozedural',
+          'title': 'Wissen und Üben — beides zählt',
+          'body':
+              'Es gibt zwei Arten zu lernen: Wissen über etwas (deklarativ) und Können durch Tun (prozedural). Beide werden von unterschiedlichen Netzwerken im Gehirn getragen. Der Kurs bedient bewusst beide Seiten: Die Lesetexte liefern Orientierung, die tägliche Praxis verankert sie im Körper.\n\n'
+              'Keines von beiden reicht allein. Wer nur liest, versteht — wer nur übt, spürt. Zusammen entsteht etwas Drittes: ein Verständnis, das über Worte hinausgeht.',
         },
       ],
     },
