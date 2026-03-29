@@ -124,6 +124,7 @@ class _KursUebersichtState extends State<KursUebersicht> {
   void _showFullPlayer() {
     showModalBottomSheet(
       context: context,
+      useRootNavigator: true,
       isScrollControlled: true,
       isDismissible: true,
       enableDrag: true,
@@ -132,53 +133,59 @@ class _KursUebersichtState extends State<KursUebersicht> {
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(40)),
       ),
-      builder: (context) => DraggableScrollableSheet(
-        initialChildSize: 0.95,
-        minChildSize: 0.5,
-        maxChildSize: 0.95,
-        expand: false,
-        builder: (context, scrollController) => _buildFullPlayerContent(),
-      ),
+      builder: (sheetContext) {
+        final h = MediaQuery.sizeOf(sheetContext).height;
+        return SizedBox(
+          height: h * 0.95,
+          child: _buildFullPlayerContent(sheetContext),
+        );
+      },
     );
   }
 
-  Widget _buildFullPlayerContent() {
+  Widget _buildFullPlayerContent(BuildContext sheetContext) {
     return AmbientBackground(
-      child: Container(
-        padding: EdgeInsets.symmetric(horizontal: AppStyles.spacingXL),
-        child: Column(
-          children: [
-            AppStyles.spacingMBox,
-            FullPlayerHeader(
-              iconButtonStyle: _surfaceIconStyle(),
-              onStop: () {
-                _audioService.stop();
-                Navigator.of(context).pop();
-              },
-              onClose: () {
-                Navigator.of(context).pop();
-              },
-            ),
-            AppStyles.spacingLBox,
+      child: SizedBox.expand(
+        child: Container(
+          padding: EdgeInsets.symmetric(horizontal: AppStyles.spacingXL),
+          child: Column(
+            children: [
+              AppStyles.spacingMBox,
+              FullPlayerHeader(
+                iconButtonStyle: _surfaceIconStyle(),
+                onStop: () {
+                  _audioService.stop();
+                  Navigator.of(sheetContext).pop();
+                },
+                onClose: () {
+                  Navigator.of(sheetContext).pop();
+                },
+              ),
+              AppStyles.spacingLBox,
 
-            FullPlayerNowPlaying(title: _audioService.currentTitle ?? 'Audio'),
+              Expanded(
+                child: FullPlayerNowPlaying(
+                  title: _audioService.currentTitle ?? 'Audio',
+                ),
+              ),
 
-            AppStyles.spacingXXLBox,
+              AppStyles.spacingXXLBox,
 
-            FullPlayerProgress(audioService: _audioService),
+              FullPlayerProgress(audioService: _audioService),
 
-            AppStyles.spacingXLBox,
+              AppStyles.spacingXLBox,
 
-            FullPlayerTransportControls(
-              audioService: _audioService,
-              buttonStyle: _surfaceIconStyle(),
-              onSeekBack: () => _seekRelative(const Duration(seconds: -10)),
-              onSeekForward: () => _seekRelative(const Duration(seconds: 10)),
-            ),
+              FullPlayerTransportControls(
+                audioService: _audioService,
+                buttonStyle: _surfaceIconStyle(),
+                onSeekBack: () => _seekRelative(const Duration(seconds: -10)),
+                onSeekForward: () => _seekRelative(const Duration(seconds: 10)),
+              ),
 
-            const Spacer(),
-            AppStyles.spacingXXLBox,
-          ],
+              const Spacer(),
+              AppStyles.spacingXXLBox,
+            ],
+          ),
         ),
       ),
     );
@@ -404,8 +411,7 @@ class _KursUebersichtState extends State<KursUebersicht> {
           child: Padding(
             padding: AppStyles.cardPadding,
             child: SizedBox(
-              height: _weekOverviewCardHeight -
-                  AppStyles.cardPadding.vertical,
+              height: _weekOverviewCardHeight - AppStyles.cardPadding.vertical,
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
