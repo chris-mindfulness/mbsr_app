@@ -131,6 +131,36 @@ class GlossarFaqSeite extends StatelessWidget {
         'def':
             'Freundliche, nicht beschönigende Haltung gegenüber eigenem und fremdem Leiden. In MBSR kein Extra, sondern Teil der Grundhaltung.',
       },
+      {
+        'term': 'Decentering',
+        'def':
+            'Die Fähigkeit, Gedanken und Gefühle zu beobachten, ohne sich mit ihnen zu verschmelzen. Du denkst nicht weniger — aber du erkennst: Das ist ein Gedanke, nicht die Wirklichkeit. Gilt als Schlüsselmechanismus, über den Achtsamkeitsprogramme wirken.',
+      },
+      {
+        'term': 'Focused Attention / Open Monitoring',
+        'def':
+            'Zwei Grundformen der Meditation. Focused Attention (FA): Aufmerksamkeit auf einen Anker, z.\u00a0B. den Atem. Open Monitoring (OM): weites, offenes Gewahrsein für alles, was auftaucht. Im Kurs begegnest du beiden Formen.',
+      },
+      {
+        'term': 'Tun-Modus / Sein-Modus',
+        'def':
+            'Tun-Modus: zielorientiertes Handeln, Planen, Problemlösen. Sein-Modus: offenes Wahrnehmen ohne Veränderungsabsicht. In der Praxis übst du, den Sein-Modus bewusst einzunehmen — nicht als Gegenteil von Aktivität, sondern als Ergänzung.',
+      },
+      {
+        'term': 'Physiologischer Seufzer',
+        'def':
+            'Atemtechnik zur schnellen Stressregulation: doppelte kurze Einatmung durch die Nase, dann lange Ausatmung durch den Mund. Aktiviert den Parasympathikus und senkt die Herzfrequenz.',
+      },
+      {
+        'term': 'States und Traits',
+        'def':
+            'States: vorübergehende Zustände wie Stimmungen oder Empfindungen. Traits: dauerhaftere Eigenschaften. Regelmäßige Praxis kann bewirken, dass hilfreiche States zur neuen Ausgangslage werden — zum Trait statt zum flüchtigen Moment.',
+      },
+      {
+        'term': 'Emotionale Klebrigkeit (Stickiness)',
+        'def':
+            'Die Tendenz, stärker zu reagieren, als die Situation verlangt, weil frühere Erfahrungen an der aktuellen Wahrnehmung „kleben". Achtsamkeit hilft, das früher zu bemerken und die Klebrigkeit über die Zeit zu verringern.',
+      },
     ];
     final sortedTerms = [...terms]
       ..sort((a, b) => (a['term'] ?? '').compareTo(b['term'] ?? ''));
@@ -221,6 +251,16 @@ class GlossarFaqSeite extends StatelessWidget {
         'q': 'Ist MBSR eine Therapie?',
         'a':
             'MBSR ist ein strukturiertes Stressbewältigungs- und Achtsamkeitstraining. Bei akuten psychischen Krisen oder hohem Leidensdruck ist zusätzliche professionelle Behandlung wichtig.',
+      },
+      {
+        'q': 'Kann Meditation Schlaf ersetzen?',
+        'a':
+            'Nein. Selbst sehr erfahrene Praktizierende schlafen acht bis neun Stunden. Meditation wirkt am besten, wenn du wach bist. Schläfrigkeit beim Üben ist meist ein Zeichen von Schlafmangel, nicht von Entspannung.',
+      },
+      {
+        'q': 'Mein Smartphone lenkt mich beim Üben ab. Was hilft?',
+        'a':
+            'Handy-freie Zonen oder feste Zeiten offline können helfen. Du musst nicht alles weglegen — aber bewusste Grenzen setzen. Schon das Gerät sichtbar liegen zu lassen und trotzdem nicht danach zu greifen, ist eine kleine Willensübung.',
       },
     ];
 
