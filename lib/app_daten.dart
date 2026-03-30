@@ -155,15 +155,15 @@ class AppDaten {
           'id': 'w1-goldberg-meta',
           'title': 'Was Studien zu Achtsamkeitsprogrammen zeigen',
           'body':
-              'Die Forschung zu Programmen wie MBSR und MBCT ist inzwischen breit: In großen Übersichten wurden Hunderte Studien mit vielen tausend Teilnehmenden ausgewertet. Danach können achtsamkeitsbasierte Programme Stress, depressive Symptome und Angst messbar lindern; in vielen Arbeiten sind sie mit etablierten Verfahren vergleichbar.\n\n'
+              'Die Forschung zu Programmen wie MBSR und MBCT ist inzwischen breit: In einer großen Bestandsaufnahme wurden 44 Übersichtsarbeiten mit insgesamt über 300 Einzelstudien und rund 30.000 Teilnehmenden ausgewertet. Danach können achtsamkeitsbasierte Programme Stress, depressive Symptome und Angst messbar lindern; in vielen Arbeiten sind sie mit etablierten Verfahren vergleichbar.\n\n'
               'Wichtig für ein faires Bild: Wenn man sie nicht mit einer Warteliste vergleicht, sondern mit anderen aktiven Programmen, wirken die Vorteile oft kleiner. Das macht die Praxis nicht wertlos — es erinnert daran, dass Achtsamkeit kein Wundermittel ist. Bei schwerer Erkrankung bleibt professionelle Hilfe der richtige Ort.',
         },
         {
           'id': 'w1-autopilot',
           'title': 'Geist abwesend — und trotzdem da?',
           'body':
-              'In einer bekannten Studie wurden Menschen per Smartphone zu zufälligen Zeiten gefragt: Was tust du gerade? Wo ist dein Geist? Wie fühlst du dich? Im Mittel war die Aufmerksamkeit oft nicht bei der aktuellen Tätigkeit — in der Öffentlichkeit wurde daraus die einprägsame Zahl von etwa der Hälfte der Wachzeit.\n\n'
-              'Neuere Arbeiten zeigen: So einfach ist es nicht; es kommt darauf an, wie genau man fragt, und nicht jedes Abschweifen ist „schlecht“. Entscheidend für diesen Kurs ist etwas anderes: Du kannst üben, früher zu merken, wohin der Geist gewandert ist — und freundlich zu entscheiden, ob du zurück zum Moment kehrst.',
+              'In einer bekannten Studie wurden Menschen per Smartphone zu zufälligen Zeiten gefragt: Was tust du gerade? Wo ist dein Geist? Wie fühlst du dich? Ergebnis: In etwa 47 % der Wachzeit war die Aufmerksamkeit nicht bei der aktuellen Tätigkeit.\n\n'
+              'Neuere Arbeiten zeigen: So pauschal stimmt das nicht; es kommt darauf an, wie genau man fragt, und nicht jedes Abschweifen ist schlecht. Entscheidend für diesen Kurs ist etwas anderes: Du kannst üben, früher zu merken, wohin der Geist gewandert ist — und zu entscheiden, ob du zurück zum Moment kehrst.',
         },
         {
           'id': 'w1-anfangsunruhe',
@@ -374,7 +374,7 @@ class AppDaten {
           'id': 'w4-stress-gedaechtnis',
           'title': 'Stress und Lernen — ein feiner Unterschied',
           'body':
-              'Überblicksarbeiten beschreiben: Leichter Stress kann kurzfristig Wachheit und Fokus unterstützen. Länger anhaltender, hoher Stress hingegen kann das Lernen und Erinnern erschweren — während emotional geprägte Erfahrungen intensiver wahrgenommen werden können.\n\n'
+              'In einer neueren Zusammenschau zeigt sich: Leichter Stress kann kurzfristig Wachheit und Fokus unterstützen. Länger anhaltender, hoher Stress hingegen kann das Lernen und Erinnern erschweren — während emotional geprägte Erfahrungen intensiver wahrgenommen werden.\n\n'
               'Praktisch: In sehr stressigen Phasen ist weniger „Theorie im Kopf“ und mehr spürende Übung oft hilfreicher. Genau dafür gibt es Atem, Body-Scan und Bewegung.',
         },
         {
@@ -382,7 +382,7 @@ class AppDaten {
           'title': 'Meditation als Grundversorgung, nicht als Extra',
           'body':
               'Aus der Hirnforschung kommt ein überraschendes Bild: Der angereicherte Laborkäfig mit Spielzeug und Platz ist nicht luxuriös — der Standardkäfig ist deprivierend. Übertragen auf uns: Meditation ist möglicherweise kein Wellness-Bonus, sondern stellt etwas wieder her, das unser Nervensystem braucht und im Alltag zu kurz kommt.\n\n'
-              'Das heisst nicht, dass es ohne Übung geht. Auch Sprache ist angeboren — aber ohne Pflege verkümmert sie. Meditation ist Grundversorgung und bewusste Kultivierung zugleich.',
+              'Das heißt nicht, dass es ohne Übung geht. Meditation ist Grundversorgung und bewusste Kultivierung zugleich — beides.',
         },
       ],
     },
@@ -452,7 +452,7 @@ class AppDaten {
           'id': 'w5-decentering',
           'title': 'Abstand gewinnen, ohne kalt zu werden',
           'body':
-              'In der Forschung taucht ein Begriff auf, der gut beschreibt, was in der Praxis passiert: Decentering. Gemeint ist die Fähigkeit, Gedanken und Gefühle zu beobachten, ohne sich mit ihnen zu verschmelzen. Du denkst nicht weniger — aber du erkennst: Das ist ein Gedanke, nicht die Wirklichkeit.\n\n'
+              'In der Forschung taucht ein Begriff auf, der gut beschreibt, was in der Praxis passiert: Decentering. Gemeint ist die Fähigkeit, Gedanken und Gefühle zu beobachten, ohne sich mit ihnen zu verschmelzen. Du denkst nicht weniger — aber du erkennst: Das ist ein Gedanke, nicht die Wirklichkeit. Erinnerst du dich an das Kino-Gleichnis aus Woche 2? Decentering ist genau diese zweite Art zu schauen — gefesselt und doch gewahr, dass es ein Film ist.\n\n'
               'Studien zeigen, dass dieser Perspektivwechsel ein Schlüsselmechanismus sein kann, über den Achtsamkeitsprogramme wirken — etwa bei der Vorbeugung von Rückfällen in Depression.',
         },
         {
@@ -466,8 +466,8 @@ class AppDaten {
           'id': 'w5-stimulus-response',
           'title': 'Kurz raus aus Reiz und Reaktion',
           'body':
-              'Jeden Tag kurz aus dem Kreislauf von Anforderung und Antwort heraustreten — nicht weil die aktive Welt schlecht ist, sondern weil du dich nur so selbst kennenlernen kannst. Wer regelmässig innehält, reagiert danach oft klarer und weniger automatisch.\n\n'
-              'Kein grosser Rückzug nötig. Ein paar Minuten Stille, ein bewusster Atemzug vor einer Entscheidung — das reicht, um das Verhältnis von Signal und Rauschen im Kopf zu verbessern.',
+              'Jeden Tag kurz aus dem Kreislauf von Anforderung und Antwort heraustreten — nicht weil die aktive Welt schlecht ist, sondern weil du dich nur so selbst kennenlernen kannst. Wer regelmäßig innehält, reagiert danach oft klarer und weniger automatisch.\n\n'
+              'Kein großer Rückzug nötig. Ein paar Minuten Stille, ein bewusster Atemzug vor einer Entscheidung — das reicht, um das Verhältnis von Signal und Rauschen im Kopf zu verbessern.',
         },
       ],
     },
@@ -518,15 +518,15 @@ class AppDaten {
           'id': 'w6-mitgefuehl',
           'title': 'Mitgefühl und Verhalten',
           'body':
-              'In Studien zu kurzen Mitgefühls- oder Compassion-Trainings fanden Forschende Veränderungen: stärkere Beteiligung in Situationen, in denen andere leiden, und häufig auch großzügigeres Verhalten in Übungsszenarien. Das sind Labor- und Gruppenbefunde — kein Automatismus im Alltag.\n\n'
+              'In Studien zu kurzen Mitgefühls-Trainings zeigten sich messbare Veränderungen: In einem Verhaltensspiel verteilten Teilnehmende nach nur zwei Wochen Übung Geld großzügiger an Benachteiligte — nicht weil sie netter sein wollten, sondern weil sich ihre spontane Reaktion verschoben hatte. Das sind Laborbefunde, kein Automatismus im Alltag.\n\n'
               'Sie zeigen aber: Die „weichen“ Übungen haben eine nachvollziehbare Wirkung auf Innenwelt und Handeln — nicht nur auf den Fragebogen.',
         },
         {
           'id': 'w6-flourishing',
           'title': 'Wenn du aufblühst, wirkt das weiter',
           'body':
-              'Aus dem Umfeld der Stress- und Achtsamkeitsforschung wird berichtet, dass die eigene innere Stabilität das soziale Umfeld spürbar beeinflussen kann — etwa wenn Lehrende regelmäßig kurz üben und anschließend ruhiger und klarer im Alltag agieren. Einzelne große Studien dazu sind noch selten öffentlich und sollten mit Zurückhaltung zitiert werden.\n\n'
-              'Unabhängig davon ist erlebbar: Wenn du weniger im Autopiloten reagierst, verändert sich oft der Ton im Kontakt — ohne dass du andere „reparieren“ musst.',
+              'Innere Veränderung bleibt selten unsichtbar. Wenn du regelmäßig übst, berichten Teilnehmende häufig, dass sich ihr Umfeld mitverändert — nicht weil sie andere „reparieren“, sondern weil sie selbst anders reagieren: ruhiger, präsenter, weniger automatisch.\n\n'
+              'Das ist kein Zaubermechanismus, sondern einfache Sozialpsychologie: Wer weniger im Autopiloten kommuniziert, verändert den Ton im Kontakt. Das gilt im Gespräch, im Beruf, in der Familie.',
         },
         {
           'id': 'w6-prosozial-luberto',
@@ -590,15 +590,15 @@ class AppDaten {
           'id': 'w7-digitale-hygiene',
           'title': 'Achtsamkeit mit dem Smartphone',
           'body':
-              'Viele Menschen greifen täglich sehr oft zum Handy — oft unbewusst. Digitale Hygiene heißt nicht „alles weg“, sondern bewusste Grenzen: etwa handy-freie Zonen, feste Zeiten offline oder das Gerät sichtbar liegen lassen und trotzdem nicht greifen — als kleine Willensübung.\n\n'
-              'Einzelne spektakuläre Studien zum „Handy auf dem Tisch“ haben nicht überall Bestand; das allgemeine Phänomen Ablenkung ist trotzdem alltagstauglich. Gesundheitsbehörden weisen etwa auf Schutzfaktoren und Risiken bei sozialen Medien hin — besonders für junge Menschen.',
+              'Viele Menschen greifen täglich dutzende Male zum Handy — oft unbewusst. Digitale Hygiene heißt nicht „alles weg“, sondern bewusste Grenzen: etwa handy-freie Zonen, feste Zeiten offline oder das Gerät sichtbar liegen lassen und trotzdem nicht greifen — als kleine Willensübung.\n\n'
+              'Das Prinzip ist dasselbe wie in der Meditation: Nicht den Impuls bekämpfen, sondern ihn bemerken und bewusst entscheiden, ob du ihm folgst.',
         },
         {
           'id': 'w7-schlaf-mythos',
           'title': 'Meditation ersetzt keinen Schlaf',
           'body':
-              'Eine häufige Frage: Kann Meditation Schlaf ersetzen? Die Antwort aus der Forschung ist klar: Nein. Selbst sehr erfahrene Praktizierende mit Jahrzehnten täglicher Übung schlafen acht bis neun Stunden. Wer weniger schläft, profitiert davon, den Wecker abzuschaffen — nicht davon, morgens müde zu meditieren.\n\n'
-              'Meditation wirkt am besten, wenn du wach bist. Schläfrigkeit ist kein Zeichen von Entspannung, sondern ein Zeichen von Schlafmangel. Der beste Zeitpunkt zum Üben ist der, an dem du am klarsten bist.',
+              'Eine häufige Frage: Kann Meditation Schlaf ersetzen? Die Antwort ist klar: Nein. Richard Davidson, einer der erfahrensten Meditationsforscher, berichtet, dass er deutlich länger schlief und sich spürbar besser fühlte, nachdem er den Wecker abgeschafft hatte — trotz Jahrzehnten täglicher Praxis.\n\n'
+              'Meditation wirkt am besten, wenn du wach bist. Schläfrigkeit in der Übung ist kein Zeichen von Entspannung, sondern von Schlafmangel. Der beste Zeitpunkt zum Üben ist der, an dem du am klarsten bist.',
         },
       ],
     },
@@ -650,8 +650,8 @@ class AppDaten {
           'id': 'w8-vier-saeulen',
           'title': 'Vier Säulen des Wohlergehens',
           'body':
-              'Ein Rahmen aus der Forschung zu Meditation und Wohlbefinden ordnet Praxis in vier Bereiche: Gewahrsein und Aufmerksamkeit, Verbindung und Wertschätzung, Einblick in innere Geschichten, und Sinn im Alltag. Nicht jede Übung muss in eine Schublade passen — aber beim Rückblick kannst du fragen: Wo habe ich Achtsamkeit geübt? Wo Verbindung? Wo Klarheit über Erzählungen? Wo etwas Sinnvolles im Kleinen?\n\n'
-              'So wird sichtbar, wie breit der Kurs dich begleitet hat.',
+              'Der Neurowissenschaftler Richard Davidson ordnet Wohlbefinden in vier Bereiche: Gewahrsein (Awareness), Verbindung (Connection), Einsicht in innere Geschichten (Insight) und Sinn im Alltag (Purpose). Beim Rückblick auf den Kurs kannst du fragen: Wo habe ich Aufmerksamkeit geübt? Wo Verbindung? Wo Klarheit über meine Erzählungen? Wo etwas Sinnvolles im Kleinen?\n\n'
+              'Nicht jede Übung passt in eine Schublade — aber das Modell zeigt, wie breit der Kurs dich begleitet hat.',
         },
         {
           'id': 'w8-konsistenz',
@@ -665,7 +665,7 @@ class AppDaten {
           'title': 'Unabgelenktes Nicht-Meditieren',
           'body':
               'Ein Zielbild aus der Meditationstradition klingt paradox: Die reifste Form der Praxis ist unabgelenktes Nicht-Meditieren — vollständig wach, vollständig gewahr, aber ohne Technik und ohne Anstrengung. Kein Objekt, kein Ziel, nur Dasein.\n\n'
-              'Für den Alltag nach dem Kurs heisst das: Meditation muss nicht immer eine formelle Übung sein. Manchmal reicht es, ganz da zu sein — beim Spaziergang, beim Warten, beim Zuhören.',
+              'Für den Alltag nach dem Kurs heißt das: Meditation muss nicht immer eine formelle Übung sein. Manchmal reicht es, ganz da zu sein — beim Spaziergang, beim Warten, beim Zuhören.',
         },
         {
           'id': 'w8-deklarativ-prozedural',
