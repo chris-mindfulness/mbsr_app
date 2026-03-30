@@ -75,7 +75,11 @@ class _LoginScreenState extends State<LoginScreen> {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text("E-Mail zum Passwort-Reset wurde gesendet!"),
+            content: const Text(
+              'Wenn zu dieser E-Mail ein Konto existiert, erhältst du '
+              'in Kürze eine Nachricht mit einem Link. Bitte auch den '
+              'Spam-Ordner prüfen.',
+            ),
             backgroundColor: AppStyles.sageGreen,
           ),
         );
