@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'core/app_config.dart';
@@ -100,34 +102,219 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
     return width;
   }
 
-  Widget _buildWeekAvatarBanner() {
+  static const double _weekBannerQuoteBreakpoint = 640;
+
+  /// Wochenbild + Zitat als eine Kachel (mobil gestapelt, breiter Bildschirm: nebeneinander).
+  Widget _buildWeekAvatarBanner({
+    required bool neutralSurface,
+    required double layoutWidth,
+  }) {
     final path = widget.avatarImage ?? AppDaten.defaultWeekAvatarAsset;
-    return Center(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 300, maxHeight: 220),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(16),
-              child: Image.asset(
-                path,
-                fit: BoxFit.contain,
-                errorBuilder: (context, error, stackTrace) {
-                  return Center(
-                    child: Icon(
-                      Icons.self_improvement_rounded,
-                      size: 72,
-                      color: AppStyles.softBrown.withValues(alpha: 0.35),
-                    ),
-                  );
-                },
+    final quote = widget.zitat;
+    final hasQuote = quote != null && quote.trim().isNotEmpty;
+
+    Widget imageArea({required double height, required bool roundTopOnly}) {
+      final radius = BorderRadius.vertical(
+        top: const Radius.circular(20),
+        bottom: roundTopOnly ? Radius.zero : const Radius.circular(20),
+      );
+      return ClipRRect(
+        borderRadius: radius,
+        child: Container(
+          width: double.infinity,
+          height: height,
+          color: AppStyles.softBrown.withValues(alpha: 0.06),
+          alignment: Alignment.center,
+          child: Image.asset(
+            path,
+            fit: BoxFit.contain,
+            errorBuilder: (context, error, stackTrace) {
+              return Icon(
+                Icons.self_improvement_rounded,
+                size: 72,
+                color: AppStyles.softBrown.withValues(alpha: 0.35),
+              );
+            },
+          ),
+        ),
+      );
+    }
+
+    if (!hasQuote) {
+      return Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 300, maxHeight: 220),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(16),
+                child: Image.asset(
+                  path,
+                  fit: BoxFit.contain,
+                  errorBuilder: (context, error, stackTrace) {
+                    return Center(
+                      child: Icon(
+                        Icons.self_improvement_rounded,
+                        size: 72,
+                        color: AppStyles.softBrown.withValues(alpha: 0.35),
+                      ),
+                    );
+                  },
+                ),
               ),
             ),
+            const SizedBox(height: 16),
+          ],
+        ),
+      );
+    }
+
+    final cardMaxW = math.min(layoutWidth, 520.0);
+    final sideBySide = layoutWidth >= _weekBannerQuoteBreakpoint;
+
+    final quoteStripColor = neutralSurface
+        ? AppStyles.softBrown.withValues(alpha: 0.07)
+        : AppStyles.softBrown.withValues(alpha: 0.1);
+    final dividerColor = AppStyles.softBrown.withValues(alpha: 0.14);
+
+    Widget quoteContent({bool scrollable = false}) {
+      final column = Column(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(
+            Icons.format_quote_rounded,
+            color: AppStyles.softBrown.withValues(alpha: 0.85),
+            size: 28,
           ),
-          const SizedBox(height: 16),
+          SizedBox(height: AppStyles.spacingS),
+          Text(
+            quote.trim(),
+            textAlign: TextAlign.center,
+            style: AppStyles.decorativeTextStyle.copyWith(
+              fontSize: 17,
+              height: 1.55,
+            ),
+          ),
+          if (widget.zitatAutor != null) ...[
+            SizedBox(height: AppStyles.spacingM),
+            Text(
+              '— ${widget.zitatAutor}',
+              textAlign: TextAlign.center,
+              style: AppStyles.smallTextStyle.copyWith(
+                fontWeight: AppStyles.fontWeightSemiBold,
+                color: AppStyles.softBrown,
+              ),
+            ),
+          ],
         ],
-      ),
+      );
+      final padded = Padding(
+        padding: const EdgeInsets.fromLTRB(18, 16, 18, 18),
+        child: column,
+      );
+      if (!scrollable) return padded;
+      return SingleChildScrollView(
+        padding: const EdgeInsets.fromLTRB(18, 16, 18, 18),
+        child: column,
+      );
+    }
+
+    final outerDecoration = neutralSurface
+        ? BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(22),
+            border: Border.all(
+              color: AppStyles.borderColor.withValues(alpha: 0.7),
+              width: 1.2,
+            ),
+            boxShadow: AppStyles.softCardShadow,
+          )
+        : BoxDecoration(
+            color: AppStyles.softBrown.withValues(alpha: 0.05),
+            borderRadius: BorderRadius.circular(22),
+            border: Border.all(
+              color: AppStyles.softBrown.withValues(alpha: 0.18),
+              width: 1.2,
+            ),
+            boxShadow: AppStyles.softCardShadow,
+          );
+
+    final Widget bannerCore = sideBySide
+        ? SizedBox(
+            height: 232,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Expanded(
+                  flex: 5,
+                  child: ClipRRect(
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(20),
+                      bottomLeft: Radius.circular(20),
+                    ),
+                    child: Container(
+                      color: AppStyles.softBrown.withValues(alpha: 0.06),
+                      alignment: Alignment.center,
+                      child: Image.asset(
+                        path,
+                        fit: BoxFit.contain,
+                        errorBuilder: (context, error, stackTrace) {
+                          return Icon(
+                            Icons.self_improvement_rounded,
+                            size: 64,
+                            color: AppStyles.softBrown.withValues(alpha: 0.35),
+                          );
+                        },
+                      ),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  flex: 5,
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(
+                      color: quoteStripColor,
+                      border: Border(
+                        left: BorderSide(color: dividerColor, width: 1),
+                      ),
+                    ),
+                    child: Center(child: quoteContent(scrollable: true)),
+                  ),
+                ),
+              ],
+            ),
+          )
+        : Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              imageArea(height: 200, roundTopOnly: true),
+              DecoratedBox(
+                decoration: BoxDecoration(
+                  color: quoteStripColor,
+                  border: Border(top: BorderSide(color: dividerColor, width: 1)),
+                ),
+                child: quoteContent(scrollable: false),
+              ),
+            ],
+          );
+
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Center(
+          child: ConstrainedBox(
+            constraints: BoxConstraints(maxWidth: cardMaxW),
+            child: Container(
+              decoration: outerDecoration,
+              clipBehavior: Clip.antiAlias,
+              child: bannerCore,
+            ),
+          ),
+        ),
+        const SizedBox(height: 14),
+      ],
     );
   }
 
@@ -618,6 +805,10 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
     final screenWidth = MediaQuery.sizeOf(context).width;
     final horizontalPadding = _responsiveHorizontalPadding(screenWidth);
     final contentMaxWidth = _contentMaxWidth(screenWidth);
+    final bannerLayoutWidth = math.min(
+      contentMaxWidth,
+      screenWidth - 2 * horizontalPadding,
+    );
 
     return Scaffold(
       backgroundColor: AppStyles.bgColor,
@@ -703,8 +894,11 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
                           Text(widget.titel, style: AppStyles.titleStyle),
                           AppStyles.spacingMBox,
 
-                          // ── 2. AVATAR-BANNER ──
-                          _buildWeekAvatarBanner(),
+                          // ── 2. AVATAR-BANNER (+ Zitat als eine Kachel) ──
+                          _buildWeekAvatarBanner(
+                            neutralSurface: useCleanCardsForWeeks,
+                            layoutWidth: bannerLayoutWidth,
+                          ),
 
                           // ── 3. BEGRÜSSUNGS-CLIP ──
                           if (widget.infoClips != null &&
@@ -938,7 +1132,7 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
                           // VERTIEFUNG – für Neugierige
                           // ═══════════════════════════════════
 
-                          // ── 8. FOKUS + ZITAT ──
+                          // ── 8. FOKUS (Zitat oben im Avatar-Banner) ──
                           if (widget.fokus != null) ...[
                             AppStyles.spacingMBox,
                             Text(
@@ -947,42 +1141,6 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
                                 color: AppStyles.primaryOrange,
                                 fontSize: 18,
                                 height: 1.4,
-                              ),
-                            ),
-                          ],
-                          if (widget.zitat != null) ...[
-                            AppStyles.spacingLBox,
-                            _buildAdaptiveCard(
-                              accentColor: AppStyles.softBrown,
-                              neutralSurface: useCleanCardsForWeeks,
-                              fillAlpha: 0.05,
-                              borderAlpha: 0.16,
-                              radius: 20,
-                              child: Column(
-                                children: [
-                                  Icon(
-                                    Icons.format_quote,
-                                    color: AppStyles.softBrown,
-                                    size: 32,
-                                  ),
-                                  AppStyles.spacingSBox,
-                                  Text(
-                                    widget.zitat!,
-                                    style: AppStyles.decorativeTextStyle
-                                        .copyWith(fontSize: 16, height: 1.6),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                  if (widget.zitatAutor != null) ...[
-                                    AppStyles.spacingMBox,
-                                    Text(
-                                      "- ${widget.zitatAutor}",
-                                      style: AppStyles.smallTextStyle.copyWith(
-                                        fontWeight: FontWeight.bold,
-                                        color: AppStyles.softBrown,
-                                      ),
-                                    ),
-                                  ],
-                                ],
                               ),
                             ),
                           ],
