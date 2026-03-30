@@ -9,7 +9,7 @@ import '../login_screen.dart';
 import '../kurs_uebersicht.dart';
 import '../pages/home_page.dart';
 import '../audio_service.dart';
-import '../web_utils.dart' show getCurrentRoute, setRoute;
+import '../web_utils.dart' show getCurrentRoute, routePathOnly, setRoute;
 import '../routing/app_router.dart';
 import '../reset_password_screen.dart';
 import 'auth_route_refresh.dart';
@@ -192,15 +192,18 @@ class _AuthWrapperState extends State<AuthWrapper> {
       );
     }
 
+    // Reset-Link aus E-Mail: immer zuerst (auch bei aktiver Session, sonst verwirft
+    // isAuthRoute die URL und setzt /home — userId/secret gingen verloren).
+    if (routePathOnly(route) == AppRouter.resetPassword) {
+      if (kDebugMode) {
+        debugPrint('✅ Navigation: ResetPasswordScreen (Route aus E-Mail)');
+      }
+      return const ResetPasswordScreen();
+    }
+
     // Nicht eingeloggt -> Zeige Auswahlseite (MBSRHomePage)
     // ABER: Wenn die Route eine Auth-Route ist, zeige direkt LoginScreen
     if (user == null) {
-      if (route == AppRouter.resetPassword) {
-        if (kDebugMode) {
-          debugPrint('✅ Navigation: ResetPasswordScreen');
-        }
-        return const ResetPasswordScreen();
-      }
       if (route == AppRouter.login) {
         if (kDebugMode) {
           debugPrint('✅ Navigation: LoginScreen (Auth-Route: $route)');
@@ -269,8 +272,10 @@ class _AuthWrapperState extends State<AuthWrapper> {
       // Verwende AppRouter für Widget-Auflösung
       final widget = AppRouter.getWidgetForRoute(route);
 
-      // Synchronisiere URL
-      if (route != null && route.isNotEmpty) {
+      // Synchronisiere URL (nicht bei Reset: sonst fehlen userId/secret in der Adresszeile)
+      if (route != null &&
+          route.isNotEmpty &&
+          routePathOnly(route) != AppRouter.resetPassword) {
         setRoute(route);
       }
 

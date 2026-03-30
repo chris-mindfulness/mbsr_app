@@ -26,25 +26,34 @@ String passwordResetRedirectUrlForApp() {
   }
 }
 
+/// Nur der Pfadteil einer Route (ohne ?userId=…), damit z. B. `/reset-password`
+/// mit Query-Parametern noch erkannt wird.
+String? routePathOnly(String? route) {
+  if (route == null || route.isEmpty) return route;
+  final q = route.indexOf('?');
+  if (q == -1) return route;
+  return route.substring(0, q);
+}
+
 /// Liest die aktuelle Route aus der Browser-URL
 String? getCurrentRoute() {
   if (!kIsWeb) return null;
-  
+
   try {
     // Verwende Uri.base, um die aktuelle URL inklusive Fragment (Hash) zu lesen
     final uri = Uri.base;
     final hash = uri.fragment;
-    
+
     if (hash.isNotEmpty) {
       final route = hash.startsWith('/') ? hash : '/$hash';
-      return route;
+      return routePathOnly(route);
     }
-    
+
     final path = uri.path;
     if (path.isNotEmpty && path != '/') {
-      return path;
+      return routePathOnly(path);
     }
-    
+
     return null;
   } catch (e) {
     return null;

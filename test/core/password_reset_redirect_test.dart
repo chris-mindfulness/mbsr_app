@@ -9,4 +9,10 @@ void main() {
       expect(passwordResetRedirectUrlForApp(), AppConfig.passwordResetRedirectUrl);
     },
   );
+
+  test('routePathOnly entfernt Query-String', () {
+    expect(routePathOnly('/reset-password?userId=a&secret=b'), '/reset-password');
+    expect(routePathOnly('/login'), '/login');
+    expect(routePathOnly(null), null);
+  });
 }

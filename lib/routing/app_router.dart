@@ -59,9 +59,10 @@ class AppRouter {
   }
 
   /// Prüft, ob eine Route eine Login/Auth-Route ist
+  /// „Leere“ oder Login-Start-URLs: eingeloggte Nutzer werden zur Kursübersicht geschickt.
+  /// [resetPassword] ist **nicht** dabei — Reset-Link aus der E-Mail hat Vorrang (auch mit Session).
   static bool isAuthRoute(String? route) {
     return route == login ||
-        route == resetPassword ||
         route == root ||
         route == null ||
         route.isEmpty;
