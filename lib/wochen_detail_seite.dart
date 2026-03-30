@@ -695,6 +695,10 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          // ═══════════════════════════════════
+                          // ANKOMMEN
+                          // ═══════════════════════════════════
+
                           // ── 1. TITEL ──
                           Text(widget.titel, style: AppStyles.titleStyle),
                           AppStyles.spacingMBox,
@@ -729,161 +733,11 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
                             ),
                           AppStyles.spacingXLBox,
 
-                          // ── 5. FOKUS + ZITAT (zusammengeführt) ──
-                          if (widget.fokus != null) ...[
-                            AppStyles.spacingMBox,
-                            Text(
-                              widget.fokus!,
-                              style: AppStyles.headingStyle.copyWith(
-                                color: AppStyles.primaryOrange,
-                                fontSize: 18,
-                                height: 1.4,
-                              ),
-                            ),
-                          ],
-                          if (widget.zitat != null) ...[
-                            AppStyles.spacingLBox,
-                            _buildAdaptiveCard(
-                              accentColor: AppStyles.softBrown,
-                              neutralSurface: useCleanCardsForWeeks,
-                              fillAlpha: 0.05,
-                              borderAlpha: 0.16,
-                              radius: 20,
-                              child: Column(
-                                children: [
-                                  Icon(
-                                    Icons.format_quote,
-                                    color: AppStyles.softBrown,
-                                    size: 32,
-                                  ),
-                                  AppStyles.spacingSBox,
-                                  Text(
-                                    widget.zitat!,
-                                    style: AppStyles.decorativeTextStyle
-                                        .copyWith(fontSize: 16, height: 1.6),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                  if (widget.zitatAutor != null) ...[
-                                    AppStyles.spacingMBox,
-                                    Text(
-                                      "- ${widget.zitatAutor}",
-                                      style: AppStyles.smallTextStyle.copyWith(
-                                        fontWeight: FontWeight.bold,
-                                        color: AppStyles.softBrown,
-                                      ),
-                                    ),
-                                  ],
-                                ],
-                              ),
-                            ),
-                          ],
-                          AppStyles.spacingXLBox,
+                          // ═══════════════════════════════════
+                          // PLAN – „Was mache ich diese Woche?"
+                          // ═══════════════════════════════════
 
-                          // ── 6. PSYCHOEDUKATION (ReadingCards) ──
-                          // Theorie vor der Praxis: Teilnehmende verstehen
-                          // das Warum, bevor sie mit den Übungen starten.
-                          if (widget.readingCards.isNotEmpty) ...[
-                            WeeklyReadingSection(
-                              readingCards: widget.readingCards,
-                              readingSummary: widget.readingSummary,
-                              archiveEligible: widget.archiveEligible,
-                              readabilityPilot: isReadabilityPilot,
-                              showIntroSummary: !isReadabilityPilot,
-                              showSourceRef: !isReadabilityPilot,
-                              onOpenArchive: _openTextArchiv,
-                            ),
-                            AppStyles.spacingXLBox,
-                          ],
-
-                          // ── 7. PSYCHOEDUKATION-CLIP ──
-                          // Audio-Ergänzung zum gerade Gelesenen.
-                          if (widget.infoClips != null &&
-                              widget.infoClips!['psychoedukation'] !=
-                                  null) ...[
-                            Center(
-                              child: AvatarAudioClip(
-                                appwriteId:
-                                    (widget.infoClips!['psychoedukation']
-                                        as Map)['appwrite_id'],
-                                label: 'Zum Thema dieser Woche',
-                                durationHint:
-                                    (widget.infoClips!['psychoedukation']
-                                        as Map)['duration'],
-                              ),
-                            ),
-                            AppStyles.spacingXLBox,
-                          ],
-
-                          // ── 8. DEIN ÜBUNGSPROGRAMM ──
-                          // Audios + übungsspezifische Tipps an einem Ort.
-                          if (_weekAudios.isNotEmpty) ...[
-                            _buildSectionHeader("DEIN ÜBUNGSPROGRAMM"),
-                            AppStyles.spacingMBox,
-                            if (currentWeekIndex <= 2) ...[
-                              Container(
-                                margin: EdgeInsets.only(
-                                  bottom: AppStyles.spacingM,
-                                ),
-                                child: _buildAdaptiveCard(
-                                  accentColor: AppStyles.infoBlue,
-                                  neutralSurface: useCleanCardsForWeeks,
-                                  fillAlpha: 0.1,
-                                  borderAlpha: 0.3,
-                                  radius: 20,
-                                  borderWidth: 1.0,
-                                  child: Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Icon(
-                                        Icons.info_outline,
-                                        color: AppStyles.infoBlue,
-                                        size: 24,
-                                      ),
-                                      AppStyles.spacingMHorizontal,
-                                      Expanded(
-                                        child: Text(
-                                          "Hinweis: In der Mediathek findest du auch längere Versionen des Body-Scans (27 & 35 Min), falls du mehr Zeit hast.",
-                                          style: AppStyles.bodyStyle.copyWith(
-                                            fontSize:
-                                                AppStyles.bodyStyle.fontSize,
-                                            color: AppStyles.textDark,
-                                            fontWeight:
-                                                AppStyles.fontWeightRegular,
-                                            height: 1.6,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ],
-                            ..._weekAudios.map(
-                              (audio) => _buildAudioCard(audio),
-                            ),
-                            AppStyles.spacingLBox,
-
-                            // Übungsspezifische Tipps direkt nach den Audios
-                            if (currentWeekIndex <= 2) ...[
-                              _buildBodyScanTipps(
-                                neutralSurface: useCleanCardsForWeeks,
-                              ),
-                            ],
-                            if (currentWeekIndex == 4) ...[
-                              _buildSitzmeditationTipps(
-                                neutralSurface: useCleanCardsForWeeks,
-                              ),
-                            ],
-                            if (currentWeekIndex == 3) ...[
-                              _buildBewegungTipps(
-                                neutralSurface: useCleanCardsForWeeks,
-                              ),
-                            ],
-                            AppStyles.spacingXLBox,
-                          ],
-
-                          // ── 9. WOCHENAUFGABEN ──
+                          // ── 5. WOCHENAUFGABEN ──
                           if (widget.wochenAufgaben.isNotEmpty) ...[
                             _buildAdaptiveCard(
                               accentColor: AppStyles.primaryOrange,
@@ -971,7 +825,79 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
                             ),
                           ],
 
-                          // ── 10. FÜR DEN ALLTAG ──
+                          // ═══════════════════════════════════
+                          // PRAXIS – Audios, Tipps, Alltag
+                          // ═══════════════════════════════════
+
+                          // ── 6. DEIN ÜBUNGSPROGRAMM ──
+                          if (_weekAudios.isNotEmpty) ...[
+                            _buildSectionHeader("DEIN ÜBUNGSPROGRAMM"),
+                            AppStyles.spacingMBox,
+                            if (currentWeekIndex <= 2) ...[
+                              Container(
+                                margin: EdgeInsets.only(
+                                  bottom: AppStyles.spacingM,
+                                ),
+                                child: _buildAdaptiveCard(
+                                  accentColor: AppStyles.infoBlue,
+                                  neutralSurface: useCleanCardsForWeeks,
+                                  fillAlpha: 0.1,
+                                  borderAlpha: 0.3,
+                                  radius: 20,
+                                  borderWidth: 1.0,
+                                  child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Icon(
+                                        Icons.info_outline,
+                                        color: AppStyles.infoBlue,
+                                        size: 24,
+                                      ),
+                                      AppStyles.spacingMHorizontal,
+                                      Expanded(
+                                        child: Text(
+                                          "Hinweis: In der Mediathek findest du auch längere Versionen des Body-Scans (27 & 35 Min), falls du mehr Zeit hast.",
+                                          style: AppStyles.bodyStyle.copyWith(
+                                            fontSize:
+                                                AppStyles.bodyStyle.fontSize,
+                                            color: AppStyles.textDark,
+                                            fontWeight:
+                                                AppStyles.fontWeightRegular,
+                                            height: 1.6,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                            ..._weekAudios.map(
+                              (audio) => _buildAudioCard(audio),
+                            ),
+                            AppStyles.spacingLBox,
+
+                            // Übungsspezifische Tipps direkt nach den Audios
+                            if (currentWeekIndex <= 2) ...[
+                              _buildBodyScanTipps(
+                                neutralSurface: useCleanCardsForWeeks,
+                              ),
+                            ],
+                            if (currentWeekIndex == 4) ...[
+                              _buildSitzmeditationTipps(
+                                neutralSurface: useCleanCardsForWeeks,
+                              ),
+                            ],
+                            if (currentWeekIndex == 3) ...[
+                              _buildBewegungTipps(
+                                neutralSurface: useCleanCardsForWeeks,
+                              ),
+                            ],
+                            AppStyles.spacingXLBox,
+                          ],
+
+                          // ── 7. FÜR DEN ALLTAG ──
                           if (widget.alltagsTipp != null) ...[
                             _buildSectionHeader("FÜR DEN ALLTAG"),
                             AppStyles.spacingMBox,
@@ -1003,6 +929,92 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
                                     ),
                                   ),
                                 ],
+                              ),
+                            ),
+                            AppStyles.spacingXLBox,
+                          ],
+
+                          // ═══════════════════════════════════
+                          // VERTIEFUNG – für Neugierige
+                          // ═══════════════════════════════════
+
+                          // ── 8. FOKUS + ZITAT ──
+                          if (widget.fokus != null) ...[
+                            AppStyles.spacingMBox,
+                            Text(
+                              widget.fokus!,
+                              style: AppStyles.headingStyle.copyWith(
+                                color: AppStyles.primaryOrange,
+                                fontSize: 18,
+                                height: 1.4,
+                              ),
+                            ),
+                          ],
+                          if (widget.zitat != null) ...[
+                            AppStyles.spacingLBox,
+                            _buildAdaptiveCard(
+                              accentColor: AppStyles.softBrown,
+                              neutralSurface: useCleanCardsForWeeks,
+                              fillAlpha: 0.05,
+                              borderAlpha: 0.16,
+                              radius: 20,
+                              child: Column(
+                                children: [
+                                  Icon(
+                                    Icons.format_quote,
+                                    color: AppStyles.softBrown,
+                                    size: 32,
+                                  ),
+                                  AppStyles.spacingSBox,
+                                  Text(
+                                    widget.zitat!,
+                                    style: AppStyles.decorativeTextStyle
+                                        .copyWith(fontSize: 16, height: 1.6),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  if (widget.zitatAutor != null) ...[
+                                    AppStyles.spacingMBox,
+                                    Text(
+                                      "- ${widget.zitatAutor}",
+                                      style: AppStyles.smallTextStyle.copyWith(
+                                        fontWeight: FontWeight.bold,
+                                        color: AppStyles.softBrown,
+                                      ),
+                                    ),
+                                  ],
+                                ],
+                              ),
+                            ),
+                          ],
+                          AppStyles.spacingXLBox,
+
+                          // ── 9. PSYCHOEDUKATION (ReadingCards) ──
+                          if (widget.readingCards.isNotEmpty) ...[
+                            WeeklyReadingSection(
+                              readingCards: widget.readingCards,
+                              readingSummary: widget.readingSummary,
+                              archiveEligible: widget.archiveEligible,
+                              readabilityPilot: isReadabilityPilot,
+                              showIntroSummary: !isReadabilityPilot,
+                              showSourceRef: !isReadabilityPilot,
+                              onOpenArchive: _openTextArchiv,
+                            ),
+                            AppStyles.spacingXLBox,
+                          ],
+
+                          // ── 10. PSYCHOEDUKATION-CLIP ──
+                          if (widget.infoClips != null &&
+                              widget.infoClips!['psychoedukation'] !=
+                                  null) ...[
+                            Center(
+                              child: AvatarAudioClip(
+                                appwriteId:
+                                    (widget.infoClips!['psychoedukation']
+                                        as Map)['appwrite_id'],
+                                label: 'Zum Thema dieser Woche',
+                                durationHint:
+                                    (widget.infoClips!['psychoedukation']
+                                        as Map)['duration'],
                               ),
                             ),
                             AppStyles.spacingXLBox,
@@ -1057,6 +1069,10 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
                             ),
                             AppStyles.spacingXLBox,
                           ],
+
+                          // ═══════════════════════════════════
+                          // REFERENZ
+                          // ═══════════════════════════════════
 
                           // ── 13. UNTERLAGEN (PDFs) ──
                           if (widget.pdfs.isNotEmpty) ...[
