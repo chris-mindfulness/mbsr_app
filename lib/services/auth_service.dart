@@ -7,6 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../auth/session_refresh_policy.dart';
 import '../core/appwrite_client.dart';
 import '../core/app_config.dart';
+import '../web_utils.dart' show passwordResetRedirectUrlForApp;
 
 /// Authentifizierungs-Service für Appwrite
 ///
@@ -482,11 +483,15 @@ class AuthService {
     try {
       if (kDebugMode) debugPrint('📧 Sende Passwort-Reset-Email an: $email');
 
-      final redirectUrl = AppConfig.passwordResetRedirectUrl;
+      final redirectUrl = passwordResetRedirectUrlForApp();
       if (redirectUrl.isEmpty) {
         throw AuthException(
           'Passwort-Reset ist momentan nicht konfiguriert. Bitte später erneut versuchen.',
         );
+      }
+
+      if (kDebugMode) {
+        debugPrint('📧 Recovery-Redirect-URL: $redirectUrl');
       }
 
       await _appwrite.account.createRecovery(email: email, url: redirectUrl);
@@ -494,9 +499,12 @@ class AuthService {
       if (kDebugMode) debugPrint('✅ Passwort-Reset-Email gesendet');
     } on AppwriteException catch (e) {
       if (kDebugMode) {
-        debugPrint('❌ Fehler beim Senden der Reset-Email: ${e.message}');
+        debugPrint(
+          '❌ Fehler beim Senden der Reset-Email: ${e.message} '
+          '(type=${e.type}, code=${e.code})',
+        );
       }
-      throw AuthException._fromAppwriteException(e);
+      throw _mapRecoveryAppwriteException(e);
     }
   }
 
@@ -542,6 +550,63 @@ class AuthService {
   void dispose() {
     _authStateController.close();
   }
+}
+
+/// Appwrite-Fehler bei [createRecovery] — nicht mit Login ([401] = „Passwort falsch“) verwechseln.
+AuthException _mapRecoveryAppwriteException(AppwriteException e) {
+  final msg = (e.message ?? '').toLowerCase();
+  final type = e.type ?? '';
+
+  if (type == 'user_not_found' ||
+      (e.code == 404 && msg.contains('user'))) {
+    return AuthException(
+      'Unter dieser E-Mail ist kein Konto registriert. '
+      'Bitte die Schreibweise prüfen oder die Kursleitung kontaktieren.',
+    );
+  }
+
+  final redirectHint = msg.contains('url') ||
+      msg.contains('redirect') ||
+      msg.contains('hostname') ||
+      msg.contains('host must');
+  if ((e.code == 400 || type == 'general_argument_invalid') &&
+      redirectHint) {
+    return AuthException(
+      'Der Link zum Zurücksetzen ist für diese Web-Adresse nicht freigeschaltet. '
+      'In Appwrite müssen unter Auth die erlaubten URLs die genaue Adresse '
+      'deiner App enthalten (inkl. https und ohne Tippfehler). '
+      'Alternativ die App über die vorgesehene Kurs-URL öffnen.',
+    );
+  }
+
+  if (e.code == 429) {
+    return AuthException(
+      'Zu viele Anfragen. Bitte warte einen Moment und versuche es erneut.',
+    );
+  }
+
+  if (e.code == 401) {
+    return AuthException(
+      'Passwort zurücksetzen wurde abgelehnt. Bitte später erneut versuchen '
+      'oder die Kursleitung kontaktieren.',
+    );
+  }
+
+  if (e.code == 500 || e.code == 503) {
+    return AuthException(
+      'Der Dienst ist kurz nicht erreichbar. Bitte später erneut versuchen.',
+    );
+  }
+
+  if (kDebugMode) {
+    return AuthException(
+      'Passwort-Reset: ${e.message ?? "Unbekannter Fehler"} (code ${e.code}, type $type)',
+    );
+  }
+  return AuthException(
+    'Passwort zurücksetzen hat nicht geklappt. Bitte erneut versuchen '
+    'oder die Kursleitung kontaktieren.',
+  );
 }
 
 /// Custom Exception für benutzerfreundliche Fehlermeldungen

@@ -8,6 +8,8 @@ Appwrite verschickt beim Passwort-Reset eine E-Mail mit einem Link. Dieser Link 
 
 Appwrite hängt an diese URL die Query-Parameter **`userId`** und **`secret`** an. Unter `/reset-password` zeigt die App **`ResetPasswordScreen`**: neues Passwort eingeben, Abschluss per `updateRecovery` in `AuthService.completePasswordRecovery`.
 
+**Web:** `createRecovery` nutzt die **aktuelle Browser-Origin** + `/reset-password` (`passwordResetRedirectUrlForApp` in `web_utils.dart`), damit die gleiche Domain wie die geöffnete App an Appwrite gesendet wird (z. B. Cloudflare-Pages-URL statt nur der festen Produktionsdomain). In Appwrite müssen **alle** genutzten App-URLs unter den erlaubten Auth-URLs stehen.
+
 ## Standard (Produktion)
 
 - **Kein** `--dart-define` nötig.

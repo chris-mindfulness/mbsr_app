@@ -2,6 +2,30 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 
 import 'package:flutter/services.dart';
 
+import 'core/app_config.dart';
+
+/// Redirect-URL für Appwrite [createRecovery].
+///
+/// **Web:** Aktuelle Origin + `/reset-password`, damit die URL in Appwrite
+/// erlaubt sein kann (gleiche Domain wie die geöffnete App, z. B. Pages-URL).
+/// **Nicht-Web:** [AppConfig.passwordResetRedirectUrl] (Build-Default).
+String passwordResetRedirectUrlForApp() {
+  if (!kIsWeb) {
+    return AppConfig.passwordResetRedirectUrl;
+  }
+  try {
+    final u = Uri.base;
+    return Uri(
+      scheme: u.scheme,
+      host: u.host,
+      port: u.hasPort ? u.port : null,
+      path: '/reset-password',
+    ).toString();
+  } catch (_) {
+    return AppConfig.passwordResetRedirectUrl;
+  }
+}
+
 /// Liest die aktuelle Route aus der Browser-URL
 String? getCurrentRoute() {
   if (!kIsWeb) return null;
