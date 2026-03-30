@@ -210,14 +210,22 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
           ],
         ],
       );
+      // Volle Breite nötig: sonst schrumpft der graue Streifen auf die Textbreite
+      // (Column mit crossAxisAlignment.center + kurzem Zitat).
       final padded = Padding(
         padding: const EdgeInsets.fromLTRB(18, 16, 18, 18),
-        child: column,
+        child: SizedBox(
+          width: double.infinity,
+          child: column,
+        ),
       );
       if (!scrollable) return padded;
       return SingleChildScrollView(
         padding: const EdgeInsets.fromLTRB(18, 16, 18, 18),
-        child: column,
+        child: SizedBox(
+          width: double.infinity,
+          child: column,
+        ),
       );
     }
 
@@ -288,6 +296,7 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
           )
         : Column(
             mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               imageArea(height: 200, roundTopOnly: true),
               DecoratedBox(
