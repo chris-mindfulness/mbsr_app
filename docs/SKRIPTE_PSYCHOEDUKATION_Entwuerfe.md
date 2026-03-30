@@ -17,15 +17,15 @@
 
 ### w1-goldberg-meta: Was Studien zu Achtsamkeitsprogrammen zeigen
 
-Die Forschung zu Programmen wie MBSR und MBCT ist inzwischen breit: In großen Übersichten wurden Hunderte Studien mit vielen tausend Teilnehmenden ausgewertet. Danach können achtsamkeitsbasierte Programme Stress, depressive Symptome und Angst messbar lindern; in vielen Arbeiten sind sie mit etablierten Verfahren vergleichbar.
+Die Forschung zu Programmen wie MBSR und MBCT ist inzwischen breit: In einer großen Bestandsaufnahme wurden 44 Übersichtsarbeiten mit insgesamt über 300 Einzelstudien und rund 30.000 Teilnehmenden ausgewertet. Danach können achtsamkeitsbasierte Programme Stress, depressive Symptome und Angst messbar lindern; in vielen Arbeiten sind sie mit etablierten Verfahren vergleichbar.
 
 Wichtig für ein faires Bild: Wenn man sie nicht mit einer Warteliste vergleicht, sondern mit anderen aktiven Programmen, wirken die Vorteile oft kleiner. Das macht die Praxis nicht wertlos — es erinnert daran, dass Achtsamkeit kein Wundermittel ist. Bei schwerer Erkrankung bleibt professionelle Hilfe der richtige Ort.
 
 ### w1-autopilot: Geist abwesend — und trotzdem da?
 
-In einer bekannten Studie wurden Menschen per Smartphone zu zufälligen Zeiten gefragt: Was tust du gerade? Wo ist dein Geist? Wie fühlst du dich? Im Mittel war die Aufmerksamkeit oft nicht bei der aktuellen Tätigkeit — in der Öffentlichkeit wurde daraus die einprägsame Zahl von etwa der Hälfte der Wachzeit.
+In einer bekannten Studie wurden Menschen per Smartphone zu zufälligen Zeiten gefragt: Was tust du gerade? Wo ist dein Geist? Wie fühlst du dich? Ergebnis: In etwa 47 % der Wachzeit war die Aufmerksamkeit nicht bei der aktuellen Tätigkeit.
 
-Neuere Arbeiten zeigen: So einfach ist es nicht; es kommt darauf an, wie genau man fragt, und nicht jedes Abschweifen ist „schlecht". Entscheidend für diesen Kurs ist etwas anderes: Du kannst üben, früher zu merken, wohin der Geist gewandert ist — und freundlich zu entscheiden, ob du zurück zum Moment kehrst.
+Neuere Arbeiten zeigen: So pauschal stimmt das nicht; es kommt darauf an, wie genau man fragt, und nicht jedes Abschweifen ist schlecht. Entscheidend für diesen Kurs ist etwas anderes: Du kannst üben, früher zu merken, wohin der Geist gewandert ist — und zu entscheiden, ob du zurück zum Moment kehrst.
 
 ### w1-anfangsunruhe: Wenn die erste Zeit unruhiger wirkt
 
@@ -95,7 +95,7 @@ Für die Praxis heißt das: Manchmal brauchst du eine schnelle Regulation, manch
 
 ### w4-stress-gedaechtnis: Stress und Lernen — ein feiner Unterschied
 
-Überblicksarbeiten beschreiben: Leichter Stress kann kurzfristig Wachheit und Fokus unterstützen. Länger anhaltender, hoher Stress hingegen kann das Lernen und Erinnern erschweren — während emotional geprägte Erfahrungen intensiver wahrgenommen werden können.
+In einer neueren Zusammenschau zeigt sich: Leichter Stress kann kurzfristig Wachheit und Fokus unterstützen. Länger anhaltender, hoher Stress hingegen kann das Lernen und Erinnern erschweren — während emotional geprägte Erfahrungen intensiver wahrgenommen werden.
 
 Praktisch: In sehr stressigen Phasen ist weniger „Theorie im Kopf" und mehr spürende Übung oft hilfreicher. Genau dafür gibt es Atem, Body-Scan und Bewegung.
 
@@ -103,7 +103,7 @@ Praktisch: In sehr stressigen Phasen ist weniger „Theorie im Kopf" und mehr sp
 
 Aus der Hirnforschung kommt ein überraschendes Bild: Der angereicherte Laborkäfig mit Spielzeug und Platz ist nicht luxuriös — der Standardkäfig ist deprivierend. Übertragen auf uns: Meditation ist möglicherweise kein Wellness-Bonus, sondern stellt etwas wieder her, das unser Nervensystem braucht und im Alltag zu kurz kommt.
 
-Das heisst nicht, dass es ohne Übung geht. Auch Sprache ist angeboren — aber ohne Pflege verkümmert sie. Meditation ist Grundversorgung und bewusste Kultivierung zugleich.
+Das heißt nicht, dass es ohne Übung geht. Meditation ist Grundversorgung und bewusste Kultivierung zugleich — beides.
 
 ---
 
@@ -123,7 +123,7 @@ Das ist keine Anweisung, alles allein auszuhalten. Wenn etwas zu viel wird, ist 
 
 ### w5-decentering: Abstand gewinnen, ohne kalt zu werden
 
-In der Forschung taucht ein Begriff auf, der gut beschreibt, was in der Praxis passiert: Decentering. Gemeint ist die Fähigkeit, Gedanken und Gefühle zu beobachten, ohne sich mit ihnen zu verschmelzen. Du denkst nicht weniger — aber du erkennst: Das ist ein Gedanke, nicht die Wirklichkeit.
+In der Forschung taucht ein Begriff auf, der gut beschreibt, was in der Praxis passiert: Decentering. Gemeint ist die Fähigkeit, Gedanken und Gefühle zu beobachten, ohne sich mit ihnen zu verschmelzen. Du denkst nicht weniger — aber du erkennst: Das ist ein Gedanke, nicht die Wirklichkeit. Erinnerst du dich an das Kino-Gleichnis aus Woche 2? Decentering ist genau diese zweite Art zu schauen — gefesselt und doch gewahr, dass es ein Film ist.
 
 Studien zeigen, dass dieser Perspektivwechsel ein Schlüsselmechanismus sein kann, über den Achtsamkeitsprogramme wirken — etwa bei der Vorbeugung von Rückfällen in Depression.
 
@@ -135,9 +135,9 @@ Achtsamkeit trainiert nicht, dass nichts mehr weh tut. Sie verändert, wie schne
 
 ### w5-stimulus-response: Kurz raus aus Reiz und Reaktion
 
-Jeden Tag kurz aus dem Kreislauf von Anforderung und Antwort heraustreten — nicht weil die aktive Welt schlecht ist, sondern weil du dich nur so selbst kennenlernen kannst. Wer regelmässig innehält, reagiert danach oft klarer und weniger automatisch.
+Jeden Tag kurz aus dem Kreislauf von Anforderung und Antwort heraustreten — nicht weil die aktive Welt schlecht ist, sondern weil du dich nur so selbst kennenlernen kannst. Wer regelmäßig innehält, reagiert danach oft klarer und weniger automatisch.
 
-Kein grosser Rückzug nötig. Ein paar Minuten Stille, ein bewusster Atemzug vor einer Entscheidung — das reicht, um das Verhältnis von Signal und Rauschen im Kopf zu verbessern.
+Kein großer Rückzug nötig. Ein paar Minuten Stille, ein bewusster Atemzug vor einer Entscheidung — das reicht, um das Verhältnis von Signal und Rauschen im Kopf zu verbessern.
 
 ---
 
@@ -145,15 +145,15 @@ Kein grosser Rückzug nötig. Ein paar Minuten Stille, ein bewusster Atemzug vor
 
 ### w6-mitgefuehl: Mitgefühl und Verhalten
 
-In Studien zu kurzen Mitgefühls- oder Compassion-Trainings fanden Forschende Veränderungen: stärkere Beteiligung in Situationen, in denen andere leiden, und häufig auch großzügigeres Verhalten in Übungsszenarien. Das sind Labor- und Gruppenbefunde — kein Automatismus im Alltag.
+In Studien zu kurzen Mitgefühls-Trainings zeigten sich messbare Veränderungen: In einem Verhaltensspiel verteilten Teilnehmende nach nur zwei Wochen Übung Geld großzügiger an Benachteiligte — nicht weil sie netter sein wollten, sondern weil sich ihre spontane Reaktion verschoben hatte. Das sind Laborbefunde, kein Automatismus im Alltag.
 
 Sie zeigen aber: Die „weichen" Übungen haben eine nachvollziehbare Wirkung auf Innenwelt und Handeln — nicht nur auf den Fragebogen.
 
 ### w6-flourishing: Wenn du aufblühst, wirkt das weiter
 
-Aus dem Umfeld der Stress- und Achtsamkeitsforschung wird berichtet, dass die eigene innere Stabilität das soziale Umfeld spürbar beeinflussen kann — etwa wenn Lehrende regelmäßig kurz üben und anschließend ruhiger und klarer im Alltag agieren. Einzelne große Studien dazu sind noch selten öffentlich und sollten mit Zurückhaltung zitiert werden.
+Innere Veränderung bleibt selten unsichtbar. Wenn du regelmäßig übst, berichten Teilnehmende häufig, dass sich ihr Umfeld mitverändert — nicht weil sie andere „reparieren", sondern weil sie selbst anders reagieren: ruhiger, präsenter, weniger automatisch.
 
-Unabhängig davon ist erlebbar: Wenn du weniger im Autopiloten reagierst, verändert sich oft der Ton im Kontakt — ohne dass du andere „reparieren" musst.
+Das ist kein Zaubermechanismus, sondern einfache Sozialpsychologie: Wer weniger im Autopiloten kommuniziert, verändert den Ton im Kontakt. Das gilt im Gespräch, im Beruf, in der Familie.
 
 ### w6-prosozial-luberto: Prosoziales Verhalten messbar verändert?
 
@@ -173,15 +173,15 @@ Selbstfürsorge meint hier: diese Anlagen bewusst nähren, statt sie nur zu bean
 
 ### w7-digitale-hygiene: Achtsamkeit mit dem Smartphone
 
-Viele Menschen greifen täglich sehr oft zum Handy — oft unbewusst. Digitale Hygiene heißt nicht „alles weg", sondern bewusste Grenzen: etwa handy-freie Zonen, feste Zeiten offline oder das Gerät sichtbar liegen lassen und trotzdem nicht greifen — als kleine Willensübung.
+Viele Menschen greifen täglich dutzende Male zum Handy — oft unbewusst. Digitale Hygiene heißt nicht „alles weg", sondern bewusste Grenzen: etwa handy-freie Zonen, feste Zeiten offline oder das Gerät sichtbar liegen lassen und trotzdem nicht greifen — als kleine Willensübung.
 
-Einzelne spektakuläre Studien zum „Handy auf dem Tisch" haben nicht überall Bestand; das allgemeine Phänomen Ablenkung ist trotzdem alltagstauglich. Gesundheitsbehörden weisen etwa auf Schutzfaktoren und Risiken bei sozialen Medien hin — besonders für junge Menschen.
+Das Prinzip ist dasselbe wie in der Meditation: Nicht den Impuls bekämpfen, sondern ihn bemerken und bewusst entscheiden, ob du ihm folgst.
 
 ### w7-schlaf-mythos: Meditation ersetzt keinen Schlaf
 
-Eine häufige Frage: Kann Meditation Schlaf ersetzen? Die Antwort aus der Forschung ist klar: Nein. Selbst sehr erfahrene Praktizierende mit Jahrzehnten täglicher Übung schlafen acht bis neun Stunden. Wer weniger schläft, profitiert davon, den Wecker abzuschaffen — nicht davon, morgens müde zu meditieren.
+Eine häufige Frage: Kann Meditation Schlaf ersetzen? Die Antwort ist klar: Nein. Richard Davidson, einer der erfahrensten Meditationsforscher, berichtet, dass er deutlich länger schlief und sich spürbar besser fühlte, nachdem er den Wecker abgeschafft hatte — trotz Jahrzehnten täglicher Praxis.
 
-Meditation wirkt am besten, wenn du wach bist. Schläfrigkeit ist kein Zeichen von Entspannung, sondern ein Zeichen von Schlafmangel. Der beste Zeitpunkt zum Üben ist der, an dem du am klarsten bist.
+Meditation wirkt am besten, wenn du wach bist. Schläfrigkeit in der Übung ist kein Zeichen von Entspannung, sondern von Schlafmangel. Der beste Zeitpunkt zum Üben ist der, an dem du am klarsten bist.
 
 ---
 
@@ -189,9 +189,9 @@ Meditation wirkt am besten, wenn du wach bist. Schläfrigkeit ist kein Zeichen v
 
 ### w8-vier-saeulen: Vier Säulen des Wohlergehens
 
-Ein Rahmen aus der Forschung zu Meditation und Wohlbefinden ordnet Praxis in vier Bereiche: Gewahrsein und Aufmerksamkeit, Verbindung und Wertschätzung, Einblick in innere Geschichten, und Sinn im Alltag. Nicht jede Übung muss in eine Schublade passen — aber beim Rückblick kannst du fragen: Wo habe ich Achtsamkeit geübt? Wo Verbindung? Wo Klarheit über Erzählungen? Wo etwas Sinnvolles im Kleinen?
+Der Neurowissenschaftler Richard Davidson ordnet Wohlbefinden in vier Bereiche: Gewahrsein (Awareness), Verbindung (Connection), Einsicht in innere Geschichten (Insight) und Sinn im Alltag (Purpose). Beim Rückblick auf den Kurs kannst du fragen: Wo habe ich Aufmerksamkeit geübt? Wo Verbindung? Wo Klarheit über meine Erzählungen? Wo etwas Sinnvolles im Kleinen?
 
-So wird sichtbar, wie breit der Kurs dich begleitet hat.
+Nicht jede Übung passt in eine Schublade — aber das Modell zeigt, wie breit der Kurs dich begleitet hat.
 
 ### w8-konsistenz: Dranbleiben schlägt Perfektion
 
@@ -203,7 +203,7 @@ Die Mediathek und dein persönlicher Plan bleiben deine Verbündeten.
 
 Ein Zielbild aus der Meditationstradition klingt paradox: Die reifste Form der Praxis ist unabgelenktes Nicht-Meditieren — vollständig wach, vollständig gewahr, aber ohne Technik und ohne Anstrengung. Kein Objekt, kein Ziel, nur Dasein.
 
-Für den Alltag nach dem Kurs heisst das: Meditation muss nicht immer eine formelle Übung sein. Manchmal reicht es, ganz da zu sein — beim Spaziergang, beim Warten, beim Zuhören.
+Für den Alltag nach dem Kurs heißt das: Meditation muss nicht immer eine formelle Übung sein. Manchmal reicht es, ganz da zu sein — beim Spaziergang, beim Warten, beim Zuhören.
 
 ### w8-deklarativ-prozedural: Wissen und Üben — beides zählt
 
@@ -223,7 +223,7 @@ Arbeitsvorlagen für ElevenLabs-Clips (ca. 60–90 s).
 
 [thoughtful] Wenn Muskeln sich anstrengen, entsteht ein Brennen – Laktat. Der Körper signalisiert: Hier passiert etwas, womit er noch nicht vertraut ist.
 
-[thoughtful] Meditation kann sich am Anfang ähnlich anfühlen. Mehr Unruhe statt weniger. Mehr Gedanken statt Stille. In einer Studie aus dem Davidson-Labor stieg die selbstberichtete Angst in der ersten Woche einer neuen Meditationspraxis messbar an – und sank danach.
+[thoughtful] Meditation kann sich am Anfang ähnlich anfühlen. Mehr Unruhe statt weniger. Mehr Gedanken statt Stille. In einer Studie stieg die selbstberichtete Angst in der ersten Woche einer neuen Meditationspraxis messbar an – und sank danach.
 
 [thoughtful] Das ist kein Zeichen, dass du es falsch machst. Es kann bedeuten, dass du zum ersten Mal genauer hinschaust.
 
@@ -241,7 +241,7 @@ Arbeitsvorlagen für ElevenLabs-Clips (ca. 60–90 s).
 
 [slows down] Die doppelte Einatmung bläht kollabierte Lungenbläschen auf. Die lange Ausatmung aktiviert den Parasympathikus. Das Ergebnis: mehr CO₂-Ausstoß, niedrigere Herzfrequenz.
 
-[thoughtful] In einem RCT mit 111 Teilnehmenden übertrafen fünf Minuten tägliches Cyclic Sighing eine Achtsamkeitsmeditation bei Stimmungsverbesserung und Atemfrequenz-Reduktion (Balban, Huberman et al. 2023, *Cell Reports Medicine*).
+[thoughtful] In einem randomisierten Experiment mit 111 Teilnehmenden übertrafen fünf Minuten tägliches Cyclic Sighing eine Achtsamkeitsmeditation bei Stimmungsverbesserung und Atemfrequenz-Reduktion.
 
 [thoughtful] Ein- bis dreimal wiederholen, in deinem Tempo. Kein Ersatz für professionelle Hilfe bei anhaltender Belastung – aber ein gut erforschtes Werkzeug für den Moment.
 
