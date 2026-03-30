@@ -500,6 +500,30 @@ class AuthService {
     }
   }
 
+  /// Passwort nach Klick auf den Link in der Reset-E-Mail setzen (Appwrite `updateRecovery`).
+  Future<void> completePasswordRecovery({
+    required String userId,
+    required String secret,
+    required String password,
+  }) async {
+    try {
+      if (kDebugMode) {
+        debugPrint('🔐 Schließe Passwort-Recovery ab (userId vorhanden: ja)');
+      }
+      await _appwrite.account.updateRecovery(
+        userId: userId,
+        secret: secret,
+        password: password,
+      );
+      if (kDebugMode) debugPrint('✅ Neues Passwort gesetzt');
+    } on AppwriteException catch (e) {
+      if (kDebugMode) {
+        debugPrint('❌ Recovery fehlgeschlagen: ${e.message}');
+      }
+      throw AuthException._fromAppwriteException(e);
+    }
+  }
+
   /// Hole aktuellen User (refresh)
   Future<models.User?> getCurrentUser() async {
     try {

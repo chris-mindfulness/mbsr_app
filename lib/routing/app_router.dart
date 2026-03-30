@@ -3,6 +3,7 @@ import '../kurs_uebersicht.dart';
 import '../literatur_seite.dart';
 import '../profil_seite.dart';
 import '../login_screen.dart';
+import '../reset_password_screen.dart';
 import '../pages/home_page.dart';
 
 /// Zentrale Routing-Konfiguration
@@ -46,8 +47,9 @@ class AppRouter {
       case profil:
         return const ProfilSeite();
       case login:
-      case resetPassword:
         return const LoginScreen();
+      case resetPassword:
+        return const ResetPasswordScreen();
       case root:
         return const MBSRHomePage();
       default:

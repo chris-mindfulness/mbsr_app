@@ -1,10 +1,12 @@
 # Prozess: Passwort-Reset-Redirect-URL
 
-Stand: 29.03.2026
+Stand: 30.03.2026
 
 ## Zweck
 
 Appwrite verschickt beim Passwort-Reset eine E-Mail mit einem Link. Dieser Link muss zu einer **fest erlaubten** URL zurückführen. Die App übergibt diese URL nur an `createRecovery`; sie kommt **ausschließlich** aus dem Build (`AppConfig.passwordResetRedirectUrl`), **nicht** aus Formularfeldern oder der API.
+
+Appwrite hängt an diese URL die Query-Parameter **`userId`** und **`secret`** an. Unter `/reset-password` zeigt die App **`ResetPasswordScreen`**: neues Passwort eingeben, Abschluss per `updateRecovery` in `AuthService.completePasswordRecovery`.
 
 ## Standard (Produktion)
 
@@ -41,7 +43,11 @@ Port und Host müssen zu deiner laufenden Web-App passen (`flutter run` zeigt di
 ## Code-Stellen
 
 - Konfiguration: `lib/core/app_config.dart` (`APP_PASSWORD_RESET_REDIRECT_URL`)
-- Aufruf: `lib/services/auth_service.dart` → `sendPasswordResetEmail`
+- E-Mail anstoßen: `lib/services/auth_service.dart` → `sendPasswordResetEmail` (`createRecovery`)
+- Link aus E-Mail: `lib/reset_password_screen.dart` (liest `userId` / `secret` aus `Uri.base`)
+- API: `lib/services/auth_service.dart` → `completePasswordRecovery` (`updateRecovery`)
+- Routing: `lib/routing/app_router.dart`, `lib/auth/auth_wrapper.dart` (Route `/reset-password`)
+- URL-Wechsel ohne Auth-Event: `lib/auth/auth_route_refresh.dart` (`AuthRouteRefresh.instance.bump()`)
 
 ## Checkliste vor Go-Live
 

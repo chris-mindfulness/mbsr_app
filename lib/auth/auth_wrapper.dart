@@ -11,6 +11,8 @@ import '../pages/home_page.dart';
 import '../audio_service.dart';
 import '../web_utils.dart' show getCurrentRoute, setRoute;
 import '../routing/app_router.dart';
+import '../reset_password_screen.dart';
+import 'auth_route_refresh.dart';
 
 /// Zentrale Authentifizierungs- und Routing-Komponente
 ///
@@ -193,7 +195,13 @@ class _AuthWrapperState extends State<AuthWrapper> {
     // Nicht eingeloggt -> Zeige Auswahlseite (MBSRHomePage)
     // ABER: Wenn die Route eine Auth-Route ist, zeige direkt LoginScreen
     if (user == null) {
-      if (route == AppRouter.login || route == AppRouter.resetPassword) {
+      if (route == AppRouter.resetPassword) {
+        if (kDebugMode) {
+          debugPrint('✅ Navigation: ResetPasswordScreen');
+        }
+        return const ResetPasswordScreen();
+      }
+      if (route == AppRouter.login) {
         if (kDebugMode) {
           debugPrint('✅ Navigation: LoginScreen (Auth-Route: $route)');
         }
@@ -276,70 +284,80 @@ class _AuthWrapperState extends State<AuthWrapper> {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<models.User?>(
-      stream: AuthService().authStateChanges,
-      builder: (context, snapshot) {
-        if (kDebugMode) {
-          debugPrint(
-            'AuthWrapper: Status ist ${snapshot.connectionState} (User: ${snapshot.data?.email ?? "null"})',
-          );
-        }
-
-        if (snapshot.connectionState == ConnectionState.waiting ||
-            !_splashFinished) {
-          if (!_splashFinished) {
-            return const SplashScreen();
-          }
-          return _buildInlineLoadingScreen();
-        }
-
-        final user = snapshot.data;
-        _syncLoginState(user);
-        final currentRoute = _readCurrentRoute();
-
-        if (user == null) {
-          _syncRoleFuture(null);
-          return _getTargetPage(currentRoute, null, null, isLoginEvent: false);
-        }
-
-        _syncRoleFuture(user);
-        final roleFuture = _roleFuture;
-        if (roleFuture == null) {
-          return _buildErrorScreen(
-            title: 'Technischer Fehler',
-            message: 'Rollenprüfung konnte nicht gestartet werden.',
-          );
-        }
-
-        // Hole User-Rolle aus Appwrite Database
-        return FutureBuilder<RoleResolution>(
-          future: roleFuture,
-          builder: (context, roleSnapshot) {
-            if (roleSnapshot.connectionState == ConnectionState.waiting) {
-              return _buildInlineLoadingScreen();
-            }
-
-            // Fehlerbehandlung: Netzwerkprobleme vs. fehlende Daten
-            if (roleSnapshot.hasError) {
-              // Netzwerkfehler → Zeige Retry-Screen
-              return _buildErrorScreen();
-            }
-
-            if (!roleSnapshot.hasData) {
-              return _buildErrorScreen(
-                title: 'Profilfehler',
-                message: 'Rollenprofil konnte nicht geladen werden.',
-                icon: Icons.person_off_outlined,
+    return ListenableBuilder(
+      listenable: AuthRouteRefresh.instance,
+      builder: (context, _) {
+        return StreamBuilder<models.User?>(
+          stream: AuthService().authStateChanges,
+          builder: (context, snapshot) {
+            if (kDebugMode) {
+              debugPrint(
+                'AuthWrapper: Status ist ${snapshot.connectionState} (User: ${snapshot.data?.email ?? "null"})',
               );
             }
 
-            final resolution = roleSnapshot.data!;
+            if (snapshot.connectionState == ConnectionState.waiting ||
+                !_splashFinished) {
+              if (!_splashFinished) {
+                return const SplashScreen();
+              }
+              return _buildInlineLoadingScreen();
+            }
 
-            return _getTargetPage(
-              currentRoute,
-              user,
-              resolution.role,
-              isLoginEvent: _isLoginEvent,
+            final user = snapshot.data;
+            _syncLoginState(user);
+            final currentRoute = _readCurrentRoute();
+
+            if (user == null) {
+              _syncRoleFuture(null);
+              return _getTargetPage(
+                currentRoute,
+                null,
+                null,
+                isLoginEvent: false,
+              );
+            }
+
+            _syncRoleFuture(user);
+            final roleFuture = _roleFuture;
+            if (roleFuture == null) {
+              return _buildErrorScreen(
+                title: 'Technischer Fehler',
+                message: 'Rollenprüfung konnte nicht gestartet werden.',
+              );
+            }
+
+            // Hole User-Rolle aus Appwrite Database
+            return FutureBuilder<RoleResolution>(
+              future: roleFuture,
+              builder: (context, roleSnapshot) {
+                if (roleSnapshot.connectionState == ConnectionState.waiting) {
+                  return _buildInlineLoadingScreen();
+                }
+
+                // Fehlerbehandlung: Netzwerkprobleme vs. fehlende Daten
+                if (roleSnapshot.hasError) {
+                  // Netzwerkfehler → Zeige Retry-Screen
+                  return _buildErrorScreen();
+                }
+
+                if (!roleSnapshot.hasData) {
+                  return _buildErrorScreen(
+                    title: 'Profilfehler',
+                    message: 'Rollenprofil konnte nicht geladen werden.',
+                    icon: Icons.person_off_outlined,
+                  );
+                }
+
+                final resolution = roleSnapshot.data!;
+
+                return _getTargetPage(
+                  currentRoute,
+                  user,
+                  resolution.role,
+                  isLoginEvent: _isLoginEvent,
+                );
+              },
             );
           },
         );
