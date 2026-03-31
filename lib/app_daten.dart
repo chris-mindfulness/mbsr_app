@@ -120,8 +120,8 @@ class AppDaten {
       },
       'fokus': 'Ankommen, Autopilot bemerken, Körper als Anker.',
       'zitat':
-          'Du kannst die Wellen nicht stoppen, aber du kannst lernen zu surfen.',
-      'zitatAutor': 'Jon Kabat-Zinn',
+          'The present moment is the only moment available to us, and it is the door to all moments.',
+      'zitatAutor': 'Thich Nhat Hanh',
       'alltagsTipp':
           'Lege heute zwei kurze Stopps ein: je 3 bewusste Atemzüge, zum Beispiel vor dem Start in den Tag und vor einer Mahlzeit.',
       'reflexionsFragen': [
@@ -268,8 +268,9 @@ class AppDaten {
         'psychoedukation': {'appwrite_id': '', 'duration': '1:00'},
       },
       'fokus': 'Grenzen spüren und respektieren',
-      'zitat': 'Aufmerksamkeit ist der Weg zum Leben.',
-      'zitatAutor': 'Buddha',
+      'zitat':
+          'Feelings come and go like clouds in a windy sky. Conscious breathing is my anchor.',
+      'zitatAutor': 'Thich Nhat Hanh',
       'alltagsTipp':
           'Spüre beim Gehen ganz bewusst den Kontakt deiner Füße zum Boden.',
       'reflexionsFragen': [
@@ -550,8 +551,9 @@ class AppDaten {
         'psychoedukation': {'appwrite_id': '', 'duration': '1:00'},
       },
       'fokus': 'Was nährt mich, was zehrt an mir?',
-      'zitat': 'Sei gut zu dir selbst, damit du gut zu anderen sein kannst.',
-      'zitatAutor': 'Unbekannt',
+      'zitat':
+          'If your compassion does not include yourself, it is incomplete.',
+      'zitatAutor': 'Jack Kornfield',
       'alltagsTipp': 'Tue heute bewusst etwas, das dir gut tut – nur für dich.',
       'reflexionsFragen': [
         'Was gibt dir Energie im Alltag?',
@@ -616,8 +618,9 @@ class AppDaten {
         'verabschiedung': {'appwrite_id': '', 'duration': '0:45'},
       },
       'fokus': 'Der Weg geht weiter',
-      'zitat': 'Der Weg ist das Ziel.',
-      'zitatAutor': 'Konfuzius',
+      'zitat':
+          'Am Ende dieses Kurses ist nicht das Ende der Praxis – es ist der Anfang.',
+      'zitatAutor': 'Jon Kabat-Zinn',
       'alltagsTipp':
           'Erinnere dich heute an einen Moment aus dem Kurs, der dich besonders berührt hat.',
       'reflexionsFragen': [
