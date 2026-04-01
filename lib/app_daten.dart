@@ -38,7 +38,7 @@ class AppDaten {
     {
       'title': 'Ankommen',
       'duration': '3 Min',
-      'appwrite_id': '69cd320700122757259a',
+      'appwrite_id': '69cd36b3001edb3f4145',
       'description':
           'Eine kurze Übung zum Ankommen im Moment. Ideal zum Einstieg in den Tag oder als Pause zwischendurch.',
     },
