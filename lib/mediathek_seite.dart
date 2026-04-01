@@ -317,8 +317,8 @@ class _MediathekSeiteState extends State<MediathekSeite> {
                       ),
                       const SizedBox(width: 8),
                       _buildSurfaceIconButton(
-                        icon: Icons.hearing_outlined,
-                        color: AppStyles.softBrown,
+                        icon: Icons.lightbulb_outline,
+                        color: AppStyles.infoBlue,
                         tooltip: 'Tipps für stabiles Abspielen',
                         onPressed: () => _showPlaybackTips(context),
                       ),
