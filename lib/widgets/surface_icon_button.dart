@@ -18,8 +18,6 @@ class SurfaceIconButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Hellgrauer Ton + Rand + Schatten: auf weißem Seitengrund wirkt die Fläche
-    // als erkennbare Schaltfläche (reines Weiß ging mit dem Hintergrund unter).
     final fill = Color.lerp(AppStyles.bgColor, AppStyles.borderColor, 0.48)!;
     final outline = AppStyles.borderColor.withValues(alpha: 0.88);
 
