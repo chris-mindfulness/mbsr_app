@@ -32,6 +32,21 @@ class _MediathekSeiteState extends State<MediathekSeite> {
   }
 
   void _play(Map<String, String> audio) async {
+    if (audio['upload_status'] == 'pending') {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              'Diese Übung ist noch nicht als Audio bereit — folgt nach dem Upload.',
+              style: AppStyles.bodyStyle,
+            ),
+            backgroundColor: AppStyles.softBrown,
+          ),
+        );
+      }
+      return;
+    }
+
     // Haptisches Feedback beim Start
     HapticFeedback.lightImpact();
 

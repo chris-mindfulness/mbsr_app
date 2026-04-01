@@ -13,6 +13,7 @@ void main() {
         final duration = audio['duration'];
         final appwriteId = audio['appwrite_id'];
         final description = audio['description'];
+        final pendingUpload = audio['upload_status'] == 'pending';
 
         expect(title, isNotNull);
         expect(title!.trim(), isNotEmpty);
@@ -21,16 +22,24 @@ void main() {
         expect(duration!.trim(), isNotEmpty);
 
         expect(appwriteId, isNotNull);
-        expect(appwriteId!.trim(), isNotEmpty);
+        if (pendingUpload) {
+          expect(
+            appwriteId!.trim(),
+            isEmpty,
+            reason:
+                'Einträge mit upload_status=pending haben noch keine appwrite_id',
+          );
+        } else {
+          expect(appwriteId!.trim(), isNotEmpty);
+          expect(
+            ids.add(appwriteId),
+            isTrue,
+            reason: 'Doppelte appwrite_id gefunden: $appwriteId',
+          );
+        }
 
         expect(description, isNotNull);
         expect(description!.trim(), isNotEmpty);
-
-        expect(
-          ids.add(appwriteId),
-          isTrue,
-          reason: 'Doppelte appwrite_id gefunden: $appwriteId',
-        );
       }
     });
 

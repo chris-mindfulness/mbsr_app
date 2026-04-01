@@ -96,6 +96,14 @@ class AppDaten {
       'description':
           'Kurze geführte Übung: die Aufmerksamkeit ruht beim Atem. Keine feste Zuordnung zu einer Kurswoche — ideal für zwischendurch.',
     },
+    {
+      'title': 'Atem mit Fokus',
+      'duration': '10 Min',
+      'appwrite_id': '',
+      'upload_status': 'pending',
+      'description':
+          'Pro Atemzug ein Fokus — von der einfachen Wahrnehmung über den ganzen Körper bis zur Stille. Eine Übung, die den Atem schrittweise vertieft.',
+    },
   ];
 
   // Alle Wochen-Daten (Audios entfernt, nur PDFs und Aufgaben)
@@ -277,7 +285,12 @@ class AppDaten {
         'Wie gehst du mit deinen körperlichen Grenzen um?',
         'Welche angenehmen Momente hast du heute erlebt?',
       ],
-      'audioRefs': ['Ankommen', 'Achtsamkeit in Bewegung', 'Body-Scan (kurz)'],
+      'audioRefs': [
+        'Ankommen',
+        'Achtsamkeit in Bewegung',
+        'Body-Scan (kurz)',
+        'Atem mit Fokus',
+      ],
       'pdfs': [
         {
           'title': 'Kursunterlagen Woche 3',
@@ -299,6 +312,13 @@ class AppDaten {
       'readingSummary': '',
       'archiveEligible': true,
       'readingCards': [
+        {
+          'id': 'w3-atem-kontinuum',
+          'title': 'Der Atem hat keinen Anfang und kein Ende',
+          'body':
+              'Wir denken den Atem oft als zwei getrennte Bewegungen: Einatmen, Ausatmen. Dazwischen — Pause. Tatsächlich gibt es keinen Punkt, an dem der Atem vollständig stillsteht. Die Einatmung geht fließend in die Ausatmung über, die Ausatmung in die nächste Einatmung. Wenn du genau hinschaust, ist der Atem eher eine fortlaufende Schleife als eine Linie mit Anfang und Ende.\n\n'
+              'Das lässt sich nutzen: Statt die Aufmerksamkeit an einzelnen Momenten festzumachen — „jetzt Einatmen, jetzt Ausatmen" — kannst du versuchen, die Übergänge mitzunehmen. Die Stelle, an der die Einatmung aufhört und die Ausatmung einsetzt. Die Stelle, an der die Ausatmung in eine kurze Stille mündet, bevor die nächste Einatmung beginnt. Diese Wendepunkte sind oft die Momente, in denen die Aufmerksamkeit abspringt — und genau deshalb sind sie wertvoll.',
+        },
         {
           'id': 'w3-freundschaft-geist',
           'title': 'Freundschaft mit dem Geist statt Kampf',
@@ -676,6 +696,14 @@ class AppDaten {
           'body':
               'Es gibt zwei Arten zu lernen: Wissen über etwas (deklarativ) und Können durch Tun (prozedural). Beide werden von unterschiedlichen Netzwerken im Gehirn getragen. Der Kurs bedient bewusst beide Seiten: Die Lesetexte liefern Orientierung, die tägliche Praxis verankert sie im Körper.\n\n'
               'Keines von beiden reicht allein. Wer nur liest, versteht — wer nur übt, spürt. Zusammen entsteht etwas Drittes: ein Verständnis, das über Worte hinausgeht.',
+        },
+        {
+          'id': 'w8-verbundenheit',
+          'title': 'Nichts davon gehört dir allein',
+          'body':
+              'Eine Übung aus der buddhistischen Tradition lädt dazu ein, bei einem Gegenstand — einer Blume, einer Mahlzeit, einem Atemzug — zu fragen: Was steckt darin, das nicht dieser Gegenstand selbst ist? In einer Blume stecken Boden, Regen, Sonnenlicht, die Arbeit eines Gärtners. Entfernt man eines dieser Elemente, gibt es die Blume nicht mehr.\n\n'
+              'Das lässt sich auf die eigene Praxis übertragen. Die acht Wochen, die hinter dir liegen, sind nicht allein dein Verdienst. Die Gruppe hat dich getragen. Der Raum hat dich gehalten. Vielleicht hat jemand zu Hause dafür gesorgt, dass du die Zeit hattest. Die Forschenden, deren Arbeit in den Lesetexten steckt, haben Jahrzehnte investiert. Jon Kabat-Zinn hat MBSR in den Achtzigerjahren entwickelt, inspiriert von Traditionen, die Jahrtausende alt sind.\n\n'
+              'Deine Praxis besteht aus lauter Nicht-Du-Elementen — und genau das macht sie stabil. Sie hängt nicht von einer einzigen Person oder einer perfekten Woche ab.',
         },
       ],
     },
