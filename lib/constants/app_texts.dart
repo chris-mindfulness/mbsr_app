@@ -18,6 +18,23 @@ class AppTexts {
       'deinem Gerät gespeichert und sind nicht für die Seminarleitung oder '
       'andere Personen zugänglich.';
 
+  /// Mediathek: kurze Hinweise zum Streamen (kein Ersatz für Offline-Download).
+  static const String playbackTipsTitle = 'Tipps für stabiles Abspielen';
+
+  static const String playbackTipsText =
+      'Die Übungen werden über das Internet geladen. Für ruhiges Anhören '
+      'ohne Unterbrechungen kannst du Folgendes beachten:\n\n'
+      '• Nutze wenn möglich eine stabile Verbindung (WLAN statt schwachem '
+      'Mobilfunk).\n'
+      '• Lass die App oder den Browser-Tab während der Übung im '
+      'Vordergrund — manche Geräte drosseln sonst Ton oder Datenübertragung.\n'
+      '• Bei längeren Anleitungen kann der Start kurz dauern, bis alles '
+      'nachgeladen ist — etwas Geduld ist normal.\n'
+      '• Wenn es hakt: kurz warten, die Seite neu laden oder ein anderes '
+      'Netz probieren.\n\n'
+      'Es geht nicht darum, etwas „richtig“ einzustellen — kleine '
+      'Anpassungen reichen oft.';
+
   // Motivations-Texte
   static const String motivationRegular = 
       'Regelmäßige Praxis ist der Schlüssel';

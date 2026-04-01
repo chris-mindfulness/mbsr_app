@@ -317,6 +317,13 @@ class _MediathekSeiteState extends State<MediathekSeite> {
                       ),
                       const SizedBox(width: 8),
                       _buildSurfaceIconButton(
+                        icon: Icons.hearing_outlined,
+                        color: AppStyles.softBrown,
+                        tooltip: 'Tipps für stabiles Abspielen',
+                        onPressed: () => _showPlaybackTips(context),
+                      ),
+                      const SizedBox(width: 8),
+                      _buildSurfaceIconButton(
                         icon: Icons.info_outline,
                         color: AppStyles.softBrown,
                         tooltip: 'Über das Tracking',
@@ -440,6 +447,45 @@ class _MediathekSeiteState extends State<MediathekSeite> {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  void _showPlaybackTips(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        title: Row(
+          children: [
+            Expanded(
+              child: Text(
+                AppTexts.playbackTipsTitle,
+                style: AppStyles.headingStyle.copyWith(fontSize: 20),
+              ),
+            ),
+            IconButton(
+              icon: Icon(Icons.close_rounded, color: AppStyles.softBrown),
+              tooltip: 'Schließen',
+              onPressed: () => Navigator.of(dialogContext).pop(),
+              visualDensity: VisualDensity.compact,
+            ),
+          ],
+        ),
+        content: Text(AppTexts.playbackTipsText, style: AppStyles.bodyStyle),
+        backgroundColor: AppStyles.bgColor,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(28)),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: Text(
+              "Verstanden",
+              style: AppStyles.bodyStyle.copyWith(
+                fontWeight: FontWeight.bold,
+                color: AppStyles.primaryOrange,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

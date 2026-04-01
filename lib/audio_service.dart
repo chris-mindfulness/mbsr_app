@@ -101,7 +101,10 @@ class AudioService {
     _statusController.add(_status);
   }
 
-  static const Duration _bufferingTimeout = Duration(seconds: 8);
+  /// Längeres Fenster: Bei schwachem Netz oder langen Tracks kann Puffern
+  /// >8 s dauern — zu frühes Recovery lädt die Quelle neu und wirkt wie „Abbruch“.
+  /// Nur Erhöhung des Timeouts, keine neue Logik.
+  static const Duration _bufferingTimeout = Duration(seconds: 30);
   static const Duration _minRecoveryInterval = Duration(seconds: 3);
   static const int _maxRecoveryAttempts = 3;
 
@@ -140,7 +143,11 @@ class AudioService {
     _lastRecoveryTime = now;
     _recoveryAttempts += 1;
 
-    final resumePosition = _lastKnownPosition;
+    // Vor stop(): größere der beiden Positionen — vermeidet Sprung zum Anfang,
+    // wenn der Stream-Cache hinter der echten Player-Position lag.
+    final resumePosition = _lastKnownPosition >= _player.position
+        ? _lastKnownPosition
+        : _player.position;
     if (kDebugMode) {
       debugPrint(
         'AudioService: Recovery attempt $_recoveryAttempts ($reason).',

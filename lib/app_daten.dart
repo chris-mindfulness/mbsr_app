@@ -17,6 +17,22 @@ class AppDaten {
     'duration': '0:30',
   };
 
+  /// Gemeinsame Mediathek-Beschreibung für alle drei Sitzmeditationen (Kurz/Mittel/Lang).
+  /// Ergänzt den Basistext mit Kursinhalten, die absichtlich nicht in jeder Audioanleitung wiederholt werden.
+  static const String sitzmeditationMediathekBeschreibung =
+      'In der Sitzmeditation stabilisierst du deine Aufmerksamkeit auf einem primären Objekt '
+      '(meist der Atembewegung). Wenn der Fokus abschweift – was ein natürlicher Prozess des '
+      'Gehirns ist – wird dies wertfrei registriert und die Aufmerksamkeit aktiv zum Anker '
+      'zurückgeführt.\n\n'
+      'Phase ohne festes Objekt: In manchen Übungen gibt es eine Phase ohne bestimmtes '
+      'Meditationsobjekt — im Kurs wird das auch als offenes Gewahrsein bezeichnet.\n\n'
+      'Hinweise zur Praxis: Versuche, die Übung möglichst täglich durchzuführen. Geh mit '
+      'Anfängergeist an die Übung heran — so, als wäre es das erste Mal. Bleib neugierig und '
+      'geduldig und hab Vertrauen in die Übung.\n\n'
+      'Nach der Übung kannst du für dich festhalten, was es für dich bedeutet, dir diese Zeit '
+      'genommen zu haben.\n\n'
+      'Bei Fragen melde dich gern bei mir.';
+
   /// Zentrale Mediathek-Daten (Quelle für alle Audios)
   static const List<Map<String, String>> mediathekAudios = [
     {
@@ -51,22 +67,19 @@ class AppDaten {
       'title': 'Sitzmeditation (kurz)',
       'duration': '10 Min',
       'appwrite_id': '696bffa2000a833c13ce',
-      'description':
-          'In der Sitzmeditation stabilisierst du deine Aufmerksamkeit auf einem primären Objekt (meist der Atembewegung). Wenn der Fokus abschweift – was ein natürlicher Prozess des Gehirns ist – wird dies wertfrei registriert und die Aufmerksamkeit aktiv zum Anker zurückgeführt.',
+      'description': sitzmeditationMediathekBeschreibung,
     },
     {
       'title': 'Sitzmeditation (mittel)',
       'duration': '15 Min',
       'appwrite_id': '696bffaa00090187914b',
-      'description':
-          'In der Sitzmeditation stabilisierst du deine Aufmerksamkeit auf einem primären Objekt (meist der Atembewegung). Wenn der Fokus abschweift – was ein natürlicher Prozess des Gehirns ist – wird dies wertfrei registriert und die Aufmerksamkeit aktiv zum Anker zurückgeführt.',
+      'description': sitzmeditationMediathekBeschreibung,
     },
     {
       'title': 'Sitzmeditation (lang)',
       'duration': '20 Min',
       'appwrite_id': '696bffb000325d0acc84',
-      'description':
-          'In der Sitzmeditation stabilisierst du deine Aufmerksamkeit auf einem primären Objekt (meist der Atembewegung). Wenn der Fokus abschweift – was ein natürlicher Prozess des Gehirns ist – wird dies wertfrei registriert und die Aufmerksamkeit aktiv zum Anker zurückgeführt.',
+      'description': sitzmeditationMediathekBeschreibung,
     },
     {
       'title': 'Achtsamkeit in Bewegung',
