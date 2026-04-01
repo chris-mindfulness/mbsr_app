@@ -99,8 +99,7 @@ class AppDaten {
     {
       'title': 'Atem mit Fokus',
       'duration': '10 Min',
-      'appwrite_id': '',
-      'upload_status': 'pending',
+      'appwrite_id': '69ccfed2002e5c63cb1f',
       'description':
           'Pro Atemzug ein Fokus — von der einfachen Wahrnehmung über den ganzen Körper bis zur Stille. Eine Übung, die den Atem schrittweise vertieft.',
     },
