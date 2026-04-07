@@ -7,8 +7,8 @@ import 'core/app_styles.dart';
 import 'widgets/audio_item_card.dart';
 import 'widgets/decorative_blobs.dart';
 import 'widgets/exercise_tips_sheet.dart';
+import 'widgets/notfall_koffer_sheet.dart';
 import 'widgets/offline_banner.dart';
-import 'widgets/sos_item_card.dart';
 import 'widgets/subtle_divider.dart';
 import 'widgets/surface_icon_button.dart';
 
@@ -68,127 +68,9 @@ class _MediathekSeiteState extends State<MediathekSeite> {
   }
 
   void _showSOSDialog(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      backgroundColor: AppStyles.bgColor,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(32)),
-      ),
-      isScrollControlled: true,
-      isDismissible: true,
-      enableDrag: true,
-      builder: (sheetContext) => SafeArea(
-        top: true,
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(32, 16, 32, 48),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(
-                height: 30,
-                child: Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    Container(
-                      width: 40,
-                      height: 4,
-                      decoration: BoxDecoration(
-                        color: AppStyles.softBrown.withValues(alpha: 0.2),
-                        borderRadius: BorderRadius.circular(2),
-                      ),
-                    ),
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: IconButton(
-                        tooltip: 'Schließen',
-                        onPressed: () => Navigator.of(sheetContext).pop(),
-                        icon: Icon(
-                          Icons.close_rounded,
-                          color: AppStyles.softBrown,
-                        ),
-                        visualDensity: VisualDensity.compact,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 20),
-              Row(
-                children: [
-                  Icon(
-                    Icons.support_agent,
-                    color: AppStyles.errorRed,
-                    size: 32,
-                  ),
-                  const SizedBox(width: 16),
-                  Text(
-                    "Notfall-Koffer",
-                    style: AppStyles.headingStyle.copyWith(
-                      color: AppStyles.errorRed,
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 24),
-              Text(
-                "Erste Hilfe bei akutem Stress",
-                style: AppStyles.subTitleStyle,
-              ),
-              const SizedBox(height: 16),
-              _buildSOSItem(
-                icon: Icons.timer,
-                title: "Kurzes Ankommen (ca. 3 Min)",
-                description:
-                    "Eine kurze Pause zum Sammeln. Startet die Übung „Ankommen“.",
-                onTap: () {
-                  Navigator.of(sheetContext).pop();
-                  // Startet bewusst die Übung "Ankommen" als kurze Akut-Hilfe.
-                  final audio = AppDaten.getAlleAudios().firstWhere(
-                    (a) => a['title'] == 'Ankommen',
-                    orElse: () => {},
-                  );
-                  if (audio.isNotEmpty) _play(audio);
-                },
-              ),
-              const SizedBox(height: 16),
-              _buildSOSItem(
-                icon: Icons.waves,
-                title: "Physiologischer Seufzer",
-                description:
-                    "1) Einmal durch die Nase einatmen.\n"
-                    "2) Ohne auszuatmen: gleich noch einen kurzen zweiten Zug durch die Nase – die Lunge wird noch ein bisschen voller.\n"
-                    "3) Dann langsam und weich durch den Mund ausatmen, wie ein erleichterter Seufzer.\n"
-                    "Wichtig: Zwischen Schritt 1 und 2 keine Pause zum Ausatmen. Das Ganze ein- bis dreimal, in deinem Tempo.",
-                onTap: null, // Nur Info
-              ),
-              const SizedBox(height: 16),
-              _buildSOSItem(
-                icon: Icons.accessibility_new,
-                title: "Körper spüren",
-                description:
-                    "Spüre deine Füße auf dem Boden. Nimm 3 tiefe Atemzüge.",
-                onTap: null, // Nur Info
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildSOSItem({
-    required IconData icon,
-    required String title,
-    required String description,
-    VoidCallback? onTap,
-  }) {
-    return SosItemCard(
-      icon: icon,
-      title: title,
-      description: description,
-      onTap: onTap,
-      accentColor: AppStyles.errorRed,
+    NotfallKofferSheet.show(
+      context,
+      onPlayNotfallAudio: _play,
     );
   }
 

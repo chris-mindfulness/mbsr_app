@@ -38,9 +38,23 @@ class AppDaten {
     {
       'title': 'Ankommen',
       'duration': '3 Min',
-      'appwrite_id': '69cd36b3001edb3f4145',
+      'appwrite_id': '69d37c03003cf64043b3',
       'description':
-          'Eine kurze Übung zum Ankommen im Moment. Ideal zum Einstieg in den Tag oder als Pause zwischendurch.',
+          'Eine kurze Übung zum Ankommen im Moment. Ideal zum Einstieg in den Tag oder als Pause zwischendurch. Gesprochen von Laura.',
+    },
+    {
+      'title': 'Ankommen (Chris)',
+      'duration': '3 Min',
+      'appwrite_id': '69d37c0d001f3b9eb949',
+      'description':
+          'Dieselbe kurze Ankommen-Übung — gesprochen von Chris.',
+    },
+    {
+      'title': 'Body-Scan (10 Min, Laura)',
+      'duration': '10 Min',
+      'appwrite_id': '69d37c15001b11fbec4e',
+      'description':
+          'Ein kompakter Body-Scan für Tage mit weniger Zeit — gesprochen von Laura.',
     },
     {
       'title': 'Body-Scan (kurz)',
@@ -118,7 +132,74 @@ class AppDaten {
     },
   ];
 
-  // Alle Wochen-Daten (Audios entfernt, nur PDFs und Aufgaben)
+  /// Kurzmeditationen für den **Notfall-Koffer** (direktes Abspielen, Sonderstatus).
+  ///
+  /// Unabhängig von neuen Mediathek-Einträgen: hier nur explizit verknüpfen, was im
+  /// Notfall-Koffer erscheinen soll (optional per [mediathek_title] auf [mediathekAudios]).
+  ///
+  /// Pro Eintrag mindestens [card_title] und [card_description] (Sheet-Anzeige).
+  ///
+  /// **Audio zuordnen** (eine Variante):
+  /// - [mediathek_title]: Titel wie in [mediathekAudios] — nutzt dieselbe `appwrite_id`.
+  /// - Oder direkt [title], [duration], [appwrite_id] (und optional [description]) für reine SOS-Dateien.
+  ///
+  /// Platzhalter: [upload_status] = `pending` bis die Datei in Appwrite liegt.
+  ///
+  /// [icon]: `timer` · `self_improvement` · `favorite_outline` · `waves` (Standard: `timer`).
+  static const List<Map<String, String>> notfallKofferMeditationen = [
+    {
+      'mediathek_title': 'Ankommen',
+      'card_title': 'Kurzes Ankommen (ca. 3 Min)',
+      'card_description':
+          'Eine kurze Pause zum Sammeln — die geführte Übung startet sofort.',
+      'icon': 'timer',
+    },
+    {
+      'card_title': 'Zweite Kurzmeditation',
+      'card_description':
+          'Platzhalter — später hier zweite Übung eintragen ([mediathek_title] oder [appwrite_id]).',
+      'icon': 'self_improvement',
+      'upload_status': 'pending',
+    },
+    {
+      'card_title': 'Dritte Kurzmeditation',
+      'card_description':
+          'Platzhalter — später hier dritte Übung eintragen ([mediathek_title] oder [appwrite_id]).',
+      'icon': 'favorite_outline',
+      'upload_status': 'pending',
+    },
+  ];
+
+  /// Liefert die Audio-Map für [AudioService.play], oder leer bei Konfigurationsfehler.
+  /// Bei `upload_status: pending` im Eintrag: Map nur mit `upload_status` (SnackBar in der UI).
+  static Map<String, String> notfallPlaybackForEntry(Map<String, String> entry) {
+    final pending = entry['upload_status'] == 'pending';
+    final ref = entry['mediathek_title']?.trim();
+    if (ref != null && ref.isNotEmpty) {
+      for (final a in mediathekAudios) {
+        if (a['title'] == ref) {
+          return Map<String, String>.from(a);
+        }
+      }
+      return pending ? {'upload_status': 'pending'} : <String, String>{};
+    }
+    final id = entry['appwrite_id']?.trim() ?? '';
+    if (id.isNotEmpty) {
+      return {
+        'title': entry['title'] ?? entry['card_title'] ?? 'Übung',
+        'duration': entry['duration'] ?? '',
+        'appwrite_id': id,
+        'description': entry['description'] ?? '',
+        if (pending) 'upload_status': 'pending',
+      };
+    }
+    if (pending) {
+      return {'upload_status': 'pending'};
+    }
+    return {};
+  }
+
+  // Alle Wochen-Daten (formale Übungen über Mediathek; optional `audioRefs` nur noch für Datenpflege/Tests)
   static const List<Map<String, dynamic>> wochenDaten = [
     {
       'n': '1',
@@ -168,7 +249,7 @@ class AppDaten {
         'In den Kursunterlagen findest du die Geschichte vom Oberfluss und Unterfluss — sie gibt einen ersten Impuls zum Thema Achtsamkeit.',
       ],
       'readingSummary':
-          'Kurze Impulse aus der Forschung — alltagsnah und mit ehrlicher Einordnung. Der Audio-Clip „Zum Thema dieser Woche“ ergänzt die Texte.',
+          'Kurze Impulse aus der Forschung — alltagsnah und mit ehrlicher Einordnung.',
       'archiveEligible': true,
       'readingCards': [
         {

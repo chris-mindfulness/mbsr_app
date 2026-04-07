@@ -1,27 +1,24 @@
+import 'dart:async';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'audio_service.dart';
 import 'core/app_config.dart';
 import 'core/app_styles.dart';
 import 'widgets/decorative_blobs.dart';
+import 'widgets/notfall_koffer_sheet.dart';
 import 'widgets/offline_banner.dart';
 import 'app_daten.dart';
-import 'audio_service.dart';
-import 'widgets/audio_item_card.dart';
-import 'widgets/avatar_audio_clip.dart';
-import 'widgets/exercise_tips_sheet.dart';
 import 'widgets/pdf_link_card.dart';
 import 'widgets/weekly_reading_section.dart';
 import 'widgets/section_header_label.dart';
-import 'widgets/sos_item_card.dart';
 import 'text_archiv_seite.dart';
-import 'package:flutter/services.dart';
 
 class WochenDetailSeite extends StatefulWidget {
   final String wochenNummer;
   final String titel;
-  final List<Map<String, String>> audios;
   final List<Map<String, String>> pdfs;
   final List<String> wochenAufgaben;
   final String? fokus;
@@ -29,7 +26,6 @@ class WochenDetailSeite extends StatefulWidget {
   final String? zitatAutor;
   final String? alltagsTipp;
   final List<String>? reflexionsFragen;
-  final List<String>? audioRefs;
   final String? teaser;
   final String? einfuehrung;
   final List<Map<String, String>> readingCards;
@@ -37,12 +33,13 @@ class WochenDetailSeite extends StatefulWidget {
   final bool archiveEligible;
   final String? avatarImage;
   final Map<String, dynamic>? infoClips;
+  /// Öffnet den Mediathek-Tab im Kursbereich (von der verschachtelten Route aus).
+  final VoidCallback? onOpenMediathek;
 
   const WochenDetailSeite({
     super.key,
     required this.wochenNummer,
     required this.titel,
-    required this.audios,
     required this.pdfs,
     this.wochenAufgaben = const [],
     this.fokus,
@@ -50,7 +47,6 @@ class WochenDetailSeite extends StatefulWidget {
     this.zitatAutor,
     this.alltagsTipp,
     this.reflexionsFragen,
-    this.audioRefs,
     this.teaser,
     this.einfuehrung,
     this.readingCards = const [],
@@ -58,6 +54,7 @@ class WochenDetailSeite extends StatefulWidget {
     this.archiveEligible = false,
     this.avatarImage,
     this.infoClips,
+    this.onOpenMediathek,
   });
 
   @override
@@ -67,9 +64,7 @@ class WochenDetailSeite extends StatefulWidget {
 class _WochenDetailSeiteState extends State<WochenDetailSeite> {
   final AudioService _audioService = AudioService();
 
-  // Gecachte Werte – werden einmal in initState berechnet statt bei jedem Build.
   late final int _currentWeekIndex;
-  late final List<Map<String, String>> _weekAudios;
 
   @override
   void initState() {
@@ -78,15 +73,6 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
           widget.wochenNummer.replaceAll(RegExp(r'[^0-9]'), ''),
         ) ??
         1;
-    _weekAudios = _computeAudiosForWeek();
-  }
-
-  List<Map<String, String>> _computeAudiosForWeek() {
-    if (widget.audioRefs == null) return [];
-    final allAudios = AppDaten.getAlleAudios();
-    return allAudios
-        .where((audio) => widget.audioRefs!.contains(audio['title']))
-        .toList();
   }
 
   double _responsiveHorizontalPadding(double width) {
@@ -327,7 +313,8 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
     );
   }
 
-  void _play(Map<String, String> audio) async {
+  /// Nur Notfall-Koffer: direktes Abspielen (Sonderstatus), sonst Mediathek.
+  void _playNotfallAudio(Map<String, String> audio) {
     if (audio['upload_status'] == 'pending') {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -344,14 +331,20 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
     }
 
     HapticFeedback.lightImpact();
+    unawaited(_invokeNotfallPlay(audio));
+  }
+
+  Future<void> _invokeNotfallPlay(Map<String, String> audio) async {
     try {
       await _audioService.play(audio);
       if (mounted) setState(() {});
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text("Fehler beim Laden des Audios."),
+          const SnackBar(
+            content: Text(
+              'Fehler beim Laden des Audios. Bitte Internetverbindung prüfen.',
+            ),
             backgroundColor: Colors.red,
           ),
         );
@@ -359,126 +352,10 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
     }
   }
 
-  // Öffnet den Notfall-Koffer direkt aus der Wochenansicht.
   void _showNotfallKofferSheet() {
-    showModalBottomSheet(
-      context: context,
-      backgroundColor: AppStyles.bgColor,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(32)),
-      ),
-      isScrollControlled: true,
-      isDismissible: true,
-      enableDrag: true,
-      builder: (sheetContext) => SafeArea(
-        top: true,
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(32, 16, 32, 48),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(
-                height: 30,
-                child: Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    Container(
-                      width: 40,
-                      height: 4,
-                      decoration: BoxDecoration(
-                        color: AppStyles.softBrown.withValues(alpha: 0.2),
-                        borderRadius: BorderRadius.circular(2),
-                      ),
-                    ),
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: IconButton(
-                        tooltip: 'Schließen',
-                        onPressed: () => Navigator.of(sheetContext).pop(),
-                        icon: Icon(
-                          Icons.close_rounded,
-                          color: AppStyles.softBrown,
-                        ),
-                        visualDensity: VisualDensity.compact,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 20),
-              Row(
-                children: [
-                  Icon(
-                    Icons.support_agent,
-                    color: AppStyles.errorRed,
-                    size: 32,
-                  ),
-                  const SizedBox(width: 16),
-                  Text(
-                    "Notfall-Koffer",
-                    style: AppStyles.headingStyle.copyWith(
-                      color: AppStyles.errorRed,
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 24),
-              Text(
-                "Erste Hilfe bei akutem Stress",
-                style: AppStyles.subTitleStyle,
-              ),
-              const SizedBox(height: 16),
-              _buildNotfallItem(
-                icon: Icons.timer,
-                title: "Kurzes Ankommen (ca. 3 Min)",
-                description:
-                    "Eine kurze Pause zum Sammeln. Startet die Übung „Ankommen“.",
-                onTap: () {
-                  Navigator.of(sheetContext).pop();
-                  final audio = AppDaten.getAlleAudios().firstWhere(
-                    (a) => a['title'] == 'Ankommen',
-                    orElse: () => {},
-                  );
-                  if (audio.isNotEmpty) _play(audio);
-                },
-              ),
-              const SizedBox(height: 16),
-              _buildNotfallItem(
-                icon: Icons.waves,
-                title: "Physiologischer Seufzer",
-                description:
-                    "1) Einmal durch die Nase einatmen.\n"
-                    "2) Ohne auszuatmen: gleich noch einen kurzen zweiten Zug durch die Nase – die Lunge wird noch ein bisschen voller.\n"
-                    "3) Dann langsam und weich durch den Mund ausatmen, wie ein erleichterter Seufzer.\n"
-                    "Wichtig: Zwischen Schritt 1 und 2 keine Pause zum Ausatmen. Das Ganze ein- bis dreimal, in deinem Tempo.",
-              ),
-              const SizedBox(height: 16),
-              _buildNotfallItem(
-                icon: Icons.accessibility_new,
-                title: "Körper orientieren",
-                description:
-                    "Spüre beide Füße auf dem Boden und nimm 3 ruhige Atemzüge.",
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildNotfallItem({
-    required IconData icon,
-    required String title,
-    required String description,
-    VoidCallback? onTap,
-  }) {
-    return SosItemCard(
-      icon: icon,
-      title: title,
-      description: description,
-      onTap: onTap,
-      accentColor: AppStyles.errorRed,
+    NotfallKofferSheet.show(
+      context,
+      onPlayNotfallAudio: _playNotfallAudio,
     );
   }
 
@@ -924,23 +801,7 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
                             layoutWidth: bannerLayoutWidth,
                           ),
 
-                          // ── 3. BEGRÜSSUNGS-CLIP ──
-                          if (widget.infoClips != null &&
-                              widget.infoClips!['begruessung'] != null) ...[
-                            AppStyles.spacingSBox,
-                            Center(
-                              child: AvatarAudioClip(
-                                appwriteId: (widget.infoClips!['begruessung']
-                                    as Map)['appwrite_id'],
-                                label: 'Begrüßung',
-                                durationHint: (widget.infoClips!['begruessung']
-                                    as Map)['duration'],
-                              ),
-                            ),
-                          ],
-                          AppStyles.spacingMBox,
-
-                          // ── 4. EINFÜHRUNGSTEXT ──
+                          // ── 3. EINFÜHRUNGSTEXT (Kurz-Audios: nur Mediathek) ──
                           if (widget.einfuehrung != null ||
                               widget.teaser != null)
                             Text(
@@ -992,49 +853,156 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
                                     height:
                                         AppStyles.spacingL - AppStyles.spacingS,
                                   ),
-                                  ...widget.wochenAufgaben.map(
-                                    (aufgabe) => Padding(
+                                  ...widget.wochenAufgaben.asMap().entries.map((
+                                    entry,
+                                  ) {
+                                    final index = entry.key;
+                                    final aufgabe = entry.value;
+                                    final isKernuebung = index == 0;
+                                    Widget aufgabeRow = Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Container(
+                                          margin: const EdgeInsets.only(
+                                            top: 2,
+                                          ),
+                                          child: Icon(
+                                            Icons.check_circle_outline,
+                                            color: AppStyles.sageGreen,
+                                            size: 20,
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width:
+                                              AppStyles.spacingM -
+                                              AppStyles.spacingS,
+                                        ),
+                                        Expanded(
+                                          child: Text(
+                                            aufgabe,
+                                            style: AppStyles.bodyStyle.copyWith(
+                                              height: 1.6,
+                                              fontWeight:
+                                                  AppStyles.fontWeightRegular,
+                                              color: AppStyles.textDark,
+                                              fontSize:
+                                                  AppStyles.bodyStyle.fontSize,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    );
+                                    if (isKernuebung) {
+                                      aufgabeRow = Container(
+                                        width: double.infinity,
+                                        padding: const EdgeInsets.fromLTRB(
+                                          14,
+                                          12,
+                                          14,
+                                          12,
+                                        ),
+                                        decoration: BoxDecoration(
+                                          color: AppStyles.primaryOrange
+                                              .withValues(alpha: 0.07),
+                                          borderRadius: BorderRadius.circular(
+                                            16,
+                                          ),
+                                          border: Border(
+                                            left: BorderSide(
+                                              color: AppStyles.primaryOrange
+                                                  .withValues(alpha: 0.85),
+                                              width: 3,
+                                            ),
+                                          ),
+                                        ),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              'Kernübung diese Woche',
+                                              style: AppStyles.smallTextStyle
+                                                  .copyWith(
+                                                    fontWeight: AppStyles
+                                                        .fontWeightSemiBold,
+                                                    color:
+                                                        AppStyles.primaryOrange,
+                                                    letterSpacing: 0.2,
+                                                  ),
+                                            ),
+                                            SizedBox(height: AppStyles.spacingS),
+                                            aufgabeRow,
+                                          ],
+                                        ),
+                                      );
+                                    }
+                                    return Padding(
                                       padding: EdgeInsets.only(
                                         bottom: AppStyles.spacingM,
                                       ),
-                                      child: Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Container(
-                                            margin: const EdgeInsets.only(
-                                              top: 2,
-                                            ),
-                                            child: Icon(
-                                              Icons.check_circle_outline,
-                                              color: AppStyles.sageGreen,
-                                              size: 20,
-                                            ),
+                                      child: aufgabeRow,
+                                    );
+                                  }),
+                                  SizedBox(height: AppStyles.spacingM),
+                                  Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Icon(
+                                        Icons.library_music_outlined,
+                                        color: AppStyles.softBrown.withValues(
+                                          alpha: 0.85,
+                                        ),
+                                        size: 22,
+                                      ),
+                                      SizedBox(
+                                        width:
+                                            AppStyles.spacingM -
+                                            AppStyles.spacingS,
+                                      ),
+                                      Expanded(
+                                        child: Text(
+                                          'Alle geführten Audioübungen findest du in der Mediathek.',
+                                          style: AppStyles.bodyStyle.copyWith(
+                                            height: 1.55,
+                                            color: AppStyles.textDark,
+                                            fontWeight:
+                                                AppStyles.fontWeightRegular,
                                           ),
-                                          SizedBox(
-                                            width:
-                                                AppStyles.spacingM -
-                                                AppStyles.spacingS,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  if (widget.onOpenMediathek != null) ...[
+                                    SizedBox(height: AppStyles.spacingS),
+                                    Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: TextButton.icon(
+                                        onPressed: widget.onOpenMediathek,
+                                        icon: Icon(
+                                          Icons.arrow_forward_rounded,
+                                          size: 18,
+                                          color: AppStyles.softBrown,
+                                        ),
+                                        label: Text(
+                                          'Zur Mediathek',
+                                          style: AppStyles.bodyStyle.copyWith(
+                                            fontWeight:
+                                                AppStyles.fontWeightSemiBold,
+                                            color: AppStyles.softBrown,
                                           ),
-                                          Expanded(
-                                            child: Text(
-                                              aufgabe,
-                                              style: AppStyles.bodyStyle
-                                                  .copyWith(
-                                                    height: 1.6,
-                                                    fontWeight: AppStyles
-                                                        .fontWeightRegular,
-                                                    color: AppStyles.textDark,
-                                                    fontSize: AppStyles
-                                                        .bodyStyle
-                                                        .fontSize,
-                                                  ),
-                                            ),
+                                        ),
+                                        style: TextButton.styleFrom(
+                                          padding: const EdgeInsets.symmetric(
+                                            horizontal: 4,
+                                            vertical: 4,
                                           ),
-                                        ],
+                                          foregroundColor: AppStyles.softBrown,
+                                        ),
                                       ),
                                     ),
-                                  ),
+                                  ],
                                 ],
                               ),
                             ),
@@ -1044,74 +1012,70 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
                           ],
 
                           // ═══════════════════════════════════
-                          // PRAXIS – Audios, Tipps, Alltag
+                          // PRAXIS – Tipps zum Üben (Audios: Mediathek)
                           // ═══════════════════════════════════
 
-                          // ── 6. DEIN ÜBUNGSPROGRAMM ──
-                          if (_weekAudios.isNotEmpty) ...[
-                            _buildSectionHeader("DEIN ÜBUNGSPROGRAMM"),
-                            AppStyles.spacingMBox,
-                            if (currentWeekIndex <= 2) ...[
-                              Container(
-                                margin: EdgeInsets.only(
-                                  bottom: AppStyles.spacingM,
-                                ),
-                                child: _buildAdaptiveCard(
-                                  accentColor: AppStyles.infoBlue,
-                                  neutralSurface: useCleanCardsForWeeks,
-                                  fillAlpha: 0.1,
-                                  borderAlpha: 0.3,
-                                  radius: 20,
-                                  borderWidth: 1.0,
-                                  child: Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Icon(
-                                        Icons.info_outline,
-                                        color: AppStyles.infoBlue,
-                                        size: 24,
-                                      ),
-                                      AppStyles.spacingMHorizontal,
-                                      Expanded(
-                                        child: Text(
-                                          "Hinweis: In der Mediathek findest du auch längere Versionen des Body-Scans (27 & 35 Min), falls du mehr Zeit hast.",
-                                          style: AppStyles.bodyStyle.copyWith(
-                                            fontSize:
-                                                AppStyles.bodyStyle.fontSize,
-                                            color: AppStyles.textDark,
-                                            fontWeight:
-                                                AppStyles.fontWeightRegular,
-                                            height: 1.6,
-                                          ),
+                          if (currentWeekIndex <= 2) ...[
+                            if (widget.wochenAufgaben.isNotEmpty)
+                              AppStyles.spacingMBox,
+                            Container(
+                              margin: EdgeInsets.only(
+                                bottom: AppStyles.spacingM,
+                              ),
+                              child: _buildAdaptiveCard(
+                                accentColor: AppStyles.infoBlue,
+                                neutralSurface: useCleanCardsForWeeks,
+                                fillAlpha: 0.1,
+                                borderAlpha: 0.3,
+                                radius: 20,
+                                borderWidth: 1.0,
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Icon(
+                                      Icons.info_outline,
+                                      color: AppStyles.infoBlue,
+                                      size: 24,
+                                    ),
+                                    AppStyles.spacingMHorizontal,
+                                    Expanded(
+                                      child: Text(
+                                        'In der Mediathek gibt es auch längere '
+                                        'Versionen des Body-Scans (27 und 35 Min), '
+                                        'falls du mehr Zeit hast.',
+                                        style: AppStyles.bodyStyle.copyWith(
+                                          fontSize:
+                                              AppStyles.bodyStyle.fontSize,
+                                          color: AppStyles.textDark,
+                                          fontWeight:
+                                              AppStyles.fontWeightRegular,
+                                          height: 1.6,
                                         ),
                                       ),
-                                    ],
-                                  ),
+                                    ),
+                                  ],
                                 ),
                               ),
-                            ],
-                            ..._weekAudios.map(
-                              (audio) => _buildAudioCard(audio),
                             ),
-                            AppStyles.spacingLBox,
-
-                            // Übungsspezifische Tipps direkt nach den Audios
-                            if (currentWeekIndex <= 2) ...[
-                              _buildBodyScanTipps(
-                                neutralSurface: useCleanCardsForWeeks,
-                              ),
-                            ],
-                            if (currentWeekIndex == 4) ...[
-                              _buildSitzmeditationTipps(
-                                neutralSurface: useCleanCardsForWeeks,
-                              ),
-                            ],
-                            if (currentWeekIndex == 3) ...[
-                              _buildBewegungTipps(
-                                neutralSurface: useCleanCardsForWeeks,
-                              ),
-                            ],
+                            _buildBodyScanTipps(
+                              neutralSurface: useCleanCardsForWeeks,
+                            ),
+                            AppStyles.spacingXLBox,
+                          ],
+                          if (currentWeekIndex == 3) ...[
+                            if (widget.wochenAufgaben.isNotEmpty)
+                              AppStyles.spacingMBox,
+                            _buildBewegungTipps(
+                              neutralSurface: useCleanCardsForWeeks,
+                            ),
+                            AppStyles.spacingXLBox,
+                          ],
+                          if (currentWeekIndex == 4) ...[
+                            if (widget.wochenAufgaben.isNotEmpty)
+                              AppStyles.spacingMBox,
+                            _buildSitzmeditationTipps(
+                              neutralSurface: useCleanCardsForWeeks,
+                            ),
                             AppStyles.spacingXLBox,
                           ],
 
@@ -1184,25 +1148,7 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
                             AppStyles.spacingXLBox,
                           ],
 
-                          // ── 10. PSYCHOEDUKATION-CLIP ──
-                          if (widget.infoClips != null &&
-                              widget.infoClips!['psychoedukation'] !=
-                                  null) ...[
-                            Center(
-                              child: AvatarAudioClip(
-                                appwriteId:
-                                    (widget.infoClips!['psychoedukation']
-                                        as Map)['appwrite_id'],
-                                label: 'Zum Thema dieser Woche',
-                                durationHint:
-                                    (widget.infoClips!['psychoedukation']
-                                        as Map)['duration'],
-                              ),
-                            ),
-                            AppStyles.spacingXLBox,
-                          ],
-
-                          // ── 11. SUPPORT-TIPPS (nur Woche 5–8) ──
+                          // ── 10. SUPPORT-TIPPS (nur Woche 5–8) ──
                           if (currentWeekIndex >= 5 &&
                               currentWeekIndex <= 8) ...[
                             _buildWeekSupportTipps(
@@ -1212,7 +1158,7 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
                             AppStyles.spacingXLBox,
                           ],
 
-                          // ── 12. REFLEXION ──
+                          // ── 11. REFLEXION ──
                           if (widget.reflexionsFragen != null &&
                               widget.reflexionsFragen!.isNotEmpty) ...[
                             _buildSectionHeader("REFLEXION"),
@@ -1256,7 +1202,7 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
                           // REFERENZ
                           // ═══════════════════════════════════
 
-                          // ── 13. UNTERLAGEN (PDFs) ──
+                          // ── 12. UNTERLAGEN (PDFs) ──
                           if (widget.pdfs.isNotEmpty) ...[
                             Padding(
                               padding: const EdgeInsets.only(bottom: 16),
@@ -1294,17 +1240,6 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
         .toList();
   }
 
-  void _showTipsForAudio(Map<String, String> audio) {
-    final title = audio['title'];
-    if (title == null || title.isEmpty) return;
-    ExerciseTipsSheet.show(
-      context,
-      audioTitle: title,
-      weekIndex: _currentWeekIndex,
-      sourceLabel: widget.wochenNummer,
-    );
-  }
-
   void _navigateToWeek(int direction) {
     final nextWeekIndex = _currentWeekIndex + direction;
 
@@ -1322,7 +1257,6 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
         builder: (context) => WochenDetailSeite(
           wochenNummer: "Woche ${nextWeekData['n']}",
           titel: nextWeekData['t'],
-          audios: const [],
           pdfs: AppDaten.pdfMapsFromRaw(nextWeekData['pdfs'] as List<dynamic>?),
           wochenAufgaben: List<String>.from(
             nextWeekData['wochenAufgaben'] ?? [],
@@ -1334,9 +1268,6 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
           reflexionsFragen: nextWeekData['reflexionsFragen'] != null
               ? List<String>.from(nextWeekData['reflexionsFragen'])
               : null,
-          audioRefs: nextWeekData['audioRefs'] != null
-              ? List<String>.from(nextWeekData['audioRefs'])
-              : null,
           teaser: nextWeekData['teaser'],
           einfuehrung: nextWeekData['einfuehrung'],
           readingCards: _extractReadingCards(nextWeekData),
@@ -1344,6 +1275,7 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
           archiveEligible: nextWeekData['archiveEligible'] == true,
           avatarImage: nextWeekData['avatarImage'] as String?,
           infoClips: nextWeekData['infoClips'] as Map<String, dynamic>?,
+          onOpenMediathek: widget.onOpenMediathek,
         ),
       ),
     );
@@ -1997,34 +1929,6 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
           initialWeekNumber: _currentWeekIndex,
         ),
       ),
-    );
-  }
-
-  Widget _buildAudioCard(Map<String, String> audio) {
-    final String audioId = audio['appwrite_id'] ?? '';
-
-    return StreamBuilder<AudioServiceStatus>(
-      stream: _audioService.statusStream,
-      builder: (context, snapshot) {
-        final bool isCurrent = _audioService.currentAppwriteId == audioId;
-        final bool isPlaying =
-            isCurrent && _audioService.status == AudioServiceStatus.playing;
-        final bool isLoading =
-            isCurrent && _audioService.status == AudioServiceStatus.loading;
-        final bool isError =
-            isCurrent && _audioService.status == AudioServiceStatus.error;
-
-        return AudioItemCard(
-          audio: audio,
-          isCurrent: isCurrent,
-          isPlaying: isPlaying,
-          isLoading: isLoading,
-          isError: isError,
-          onPlay: () => _play(audio),
-          onTips: () => _showTipsForAudio(audio),
-          idleTitleColor: AppStyles.softBrown,
-        );
-      },
     );
   }
 

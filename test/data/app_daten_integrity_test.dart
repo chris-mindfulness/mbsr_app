@@ -43,7 +43,7 @@ void main() {
       }
     });
 
-    test('Wochenstruktur ist vollständig und referenziert gültige Audios', () {
+    test('Wochenstruktur ist vollständig (optional: audioRefs in Mediathek)', () {
       expect(AppDaten.wochenDaten.length, 8);
 
       final audioTitles = AppDaten.mediathekAudios
@@ -59,19 +59,19 @@ void main() {
         final aufgaben = (woche['wochenAufgaben'] as List<dynamic>?);
         final readingCards = (woche['readingCards'] as List<dynamic>?);
 
-        expect(audioRefs, isNotNull);
-        expect(audioRefs, isNotEmpty);
         expect(pdfs, isNotNull);
         expect(pdfs, isNotEmpty);
         expect(aufgaben, isNotNull);
         expect(aufgaben, isNotEmpty);
 
-        for (final ref in audioRefs!) {
-          expect(
-            audioTitles.contains(ref),
-            isTrue,
-            reason: 'Audio-Referenz nicht in Mediathek gefunden: $ref',
-          );
+        if (audioRefs != null && audioRefs.isNotEmpty) {
+          for (final ref in audioRefs) {
+            expect(
+              audioTitles.contains(ref),
+              isTrue,
+              reason: 'Audio-Referenz nicht in Mediathek gefunden: $ref',
+            );
+          }
         }
 
         var arbeitsblattCount = 0;
@@ -111,6 +111,33 @@ void main() {
             expect(title?.trim(), isNotEmpty);
             expect(body?.trim(), isNotEmpty);
           }
+        }
+      }
+    });
+
+    test('Notfall-Koffer-Meditationen haben Anzeige-Text und Audio-Bezug', () {
+      expect(AppDaten.notfallKofferMeditationen, isNotEmpty);
+
+      for (final raw in AppDaten.notfallKofferMeditationen) {
+        final e = Map<String, String>.from(raw);
+        expect(e['card_title']?.trim(), isNotEmpty);
+        expect(e['card_description']?.trim(), isNotEmpty);
+        final ref = e['mediathek_title']?.trim();
+        final id = e['appwrite_id']?.trim();
+        final pending = e['upload_status'] == 'pending';
+        expect(
+          pending || (ref != null && ref.isNotEmpty) || (id != null && id.isNotEmpty),
+          isTrue,
+          reason:
+              'Jeder Notfall-Eintrag braucht mediathek_title, appwrite_id oder pending',
+        );
+        if (ref != null && ref.isNotEmpty) {
+          final resolved = AppDaten.notfallPlaybackForEntry(e);
+          expect(
+            resolved.isNotEmpty,
+            isTrue,
+            reason: 'mediathek_title nicht in Mediathek: $ref',
+          );
         }
       }
     });

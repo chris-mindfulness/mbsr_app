@@ -356,13 +356,20 @@ class _KursUebersichtState extends State<KursUebersicht> {
     return palette[index % palette.length];
   }
 
+  void _openMediathekFromWeekDetail() {
+    _kursNavigatorKey.currentState?.pop();
+    setState(() {
+      _currentIndex = 1;
+      _updateUrl(1);
+    });
+  }
+
   void _openWeekDetail(BuildContext context, Map<String, dynamic> woche) {
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) => WochenDetailSeite(
           wochenNummer: "Woche ${woche['n']}",
           titel: woche['t'],
-          audios: const [],
           pdfs: AppDaten.pdfMapsFromRaw(woche['pdfs'] as List<dynamic>?),
           wochenAufgaben: List<String>.from(woche['wochenAufgaben'] ?? []),
           fokus: woche['fokus'],
@@ -372,9 +379,6 @@ class _KursUebersichtState extends State<KursUebersicht> {
           reflexionsFragen: woche['reflexionsFragen'] != null
               ? List<String>.from(woche['reflexionsFragen'])
               : null,
-          audioRefs: woche['audioRefs'] != null
-              ? List<String>.from(woche['audioRefs'])
-              : null,
           teaser: woche['teaser'],
           einfuehrung: woche['einfuehrung'],
           readingCards: _extractReadingCards(woche),
@@ -382,6 +386,7 @@ class _KursUebersichtState extends State<KursUebersicht> {
           archiveEligible: woche['archiveEligible'] == true,
           avatarImage: woche['avatarImage'] as String?,
           infoClips: woche['infoClips'] as Map<String, dynamic>?,
+          onOpenMediathek: _openMediathekFromWeekDetail,
         ),
       ),
     );
