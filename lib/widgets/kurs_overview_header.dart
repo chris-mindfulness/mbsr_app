@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../app_daten.dart';
 import '../core/app_styles.dart';
+import 'avatar_audio_clip.dart';
 
 class KursOverviewHeader extends StatelessWidget {
   const KursOverviewHeader({super.key});
@@ -41,6 +42,14 @@ class KursOverviewHeader extends StatelessWidget {
                   );
                 },
               ),
+            ),
+          ),
+          AppStyles.spacingMBox,
+          Center(
+            child: AvatarAudioClip(
+              appwriteId: AppDaten.begruessung['appwrite_id'],
+              label: 'Begruessung',
+              durationHint: AppDaten.begruessung['duration'],
             ),
           ),
           AppStyles.spacingMBox,

@@ -1135,6 +1135,15 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
                           ],
                           AppStyles.spacingXLBox,
 
+                          // Intro-Clip direkt unter Bild/Zitat.
+                          if (widget.infoClips != null) ...[
+                            _buildInfoClipWidget(
+                              key: 'begruessung',
+                              label: 'Begruessung zur Woche',
+                            ),
+                            AppStyles.spacingXLBox,
+                          ],
+
                           // ── 9. PSYCHOEDUKATION (ReadingCards) ──
                           if (widget.readingCards.isNotEmpty) ...[
                             WeeklyReadingSection(
@@ -1146,27 +1155,6 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
                               showSourceRef: !isReadabilityPilot,
                               onOpenArchive: _openTextArchiv,
                             ),
-                            AppStyles.spacingXLBox,
-                          ],
-
-                          // ── 10. INFO-CLIPS ──
-                          if (widget.infoClips != null) ...[
-                            _buildInfoClipWidget(
-                              key: 'begruessung',
-                              label: 'Begruessung zur Woche',
-                            ),
-                            AppStyles.spacingMBox,
-                            _buildInfoClipWidget(
-                              key: 'psychoedukation',
-                              label: 'Zum Thema dieser Woche',
-                            ),
-                            if (_clipByKey('verabschiedung') != null) ...[
-                              AppStyles.spacingMBox,
-                              _buildInfoClipWidget(
-                                key: 'verabschiedung',
-                                label: 'Verabschiedung',
-                              ),
-                            ],
                             AppStyles.spacingXLBox,
                           ],
 

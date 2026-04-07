@@ -13,7 +13,7 @@ class AppDaten {
   /// Kurze Audio-Clips (ElevenLabs-Stimme), werden per Appwrite-ID geladen.
   static const Map<String, String> begruessung = {
     'title': 'Hallo und willkommen',
-    'appwrite_id': '69c8441b000380002f99',
+    'appwrite_id': '',
     'duration': '0:30',
   };
 
@@ -197,11 +197,11 @@ class AppDaten {
           'Der Kurs beginnt mit einer grundlegenden Beobachtung: Einen Großteil des Tages verbringen wir im sogenannten Autopilot-Modus — wir handeln, ohne wirklich wahrzunehmen. In dieser Woche lernst du, diesen Automatismus zu bemerken und den Körper als Anker für die Aufmerksamkeit zu nutzen. Mit dem Body-Scan und der Rosinenübung erkundest du zwei zentrale Zugänge zur achtsamen Wahrnehmung. Zwischen den Kursterminen genügen kurze, regelmäßige Übungseinheiten — es geht nicht um Dauer, sondern um Kontinuität.',
       'infoClips': {
         'begruessung': {
-          'appwrite_id': '69c84141002248cc4659',
+          'appwrite_id': '',
           'duration': '0:30',
         },
         'psychoedukation': {
-          'appwrite_id': '69c841740011913fa054',
+          'appwrite_id': '',
           'duration': '1:00',
         },
       },
