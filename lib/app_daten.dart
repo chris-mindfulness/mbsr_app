@@ -36,11 +36,11 @@ class AppDaten {
   /// Zentrale Mediathek-Daten (Quelle für alle Audios)
   static const List<Map<String, String>> mediathekAudios = [
     {
-      'title': 'Ankommen',
+      'title': 'Ankommen (Laura)',
       'duration': '3 Min',
       'appwrite_id': '69d37c03003cf64043b3',
       'description':
-          'Eine kurze Übung zum Ankommen im Moment. Ideal zum Einstieg in den Tag oder als Pause zwischendurch. Gesprochen von Laura.',
+          'Diese kurze Übung hilft dir, im aktuellen Moment anzukommen. Du nimmst erst wahr, wie es dir körperlich und geistig geht, und findest dann über die Atembewegung zurück in den Körper. Ideal als ruhiger Start in den Tag oder als bewusste Pause zwischendurch. Gesprochen von Laura.',
     },
     {
       'title': 'Ankommen (Chris)',
@@ -54,28 +54,28 @@ class AppDaten {
       'duration': '10 Min',
       'appwrite_id': '69d37c15001b11fbec4e',
       'description':
-          'Ein kompakter Body-Scan für Tage mit weniger Zeit — gesprochen von Laura.',
+          'Ein kompakter Body-Scan für Tage mit wenig Zeit. Du wanderst achtsam durch den Körper, von den Füßen bis zum Kopf, und nimmst wahr, was gerade da ist, ohne etwas ändern zu müssen. Zum Abschluss weitest du die Aufmerksamkeit auf Atem, Raum und Geräusche. Gesprochen von Laura.',
     },
     {
       'title': 'Body-Scan (kurz)',
       'duration': '20 Min',
       'appwrite_id': '696bff8a003533170ca4',
       'description':
-          'In der kurzen Version des Body-Scans wanderst du zügig durch den Körper. Ideal, um zwischendurch die Verbindung zu dir selbst zu stärken.',
+          'In der kurzen Version durchwanderst du den Körper achtsam und in gutem Tempo. Du übst, Empfindungen wie Druck, Wärme, Kribbeln oder auch Nicht-Empfinden freundlich wahrzunehmen. Eine gute Übung, um dich zwischendurch wieder mit dir selbst zu verbinden.',
     },
     {
       'title': 'Body-Scan (mittel)',
       'duration': '27 Min',
       'appwrite_id': '696bff9400283154816e',
       'description':
-          'Die mittlere Version bietet mehr Raum für das Spüren einzelner Bereiche und das Atmen in den Körper.',
+          'Die mittlere Version gibt dir mehr Zeit für einzelne Körperbereiche und feine Unterschiede zwischen links und rechts. Immer wieder kehrst du zur Atembewegung zurück und sammelst die Aufmerksamkeit neu. So entsteht Schritt für Schritt mehr Ruhe und Präsenz im ganzen Körper.',
     },
     {
       'title': 'Body-Scan (lang)',
       'duration': '35 Min',
       'appwrite_id': '696bff9b000d16345521',
       'description':
-          'Die klassische, ausführliche Übung. Du nimmst dir Zeit für jeden Winkel deines Körpers und entwickelst tiefe Präsenz.',
+          'Die lange Version ist die ausführliche Body-Scan-Praxis mit viel Raum zum Verweilen. Du gehst den Körper Bereich für Bereich durch, nimmst auch subtile Signale wahr und kommst bei Abschweifungen freundlich zurück. Ideal, wenn du dir bewusst mehr Zeit für tiefe Verkörperung und Präsenz nehmen möchtest.',
     },
     {
       'title': 'Sitzmeditation (kurz)',
@@ -148,7 +148,7 @@ class AppDaten {
   /// [icon]: `timer` · `self_improvement` · `favorite_outline` · `waves` (Standard: `timer`).
   static const List<Map<String, String>> notfallKofferMeditationen = [
     {
-      'mediathek_title': 'Ankommen',
+      'mediathek_title': 'Ankommen (Laura)',
       'card_title': 'Kurzes Ankommen (ca. 3 Min)',
       'card_description':
           'Eine kurze Pause zum Sammeln — die geführte Übung startet sofort.',
@@ -229,7 +229,7 @@ class AppDaten {
         'Wann warst du heute im Autopiloten unterwegs, ohne es sofort zu merken?',
         'Was hat dir geholfen, wieder in den Körperkontakt zurückzukehren?',
       ],
-      'audioRefs': ['Ankommen', 'Body-Scan (kurz)'],
+      'audioRefs': ['Ankommen (Laura)', 'Body-Scan (kurz)'],
       'pdfs': [
         {
           'title': 'Kursunterlagen Woche 1',
@@ -311,7 +311,7 @@ class AppDaten {
         'Wann hast du heute etwas bewertet, statt es nur wahrzunehmen?',
         'Wie fühlt sich dein Körper an, wenn du gestresst bist?',
       ],
-      'audioRefs': ['Ankommen', 'Body-Scan (kurz)'],
+      'audioRefs': ['Ankommen (Laura)', 'Body-Scan (kurz)'],
       'pdfs': [
         {
           'title': 'Kursunterlagen Woche 2',
@@ -379,7 +379,7 @@ class AppDaten {
         'Welche angenehmen Momente hast du heute erlebt?',
       ],
       'audioRefs': [
-        'Ankommen',
+        'Ankommen (Laura)',
         'Achtsamkeit in Bewegung',
         'Body-Scan (kurz)',
         'Atem mit Fokus',
@@ -451,7 +451,7 @@ class AppDaten {
         'Wie reagierst du körperlich auf Stress?',
       ],
       'audioRefs': [
-        'Ankommen',
+        'Ankommen (Laura)',
         'Sitzmeditation (kurz)',
         'Body-Scan (kurz)',
         'Achtsamkeit in Bewegung',
@@ -522,7 +522,7 @@ class AppDaten {
         'Kannst du einen Schritt zurücktreten und deine Gedanken beobachten?',
       ],
       'audioRefs': [
-        'Ankommen',
+        'Ankommen (Laura)',
         'Sitzmeditation (mittel)',
         'Body-Scan (kurz)',
         'Achtsamkeit in Bewegung',
@@ -608,7 +608,7 @@ class AppDaten {
         'Kannst du zuhören, ohne zu unterbrechen?',
       ],
       'audioRefs': [
-        'Ankommen',
+        'Ankommen (Laura)',
         'Sitzmeditation (mittel)',
         'Body-Scan (kurz)',
         'Achtsamkeit in Bewegung',
@@ -674,7 +674,7 @@ class AppDaten {
         'Was nimmst du täglich auf (Medien, Gespräche, Termine) – und was davon nährt dich wirklich?',
       ],
       'audioRefs': [
-        'Ankommen',
+        'Ankommen (Laura)',
         'Sitzmeditation (lang)',
         'Body-Scan (kurz)',
         'Achtsamkeit in Bewegung',
@@ -741,7 +741,7 @@ class AppDaten {
         'Wie möchtest du Achtsamkeit weiter in dein Leben integrieren?',
       ],
       'audioRefs': [
-        'Ankommen',
+        'Ankommen (Laura)',
         'Sitzmeditation (lang)',
         'Body-Scan (kurz)',
         'Achtsamkeit in Bewegung',
