@@ -160,6 +160,26 @@
    - `_isSeeking`-Flag verhindert Positions-Ueberschreibung waehrend Drag
    - Play/Pause-Tap nur auf obere Zeile, Slider darunter unabhaengig bedienbar
 
+## Update 07.04.2026 — Avatar-Clip-Logik und Platzhalterbetrieb
+
+46. Wochen-Info-Clip wieder eingebaut und neu positioniert:
+   - Wochen-Intro (`infoClips.begruessung`) sitzt jetzt direkt unter Bild/Zitat in der Wochen-Detailseite.
+   - alter Info-Clip-Block weiter unten in der Seite wurde entfernt.
+47. Begruessungs-Clip im Kurskopf sichtbar:
+   - `KursOverviewHeader` zeigt den Avatar-Clip direkt unter dem Header-Avatar.
+48. Audio-Ueberlappung behoben:
+   - Mediathek-/Notfall-Audios und Avatar-Clips stoppen sich jetzt gegenseitig.
+   - `AudioService` nutzt externe Stop-Listener, die vor `play()`/`resumeCurrent()` awaited werden.
+49. Typhaertung fuer Stop-Listener:
+   - Listener-Signatur auf `Future<void> Function()` umgestellt.
+   - dadurch kein Typkonflikt mit async Stop-Callbacks aus `AvatarAudioClip`.
+50. Platzhaltermodus fuer neu zu generierende Avatar-Audios aktiviert:
+   - Header-Begruessung (`AppDaten.begruessung.appwrite_id`) auf leer gesetzt.
+   - Wochen-Intro Woche 1 (`infoClips.begruessung.appwrite_id`) auf leer gesetzt.
+   - Psychoedukation bleibt vorerst ohne ID.
+51. Repo-Stand:
+   - Commits `acce968` und `61a2519` auf `main` gepusht.
+
 ## Geprüft
 
 - `flutter analyze --no-pub`: ohne Befunde
