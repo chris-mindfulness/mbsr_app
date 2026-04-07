@@ -47,7 +47,7 @@ class AppDaten {
       'duration': '3 Min',
       'appwrite_id': '69d37c0d001f3b9eb949',
       'description':
-          'Dieselbe kurze Ankommen-Übung — gesprochen von Chris.',
+          'Diese kurze Übung hilft dir, im Moment anzukommen und kurz innezuhalten. Du nimmst wahr, wie es dir gerade körperlich und geistig geht, und richtest die Aufmerksamkeit auf die Atembewegung im Körper. Ideal als kleine Pause im Alltag. Gesprochen von Chris.',
     },
     {
       'title': 'Body-Scan (10 Min, Laura)',
@@ -115,20 +115,6 @@ class AppDaten {
       'appwrite_id': '696bffd600298b5e9c51',
       'description':
           'Erforsche die Welt durch deine Sinne – Hören, Spüren, Riechen. Eine Einladung, die Welt ganz neu wahrzunehmen.',
-    },
-    {
-      'title': 'Meditation auf den Atem',
-      'duration': '5 Min',
-      'appwrite_id': '69c84048001c5b268c72',
-      'description':
-          'Kurze geführte Übung: die Aufmerksamkeit ruht beim Atem. Keine feste Zuordnung zu einer Kurswoche — ideal für zwischendurch.',
-    },
-    {
-      'title': 'Atem mit Fokus',
-      'duration': '10 Min',
-      'appwrite_id': '69ccfed2002e5c63cb1f',
-      'description':
-          'Pro Atemzug ein Fokus — von der einfachen Wahrnehmung über den ganzen Körper bis zur Stille. Eine Übung, die den Atem schrittweise vertieft.',
     },
   ];
 
@@ -382,7 +368,6 @@ class AppDaten {
         'Ankommen (Laura)',
         'Achtsamkeit in Bewegung',
         'Body-Scan (kurz)',
-        'Atem mit Fokus',
       ],
       'pdfs': [
         {
