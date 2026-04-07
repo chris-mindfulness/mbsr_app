@@ -11,6 +11,7 @@ import 'widgets/decorative_blobs.dart';
 import 'widgets/notfall_koffer_sheet.dart';
 import 'widgets/offline_banner.dart';
 import 'app_daten.dart';
+import 'widgets/avatar_audio_clip.dart';
 import 'widgets/pdf_link_card.dart';
 import 'widgets/weekly_reading_section.dart';
 import 'widgets/section_header_label.dart';
@@ -1148,7 +1149,28 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
                             AppStyles.spacingXLBox,
                           ],
 
-                          // ── 10. SUPPORT-TIPPS (nur Woche 5–8) ──
+                          // ── 10. INFO-CLIPS ──
+                          if (widget.infoClips != null) ...[
+                            _buildInfoClipWidget(
+                              key: 'begruessung',
+                              label: 'Begruessung zur Woche',
+                            ),
+                            AppStyles.spacingMBox,
+                            _buildInfoClipWidget(
+                              key: 'psychoedukation',
+                              label: 'Zum Thema dieser Woche',
+                            ),
+                            if (_clipByKey('verabschiedung') != null) ...[
+                              AppStyles.spacingMBox,
+                              _buildInfoClipWidget(
+                                key: 'verabschiedung',
+                                label: 'Verabschiedung',
+                              ),
+                            ],
+                            AppStyles.spacingXLBox,
+                          ],
+
+                          // ── 11. SUPPORT-TIPPS (nur Woche 5–8) ──
                           if (currentWeekIndex >= 5 &&
                               currentWeekIndex <= 8) ...[
                             _buildWeekSupportTipps(
@@ -1158,7 +1180,7 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
                             AppStyles.spacingXLBox,
                           ],
 
-                          // ── 11. REFLEXION ──
+                          // ── 12. REFLEXION ──
                           if (widget.reflexionsFragen != null &&
                               widget.reflexionsFragen!.isNotEmpty) ...[
                             _buildSectionHeader("REFLEXION"),
@@ -1202,7 +1224,7 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
                           // REFERENZ
                           // ═══════════════════════════════════
 
-                          // ── 12. UNTERLAGEN (PDFs) ──
+                          // ── 13. UNTERLAGEN (PDFs) ──
                           if (widget.pdfs.isNotEmpty) ...[
                             Padding(
                               padding: const EdgeInsets.only(bottom: 16),
@@ -1238,6 +1260,32 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
         .whereType<Map>()
         .map((item) => Map<String, String>.from(item.cast<String, String>()))
         .toList();
+  }
+
+  Map<String, dynamic>? _clipByKey(String key) {
+    final clips = widget.infoClips;
+    if (clips == null) return null;
+    final raw = clips[key];
+    if (raw is Map) {
+      return Map<String, dynamic>.from(raw);
+    }
+    return null;
+  }
+
+  Widget _buildInfoClipWidget({
+    required String key,
+    required String label,
+  }) {
+    final clip = _clipByKey(key);
+    final id = clip?['appwrite_id']?.toString();
+    final duration = clip?['duration']?.toString();
+    return Center(
+      child: AvatarAudioClip(
+        appwriteId: id,
+        label: label,
+        durationHint: duration,
+      ),
+    );
   }
 
   void _navigateToWeek(int direction) {

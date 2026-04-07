@@ -95,10 +95,30 @@ class AudioService {
   DateTime? _sessionStartTime; // Zeitpunkt des Session-Starts
   bool _hasTracked80Percent = false; // Verhindert doppeltes Tracking
   StreamSubscription<Duration>? _positionSubscription;
+  final Set<Future<void> Function()> _externalStopListeners =
+      <Future<void> Function()>{};
 
   void _updateStatus(AudioServiceStatus newStatus) {
     _status = newStatus;
     _statusController.add(_status);
+  }
+
+  void addExternalStopListener(Future<void> Function() listener) {
+    _externalStopListeners.add(listener);
+  }
+
+  void removeExternalStopListener(Future<void> Function() listener) {
+    _externalStopListeners.remove(listener);
+  }
+
+  Future<void> _notifyExternalStopListeners() async {
+    for (final listener in _externalStopListeners) {
+      try {
+        await listener();
+      } catch (_) {
+        // Defensive: Fremd-Listener duerfen Mediathek-Audio nicht blockieren.
+      }
+    }
   }
 
   /// Längeres Fenster: Bei schwachem Netz oder langen Tracks kann Puffern
@@ -198,6 +218,9 @@ class AudioService {
     }
     _lastLoadTime = now;
 
+    // Beim Start eines Mediathek-/Notfall-Audios externe Clip-Player anhalten.
+    await _notifyExternalStopListeners();
+
     // Wenn dasselbe Audio bereits spielt/lädt, mache nichts oder toggel Pause
     if (_currentAppwriteId == appwriteId) {
       if (_player.playing) {
@@ -269,6 +292,7 @@ class AudioService {
   /// Setzt das aktuelle Audio fort, ohne die Quelle neu zu laden.
   Future<void> resumeCurrent() async {
     if (_currentAppwriteId == null) return;
+    await _notifyExternalStopListeners();
     _shouldBePlaying = true;
     _clearBufferingTimer();
     try {

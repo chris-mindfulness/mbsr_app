@@ -4,14 +4,14 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:just_audio/just_audio.dart';
+import '../audio_service.dart';
 import '../core/app_config.dart';
 import '../core/app_styles.dart';
 
 /// Kompakter Audio-Clip-Player (z.B. Begruessung neben Avatar).
 ///
-/// Nutzt eine **eigene** [AudioPlayer]-Instanz, damit laufende
-/// Meditationen im Haupt-AudioService nicht unterbrochen werden.
-/// Es spielt immer nur **ein** Clip gleichzeitig.
+/// Nutzt eine eigene [AudioPlayer]-Instanz.
+/// Mediathek- und Info-Clip-Audios stoppen sich gegenseitig.
 class AvatarAudioClip extends StatefulWidget {
   final String? appwriteId;
   final String label;
@@ -31,6 +31,7 @@ class AvatarAudioClip extends StatefulWidget {
 class _AvatarAudioClipState extends State<AvatarAudioClip>
     with AutomaticKeepAliveClientMixin {
   static _AvatarAudioClipState? _activeInstance;
+  final AudioService _audioService = AudioService();
 
   AudioPlayer? _player;
   StreamSubscription<PlayerState>? _stateSub;
@@ -54,8 +55,15 @@ class _AvatarAudioClipState extends State<AvatarAudioClip>
   bool get _hasPlayerState => _player != null && !_hasError;
 
   @override
+  void initState() {
+    super.initState();
+    _audioService.addExternalStopListener(_stopSilently);
+  }
+
+  @override
   void dispose() {
     if (_activeInstance == this) _activeInstance = null;
+    _audioService.removeExternalStopListener(_stopSilently);
     _stateSub?.cancel();
     _positionSub?.cancel();
     _player?.dispose();
@@ -68,6 +76,23 @@ class _AvatarAudioClipState extends State<AvatarAudioClip>
       other._player?.pause();
     }
     _activeInstance = this;
+  }
+
+  Future<void> _stopSilently() async {
+    try {
+      await _player?.pause();
+      if (mounted) {
+        setState(() {
+          _isPlaying = false;
+          _isLoading = false;
+        });
+      }
+    } catch (_) {}
+  }
+
+  Future<void> _requestAudioFocusForClip() async {
+    _stopOtherIfNeeded();
+    await _audioService.stop();
   }
 
   String _buildUrl(String fileId) {
@@ -110,7 +135,7 @@ class _AvatarAudioClipState extends State<AvatarAudioClip>
     if (_isPlaying) {
       await _player!.pause();
     } else {
-      _stopOtherIfNeeded();
+      await _requestAudioFocusForClip();
       try {
         await _ensureAtStartIfFinished();
         await _player!.play();
@@ -127,7 +152,7 @@ class _AvatarAudioClipState extends State<AvatarAudioClip>
   }
 
   Future<void> _initAndPlay() async {
-    _stopOtherIfNeeded();
+    await _requestAudioFocusForClip();
 
     setState(() {
       _isLoading = true;
