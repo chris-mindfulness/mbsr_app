@@ -6,7 +6,6 @@ import 'gut_zu_wissen_seite.dart';
 import 'app_daten.dart';
 import 'core/app_styles.dart';
 import 'widgets/decorative_blobs.dart';
-import 'widgets/feature_info_cards.dart';
 import 'widgets/section_header_label.dart';
 import 'widgets/standard_action_card.dart';
 
@@ -35,8 +34,6 @@ class VertiefungSeite extends StatelessWidget {
             "Optionales Material für Praxis, Nachschlagen und Quellen",
             style: AppStyles.bodyStyle.copyWith(color: AppStyles.textMuted),
           ),
-          AppStyles.spacingXLBox,
-          const FeatureInfoCards(),
           AppStyles.spacingXLBox,
 
           _buildSectionHeader("PRAXIS VERTIEFEN"),
