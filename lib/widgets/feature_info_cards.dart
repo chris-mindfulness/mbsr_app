@@ -17,13 +17,13 @@ class FeatureInfoCards extends StatelessWidget {
 
         final items = <_FeatureInfoItem>[
           _FeatureInfoItem(
-            icon: Icons.menu_book_outlined,
-            label: 'MBSR 8-Wochen-Kurs',
+            icon: Icons.lightbulb_outline,
+            label: 'Gut zu wissen',
             color: AppStyles.infoBlue,
           ),
           _FeatureInfoItem(
             icon: Icons.help_outline,
-            label: 'Wissen & Hilfe',
+            label: 'Begriffe & Fragen',
             color: AppStyles.accentCyan,
           ),
           _FeatureInfoItem(

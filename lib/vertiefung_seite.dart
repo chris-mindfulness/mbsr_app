@@ -22,6 +22,8 @@ class VertiefungSeite extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final hasZusatzUebungen = zusatzUebungen.isNotEmpty;
+
     return DecorativeBlobs(
       child: ListView(
         padding: AppStyles.listPadding,
@@ -30,14 +32,14 @@ class VertiefungSeite extends StatelessWidget {
           Text("Vertiefung", style: AppStyles.headingStyle),
           AppStyles.spacingSBox,
           Text(
-            "Zusätzliche Übungen und Ressourcen für deine Praxis",
+            "Optionales Material für Praxis, Nachschlagen und Quellen",
             style: AppStyles.bodyStyle.copyWith(color: AppStyles.textMuted),
           ),
           AppStyles.spacingXLBox,
           const FeatureInfoCards(),
           AppStyles.spacingXLBox,
 
-          _buildSectionHeader("GUT ZU WISSEN"),
+          _buildSectionHeader("PRAXIS VERTIEFEN"),
           AppStyles.spacingMBox,
 
           StandardActionCard(
@@ -57,64 +59,26 @@ class VertiefungSeite extends StatelessWidget {
             showShadow: true,
           ),
 
+          if (hasZusatzUebungen) ...[
+            AppStyles.spacingMBox,
+            StandardActionCard(
+              title: "Zusätzliche Übungen",
+              subtitle: "Weitere Übungsimpulse für deinen Alltag",
+              leadingIcon: Icons.self_improvement_outlined,
+              accentColor: AppStyles.successGreen,
+              onTap: () => _showZusatzUebungenSheet(context),
+              showShadow: true,
+            ),
+          ],
+
           SizedBox(height: AppStyles.spacingXL + AppStyles.spacingS), // 40px
 
-          _buildSectionHeader("ZUSÄTZLICHE ÜBUNGEN"),
-          AppStyles.spacingMBox,
-
-          // Coming soon Card
-          _buildShadowCard(
-            child: Card(
-              elevation: 0,
-              color: Colors.white,
-              shape: AppStyles.cardShape,
-              child: Padding(
-                padding: AppStyles.cardPaddingLarge,
-                child: Center(
-                  child: Column(
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.all(16),
-                        decoration: BoxDecoration(
-                          color: AppStyles.softBrown.withValues(alpha: 0.05),
-                          shape: BoxShape.circle,
-                        ),
-                        child: Icon(
-                          Icons.schedule,
-                          size: 40,
-                          color: AppStyles.softBrown.withValues(alpha: 0.3),
-                        ),
-                      ),
-                      SizedBox(
-                        height: AppStyles.spacingL - AppStyles.spacingS,
-                      ), // 20px
-                      Text(
-                        "Coming soon",
-                        style: AppStyles.subTitleStyle.copyWith(
-                          color: AppStyles.textMuted,
-                        ),
-                      ),
-                      AppStyles.spacingSBox,
-                      Text(
-                        "Neue Übungen werden in Kürze hinzugefügt",
-                        textAlign: TextAlign.center,
-                        style: AppStyles.bodyStyle.copyWith(
-                          fontSize: 13,
-                          color: AppStyles.textMuted,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ),
-
+          _buildSectionHeader("NACHSCHLAGEN"),
           AppStyles.spacingMBox,
 
           StandardActionCard(
-            title: "Wissen & Hilfe",
-            subtitle: "Glossar und häufige Fragen",
+            title: "Begriffe & Fragen",
+            subtitle: "Glossar und häufige Fragen nachschlagen",
             leadingIcon: Icons.help_outline,
             accentColor: AppStyles.accentCyan,
             onTap: () => Navigator.push(
@@ -145,7 +109,7 @@ class VertiefungSeite extends StatelessWidget {
 
           SizedBox(height: AppStyles.spacingXL + AppStyles.spacingS), // 40px
 
-          _buildSectionHeader("LITERATUR & FORSCHUNG"),
+          _buildSectionHeader("QUELLEN"),
           AppStyles.spacingMBox,
 
           StandardActionCard(
@@ -165,13 +129,49 @@ class VertiefungSeite extends StatelessWidget {
     );
   }
 
-  Widget _buildShadowCard({required Widget child}) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(AppStyles.borderRadius),
-        boxShadow: AppStyles.softCardShadow,
-      ),
-      child: child,
+  void _showZusatzUebungenSheet(BuildContext context) {
+    showModalBottomSheet<void>(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (sheetContext) {
+        return Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(28)),
+            boxShadow: AppStyles.softCardShadow,
+          ),
+          padding: EdgeInsets.fromLTRB(
+            AppStyles.spacingL,
+            AppStyles.spacingL,
+            AppStyles.spacingL,
+            AppStyles.spacingXL,
+          ),
+          child: SafeArea(
+            top: false,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text("Zusätzliche Übungen", style: AppStyles.subTitleStyle),
+                AppStyles.spacingMBox,
+                ...zusatzUebungen.map(
+                  (uebung) => Padding(
+                    padding: EdgeInsets.only(bottom: AppStyles.spacingM),
+                    child: Text(
+                      "• ${uebung['title'] ?? 'Übung'}"
+                      "${(uebung['description'] ?? '').trim().isEmpty ? '' : ': ${uebung['description']!.trim()}'}",
+                      style: AppStyles.bodyStyle.copyWith(
+                        color: AppStyles.textDark,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 

@@ -13,7 +13,7 @@ class GlossarFaqSeite extends StatelessWidget {
         backgroundColor: AppStyles.bgColor,
         appBar: AppBar(
           title: Text(
-            "Wissen & Hilfe",
+            "Begriffe & Fragen",
             style: AppStyles.headingStyle.copyWith(fontSize: 18),
           ),
           backgroundColor: Colors.transparent,
