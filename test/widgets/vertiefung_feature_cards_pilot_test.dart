@@ -30,28 +30,25 @@ void main() {
     testWidgets('zeigt die neuen Bereiche ohne redundante Übersichtskarten', (
       tester,
     ) async {
+      // Hoher Viewport: gesamte ListView ohne verkettetes scrollUntilVisible
+      // (sonst kann der zweite Scroll in manchen Umgebungen kein Scrollable lösen).
+      tester.view.physicalSize = const Size(800, 3200);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
+
       await tester.pumpWidget(buildTestApp());
       await tester.pumpAndSettle();
 
-      // Oberer Bereich ist ohne Scroll sichtbar.
       expect(find.text('PRAXIS VERTIEFEN'), findsWidgets);
       expect(find.text('NACHSCHLAGEN'), findsWidgets);
       expect(find.text('Gut zu wissen'), findsWidgets);
       expect(find.text('Begriffe & Fragen'), findsWidgets);
       expect(find.text('MBSR 8-Wochen-Kurs'), findsNothing);
 
-      // Untere Karten können je nach Test-Viewport außerhalb liegen.
-      final textArchivFinder = find.text('Textarchiv').first;
-      await tester.scrollUntilVisible(textArchivFinder, 300);
-      expect(textArchivFinder, findsOneWidget);
-
-      final quellenHeaderFinder = find.text('QUELLEN').first;
-      await tester.scrollUntilVisible(quellenHeaderFinder, 300);
-      expect(quellenHeaderFinder, findsOneWidget);
-
-      final literaturFinder = find.text('Literatur & Forschung').first;
-      await tester.scrollUntilVisible(literaturFinder, 300);
-      expect(literaturFinder, findsOneWidget);
+      expect(find.text('Textarchiv'), findsWidgets);
+      expect(find.text('QUELLEN'), findsWidgets);
+      expect(find.text('Literatur & Forschung'), findsWidgets);
     });
 
     testWidgets('Gut zu wissen Karte ist klickbar', (tester) async {
