@@ -132,14 +132,14 @@ class GlossarFaqSeite extends StatelessWidget {
             'Freundliche, nicht beschönigende Haltung gegenüber eigenem und fremdem Leiden. In MBSR kein Extra, sondern Teil der Grundhaltung.',
       },
       {
-        'term': 'Decentering',
+        'term': 'Dezentrierung (Decentering)',
         'def':
-            'Die Fähigkeit, Gedanken und Gefühle zu beobachten, ohne sich mit ihnen zu verschmelzen. Du denkst nicht weniger — aber du erkennst: Das ist ein Gedanke, nicht die Wirklichkeit. Gilt als Schlüsselmechanismus, über den Achtsamkeitsprogramme wirken.',
+            'Die Fähigkeit, Gedanken und Gefühle zu beobachten, ohne mit ihnen zu verschmelzen. Du erkennst: Das ist ein Gedanke, nicht die ganze Wirklichkeit. Das kann helfen, ruhiger zu reagieren.',
       },
       {
-        'term': 'Focused Attention / Open Monitoring',
+        'term': 'Fokussierte Aufmerksamkeit und offenes Beobachten',
         'def':
-            'Zwei Grundformen der Meditation. Focused Attention (FA): Aufmerksamkeit auf einen Anker, z.\u00a0B. den Atem. Open Monitoring (OM): weites, offenes Gewahrsein für alles, was auftaucht. Im Kurs begegnest du beiden Formen.',
+            'Zwei Grundformen der Meditation. Fokussierte Aufmerksamkeit (Focused Attention): du bleibst bei einem Anker, z. B. beim Atem. Offenes Beobachten (Open Monitoring): du nimmst wahr, was auftaucht, ohne es festzuhalten.',
       },
       {
         'term': 'Tun-Modus / Sein-Modus',
@@ -152,14 +152,34 @@ class GlossarFaqSeite extends StatelessWidget {
             'Kurze Atemübung bei Stress: Zuerst durch die Nase einatmen. Ohne zwischendurch auszuatmen noch einen zweiten, kleinen Zug durch die Nase nachlegen (die Lunge wird noch etwas voller). Erst danach lang und weich durch den Mund ausatmen – wie ein Seufzer. Nicht verwechseln mit „einatmen, ausatmen, nochmal einatmen“: Die beiden Einatmungen folgen direkt hintereinander. Hilft vielen Menschen, schneller zur Ruhe zu kommen.',
       },
       {
-        'term': 'States und Traits',
+        'term': 'Zustände und Eigenschaften (States und Traits)',
         'def':
-            'States: vorübergehende Zustände wie Stimmungen oder Empfindungen. Traits: dauerhaftere Eigenschaften. Regelmäßige Praxis kann bewirken, dass hilfreiche States zur neuen Ausgangslage werden — zum Trait statt zum flüchtigen Moment.',
+            'Zustände (States) sind vorübergehend, zum Beispiel eine Stimmung. Eigenschaften (Traits) sind stabiler und halten länger an. Durch regelmäßige Übung können hilfreiche Zustände mit der Zeit stabiler werden.',
       },
       {
         'term': 'Emotionale Klebrigkeit (Stickiness)',
         'def':
             'Die Tendenz, stärker zu reagieren, als die Situation verlangt, weil frühere Erfahrungen an der aktuellen Wahrnehmung „kleben". Achtsamkeit hilft, das früher zu bemerken und die Klebrigkeit über die Zeit zu verringern.',
+      },
+      {
+        'term': 'Selbstwirksamkeit (Self-Efficacy)',
+        'def':
+            'Das Vertrauen, dass das eigene Handeln etwas bewirken kann. Sie wächst oft durch kleine, wiederholte Schritte.',
+      },
+      {
+        'term': 'Umgebungsgestaltung (Environment Design)',
+        'def':
+            'Du gestaltest Ort, Zeit und Reize so, dass die Übung leichter wird. Beispiel: fester Platz, feste Zeit, weniger Ablenkung.',
+      },
+      {
+        'term': 'Reibung und Hürden (Friction)',
+        'def':
+            'Alles, was den Start schwer macht, ist Reibung. Alles, was den Start leichter macht, erhöht die Chance, dass du wirklich übst.',
+      },
+      {
+        'term': 'Identitätsbasierte Motivation',
+        'def':
+            'Verhalten wird stabiler, wenn es zum Selbstbild passt. Zum Beispiel: „Ich bin jemand, der freundlich und regelmäßig übt.“',
       },
     ];
     final sortedTerms = [...terms]
@@ -261,6 +281,11 @@ class GlossarFaqSeite extends StatelessWidget {
         'q': 'Mein Smartphone lenkt mich beim Üben ab. Was hilft?',
         'a':
             'Handy-freie Zonen oder feste Zeiten offline können helfen. Du musst nicht alles weglegen — aber bewusste Grenzen setzen. Schon das Gerät sichtbar liegen zu lassen und trotzdem nicht danach zu greifen, ist eine kleine Willensübung.',
+      },
+      {
+        'q': 'Was hilft, wenn ich beim Dranbleiben immer wieder scheitere?',
+        'a':
+            'Setze bei der Einstiegshürde an, nicht bei der perfekten Dauer. Ein fester Mini-Zeitpunkt, ein sichtbarer Übungsplatz und weniger Ablenkung helfen oft mehr als große Vorsätze.',
       },
     ];
 
