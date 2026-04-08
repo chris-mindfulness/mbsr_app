@@ -854,6 +854,54 @@ class AppDaten {
           'Es geht nicht um Perfektion. Schon kleine Anpassungen können Friktion senken: Was soll leicht werden? Was darf etwas schwerer werden? So entsteht eine alltagstaugliche Struktur für die Zeit nach dem Kurs.\n\n'
           'Verhaltenspsychologische Forschung zeigt konsistent, dass Kontextreize und Friktion beeinflussen, wie wahrscheinlich ein Verhalten tatsächlich ausgeführt wird. Für den Alltag reicht oft ein kleiner Schritt: Welche eine Veränderung in deiner Umgebung macht die nächste Übung heute leichter?',
     },
+    {
+      'id': 'gzw-cues-autopilot',
+      'title': 'Der Autopilot hat Auslöser',
+      'body':
+          'Viele Handlungen im Alltag werden nicht durch bewusste Entscheidungen ausgelöst, sondern durch Kontextreize: eine bestimmte Uhrzeit, ein Ort, der Griff zum Handy nach dem Aufwachen. In der Verhaltenspsychologie heißen diese Auslöser Cues. In Woche 1 des Kurses hast du den Autopiloten kennengelernt: bemerken, was gerade geschieht. Cues sind die Außenperspektive auf denselben Mechanismus.\n\n'
+          'Das eröffnet zwei Hebel: Achtsamkeit hilft, den Moment des Auslösers zu bemerken. Wer den Auslöser kennt, kann bewusst entscheiden, ob er ihm folgt, statt erst hinterher zu merken, was passiert ist.\n\n'
+          'Wähle eine Gewohnheit, die du verändern möchtest, und beobachte drei Tage lang nur den Auslöser: Was passiert unmittelbar vorher?',
+    },
+    {
+      'id': 'gzw-einstiegsschwelle',
+      'title': 'Hinsitzen ist der schwerste Schritt',
+      'body':
+          'Die größte Hürde bei der täglichen Praxis ist selten die Übung selbst, sondern der Moment davor: sich hinsetzen, die App öffnen, den Entschluss fassen. Danach läuft es oft leichter. Verhaltensforschung zeigt: Je kleiner die Einstiegshürde, desto wahrscheinlicher wird das Verhalten wirklich ausgeführt.\n\n'
+          'Für die Meditationspraxis heißt das: Nicht die Dauer ist zuerst entscheidend, sondern dass der Anfang leicht genug ist. Wer sich vornimmt, nur hinzusitzen und drei Atemzüge zu nehmen, sitzt oft länger als geplant. Wer sich dreißig Minuten vornimmt, schiebt den Beginn häufiger auf.\n\n'
+          'Was wäre der kleinste denkbare Einstieg in deine heutige Übung?',
+    },
+    {
+      'id': 'gzw-habit-stacking',
+      'title': 'Eine Gewohnheit an die andere knüpfen',
+      'body':
+          'Eine bewährte Technik für neue Routinen: Die neue Handlung direkt an eine bestehende koppeln. Statt eines allgemeinen Vorsatzes hilft oft eine konkrete Verknüpfung: Nach dem Kaffeekochen setze ich mich drei Minuten hin. Die bestehende Gewohnheit wird zum Auslöser für die neue.\n\n'
+          'Das Prinzip nutzt, was das Gehirn ohnehin tut: Handlungsketten bilden. Statt gegen die Automatik zu arbeiten, baust du die gewünschte Übung in eine bestehende Kette ein. Studien zeigen, dass solche konkreten Wenn-dann-Pläne die Wahrscheinlichkeit erhöhen, ein Vorhaben tatsächlich umzusetzen.\n\n'
+          'Welche feste Alltagsroutine eignet sich bei dir als Anker für eine kurze Übung?',
+    },
+    {
+      'id': 'gzw-rueckkopplungsschleife',
+      'title': 'Sich schlecht fühlen, weil man sich schlecht fühlt',
+      'body':
+          'Manchmal entsteht das eigentliche Problem nicht durch ein Gefühl, sondern durch die Bewertung dieses Gefühls. Du bist unruhig in der Meditation und ärgerst dich dann über die Unruhe. Du merkst, dass du abgeschweift bist, und bewertest dich dafür. So entsteht eine Schleife: Das Gefühl wird zum Anlass für ein zweites, oft unangenehmeres Gefühl.\n\n'
+          'Metakognitive Forschung zeigt, dass genau diese Schleife belastende Zustände aufrechterhalten kann. Der erste Schritt heraus ist oft einfach: Die Unruhe darf da sein, ohne dass sie sofort ein Problem sein muss.\n\n'
+          'Wenn du das nächste Mal in der Übung merkst, dass du dich bewertest: Was passiert, wenn du die Bewertung einfach stehen lässt?',
+    },
+    {
+      'id': 'gzw-verantwortung-schuld',
+      'title': 'Verantwortung ist nicht Schuld',
+      'body':
+          'Zwei Begriffe, die oft vermischt werden: Schuld fragt rückwärts, wer etwas verursacht hat. Verantwortung fragt vorwärts, was ich jetzt damit tue. In stressigen Momenten verschwimmt dieser Unterschied leicht. Wer Verantwortung übernehmen will, rutscht schnell in Selbstvorwurf, obwohl beides nicht dasselbe ist.\n\n'
+          'Forschung zur Kontrollüberzeugung legt nahe, dass Menschen Stress besser bewältigen, wenn sie Verantwortung für ihr Handeln übernehmen können, ohne sich dabei pauschal schuldig zu machen. Schuld fixiert auf das, was war. Verantwortung öffnet den Blick auf das, was jetzt möglich ist.\n\n'
+          'In welcher aktuellen Situation verwechselst du vielleicht Verantwortung mit Schuld?',
+    },
+    {
+      'id': 'gzw-abschluss-anerkennung',
+      'title': 'Kurz anerkennen, was gerade war',
+      'body':
+          'Nach einer Übung passiert oft eines von zwei Dingen: Du springst direkt in den nächsten Tagesordnungspunkt oder du bewertest, ob die Übung gut genug war. Beides überspringt einen Moment, der für das Lernen wichtig ist. Unmittelbar nach einer Handlung entscheidet sich mit, wie stark die neue Verknüpfung wird.\n\n'
+          'Gemeint ist kein Selbstlob und kein Urteil über die Qualität der Übung. Gemeint ist ein kurzes Innehalten: Ich habe mir diese Zeit genommen. Das reicht. Verhaltensforschung zeigt, dass so ein kurzer Moment der Anerkennung dazu beitragen kann, dass das Verhalten am nächsten Tag wahrscheinlicher wird.\n\n'
+          'Was nimmst du in den drei Sekunden nach dem Ende einer Übung wahr, bevor der Alltag wieder einsetzt?',
+    },
   ];
 
   static const List<Map<String, String>> zusatzUebungen = [];
