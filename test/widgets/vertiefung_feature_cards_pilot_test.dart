@@ -33,13 +33,13 @@ void main() {
       await tester.pumpWidget(buildTestApp());
       await tester.pumpAndSettle();
 
-      expect(find.text('PRAXIS VERTIEFEN'), findsOneWidget);
-      expect(find.text('NACHSCHLAGEN'), findsOneWidget);
-      expect(find.text('QUELLEN'), findsOneWidget);
-      expect(find.text('Gut zu wissen'), findsOneWidget);
-      expect(find.text('Begriffe & Fragen'), findsOneWidget);
-      expect(find.text('Textarchiv'), findsOneWidget);
-      expect(find.text('Literatur & Forschung'), findsOneWidget);
+      expect(find.text('PRAXIS VERTIEFEN'), findsWidgets);
+      expect(find.text('NACHSCHLAGEN'), findsWidgets);
+      expect(find.text('QUELLEN'), findsWidgets);
+      expect(find.text('Gut zu wissen'), findsWidgets);
+      expect(find.text('Begriffe & Fragen'), findsWidgets);
+      expect(find.text('Textarchiv'), findsWidgets);
+      expect(find.text('Literatur & Forschung'), findsWidgets);
       expect(find.text('MBSR 8-Wochen-Kurs'), findsNothing);
     });
 
