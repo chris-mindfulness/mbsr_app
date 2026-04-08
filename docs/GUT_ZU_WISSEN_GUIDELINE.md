@@ -119,6 +119,27 @@ Empfehlung:
 
 ---
 
+## Querverweise aus den Wochen
+
+Querverweise machen „Gut zu wissen" im Kursfluss auffindbar, ohne die Wochen inhaltlich zu belasten. Regeln:
+
+- Maximal ein Satz pro Querverweis, eingebettet in bestehende Texte (readingCards oder wochenAufgaben).
+- Kein eigener Listenpunkt oder eigene Karte für den Verweis.
+- Formulierung nach Schema: „… findest du in der Vertiefung unter ‚Gut zu wissen'."
+
+Aktuelle Querverweise (Stand 2026-04-08):
+
+| Woche | Stelle | Zielkarte |
+|-------|--------|-----------|
+| W1 | readingCard `w1-anfangsunruhe` | Wenn Wirkung auf sich warten lässt |
+| W7 | wochenAufgaben (Was nährt/zehrt) | Umgebung als stiller Mittrainer |
+| W8 | wochenAufgaben (Rückblick) | Übung prägt Selbstbild |
+| W8 | wochenAufgaben (Praxisplan) | Umgebung als stiller Mittrainer |
+
+Bei neuen Karten prüfen, ob ein passender Querverweis sinnvoll ist. Nicht jede Karte braucht einen.
+
+---
+
 ## Aktuelle Themenlinie (Stand jetzt)
 
 - Wenn Wirkung auf sich warten lässt

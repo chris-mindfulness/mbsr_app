@@ -674,7 +674,7 @@ class AppDaten {
       ],
       'wochenAufgaben': [
         'Probiere diese Woche, auch ohne Audioanleitung zu üben — in Stille, in deinem eigenen Rhythmus.',
-        'Schau auf deine Woche: Was nährt dich, was zehrt an dir? Wo könntest du etwas Kleines verändern?',
+        'Schau auf deine Woche: Was nährt dich, was zehrt an dir? Wo könntest du etwas Kleines verändern? Impulse zur Umgebungsgestaltung findest du in der Vertiefung unter „Gut zu wissen".',
         'Beobachte im Alltag, wann du wahrnimmst und wann du bereits interpretierst.',
       ],
       'readingSummary': '',
@@ -741,7 +741,7 @@ class AppDaten {
       ],
       'wochenAufgaben': [
         'Alle Übungen aus dem Kurs stehen dir weiterhin in der Mediathek zur Verfügung — auch stille Meditation ohne Anleitung.',
-        'Schau zurück: Was hat sich in den letzten acht Wochen für dich verändert?',
+        'Schau zurück: Was hat sich in den letzten acht Wochen für dich verändert? In der Vertiefung unter „Gut zu wissen" findest du einen Impuls dazu, wie Übung das Selbstbild prägen kann.',
         'Erstelle dir einen persönlichen Praxisplan — wann, welche Übung, wie lange. Auch eine Ausweichoption für stressige Wochen ist hilfreich. Impulse, wie du deine Umgebung praxisfreundlich gestaltest, findest du in der Vertiefung unter „Gut zu wissen“.',
         'Wenn du magst, nimm dir täglich einen Moment für Dankbarkeit — für etwas Konkretes, das dir an diesem Tag begegnet ist.',
       ],
@@ -844,7 +844,7 @@ class AppDaten {
       'body':
           'Nachhaltige Veränderung entsteht oft stabiler, wenn sie nicht nur auf Ziele, sondern auch auf Selbstbild bezogen ist. Die Frage ist dann nicht nur: Was will ich erreichen?, sondern auch: Wie möchte ich mit mir umgehen?\n\n'
           'Jede kurze Praxis kann als kleiner Beleg gelten: Ich übe, auch wenn es nicht perfekt ist. Solche Erfahrungen stärken Selbstwirksamkeit. Das kann helfen, die Praxis nach dem Kurs in den Alltag zu integrieren.\n\n'
-          'Forschung zu Selbstwirksamkeit und identitätsnaher Motivation zeigt, dass wiederholte Handlungserfahrung Verhalten und Selbstkonzept gegenseitig stabilisieren kann. Hilfreich ist ein schlichter Leitsatz, zum Beispiel: Ich bin jemand, der freundlich und regelmäßig übt.',
+          'Forschung zu Selbstwirksamkeit und Motivation, die am Selbstbild ansetzt, zeigt, dass wiederholte Handlungserfahrung Verhalten und Selbstkonzept gegenseitig stabilisieren kann. Hilfreich ist ein schlichter Leitsatz, zum Beispiel: Ich bin jemand, der freundlich und regelmäßig übt.',
     },
     {
       'id': 'gzw-umgebung',
