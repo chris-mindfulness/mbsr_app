@@ -257,6 +257,7 @@ class AppDaten {
           'title': 'Wenn die erste Zeit unruhiger wirkt',
           'body':
               'Manche Menschen berichten: In den ersten Tagen der Meditation fühlt sich innen eher mehr an — mehr Unruhe, mehr Gedanken, mehr Spannung. Das kann bedeuten, dass du genauer hinhörst, nicht dass du es falsch machst. Sanft dranbleiben und kürzere Einheiten wählen hilft oft.\n\n'
+              'Warum Wirkung oft erst später sichtbar wird, findest du in der Vertiefung unter „Gut zu wissen“.\n\n'
               'Wenn du dich dauerhaft stark überfordert oder krank fühlst, ist das kein Bereich zum Durchbeißen: Dann ist professionelle Unterstützung der richtige nächste Schritt.',
         },
         {
@@ -741,7 +742,7 @@ class AppDaten {
       'wochenAufgaben': [
         'Alle Übungen aus dem Kurs stehen dir weiterhin in der Mediathek zur Verfügung — auch stille Meditation ohne Anleitung.',
         'Schau zurück: Was hat sich in den letzten acht Wochen für dich verändert?',
-        'Erstelle dir einen persönlichen Praxisplan — wann, welche Übung, wie lange. Auch eine Ausweichoption für stressige Wochen ist hilfreich.',
+        'Erstelle dir einen persönlichen Praxisplan — wann, welche Übung, wie lange. Auch eine Ausweichoption für stressige Wochen ist hilfreich. Impulse, wie du deine Umgebung praxisfreundlich gestaltest, findest du in der Vertiefung unter „Gut zu wissen“.',
         'Wenn du magst, nimm dir täglich einen Moment für Dankbarkeit — für etwas Konkretes, das dir an diesem Tag begegnet ist.',
       ],
       'readingSummary': '',
@@ -827,6 +828,33 @@ class AppDaten {
   static List<Map<String, String>> getAlleAudios() {
     return mediathekAudios;
   }
+
+  static const List<Map<String, String>> gutZuWissenKarten = [
+    {
+      'id': 'gzw-wirkung-zeit',
+      'title': 'Wenn Wirkung auf sich warten lässt',
+      'body':
+          'Am Anfang fühlt sich Übung häufig unspektakulär an. Manche Tage wirken sogar unruhiger als vorher. Das ist kein Zeichen von Scheitern. Bei vielen Lern- und Veränderungsprozessen bleibt Fortschritt zunächst unter der Wahrnehmungsschwelle.\n\n'
+          'Kleine, wiederholte Schritte können sich mit der Zeit summieren. Sichtbare Effekte entstehen oft erst nach einer Phase, in der „noch nichts passiert“ zu sein scheint. Dranbleiben ist in dieser Phase keine Härte gegen sich selbst, sondern eine realistische Strategie.\n\n'
+          'Bei achtsamkeitsbasierten Programmen zeigt sich häufig ein moderater Zusammenhang zwischen regelmäßiger Übung und positiven Effekten. Veränderung verläuft dabei selten linear. Für heute reicht eine einfache Frage: Welche kleinste Übung ist realistisch, auch wenn sie sich noch nicht wirksam anfühlt?',
+    },
+    {
+      'id': 'gzw-identitaet-praxis',
+      'title': 'Übung prägt Selbstbild',
+      'body':
+          'Nachhaltige Veränderung entsteht oft stabiler, wenn sie nicht nur auf Ziele, sondern auch auf Selbstbild bezogen ist. Die Frage ist dann nicht nur: Was will ich erreichen?, sondern auch: Wie möchte ich mit mir umgehen?\n\n'
+          'Jede kurze Praxis kann als kleiner Beleg gelten: Ich übe, auch wenn es nicht perfekt ist. Solche Erfahrungen stärken Selbstwirksamkeit. Das kann helfen, die Praxis nach dem Kurs in den Alltag zu integrieren.\n\n'
+          'Forschung zu Selbstwirksamkeit und identitätsnaher Motivation zeigt, dass wiederholte Handlungserfahrung Verhalten und Selbstkonzept gegenseitig stabilisieren kann. Hilfreich ist ein schlichter Leitsatz, zum Beispiel: Ich bin jemand, der freundlich und regelmäßig übt.',
+    },
+    {
+      'id': 'gzw-umgebung',
+      'title': 'Umgebung als stiller Mittrainer',
+      'body':
+          'Willenskraft schwankt. Umgebung wirkt oft verlässlicher. Wenn die Bedingungen günstig sind, wird Übung wahrscheinlicher: ein fester Platz, klare Zeitfenster, weniger digitale Ablenkung.\n\n'
+          'Es geht nicht um Perfektion. Schon kleine Anpassungen können Friktion senken: Was soll leicht werden? Was darf etwas schwerer werden? So entsteht eine alltagstaugliche Struktur für die Zeit nach dem Kurs.\n\n'
+          'Verhaltenspsychologische Forschung zeigt konsistent, dass Kontextreize und Friktion beeinflussen, wie wahrscheinlich ein Verhalten tatsächlich ausgeführt wird. Für den Alltag reicht oft ein kleiner Schritt: Welche eine Veränderung in deiner Umgebung macht die nächste Übung heute leichter?',
+    },
+  ];
 
   static const List<Map<String, String>> zusatzUebungen = [];
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'literatur_seite.dart';
 import 'glossar_faq_seite.dart';
 import 'text_archiv_seite.dart';
+import 'gut_zu_wissen_seite.dart';
 import 'app_daten.dart';
 import 'core/app_styles.dart';
 import 'widgets/decorative_blobs.dart';
@@ -35,6 +36,28 @@ class VertiefungSeite extends StatelessWidget {
           AppStyles.spacingXLBox,
           const FeatureInfoCards(),
           AppStyles.spacingXLBox,
+
+          _buildSectionHeader("GUT ZU WISSEN"),
+          AppStyles.spacingMBox,
+
+          StandardActionCard(
+            title: "Gut zu wissen",
+            subtitle:
+                "Optionale Vertiefung: Gewohnheiten und Praxis im Alltag",
+            leadingIcon: Icons.lightbulb_outline,
+            accentColor: AppStyles.infoBlue,
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const GutZuWissenSeite(
+                  karten: AppDaten.gutZuWissenKarten,
+                ),
+              ),
+            ),
+            showShadow: true,
+          ),
+
+          SizedBox(height: AppStyles.spacingXL + AppStyles.spacingS), // 40px
 
           _buildSectionHeader("ZUSÄTZLICHE ÜBUNGEN"),
           AppStyles.spacingMBox,
