@@ -65,6 +65,12 @@ Die ausführlichen Inhalte in diesem Dokument beziehen sich weiter auf den Berei
 - `gzw-wirkung-zeit` — Wenn Wirkung auf sich warten lässt
 - `gzw-identitaet-praxis` — Übung prägt Selbstbild
 - `gzw-umgebung` — Umgebung als stiller Mittrainer
+- `gzw-cues-autopilot` — Der Autopilot hat Auslöser
+- `gzw-einstiegsschwelle` — Hinsitzen ist der schwerste Schritt
+- `gzw-habit-stacking` — Eine Gewohnheit an die andere knüpfen
+- `gzw-rueckkopplungsschleife` — Sich schlecht fühlen, weil man sich schlecht fühlt
+- `gzw-verantwortung-schuld` — Verantwortung ist nicht Schuld
+- `gzw-abschluss-anerkennung` — Kurz anerkennen, was gerade war
 
 ---
 
@@ -110,7 +116,7 @@ Verhaltenspsychologische Forschung zeigt konsistent, dass Kontextreize und Frikt
 
 ---
 
-## Neue Karten (Entwurf, noch nicht in der App)
+## Weitere Karten (jetzt live in der App)
 
 ### 4. Der Autopilot hat Auslöser
 

@@ -38,8 +38,8 @@ void main() {
       expect(find.text('QUELLEN'), findsOneWidget);
       expect(find.text('Gut zu wissen'), findsOneWidget);
       expect(find.text('Begriffe & Fragen'), findsOneWidget);
-      expect(find.text('Textarchiv'), findsWidgets);
-      expect(find.text('Literatur & Forschung'), findsWidgets);
+      expect(find.text('Textarchiv'), findsOneWidget);
+      expect(find.text('Literatur & Forschung'), findsOneWidget);
       expect(find.text('MBSR 8-Wochen-Kurs'), findsNothing);
     });
 

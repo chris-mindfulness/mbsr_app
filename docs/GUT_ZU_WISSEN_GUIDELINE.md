@@ -6,11 +6,13 @@
 Er ergänzt den 8‑Wochen‑MBSR‑Kern, ohne die Wocheninhalte zu überladen.
 
 Der Bereich liefert:
+
 - kurze, evidenznahe Impulse
 - klare Alltagsübertragung
 - nüchterne Sprache ohne Wellness-Rhetorik
 
 Nicht Ziel des Bereichs:
+
 - Ersatz für die Kernstruktur der Wochen
 - Selbstoptimierungs-Programm
 - lange Theorieblöcke ohne Praxisbezug
@@ -29,12 +31,14 @@ Nicht Ziel des Bereichs:
 ## Inhaltliche Auswahlkriterien
 
 Ein Thema passt, wenn es:
+
 - eine echte Lücke ergänzt (keine Wiederholung bestehender Reading Cards),
 - verhaltensnah und alltagsrelevant ist,
 - mit MBSR-Haltung vereinbar bleibt,
 - evidenzseitig seriös eingeordnet werden kann.
 
 Ein Thema passt nicht, wenn es:
+
 - primär Leistungssteigerung, „Hacks“ oder Output-Fokus hat,
 - deterministische Aussagen macht („du bist eben so“),
 - starke Kausalität behauptet, die die Evidenz nicht hergibt,
@@ -47,6 +51,8 @@ Ein Thema passt nicht, wenn es:
 - Kurze, einfache Sätze.
 - Klar, ruhig, respektvoll.
 - Keine Motivationsparolen, kein Coaching-Sprech.
+- Deutscher Fachbegriff zuerst; englischer Begriff nur ergänzend in Klammern.
+- Wenn es keinen gebräuchlichen deutschen Begriff gibt: in einem Satz alltagsnah erklären.
 - Keine Absolutismen („immer“, „garantiert“, „beweist eindeutig“).
 - Evidenz vorsichtig formulieren:
   - gut: „zeigt sich häufig“, „kann helfen“, „moderater Zusammenhang“
@@ -57,12 +63,14 @@ Ein Thema passt nicht, wenn es:
 ## Standardstruktur pro Karte
 
 Jede Karte enthält:
+
 - **Titel**: kurz, sachlich, 3–7 Wörter
 - **Textkörper**: 2–3 Absätze, ca. 500–900 Zeichen
 - **Evidenzbezug im Fließtext**: 1 kurzer Satz, ohne Übertreibung
 - **Alltagsimpuls**: 1 konkrete Frage oder kleiner Schritt
 
 Empfehlung:
+
 - ein Gedanke pro Karte
 - keine Checklisten mit vielen Unterpunkten
 - kein Fachjargon ohne kurze Erklärung
@@ -72,12 +80,14 @@ Empfehlung:
 ## Do / Don’t
 
 ### Do
+
 - „Kleine Schritte reichen als Start.“
 - „Dranbleiben ist oft wichtiger als Perfektion.“
 - „Rahmenbedingungen beeinflussen Verhalten.“
 - „Wenn es zu viel wird: dosieren, pausieren, Unterstützung nutzen.“
 
 ### Don’t
+
 - „In 2 Minuten zu maximaler Veränderung.“
 - „Wenn du willst, schaffst du es immer.“
 - „Diese Methode funktioniert für alle gleich.“
@@ -97,7 +107,7 @@ Empfehlung:
 
 ## Umfang und Release-Logik
 
-- Startumfang: 3–5 Karten.
+- Aktueller Live-Umfang: 9 Karten.
 - Danach inkrementell erweitern (kleine Batches).
 - Neue Karten nur hinzufügen, wenn sie klaren Mehrwert gegenüber bestehenden Inhalten haben.
 - Bei neuen Karten prüfen:
@@ -130,7 +140,7 @@ Querverweise machen „Gut zu wissen" im Kursfluss auffindbar, ohne die Wochen i
 Aktuelle Querverweise (Stand 2026-04-08):
 
 | Woche | Stelle | Zielkarte |
-|-------|--------|-----------|
+| ----- | ------ | --------- |
 | W1 | readingCard `w1-anfangsunruhe` | Wenn Wirkung auf sich warten lässt |
 | W7 | wochenAufgaben (Was nährt/zehrt) | Umgebung als stiller Mittrainer |
 | W8 | wochenAufgaben (Rückblick) | Übung prägt Selbstbild |
@@ -145,5 +155,11 @@ Bei neuen Karten prüfen, ob ein passender Querverweis sinnvoll ist. Nicht jede 
 - Wenn Wirkung auf sich warten lässt
 - Übung prägt Selbstbild
 - Umgebung als stiller Mittrainer
+- Der Autopilot hat Auslöser
+- Hinsitzen ist der schwerste Schritt
+- Eine Gewohnheit an die andere knüpfen
+- Sich schlecht fühlen, weil man sich schlecht fühlt
+- Verantwortung ist nicht Schuld
+- Kurz anerkennen, was gerade war
 
 Diese Linie kann erweitert werden, solange die oben genannten Regeln eingehalten werden.
