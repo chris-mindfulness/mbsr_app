@@ -26,42 +26,48 @@ void main() {
     );
   }
 
-  group('Vertiefung Pilot: Feature-Microcards', () {
-    testWidgets('zeigt die vier Feature-Karten im Infobereich', (tester) async {
+  group('Vertiefung: Bereichsstruktur und Navigation', () {
+    testWidgets('zeigt die neuen Bereiche ohne redundante Übersichtskarten', (
+      tester,
+    ) async {
       await tester.pumpWidget(buildTestApp());
       await tester.pumpAndSettle();
 
-      expect(find.text('MBSR 8-Wochen-Kurs'), findsOneWidget);
-      expect(find.text('Wissen & Hilfe'), findsWidgets);
+      expect(find.text('PRAXIS VERTIEFEN'), findsOneWidget);
+      expect(find.text('NACHSCHLAGEN'), findsOneWidget);
+      expect(find.text('QUELLEN'), findsOneWidget);
+      expect(find.text('Gut zu wissen'), findsOneWidget);
+      expect(find.text('Begriffe & Fragen'), findsOneWidget);
       expect(find.text('Textarchiv'), findsWidgets);
       expect(find.text('Literatur & Forschung'), findsWidgets);
+      expect(find.text('MBSR 8-Wochen-Kurs'), findsNothing);
     });
 
-    testWidgets('Feature-Karten sind nicht klickbar', (tester) async {
+    testWidgets('Gut zu wissen Karte ist klickbar', (tester) async {
       final observer = _PushCounterObserver();
 
       await tester.pumpWidget(buildTestApp(observers: [observer]));
       await tester.pumpAndSettle();
 
       final pushesBeforeTap = observer.pushCount;
-      await tester.tap(find.text('MBSR 8-Wochen-Kurs'));
+      await tester.tap(find.text('Gut zu wissen'));
       await tester.pumpAndSettle();
 
-      expect(observer.pushCount, pushesBeforeTap);
-      expect(find.text('Vertiefung'), findsOneWidget);
+      expect(observer.pushCount, greaterThan(pushesBeforeTap));
+      expect(find.text('Gut zu wissen'), findsWidgets);
     });
 
-    testWidgets('bestehende Karte Wissen & Hilfe bleibt klickbar', (
+    testWidgets('bestehende Karte Begriffe & Fragen bleibt klickbar', (
       tester,
     ) async {
       await tester.pumpWidget(buildTestApp());
       await tester.pumpAndSettle();
 
       await tester.scrollUntilVisible(
-        find.text('Glossar und häufige Fragen'),
+        find.text('Glossar und häufige Fragen nachschlagen'),
         300,
       );
-      await tester.tap(find.text('Glossar und häufige Fragen'));
+      await tester.tap(find.text('Glossar und häufige Fragen nachschlagen'));
       await tester.pumpAndSettle();
       expect(find.text('Glossar'), findsOneWidget);
     });
