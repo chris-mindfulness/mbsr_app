@@ -573,9 +573,9 @@ AuthException _mapRecoveryAppwriteException(AppwriteException e) {
       redirectHint) {
     return AuthException(
       'Der Link zum Zurücksetzen ist für diese Web-Adresse nicht freigeschaltet. '
-      'In Appwrite müssen unter Auth die erlaubten URLs die genaue Adresse '
-      'deiner App enthalten (inkl. https und ohne Tippfehler). '
-      'Alternativ die App über die vorgesehene Kurs-URL öffnen.',
+      'In Appwrite muss unter „Auth“ in der Liste der erlaubten URLs die genaue '
+      'Adresse deiner App eingetragen sein (inkl. https und ohne Tippfehler). '
+      'Alternativ kannst du die App über die vorgesehene Kurs-URL öffnen.',
     );
   }
 

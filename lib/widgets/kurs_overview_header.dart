@@ -48,7 +48,7 @@ class KursOverviewHeader extends StatelessWidget {
           Center(
             child: AvatarAudioClip(
               appwriteId: AppDaten.begruessung['appwrite_id'],
-              label: 'Begruessung',
+              label: 'Begrüßung',
               durationHint: AppDaten.begruessung['duration'],
             ),
           ),

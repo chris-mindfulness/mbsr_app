@@ -119,8 +119,8 @@ class NotfallKofferSheet {
                             messenger?.showSnackBar(
                               SnackBar(
                                 content: Text(
-                                  'Diese Übung ist noch nicht einrichtbar — '
-                                  'Eintrag in den Kursdaten folgt.',
+                                  'Diese Übung ist noch nicht verfügbar — '
+                                  'der Eintrag in den Kursdaten folgt.',
                                   style: AppStyles.bodyStyle,
                                 ),
                                 backgroundColor: AppStyles.softBrown,

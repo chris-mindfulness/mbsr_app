@@ -222,7 +222,7 @@ class ExerciseTipsSheet {
             'Immer wieder zurückkommen ist die eigentliche Übung, nicht perfektes Dabeibleiben.',
           ],
           questionPoints: const [
-            '„Schon wieder dieselbe Übung?” — ein verständlicher Gedanke, besonders am Anfang.',
+            '„Schon wieder dieselbe Übung?“ — ein verständlicher Gedanke, besonders am Anfang.',
             'Den Wunsch nach Abwechslung kannst du selbst als Muster bemerken.',
             'Pausen und Anpassungen sind kein Abbruch, sondern Teil der Praxis.',
           ],
@@ -240,7 +240,7 @@ class ExerciseTipsSheet {
             'Wenn du ruhig weiteratmen kannst, passt die Intensität.',
           ],
           questionPoints: const [
-            'Unsicher, ob du es „richtig” machst? Mach es kleiner, nicht perfekter.',
+            'Unsicher, ob du es „richtig“ machst? Mach es kleiner, nicht perfekter.',
             'Selbstkritik taucht oft auf — du kannst sie bemerken und weitermachen.',
             'Dein Körper verdient einen sicheren, freundlichen Umgang. Immer.',
           ],
@@ -285,7 +285,7 @@ class ExerciseTipsSheet {
           icon: Icons.favorite_border,
           accentColor: AppStyles.primaryOrange,
           phaseHint:
-              'Mitgefühlsübungen stärken eine freundliche Haltung dir selbst und anderen gegenüber.',
+              'Mitgefühlsübungen stärken eine freundliche Haltung gegenüber dir selbst und anderen.',
           orientationPoints: const [
             'Der Ton darf warm und undramatisch sein.',
             'Die Wirkung zeigt sich oft leise und über Zeit.',
@@ -294,7 +294,7 @@ class ExerciseTipsSheet {
           questionPoints: const [
             'Widerstand ist kein Problem — du darfst ihn mit Interesse anschauen.',
             'Wenn Formulierungen nicht passen, finde eigene Worte.',
-            'Die Übung darf leicht bleiben. Sie muss nicht „groß” sein.',
+            'Die Übung darf leicht bleiben. Sie muss nicht „groß“ sein.',
           ],
         );
       case _ExerciseTipType.senses:
@@ -310,7 +310,7 @@ class ExerciseTipsSheet {
           ],
           questionPoints: const [
             'Viele Gedanken? Komm sanft zurück zu Sehen, Hören, Spüren.',
-            'Wenn es sich „nach nichts” anfühlt — genau das beobachten.',
+            'Wenn es sich „nach nichts“ anfühlt — genau das beobachten.',
             'Sinneswahrnehmung hilft, in belastenden Momenten wieder Boden zu finden.',
           ],
         );

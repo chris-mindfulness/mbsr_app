@@ -159,7 +159,7 @@ class GlossarFaqSeite extends StatelessWidget {
       {
         'term': 'Emotionale Klebrigkeit (Stickiness)',
         'def':
-            'Die Tendenz, stärker zu reagieren, als die Situation verlangt, weil frühere Erfahrungen an der aktuellen Wahrnehmung „kleben". Achtsamkeit hilft, das früher zu bemerken und die Klebrigkeit über die Zeit zu verringern.',
+            'Die Tendenz, stärker zu reagieren, als die Situation verlangt, weil frühere Erfahrungen an der aktuellen Wahrnehmung „kleben“. Achtsamkeit hilft, das früher zu bemerken und die Klebrigkeit über die Zeit zu verringern.',
       },
       {
         'term': 'Selbstwirksamkeit (Self-Efficacy)',
@@ -205,7 +205,7 @@ class GlossarFaqSeite extends StatelessWidget {
       {
         'q': 'Ich bin sehr gestresst. Bin ich im Kurs überhaupt richtig?',
         'a':
-            'Genau dafür ist der Kurs gedacht: Stressmuster erkennen, den Körper früher wahrnehmen und neue Reaktionsmöglichkeiten aufbauen. Du musst dafür nicht "ruhig" sein, um zu starten.',
+            'Genau dafür ist der Kurs gedacht: Stressmuster erkennen, den Körper früher wahrnehmen und neue Reaktionsmöglichkeiten aufbauen. Du musst dafür nicht „ruhig“ sein, um zu starten.',
       },
       {
         'q': 'Wie viel Zeit brauche ich realistisch?',

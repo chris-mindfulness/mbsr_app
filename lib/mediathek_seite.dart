@@ -220,7 +220,7 @@ class _MediathekSeiteState extends State<MediathekSeite> {
             const SubtleDivider(height: 1, verticalMargin: 0),
             // Offline-Banner
             const ConnectivityOfflineBanner(
-              message: 'Offline - Audios können nicht geladen werden',
+              message: 'Offline – Audios können nicht geladen werden',
               horizontalMargin: AppStyles.spacingL,
               verticalMargin: AppStyles.spacingS,
             ),

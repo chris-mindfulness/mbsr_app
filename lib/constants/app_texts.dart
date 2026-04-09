@@ -49,7 +49,8 @@ class AppTexts {
   
   // Offline-Texte
   static const String offlineGeneral = 'Keine Internetverbindung';
-  static const String offlineAudio = 'Offline - Audios können nicht geladen werden';
+  static const String offlineAudio =
+      'Offline – Audios können nicht geladen werden';
   
   // Error-Texte
   static const String errorConnection = 'Verbindungsfehler';

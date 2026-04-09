@@ -10,6 +10,9 @@
 
 - Echte Daten: `import/teilnehmende.csv` (lokal anlegen, Spalten wie in `import/teilnehmende.example.csv`).
 - Du kannst in Excel pflegen und als **CSV** speichern; das Import-Skript liest nur CSV (Komma oder Semikolon erkennt es selbst).
+- **Kodierung:** Zuerst wird **UTF-8** gelesen. Ist die Datei typischer **Excel-Export (Latin-1/Windows-1252)**, erkennt das Skript das und liest mit Fallback — in der Konsole erscheint ein kurzer Hinweis. Für saubere Umlaute in den Namen weiterhin **CSV UTF-8** speichern, wenn möglich.
+
+**Hinweis zum Befehl:** `dart run tool/import_participants.dart …` ist ein **reines Dart-Tool** (ohne Flutter-Engine). Es reicht, im Ordner `mbsr_app` zu sein; `dart` kommt z. B. aus dem Flutter-SDK (`…/flutter/bin/dart`).
 
 ## Ablauf im Terminal (Schritt für Schritt)
 

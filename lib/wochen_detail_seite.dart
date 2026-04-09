@@ -494,7 +494,7 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
             {
               'title': 'Vor dem Gespräch',
               'bullets': [
-                "Nimm dir 1 ruhigen Atemzug und spüre kurz deine Füße.",
+                "Nimm dir einen ruhigen Atemzug und spüre kurz deine Füße.",
                 "Setze eine klare Intention: verstehen statt gewinnen.",
               ],
             },
@@ -770,7 +770,7 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
           children: [
             // Offline-Banner
             const ConnectivityOfflineBanner(
-              message: 'Offline - Audios können nicht geladen werden',
+              message: 'Offline – Audios können nicht geladen werden',
               horizontalMargin: 24,
             ),
             Expanded(
@@ -1139,7 +1139,7 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
                           if (widget.infoClips != null) ...[
                             _buildInfoClipWidget(
                               key: 'begruessung',
-                              label: 'Begruessung zur Woche',
+                              label: 'Begrüßung zur Woche',
                             ),
                             AppStyles.spacingXLBox,
                           ],

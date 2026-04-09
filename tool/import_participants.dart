@@ -1,5 +1,23 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:math';
+
+// Kein package:appwrite hier: Das Flutter-SDK bricht `dart run` ohne Engine.
+// Gleiche Logik wie Appwrite SDK `ID.unique()` (siehe appwrite id.dart).
+String _appwriteUniqueUserId({int padding = 7}) {
+  final now = DateTime.now();
+  final sec = (now.millisecondsSinceEpoch / 1000).floor();
+  final usec = now.microsecondsSinceEpoch - (sec * 1000000);
+  var id = sec.toRadixString(16) + usec.toRadixString(16).padLeft(5, '0');
+  if (padding > 0) {
+    final sb = StringBuffer();
+    for (var i = 0; i < padding; i++) {
+      sb.write(Random().nextInt(16).toRadixString(16));
+    }
+    id += sb.toString();
+  }
+  return id;
+}
 
 class ImportStats {
   int totalRows = 0;
@@ -50,7 +68,7 @@ void main(List<String> args) async {
   final defaultRole = Platform.environment['DEFAULT_ROLE'] ?? 'mbsr';
   final dryRun = options['dry-run'] == 'true';
 
-  final rawContent = csvFile.readAsStringSync();
+  final rawContent = _readCsvAsString(csvFile);
   final delimiter = _detectDelimiter(rawContent, options['delimiter']);
   final lines = const LineSplitter()
       .convert(rawContent)
@@ -196,6 +214,19 @@ String? _requiredEnv(String key) {
   return value;
 }
 
+/// Liest CSV-Text: zuerst UTF-8, sonst Latin-1 (häufig bei Excel „CSV“ / Windows-1252-Zeichen).
+String _readCsvAsString(File file) {
+  final bytes = file.readAsBytesSync();
+  try {
+    return utf8.decode(bytes, allowMalformed: false);
+  } on FormatException {
+    stderr.writeln(
+      'Hinweis: ${file.path} ist kein gültiges UTF-8 — verwende Latin-1 (typ. Excel-Export).',
+    );
+    return latin1.decode(bytes);
+  }
+}
+
 String _detectDelimiter(String content, String? explicitDelimiter) {
   if (explicitDelimiter == ',' || explicitDelimiter == ';') {
     return explicitDelimiter!;
@@ -286,7 +317,7 @@ Future<_CreateStatus> _createAuthUser({
     projectId: projectId,
     apiKey: apiKey,
     body: {
-      'userId': 'unique()',
+      'userId': _appwriteUniqueUserId(),
       'email': participant.email,
       'password': participant.password,
       'name': participant.name,

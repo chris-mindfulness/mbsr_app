@@ -77,6 +77,12 @@ Die App baut Medien-URLs so auf:
 {ENDPOINT}/storage/buckets/mbsr_content/files/{FILE_ID}/view?project={PROJECT_ID}
 ```
 
+### Kursheft-PDFs: IDs nach Dateiwechsel
+
+**Wichtig:** Wenn du Kursheft-PDFs in Appwrite **ersetzt oder neu hochlädst**, ändern sich die **File-IDs**. Dann musst du in **`lib/app_daten.dart`** die **`appwrite_id`** je Eintrag unter **`pdfs`** **pro Woche** (und beim **Tag der Achtsamkeit**) neu setzen — sonst zeigen die Links auf falsche oder fehlende Dateien.
+
+Dauerhafte Checkliste: **`docs/ERINNERUNG_KURSHEFT_APPWRITE_IDS.md`**
+
 ## 6) Wichtiger Technik-Hinweis zum aktuellen Code
 
 Die Rollenabfrage läuft aktuell in dieser Reihenfolge:

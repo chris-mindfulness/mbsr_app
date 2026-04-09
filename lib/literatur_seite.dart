@@ -57,7 +57,7 @@ class LiteraturSeite extends StatelessWidget {
           titel: 'Das Wunder der Achtsamkeit',
           autor: 'Thich Nhat Hanh',
           info:
-              'Ein Klassiker: knapp, poetisch, direkt. Ideal als Einstieg in das Denken eines der bedeutendsten Achtsamkeitslehrer.',
+              'Ein Klassiker: knapp, poetisch, direkt. Ideal als Einstieg in das Denken einer der bedeutendsten Stimmen der Achtsamkeit.',
         ),
         _LiteraturBuch(
           titel: 'Stille',
@@ -239,7 +239,7 @@ class LiteraturSeite extends StatelessWidget {
             _buildSectionHeader("BÜCHER"),
             AppStyles.spacingSBox,
             Text(
-              'Zum Weiterlesen nach dem Kurs. Titel kannst du selbst suchen — hier ohne Verlinkung zu Shops.',
+              'Zum Weiterlesen nach dem Kurs. Die Titel kannst du selbst suchen — hier ohne Verlinkung zu Shops.',
               style: AppStyles.bodyStyle.copyWith(
                 fontSize: 13,
                 color: AppStyles.textMuted,

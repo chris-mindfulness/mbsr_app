@@ -52,9 +52,16 @@ class AppDaten {
     {
       'title': 'Body-Scan (10 Min, Laura)',
       'duration': '10 Min',
-      'appwrite_id': '69d37c15001b11fbec4e',
+      'appwrite_id': '69d7b44b000b2412d139',
       'description':
           'Ein kompakter Body-Scan für Tage mit wenig Zeit. Du wanderst achtsam durch den Körper, von den Füßen bis zum Kopf, und nimmst wahr, was gerade da ist, ohne etwas ändern zu müssen. Zum Abschluss weitest du die Aufmerksamkeit auf Atem, Raum und Geräusche. Gesprochen von Laura.',
+    },
+    {
+      'title': 'Body-Scan (10 Min, Chris)',
+      'duration': '10 Min',
+      'appwrite_id': '69d7b356002ff105c051',
+      'description':
+          'Ein kompakter Body-Scan für Tage mit wenig Zeit. Du wanderst achtsam durch den Körper, von den Füßen bis zum Kopf, und nimmst wahr, was gerade da ist, ohne etwas ändern zu müssen. Zum Abschluss weitest du die Aufmerksamkeit auf Atem, Raum und Geräusche. Gesprochen von Chris.',
     },
     {
       'title': 'Body-Scan (kurz)',
@@ -107,7 +114,7 @@ class AppDaten {
       'duration': '12 Min',
       'appwrite_id': '696bffcc000a9fa2ce09',
       'description':
-          'Die Metta-Meditation stärkt die liebevolle Güte dir selbst und anderen gegenüber. Besonders wertvoll für das Wohlbefinden.',
+          'Die Metta-Meditation stärkt die liebevolle Güte gegenüber dir selbst und anderen. Besonders wertvoll für das Wohlbefinden.',
     },
     {
       'title': 'Tour der Sinne',
@@ -219,7 +226,7 @@ class AppDaten {
       'pdfs': [
         {
           'title': 'Kursunterlagen Woche 1',
-          'appwrite_id': '696bfa6b0039f0497205',
+          'appwrite_id': '69d6644e002937403f0a',
           'kind': 'kursunterlage',
         },
         {
@@ -302,7 +309,7 @@ class AppDaten {
       'pdfs': [
         {
           'title': 'Kursunterlagen Woche 2',
-          'appwrite_id': '696bfc7f003e17db0a1e',
+          'appwrite_id': '69d6645e0033e35d88e3',
           'kind': 'kursunterlage',
         },
         {
@@ -373,7 +380,7 @@ class AppDaten {
       'pdfs': [
         {
           'title': 'Kursunterlagen Woche 3',
-          'appwrite_id': '696bfc8c001ab2d0d7fb',
+          'appwrite_id': '69d6646600090d83a9fb',
           'kind': 'kursunterlage',
         },
         {
@@ -396,7 +403,7 @@ class AppDaten {
           'title': 'Der Atem hat keinen Anfang und kein Ende',
           'body':
               'Wir denken den Atem oft als zwei getrennte Bewegungen: Einatmen, Ausatmen. Dazwischen — Pause. Tatsächlich gibt es keinen Punkt, an dem der Atem vollständig stillsteht. Die Einatmung geht fließend in die Ausatmung über, die Ausatmung in die nächste Einatmung. Wenn du genau hinschaust, ist der Atem eher eine fortlaufende Schleife als eine Linie mit Anfang und Ende.\n\n'
-              'Das lässt sich nutzen: Statt die Aufmerksamkeit an einzelnen Momenten festzumachen — „jetzt Einatmen, jetzt Ausatmen" — kannst du versuchen, die Übergänge mitzunehmen. Die Stelle, an der die Einatmung aufhört und die Ausatmung einsetzt. Die Stelle, an der die Ausatmung in eine kurze Stille mündet, bevor die nächste Einatmung beginnt. Diese Wendepunkte sind oft die Momente, in denen die Aufmerksamkeit abspringt — und genau deshalb sind sie wertvoll.',
+              'Das lässt sich nutzen: Statt die Aufmerksamkeit an einzelnen Momenten festzumachen — „jetzt Einatmen, jetzt Ausatmen“ — kannst du versuchen, die Übergänge mitzunehmen. Die Stelle, an der die Einatmung aufhört und die Ausatmung einsetzt. Die Stelle, an der die Ausatmung in eine kurze Stille mündet, bevor die nächste Einatmung beginnt. Diese Wendepunkte sind oft die Momente, in denen die Aufmerksamkeit abspringt — und genau deshalb sind sie wertvoll.',
         },
         {
           'id': 'w3-freundschaft-geist',
@@ -445,7 +452,7 @@ class AppDaten {
       'pdfs': [
         {
           'title': 'Kursunterlagen Woche 4',
-          'appwrite_id': '696bfd3d00077e7e2c0b',
+          'appwrite_id': '69d6646c0029b95501da',
           'kind': 'kursunterlage',
         },
         {
@@ -516,7 +523,7 @@ class AppDaten {
       'pdfs': [
         {
           'title': 'Kursunterlagen Woche 5',
-          'appwrite_id': '696bfd450038aba59bcf',
+          'appwrite_id': '69d66473002cd88bf619',
           'kind': 'kursunterlage',
         },
         {
@@ -559,7 +566,7 @@ class AppDaten {
           'id': 'w5-stickiness',
           'title': 'Emotionale Klebrigkeit — wenn alte Erfahrungen mitreagieren',
           'body':
-              'Manchmal reagierst du stärker, als die Situation eigentlich verlangt. Ein kleiner Kommentar trifft dich wie ein großer Vorwurf. Davidson nennt das „Stickiness" — emotionale Klebrigkeit. Erfahrungen aus früheren Situationen kleben an dem, was gerade passiert, und trüben die Wahrnehmung.\n\n'
+              'Manchmal reagierst du stärker, als die Situation eigentlich verlangt. Ein kleiner Kommentar trifft dich wie ein großer Vorwurf. Davidson nennt das „Stickiness“ — emotionale Klebrigkeit. Erfahrungen aus früheren Situationen kleben an dem, was gerade passiert, und trüben die Wahrnehmung.\n\n'
               'Achtsamkeit trainiert nicht, dass nichts mehr weh tut. Sie verändert, wie schnell du es bemerkst: Ah, da klebt etwas, das nicht hierhin gehört. Jede Übung, in der du das übst, reduziert die Klebrigkeit — nicht sofort, aber messbar über die Zeit.',
         },
         {
@@ -602,7 +609,7 @@ class AppDaten {
       'pdfs': [
         {
           'title': 'Kursunterlagen Woche 6',
-          'appwrite_id': '696bfd4f0037e7e16a9f',
+          'appwrite_id': '69d664790037259099cd',
           'kind': 'kursunterlage',
         },
       ],
@@ -668,13 +675,13 @@ class AppDaten {
       'pdfs': [
         {
           'title': 'Kursunterlagen Woche 7',
-          'appwrite_id': '696bfd57000f4bb29d10',
+          'appwrite_id': '69d664800021876d79b3',
           'kind': 'kursunterlage',
         },
       ],
       'wochenAufgaben': [
         'Probiere diese Woche, auch ohne Audioanleitung zu üben — in Stille, in deinem eigenen Rhythmus.',
-        'Schau auf deine Woche: Was nährt dich, was zehrt an dir? Wo könntest du etwas Kleines verändern? Impulse zur Umgebungsgestaltung findest du in der Vertiefung unter „Gut zu wissen".',
+        'Schau auf deine Woche: Was nährt dich, was zehrt an dir? Wo könntest du etwas Kleines verändern? Impulse zur Umgebungsgestaltung findest du in der Vertiefung unter „Gut zu wissen“.',
         'Beobachte im Alltag, wann du wahrnimmst und wann du bereits interpretierst.',
       ],
       'readingSummary': '',
@@ -735,13 +742,13 @@ class AppDaten {
       'pdfs': [
         {
           'title': 'Kursunterlagen Woche 8',
-          'appwrite_id': '696bfd5f002394219efb',
+          'appwrite_id': '69d664860034bc621f93',
           'kind': 'kursunterlage',
         },
       ],
       'wochenAufgaben': [
         'Alle Übungen aus dem Kurs stehen dir weiterhin in der Mediathek zur Verfügung — auch stille Meditation ohne Anleitung.',
-        'Schau zurück: Was hat sich in den letzten acht Wochen für dich verändert? In der Vertiefung unter „Gut zu wissen" findest du einen Impuls dazu, wie Übung das Selbstbild prägen kann.',
+        'Schau zurück: Was hat sich in den letzten acht Wochen für dich verändert? In der Vertiefung unter „Gut zu wissen“ findest du einen Impuls dazu, wie Übung das Selbstbild prägen kann.',
         'Erstelle dir einen persönlichen Praxisplan — wann, welche Übung, wie lange. Auch eine Ausweichoption für stressige Wochen ist hilfreich. Impulse, wie du deine Umgebung praxisfreundlich gestaltest, findest du in der Vertiefung unter „Gut zu wissen“.',
         'Wenn du magst, nimm dir täglich einen Moment für Dankbarkeit — für etwas Konkretes, das dir an diesem Tag begegnet ist.',
       ],
@@ -898,7 +905,7 @@ class AppDaten {
       'id': 'gzw-abschluss-anerkennung',
       'title': 'Kurz anerkennen, was gerade war',
       'body':
-          'Nach einer Übung passiert oft eines von zwei Dingen: Du springst direkt in den nächsten Tagesordnungspunkt oder du bewertest, ob die Übung gut genug war. Beides überspringt einen Moment, der für das Lernen wichtig ist. Unmittelbar nach einer Handlung entscheidet sich mit, wie stark die neue Verknüpfung wird.\n\n'
+          'Nach einer Übung passiert oft eines von zwei Dingen: Du springst direkt in den nächsten Tagesordnungspunkt oder du bewertest, ob die Übung gut genug war. Beides überspringt einen Moment, der für das Lernen wichtig ist. Unmittelbar nach einer Handlung entscheidet sich, wie stark die neue Verknüpfung wird.\n\n'
           'Gemeint ist kein Selbstlob und kein Urteil über die Qualität der Übung. Gemeint ist ein kurzes Innehalten: Ich habe mir diese Zeit genommen. Das reicht. Verhaltensforschung zeigt, dass so ein kurzer Moment der Anerkennung dazu beitragen kann, dass das Verhalten am nächsten Tag wahrscheinlicher wird.\n\n'
           'Was nimmst du in den drei Sekunden nach dem Ende einer Übung wahr, bevor der Alltag wieder einsetzt?',
     },
