@@ -1041,9 +1041,10 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
                                     AppStyles.spacingMHorizontal,
                                     Expanded(
                                       child: Text(
-                                        'In der Mediathek gibt es auch längere '
-                                        'Versionen des Body-Scans (27 und 35 Min), '
-                                        'falls du mehr Zeit hast.',
+                                        'In der Mediathek findest du mehrere '
+                                        'Body-Scan-Anleitungen in unterschiedlichen '
+                                        'Längen und mit verschiedenen Stimmen — '
+                                        'such dir aus, was zu dir passt.',
                                         style: AppStyles.bodyStyle.copyWith(
                                           fontSize:
                                               AppStyles.bodyStyle.fontSize,
@@ -1318,7 +1319,7 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
   }
 
   // ============================================
-  // BODY-SCAN TIPPS (nur Woche 1)
+  // BODY-SCAN TIPPS (Woche 1–2)
   // ============================================
   Widget _buildBodyScanTipps({bool neutralSurface = false}) {
     return _buildAdaptiveCard(

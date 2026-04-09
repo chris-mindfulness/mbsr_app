@@ -50,54 +50,47 @@ class AppDaten {
           'Diese kurze Übung hilft dir, im Moment anzukommen und kurz innezuhalten. Du nimmst wahr, wie es dir gerade körperlich und geistig geht, und richtest die Aufmerksamkeit auf die Atembewegung im Körper. Ideal als kleine Pause im Alltag. Gesprochen von Chris.',
     },
     {
-      'title': 'Body-Scan (10 Min, Laura)',
+      'title': 'Body-Scan kompakt (Laura)',
       'duration': '10 Min',
       'appwrite_id': '69d7b44b000b2412d139',
       'description':
           'Ein kompakter Body-Scan für Tage mit wenig Zeit. Du wanderst achtsam durch den Körper, von den Füßen bis zum Kopf, und nimmst wahr, was gerade da ist, ohne etwas ändern zu müssen. Zum Abschluss weitest du die Aufmerksamkeit auf Atem, Raum und Geräusche. Gesprochen von Laura.',
     },
     {
-      'title': 'Body-Scan (10 Min, Chris)',
+      'title': 'Body-Scan kompakt (Chris)',
       'duration': '10 Min',
       'appwrite_id': '69d7b356002ff105c051',
       'description':
           'Ein kompakter Body-Scan für Tage mit wenig Zeit. Du wanderst achtsam durch den Körper, von den Füßen bis zum Kopf, und nimmst wahr, was gerade da ist, ohne etwas ändern zu müssen. Zum Abschluss weitest du die Aufmerksamkeit auf Atem, Raum und Geräusche. Gesprochen von Chris.',
     },
     {
-      'title': 'Body-Scan (kurz)',
+      'title': 'Body-Scan standard',
       'duration': '20 Min',
       'appwrite_id': '696bff8a003533170ca4',
       'description':
-          'In der kurzen Version durchwanderst du den Körper achtsam und in gutem Tempo. Du übst, Empfindungen wie Druck, Wärme, Kribbeln oder auch Nicht-Empfinden freundlich wahrzunehmen. Eine gute Übung, um dich zwischendurch wieder mit dir selbst zu verbinden.',
+          'In der Standard-Version durchwanderst du den Körper achtsam und in gutem Tempo. Du übst, Empfindungen wie Druck, Wärme, Kribbeln oder auch Nicht-Empfinden freundlich wahrzunehmen. Eine gute Übung, um dich wieder mit dir selbst zu verbinden.',
     },
     {
-      'title': 'Body-Scan (mittel)',
-      'duration': '27 Min',
-      'appwrite_id': '696bff9400283154816e',
-      'description':
-          'Die mittlere Version gibt dir mehr Zeit für einzelne Körperbereiche und feine Unterschiede zwischen links und rechts. Immer wieder kehrst du zur Atembewegung zurück und sammelst die Aufmerksamkeit neu. So entsteht Schritt für Schritt mehr Ruhe und Präsenz im ganzen Körper.',
-    },
-    {
-      'title': 'Body-Scan (lang)',
+      'title': 'Body-Scan vertiefend',
       'duration': '35 Min',
       'appwrite_id': '696bff9b000d16345521',
       'description':
-          'Die lange Version ist die ausführliche Body-Scan-Praxis mit viel Raum zum Verweilen. Du gehst den Körper Bereich für Bereich durch, nimmst auch subtile Signale wahr und kommst bei Abschweifungen freundlich zurück. Ideal, wenn du dir bewusst mehr Zeit für tiefe Verkörperung und Präsenz nehmen möchtest.',
+          'Die vertiefende Version ist die ausführliche Body-Scan-Praxis mit viel Raum zum Verweilen. Du gehst den Körper Bereich für Bereich durch, nimmst auch subtile Signale wahr und kommst bei Abschweifungen freundlich zurück. Ideal, wenn du dir bewusst mehr Zeit für tiefe Verkörperung und Präsenz nehmen möchtest.',
     },
     {
-      'title': 'Sitzmeditation (kurz)',
+      'title': 'Sitzmeditation kurz',
       'duration': '10 Min',
       'appwrite_id': '696bffa2000a833c13ce',
       'description': sitzmeditationMediathekBeschreibung,
     },
     {
-      'title': 'Sitzmeditation (mittel)',
+      'title': 'Sitzmeditation mittel',
       'duration': '15 Min',
       'appwrite_id': '696bffaa00090187914b',
       'description': sitzmeditationMediathekBeschreibung,
     },
     {
-      'title': 'Sitzmeditation (lang)',
+      'title': 'Sitzmeditation lang',
       'duration': '20 Min',
       'appwrite_id': '696bffb000325d0acc84',
       'description': sitzmeditationMediathekBeschreibung,
@@ -222,7 +215,7 @@ class AppDaten {
         'Wann warst du heute im Autopiloten unterwegs, ohne es sofort zu merken?',
         'Was hat dir geholfen, wieder in den Körperkontakt zurückzukehren?',
       ],
-      'audioRefs': ['Ankommen (Laura)', 'Body-Scan (kurz)'],
+      'audioRefs': ['Ankommen (Laura)', 'Body-Scan kompakt (Laura)'],
       'pdfs': [
         {
           'title': 'Kursunterlagen Woche 1',
@@ -236,7 +229,7 @@ class AppDaten {
         },
       ],
       'wochenAufgaben': [
-        'Die Audioanleitung zum Body-Scan findest du in der Mediathek. Kurze Einheiten an mehreren Tagen sind ein guter Einstieg.',
+        'Body-Scan-Anleitungen findest du in der Mediathek in verschiedenen Längen. Kurze Einheiten an mehreren Tagen sind ein guter Einstieg.',
         'Nimm dir eine Mahlzeit in dieser Woche bewusst vor — ohne Bildschirm, ohne Lesen. Einfach schmecken.',
         'Die Neun-Punkte-Übung liegt in den Kursunterlagen bereit. Probiere sie aus und beobachte, was dir dabei auffällt.',
         'In den Kursunterlagen findest du die Geschichte vom Oberfluss und Unterfluss — sie gibt einen ersten Impuls zum Thema Achtsamkeit.',
@@ -305,7 +298,7 @@ class AppDaten {
         'Wann hast du heute etwas bewertet, statt es nur wahrzunehmen?',
         'Wie fühlt sich dein Körper an, wenn du gestresst bist?',
       ],
-      'audioRefs': ['Ankommen (Laura)', 'Body-Scan (kurz)'],
+      'audioRefs': ['Ankommen (Laura)', 'Body-Scan kompakt (Laura)'],
       'pdfs': [
         {
           'title': 'Kursunterlagen Woche 2',
@@ -319,7 +312,7 @@ class AppDaten {
         },
       ],
       'wochenAufgaben': [
-        'Der Body-Scan steht dir weiterhin als Audioanleitung zur Verfügung — mehrmals pro Woche ist ein gutes Maß.',
+        'Der Body-Scan bleibt zentral: In der Mediathek gibt es mehrere Längen — mehrmals pro Woche ist ein gutes Maß.',
         'Wähle eine alltägliche Tätigkeit und führe sie mit Anfängergeist aus, als würdest du sie zum ersten Mal tun — Zähneputzen, Duschen, der Weg zur Arbeit.',
         'Richte zwischendurch für einige Minuten die Aufmerksamkeit auf deinen Atem. Kein besonderer Ort nötig.',
         'Der Kalender der angenehmen Erlebnisse liegt in den Kursunterlagen — eine Gelegenheit, das Angenehme bewusster wahrzunehmen.',
@@ -375,7 +368,7 @@ class AppDaten {
       'audioRefs': [
         'Ankommen (Laura)',
         'Achtsamkeit in Bewegung',
-        'Body-Scan (kurz)',
+        'Body-Scan standard',
       ],
       'pdfs': [
         {
@@ -445,8 +438,8 @@ class AppDaten {
       ],
       'audioRefs': [
         'Ankommen (Laura)',
-        'Sitzmeditation (kurz)',
-        'Body-Scan (kurz)',
+        'Sitzmeditation kurz',
+        'Body-Scan standard',
         'Achtsamkeit in Bewegung',
       ],
       'pdfs': [
@@ -516,8 +509,8 @@ class AppDaten {
       ],
       'audioRefs': [
         'Ankommen (Laura)',
-        'Sitzmeditation (mittel)',
-        'Body-Scan (kurz)',
+        'Sitzmeditation mittel',
+        'Body-Scan standard',
         'Achtsamkeit in Bewegung',
       ],
       'pdfs': [
@@ -602,8 +595,8 @@ class AppDaten {
       ],
       'audioRefs': [
         'Ankommen (Laura)',
-        'Sitzmeditation (mittel)',
-        'Body-Scan (kurz)',
+        'Sitzmeditation mittel',
+        'Body-Scan standard',
         'Achtsamkeit in Bewegung',
       ],
       'pdfs': [
@@ -668,8 +661,8 @@ class AppDaten {
       ],
       'audioRefs': [
         'Ankommen (Laura)',
-        'Sitzmeditation (lang)',
-        'Body-Scan (kurz)',
+        'Sitzmeditation lang',
+        'Body-Scan standard',
         'Achtsamkeit in Bewegung',
       ],
       'pdfs': [
@@ -735,8 +728,8 @@ class AppDaten {
       ],
       'audioRefs': [
         'Ankommen (Laura)',
-        'Sitzmeditation (lang)',
-        'Body-Scan (kurz)',
+        'Sitzmeditation lang',
+        'Body-Scan standard',
         'Achtsamkeit in Bewegung',
       ],
       'pdfs': [
