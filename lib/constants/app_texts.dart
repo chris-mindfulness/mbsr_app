@@ -18,6 +18,12 @@ class AppTexts {
       'deinem Gerät gespeichert und sind nicht für die Seminarleitung oder '
       'andere Personen zugänglich.';
 
+  /// Mediathek: Hinweis neben dem Download pro Übung (einmal unter der Suche).
+  static const String mediathekDownloadHint =
+      'Tipp: Bei Problemen mit dem Internet kannst du eine Übung über das '
+      'Download-Symbol herunterladen und später anhören. Zum Üben in der App '
+      'startest du wie gewohnt mit Play.';
+
   /// Mediathek: kurze Hinweise zum Streamen (kein Ersatz für Offline-Download).
   static const String playbackTipsTitle = 'Tipps für stabiles Abspielen';
 

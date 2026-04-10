@@ -151,7 +151,8 @@ class AudioItemCard extends StatelessWidget {
                   child: SurfaceIconButton(
                     icon: Icons.download_outlined,
                     color: AppStyles.softBrown,
-                    tooltip: 'Audio herunterladen',
+                    tooltip:
+                        'Übung als Datei speichern (z. B. bei schwachem Internet)',
                     onPressed: onDownload!,
                   ),
                 ),

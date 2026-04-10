@@ -301,6 +301,37 @@ class _MediathekSeiteState extends State<MediathekSeite> {
                 onChanged: (v) => setState(() => _searchQuery = v),
               ),
             ),
+            Padding(
+              padding: EdgeInsets.fromLTRB(
+                AppStyles.spacingL,
+                0,
+                AppStyles.spacingL,
+                AppStyles.spacingM,
+              ),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(top: 2),
+                    child: Icon(
+                      Icons.download_for_offline_outlined,
+                      size: 18,
+                      color: AppStyles.softBrown.withValues(alpha: 0.75),
+                    ),
+                  ),
+                  SizedBox(width: AppStyles.spacingS),
+                  Expanded(
+                    child: Text(
+                      AppTexts.mediathekDownloadHint,
+                      style: AppStyles.smallTextStyle.copyWith(
+                        color: AppStyles.textMuted,
+                        height: 1.4,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
             Expanded(
               child: audios.isEmpty && _searchQuery.isNotEmpty
                   ? Center(
