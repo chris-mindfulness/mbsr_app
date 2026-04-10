@@ -14,6 +14,7 @@ class AudioItemCard extends StatelessWidget {
     this.isError = false,
     required this.onPlay,
     required this.onTips,
+    this.onDownload,
     this.onInfo,
     this.idleTitleColor,
     this.showPlayingIndicator = false,
@@ -28,6 +29,7 @@ class AudioItemCard extends StatelessWidget {
   final bool isError;
   final VoidCallback onPlay;
   final VoidCallback onTips;
+  final VoidCallback? onDownload;
   final VoidCallback? onInfo;
   final Color? idleTitleColor;
   final bool showPlayingIndicator;
@@ -143,6 +145,16 @@ class AudioItemCard extends StatelessWidget {
                 tooltip: 'Tipps zur Übung',
                 onPressed: onTips,
               ),
+              if (onDownload != null)
+                Padding(
+                  padding: const EdgeInsets.only(left: 6),
+                  child: SurfaceIconButton(
+                    icon: Icons.download_outlined,
+                    color: AppStyles.softBrown,
+                    tooltip: 'Audio herunterladen',
+                    onPressed: onDownload!,
+                  ),
+                ),
               if (onInfo != null)
                 Padding(
                   padding: const EdgeInsets.only(left: 6),

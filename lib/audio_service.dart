@@ -3,7 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:just_audio/just_audio.dart';
 import 'nutzungs_tracker.dart';
 import 'audio/audio_state.dart';
-import 'core/app_config.dart';
+import 'core/appwrite_storage_urls.dart';
 
 // Export AudioServiceStatus für Rückwärtskompatibilität
 export 'audio/audio_state.dart' show AudioServiceStatus;
@@ -197,7 +197,7 @@ class AudioService {
 
   /// Hilfsmethode: Erstellt die Appwrite-URL aus der ID
   String _constructAppwriteUrl(String fileId) {
-    return '${AppConfig.appwriteEndpoint}/storage/buckets/${AppConfig.audiosBucketId}/files/$fileId/view?project=${AppConfig.appwriteProjectId}';
+    return AppwriteStorageUrls.audioFileViewUrl(fileId);
   }
 
   Future<void> play(Map<String, String> audio) async {

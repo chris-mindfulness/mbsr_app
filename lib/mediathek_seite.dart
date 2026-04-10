@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'app_daten.dart';
 import 'audio_service.dart';
 import 'constants/app_texts.dart';
 import 'core/app_styles.dart';
+import 'core/appwrite_storage_urls.dart';
 import 'widgets/audio_item_card.dart';
 import 'widgets/decorative_blobs.dart';
 import 'widgets/exercise_tips_sheet.dart';
@@ -59,6 +61,41 @@ class _MediathekSeiteState extends State<MediathekSeite> {
           SnackBar(
             content: Text(
               "Fehler beim Laden des Audios. Bitte Internetverbindung prüfen.",
+            ),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    }
+  }
+
+  /// Öffnet die Appwrite-Download-URL (neuer Tab / Systemdialog). Kein Statistik-Tracking.
+  Future<void> _download(Map<String, String> audio) async {
+    if (audio['upload_status'] == 'pending') return;
+    final id = audio['appwrite_id'];
+    if (id == null || id.isEmpty) return;
+
+    final uri = Uri.parse(AppwriteStorageUrls.audioFileDownloadUrl(id));
+    try {
+      final ok = await launchUrl(uri, mode: LaunchMode.externalApplication);
+      if (!ok && mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              'Download konnte nicht geöffnet werden.',
+              style: AppStyles.bodyStyle,
+            ),
+            backgroundColor: AppStyles.softBrown,
+          ),
+        );
+      }
+    } catch (_) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              'Download fehlgeschlagen. Bitte Internetverbindung prüfen.',
+              style: AppStyles.bodyStyle,
             ),
             backgroundColor: Colors.red,
           ),
@@ -304,6 +341,10 @@ class _MediathekSeiteState extends State<MediathekSeite> {
                           isCurrent &&
                           _audioService.status == AudioServiceStatus.error;
 
+                      final bool canDownload =
+                          audio['upload_status'] != 'pending' &&
+                          (audio['appwrite_id']?.isNotEmpty ?? false);
+
                       return AudioItemCard(
                         audio: audio,
                         isCurrent: isCurrent,
@@ -312,6 +353,9 @@ class _MediathekSeiteState extends State<MediathekSeite> {
                         isError: isError,
                         onPlay: () => _play(audio),
                         onTips: () => _showExerciseTipsForAudio(audio),
+                        onDownload: canDownload
+                            ? () => _download(audio)
+                            : null,
                         onInfo:
                             (audio['description'] != null &&
                                 audio['description']!.isNotEmpty)

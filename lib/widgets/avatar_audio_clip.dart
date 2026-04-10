@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:just_audio/just_audio.dart';
 import '../audio_service.dart';
-import '../core/app_config.dart';
+import '../core/appwrite_storage_urls.dart';
 import '../core/app_styles.dart';
 
 /// Kompakter Audio-Clip-Player (z.B. Begruessung neben Avatar).
@@ -96,9 +96,7 @@ class _AvatarAudioClipState extends State<AvatarAudioClip>
   }
 
   String _buildUrl(String fileId) {
-    return '${AppConfig.appwriteEndpoint}/storage/buckets/'
-        '${AppConfig.audiosBucketId}/files/$fileId/view'
-        '?project=${AppConfig.appwriteProjectId}';
+    return AppwriteStorageUrls.audioFileViewUrl(fileId);
   }
 
   Future<void> _ensureAtStartIfFinished() async {
