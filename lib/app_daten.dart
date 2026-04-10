@@ -66,9 +66,9 @@ class AppDaten {
     {
       'title': 'Body-Scan standard',
       'duration': '20 Min',
-      'appwrite_id': '696bff8a003533170ca4',
+      'appwrite_id': '69d910160012e2a2f200',
       'description':
-          'In der Standard-Version durchwanderst du den Körper achtsam und in gutem Tempo. Du übst, Empfindungen wie Druck, Wärme, Kribbeln oder auch Nicht-Empfinden freundlich wahrzunehmen. Eine gute Übung, um dich wieder mit dir selbst zu verbinden.',
+          'In der Standard-Version durchwanderst du den Körper achtsam und in gutem Tempo. Du übst, Empfindungen wie Druck, Wärme, Kribbeln oder auch Nicht-Empfinden freundlich wahrzunehmen. Eine gute Übung, um dich wieder mit dir selbst zu verbinden. Gesprochen von Chris.',
     },
     {
       'title': 'Body-Scan vertiefend',
