@@ -64,7 +64,7 @@ class AppDaten {
           'Ein kompakter Body-Scan für Tage mit wenig Zeit. Du wanderst achtsam durch den Körper, von den Füßen bis zum Kopf, und nimmst wahr, was gerade da ist, ohne etwas ändern zu müssen. Zum Abschluss weitest du die Aufmerksamkeit auf Atem, Raum und Geräusche. Gesprochen von Chris.',
     },
     {
-      'title': 'Body-Scan standard',
+      'title': 'Body-Scan standard (Chris)',
       'duration': '20 Min',
       'appwrite_id': '69d910160012e2a2f200',
       'description':
@@ -368,7 +368,7 @@ class AppDaten {
       'audioRefs': [
         'Ankommen (Laura)',
         'Achtsamkeit in Bewegung',
-        'Body-Scan standard',
+        'Body-Scan standard (Chris)',
       ],
       'pdfs': [
         {
@@ -439,7 +439,7 @@ class AppDaten {
       'audioRefs': [
         'Ankommen (Laura)',
         'Sitzmeditation kurz',
-        'Body-Scan standard',
+        'Body-Scan standard (Chris)',
         'Achtsamkeit in Bewegung',
       ],
       'pdfs': [
@@ -510,7 +510,7 @@ class AppDaten {
       'audioRefs': [
         'Ankommen (Laura)',
         'Sitzmeditation mittel',
-        'Body-Scan standard',
+        'Body-Scan standard (Chris)',
         'Achtsamkeit in Bewegung',
       ],
       'pdfs': [
@@ -596,7 +596,7 @@ class AppDaten {
       'audioRefs': [
         'Ankommen (Laura)',
         'Sitzmeditation mittel',
-        'Body-Scan standard',
+        'Body-Scan standard (Chris)',
         'Achtsamkeit in Bewegung',
       ],
       'pdfs': [
@@ -662,7 +662,7 @@ class AppDaten {
       'audioRefs': [
         'Ankommen (Laura)',
         'Sitzmeditation lang',
-        'Body-Scan standard',
+        'Body-Scan standard (Chris)',
         'Achtsamkeit in Bewegung',
       ],
       'pdfs': [
@@ -729,7 +729,7 @@ class AppDaten {
       'audioRefs': [
         'Ankommen (Laura)',
         'Sitzmeditation lang',
-        'Body-Scan standard',
+        'Body-Scan standard (Chris)',
         'Achtsamkeit in Bewegung',
       ],
       'pdfs': [
