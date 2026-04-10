@@ -53,6 +53,12 @@ Deployment läuft über GitHub Actions nach Push auf `main`.
 Workflow: `.github/workflows/deploy.yml`
 Ziel: Cloudflare Pages (`mindfulpractice-app`).
 
+## Kursdaten & Mediathek
+
+- Inhalte: `lib/app_daten.dart` (Audios, Wochenverweise, Texte).
+- Appwrite Storage: View- und Download-URLs zentral in `lib/core/appwrite_storage_urls.dart`; Streaming im Player, optionaler Datei-Download in der Mediathek (siehe `AppTexts.mediathekDownloadHint`).
+- Mehrere Sprecher-Varianten derselben Übung: im Titel `(Name)` ergänzen und überall dieselbe Zeichenkette in `audioRefs` verwenden — siehe auch `CLAUDE.md` im übergeordneten Ordner `mbsr_achtsamkeit/`.
+
 ## Dokumentation
 
 - `PLAN_APP_OPTIMIERUNG_NAECHSTE_SCHRITTE.md` — Roadmap und offene Punkte

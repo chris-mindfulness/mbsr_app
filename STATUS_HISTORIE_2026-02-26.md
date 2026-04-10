@@ -186,6 +186,11 @@
 - `flutter test --no-pub`: alle Tests gruen (29/29)
 - Letzter Commit: `46ecf18` auf `main`, gepusht, Cloudflare-Deploy aktiv
 
+## Update 2026-04 (Kurz)
+
+- Mediathek: optionaler Audio-Download ueber Appwrite `/download` (`AppwriteStorageUrls`), Hinweis bei instabilem Internet (`AppTexts.mediathekDownloadHint`).
+- Benennung: z. B. `Body-Scan standard (Chris)` bei Sprecher-Kennzeichnung; zugehoerige `audioRefs` in `app_daten.dart` angepasst.
+
 ## Offene naechste Schritte
 
 1. Manueller Browser-Test der Avatar-Clips (Seek-Bar, Wiederabspielen, Scroll-Verhalten).
