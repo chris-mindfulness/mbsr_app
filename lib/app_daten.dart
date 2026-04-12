@@ -10,6 +10,9 @@ class AppDaten {
   static const String welcomeHelloAvatarAsset =
       'assets/images/avatar/mbsr_avatar_profil.png';
 
+  /// Kurzer Slogan in der App-Bar des Kursbereichs (der Content nutzt „Dein MBSR-Kurs“).
+  static const String kursbereichAppBarSlogan = 'Atmen. Spüren. Loslassen.';
+
   /// Kurze Audio-Clips (ElevenLabs-Stimme), werden per Appwrite-ID geladen.
   static const Map<String, String> begruessung = {
     'title': 'Hallo und willkommen',
@@ -837,7 +840,7 @@ class AppDaten {
       'einfuehrung':
           'Der achtwöchige Kurs ist inhaltlich abgeschlossen. Dieser Block ist kein weiterer Präsenztermin, sondern eine freiwillige Begleitung zum Selbststudium: kurze Impulse und Raum für Übung – in deinem Tempo, ohne Druck.\n\n'
           'Konkrete Inhalte für diesen Block können ergänzt werden, sobald sie feststehen.',
-      'wochenAvatarAusblenden': true,
+      'avatarImage': 'assets/images/avatar/mbsr_avatar_vertiefung1.png',
       'fokus': 'Weiter üben nach dem Kurs',
       'zitat': null,
       'zitatAutor': null,
@@ -870,7 +873,7 @@ class AppDaten {
       'einfuehrung':
           'Du bist im zweiten Begleitblock nach dem Kurs – weiterhin ohne zusätzlichen Präsenztermin. Nutze den Raum, um deine Praxis zu festigen oder sanft zu variieren: Es geht um Kontinuität, nicht um Leistung.\n\n'
           'Konkrete Inhalte für diesen Block können ergänzt werden, sobald sie feststehen.',
-      'wochenAvatarAusblenden': true,
+      'avatarImage': 'assets/images/avatar/mbsr_avatar_vertiefung2.png',
       'fokus': 'Praxis festigen',
       'zitat': null,
       'zitatAutor': null,

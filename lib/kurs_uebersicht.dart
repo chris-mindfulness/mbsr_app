@@ -205,7 +205,10 @@ class _KursUebersichtState extends State<KursUebersicht> {
     return Scaffold(
       backgroundColor: AppStyles.bgColor,
       appBar: AppBar(
-        title: Text("MBSR Kurs", style: AppStyles.headingStyle),
+        title: Text(
+          AppDaten.kursbereichAppBarSlogan,
+          style: AppStyles.headingStyle.copyWith(fontSize: 17),
+        ),
         backgroundColor: Colors.transparent,
         elevation: 0,
         centerTitle: true,
