@@ -386,6 +386,7 @@ class _KursUebersichtState extends State<KursUebersicht> {
           readingSummary: woche['readingSummary'] as String?,
           archiveEligible: woche['archiveEligible'] == true,
           avatarImage: woche['avatarImage'] as String?,
+          wochenAvatarAusblenden: woche['wochenAvatarAusblenden'] == true,
           infoClips: woche['infoClips'] as Map<String, dynamic>?,
           onOpenMediathek: _openMediathekFromWeekDetail,
         ),
@@ -401,6 +402,7 @@ class _KursUebersichtState extends State<KursUebersicht> {
     final accentColor = _weekCardAccent(index);
     final teaser = (woche['teaser'] as String?)?.trim();
     final nachDemKurs = woche['nachDemKurs'] == true;
+    final wochenAvatarAusblenden = woche['wochenAvatarAusblenden'] == true;
     final inEntwicklung = woche['inEntwicklung'] == true;
     final kartenBadge = (woche['wochenKartenBadge'] as String?)?.trim();
     final ctaColor =
@@ -534,33 +536,35 @@ class _KursUebersichtState extends State<KursUebersicht> {
                         ],
                       ),
                     ),
-                    SizedBox(width: AppStyles.spacingM),
-                    SizedBox(
-                      width: 118,
-                      child: Center(
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(12),
-                          child: ConstrainedBox(
-                            constraints: const BoxConstraints(
-                              maxWidth: 118,
-                              maxHeight: 118,
-                            ),
-                            child: Image.asset(
-                              (woche['avatarImage'] as String?) ??
-                                  AppDaten.defaultWeekAvatarAsset,
-                              fit: BoxFit.contain,
-                              errorBuilder: (context, error, stackTrace) {
-                                return Icon(
-                                  Icons.self_improvement_rounded,
-                                  size: 48,
-                                  color: accentColor.withValues(alpha: 0.35),
-                                );
-                              },
+                    if (!wochenAvatarAusblenden) ...[
+                      SizedBox(width: AppStyles.spacingM),
+                      SizedBox(
+                        width: 118,
+                        child: Center(
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(12),
+                            child: ConstrainedBox(
+                              constraints: const BoxConstraints(
+                                maxWidth: 118,
+                                maxHeight: 118,
+                              ),
+                              child: Image.asset(
+                                (woche['avatarImage'] as String?) ??
+                                    AppDaten.defaultWeekAvatarAsset,
+                                fit: BoxFit.contain,
+                                errorBuilder: (context, error, stackTrace) {
+                                  return Icon(
+                                    Icons.self_improvement_rounded,
+                                    size: 48,
+                                    color: accentColor.withValues(alpha: 0.35),
+                                  );
+                                },
+                              ),
                             ),
                           ),
                         ),
                       ),
-                    ),
+                    ],
                   ],
                 ),
               ),

@@ -799,7 +799,7 @@ class AppDaten {
       'einfuehrung':
           'Der achtwöchige Kurs ist inhaltlich abgeschlossen. Dieser Block ist kein weiterer Präsenztermin, sondern eine freiwillige Begleitung zum Selbststudium: kurze Impulse und Raum für Übung – in deinem Tempo, ohne Druck.\n\n'
           'Konkrete Inhalte für diesen Block können ergänzt werden, sobald sie feststehen.',
-      'avatarImage': 'assets/images/avatar/mbsr_avatar_default.png',
+      'wochenAvatarAusblenden': true,
       'fokus': 'Weiter üben nach dem Kurs',
       'zitat': null,
       'zitatAutor': null,
@@ -832,7 +832,7 @@ class AppDaten {
       'einfuehrung':
           'Du bist im zweiten Begleitblock nach dem Kurs – weiterhin ohne zusätzlichen Präsenztermin. Nutze den Raum, um deine Praxis zu festigen oder sanft zu variieren: Es geht um Kontinuität, nicht um Leistung.\n\n'
           'Konkrete Inhalte für diesen Block können ergänzt werden, sobald sie feststehen.',
-      'avatarImage': 'assets/images/avatar/mbsr_avatar_goon_w8.png',
+      'wochenAvatarAusblenden': true,
       'fokus': 'Praxis festigen',
       'zitat': null,
       'zitatAutor': null,

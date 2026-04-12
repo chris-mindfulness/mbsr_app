@@ -33,6 +33,8 @@ class WochenDetailSeite extends StatefulWidget {
   final String? readingSummary;
   final bool archiveEligible;
   final String? avatarImage;
+  /// Kein Wochen-Illustrationsbild (z. B. bis passende Motive vorliegen).
+  final bool wochenAvatarAusblenden;
   final Map<String, dynamic>? infoClips;
   /// Öffnet den Mediathek-Tab im Kursbereich (von der verschachtelten Route aus).
   final VoidCallback? onOpenMediathek;
@@ -57,6 +59,7 @@ class WochenDetailSeite extends StatefulWidget {
     this.readingSummary,
     this.archiveEligible = false,
     this.avatarImage,
+    this.wochenAvatarAusblenden = false,
     this.infoClips,
     this.onOpenMediathek,
     this.wochenKopfzeile,
@@ -100,6 +103,9 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
     required bool neutralSurface,
     required double layoutWidth,
   }) {
+    if (widget.wochenAvatarAusblenden) {
+      return const SizedBox.shrink();
+    }
     final path = widget.avatarImage ?? AppDaten.defaultWeekAvatarAsset;
     final quote = widget.zitat;
     final hasQuote = quote != null && quote.trim().isNotEmpty;
@@ -1321,6 +1327,8 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
           readingSummary: nextWeekData['readingSummary'] as String?,
           archiveEligible: nextWeekData['archiveEligible'] == true,
           avatarImage: nextWeekData['avatarImage'] as String?,
+          wochenAvatarAusblenden:
+              nextWeekData['wochenAvatarAusblenden'] == true,
           infoClips: nextWeekData['infoClips'] as Map<String, dynamic>?,
           onOpenMediathek: widget.onOpenMediathek,
         ),
