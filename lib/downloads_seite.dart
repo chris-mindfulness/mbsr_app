@@ -18,6 +18,7 @@ class DownloadsSeite extends StatelessWidget {
     final rows = <_DownloadRow>[];
 
     for (final woche in AppDaten.wochenDaten) {
+      if (woche['downloadsAusblenden'] == true) continue;
       final n = '${woche['n'] ?? ''}';
       final t = '${woche['t'] ?? ''}';
       final sectionTitle = 'Woche $n: $t';

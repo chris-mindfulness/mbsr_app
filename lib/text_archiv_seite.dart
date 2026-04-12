@@ -21,7 +21,9 @@ class TextArchivSeite extends StatelessWidget {
   }
 
   List<Map<String, dynamic>> _sortedWeeks() {
-    final sorted = List<Map<String, dynamic>>.from(wochenDaten);
+    final sorted = List<Map<String, dynamic>>.from(
+      wochenDaten.where((w) => w['nachDemKurs'] != true),
+    );
     sorted.sort((a, b) {
       final aNum = int.tryParse('${a['n'] ?? ''}') ?? 0;
       final bNum = int.tryParse('${b['n'] ?? ''}') ?? 0;

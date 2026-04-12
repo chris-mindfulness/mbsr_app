@@ -786,7 +786,81 @@ class AppDaten {
         },
       ],
     },
+    {
+      'n': '9',
+      'nachDemKurs': true,
+      'downloadsAusblenden': true,
+      't': 'Nach dem Kurs – Vertiefung',
+      'wochenKartenBadge': 'Block 1 von 2',
+      'wochenKopfzeile': 'Block 1 von 2',
+      'teaser':
+          'Ohne weiteren Präsenztermin – zum Üben in eigenem Tempo.',
+      'einfuehrung':
+          'Der achtwöchige Kurs ist inhaltlich abgeschlossen. Dieser Block ist kein weiterer Präsenztermin, sondern eine freiwillige Begleitung zum Selbststudium: kurze Impulse und Raum für Übung – in deinem Tempo, ohne Druck.\n\n'
+          'Konkrete Inhalte für diesen Block können ergänzt werden, sobald sie feststehen.',
+      'avatarImage': 'assets/images/avatar/mbsr_avatar_default.png',
+      'fokus': 'Weiter üben nach dem Kurs',
+      'zitat': null,
+      'zitatAutor': null,
+      'alltagsTipp':
+          'Wähle eine Übung aus der Mediathek, die dir in den letzten Wochen besonders gut getan hat – auch wenn es nur wenige Minuten sind.',
+      'reflexionsFragen': [
+        'Was hilft dir gerade am meisten, dranzubleiben – ohne dich zu zwingen?',
+      ],
+      'audioRefs': <String>[],
+      'pdfs': <Map<String, dynamic>>[],
+      'wochenAufgaben': [
+        'Alle formellen Übungen des Kurses findest du weiter in der Mediathek.',
+        'Nimm dir einen kurzen Moment der Rückschau: Was möchtest du aus dem Kurs in den Alltag tragen?',
+      ],
+      'readingSummary': '',
+      'archiveEligible': false,
+      'readingCards': <Map<String, dynamic>>[],
+      'infoClips': null,
+    },
+    {
+      'n': '10',
+      'nachDemKurs': true,
+      'downloadsAusblenden': true,
+      't': 'Nach dem Kurs – Vertiefung',
+      'wochenKartenBadge': 'Block 2 von 2',
+      'wochenKopfzeile': 'Block 2 von 2',
+      'teaser':
+          'Ohne weiteren Präsenztermin – zum Üben in eigenem Tempo.',
+      'einfuehrung':
+          'Du bist im zweiten Begleitblock nach dem Kurs – weiterhin ohne zusätzlichen Präsenztermin. Nutze den Raum, um deine Praxis zu festigen oder sanft zu variieren: Es geht um Kontinuität, nicht um Leistung.\n\n'
+          'Konkrete Inhalte für diesen Block können ergänzt werden, sobald sie feststehen.',
+      'avatarImage': 'assets/images/avatar/mbsr_avatar_goon_w8.png',
+      'fokus': 'Praxis festigen',
+      'zitat': null,
+      'zitatAutor': null,
+      'alltagsTipp':
+          'Probiere bewusst eine Übung, die du selten wählst – aus Neugier, nicht aus Pflichtgefühl.',
+      'reflexionsFragen': [
+        'Wo spürst du schon kleine Veränderungen – in der Aufmerksamkeit, im Körper oder im Alltag?',
+      ],
+      'audioRefs': <String>[],
+      'pdfs': <Map<String, dynamic>>[],
+      'wochenAufgaben': [
+        'Bleib bei der Mediathek: Wiederholung vertieft oft mehr als neue Übungen.',
+        'Wenn du magst, notiere in wenigen Sätzen, was du aus dem Kurs mitnimmst – für dich allein.',
+      ],
+      'readingSummary': '',
+      'archiveEligible': false,
+      'readingCards': <Map<String, dynamic>>[],
+      'infoClips': null,
+    },
   ];
+
+  /// Höchste in [wochenDaten] vorkommende Nummer im Feld `n` (Vor/Zurück in der Wochendetailansicht).
+  static int get hoechsteKurswocheNumerisch {
+    var max = 0;
+    for (final w in wochenDaten) {
+      final v = int.tryParse('${w['n']}') ?? 0;
+      if (v > max) max = v;
+    }
+    return max;
+  }
 
   static const Map<String, dynamic> tagDerAchtsamkeit = {
     'titel': 'Tag der Achtsamkeit',

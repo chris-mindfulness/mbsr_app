@@ -369,6 +369,7 @@ class _KursUebersichtState extends State<KursUebersicht> {
       MaterialPageRoute(
         builder: (context) => WochenDetailSeite(
           wochenNummer: "Woche ${woche['n']}",
+          wochenKopfzeile: woche['wochenKopfzeile'] as String?,
           titel: woche['t'],
           pdfs: AppDaten.pdfMapsFromRaw(woche['pdfs'] as List<dynamic>?),
           wochenAufgaben: List<String>.from(woche['wochenAufgaben'] ?? []),
@@ -399,6 +400,8 @@ class _KursUebersichtState extends State<KursUebersicht> {
   ) {
     final accentColor = _weekCardAccent(index);
     final teaser = (woche['teaser'] as String?)?.trim();
+    final nachDemKurs = woche['nachDemKurs'] == true;
+    final kartenBadge = (woche['wochenKartenBadge'] as String?)?.trim();
 
     return Container(
       decoration: BoxDecoration(
@@ -441,13 +444,17 @@ class _KursUebersichtState extends State<KursUebersicht> {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               Icon(
-                                Icons.calendar_today,
+                                nachDemKurs
+                                    ? Icons.self_improvement
+                                    : Icons.calendar_today,
                                 size: 14,
                                 color: accentColor,
                               ),
                               AppStyles.spacingSHorizontal,
                               Text(
-                                'Woche ${woche['n']}',
+                                (kartenBadge != null && kartenBadge.isNotEmpty)
+                                    ? kartenBadge
+                                    : 'Woche ${woche['n']}',
                                 style: AppStyles.smallTextStyle.copyWith(
                                   color: accentColor,
                                   fontWeight: AppStyles.fontWeightSemiBold,
@@ -488,7 +495,7 @@ class _KursUebersichtState extends State<KursUebersicht> {
                         Row(
                           children: [
                             Text(
-                              'Woche öffnen',
+                              nachDemKurs ? 'Öffnen' : 'Woche öffnen',
                               style: AppStyles.bodyStyle.copyWith(
                                 color: accentColor,
                                 fontWeight: AppStyles.fontWeightSemiBold,

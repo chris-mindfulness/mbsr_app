@@ -44,7 +44,8 @@ void main() {
     });
 
     test('Wochenstruktur ist vollständig (optional: audioRefs in Mediathek)', () {
-      expect(AppDaten.wochenDaten.length, 8);
+      expect(AppDaten.wochenDaten.length, 10);
+      expect(AppDaten.hoechsteKurswocheNumerisch, 10);
 
       final audioTitles = AppDaten.mediathekAudios
           .map((audio) => audio['title'])
@@ -54,10 +55,21 @@ void main() {
         expect((woche['n'] as String?)?.trim(), isNotEmpty);
         expect((woche['t'] as String?)?.trim(), isNotEmpty);
 
+        final nachDemKurs = woche['nachDemKurs'] == true;
         final audioRefs = (woche['audioRefs'] as List<dynamic>?);
         final pdfs = (woche['pdfs'] as List<dynamic>?);
         final aufgaben = (woche['wochenAufgaben'] as List<dynamic>?);
         final readingCards = (woche['readingCards'] as List<dynamic>?);
+
+        if (nachDemKurs) {
+          expect((woche['wochenKartenBadge'] as String?)?.trim(), isNotEmpty);
+          expect((woche['wochenKopfzeile'] as String?)?.trim(), isNotEmpty);
+          expect((woche['teaser'] as String?)?.trim(), isNotEmpty);
+          expect(aufgaben, isNotNull);
+          expect(aufgaben, isNotEmpty);
+          expect(pdfs, isNotNull);
+          continue;
+        }
 
         expect(pdfs, isNotNull);
         expect(pdfs, isNotEmpty);

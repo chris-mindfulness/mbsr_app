@@ -37,6 +37,9 @@ class WochenDetailSeite extends StatefulWidget {
   /// Öffnet den Mediathek-Tab im Kursbereich (von der verschachtelten Route aus).
   final VoidCallback? onOpenMediathek;
 
+  /// Ersetzt die App-Bar-Anzeige „Woche n“ (z. B. „Block 1 von 2“). [wochenNummer] bleibt „Woche 9“ für die Navigation.
+  final String? wochenKopfzeile;
+
   const WochenDetailSeite({
     super.key,
     required this.wochenNummer,
@@ -56,6 +59,7 @@ class WochenDetailSeite extends StatefulWidget {
     this.avatarImage,
     this.infoClips,
     this.onOpenMediathek,
+    this.wochenKopfzeile,
   });
 
   @override
@@ -700,10 +704,11 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
     // Navigation Logic
     final currentWeekIndex = _currentWeekIndex;
     final isReadabilityPilot = currentWeekIndex == 4;
+    final maxWoche = AppDaten.hoechsteKurswocheNumerisch;
     final useCleanCardsForWeeks =
-        currentWeekIndex >= 1 && currentWeekIndex <= 8;
+        currentWeekIndex >= 1 && currentWeekIndex <= maxWoche;
     final hasPrev = currentWeekIndex > 1;
-    final hasNext = currentWeekIndex < 8;
+    final hasNext = currentWeekIndex < maxWoche;
     final screenWidth = MediaQuery.sizeOf(context).width;
     final horizontalPadding = _responsiveHorizontalPadding(screenWidth);
     final contentMaxWidth = _contentMaxWidth(screenWidth);
@@ -716,7 +721,7 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
       backgroundColor: AppStyles.bgColor,
       appBar: AppBar(
         title: Text(
-          widget.wochenNummer,
+          widget.wochenKopfzeile ?? widget.wochenNummer,
           style: AppStyles.headingStyle.copyWith(fontSize: 18),
         ),
         backgroundColor: Colors.transparent,
@@ -1280,7 +1285,10 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
   void _navigateToWeek(int direction) {
     final nextWeekIndex = _currentWeekIndex + direction;
 
-    if (nextWeekIndex < 1 || nextWeekIndex > 8) return;
+    if (nextWeekIndex < 1 ||
+        nextWeekIndex > AppDaten.hoechsteKurswocheNumerisch) {
+      return;
+    }
 
     final nextWeekData = AppDaten.wochenDaten.firstWhere(
       (w) => w['n'] == nextWeekIndex.toString(),
@@ -1293,6 +1301,7 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
       MaterialPageRoute(
         builder: (context) => WochenDetailSeite(
           wochenNummer: "Woche ${nextWeekData['n']}",
+          wochenKopfzeile: nextWeekData['wochenKopfzeile'] as String?,
           titel: nextWeekData['t'],
           pdfs: AppDaten.pdfMapsFromRaw(nextWeekData['pdfs'] as List<dynamic>?),
           wochenAufgaben: List<String>.from(
