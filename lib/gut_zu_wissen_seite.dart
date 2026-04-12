@@ -98,43 +98,46 @@ class GutZuWissenSeite extends StatelessWidget {
       color: Colors.white,
       shape: AppStyles.cardShape,
       clipBehavior: Clip.antiAlias,
-      child: Row(
-        children: [
-          Container(width: 4, color: farbe),
-          Expanded(
-            child: Theme(
-              data: ThemeData().copyWith(dividerColor: Colors.transparent),
-              child: ExpansionTile(
-                tilePadding: EdgeInsets.symmetric(
-                  horizontal: AppStyles.spacingL,
-                  vertical: AppStyles.spacingS,
-                ),
-                childrenPadding: EdgeInsets.fromLTRB(
-                  AppStyles.spacingL,
-                  0,
-                  AppStyles.spacingL,
-                  AppStyles.spacingL,
-                ),
-                iconColor: AppStyles.primaryOrange,
-                collapsedIconColor: AppStyles.textMuted,
-                title: Text(
-                  title,
-                  style: AppStyles.subTitleStyle.copyWith(
-                    fontSize: 17,
-                    color: AppStyles.textDark,
-                    fontWeight: AppStyles.fontWeightSemiBold,
+      child: IntrinsicHeight(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Container(width: 4, color: farbe),
+            Expanded(
+              child: Theme(
+                data: ThemeData().copyWith(dividerColor: Colors.transparent),
+                child: ExpansionTile(
+                  tilePadding: EdgeInsets.symmetric(
+                    horizontal: AppStyles.spacingL,
+                    vertical: AppStyles.spacingS,
                   ),
-                ),
-                children: [
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: _buildCardContent(body),
+                  childrenPadding: EdgeInsets.fromLTRB(
+                    AppStyles.spacingL,
+                    0,
+                    AppStyles.spacingL,
+                    AppStyles.spacingL,
                   ),
-                ],
+                  iconColor: AppStyles.primaryOrange,
+                  collapsedIconColor: AppStyles.textMuted,
+                  title: Text(
+                    title,
+                    style: AppStyles.subTitleStyle.copyWith(
+                      fontSize: 17,
+                      color: AppStyles.textDark,
+                      fontWeight: AppStyles.fontWeightSemiBold,
+                    ),
+                  ),
+                  children: [
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: _buildCardContent(body),
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

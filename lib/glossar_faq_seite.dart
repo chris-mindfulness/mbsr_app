@@ -1,9 +1,23 @@
 import 'package:flutter/material.dart';
+
 import 'core/app_styles.dart';
 import 'widgets/decorative_blobs.dart';
 
 class GlossarFaqSeite extends StatelessWidget {
   const GlossarFaqSeite({super.key});
+
+  static const _akzentFarben = <Color Function()>[
+    _orange,
+    _green,
+    _cyan,
+    _blue,
+    _pink,
+  ];
+  static Color _orange() => AppStyles.primaryOrange;
+  static Color _green() => AppStyles.successGreen;
+  static Color _cyan() => AppStyles.accentCyan;
+  static Color _blue() => AppStyles.infoBlue;
+  static Color _pink() => AppStyles.accentPink;
 
   @override
   Widget build(BuildContext context) {
@@ -49,6 +63,100 @@ class GlossarFaqSeite extends StatelessWidget {
           child: TabBarView(
             children: [_buildGlossarList(context), _buildFaqList(context)],
           ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildIntro({
+    required IconData icon,
+    required String text,
+  }) {
+    return Container(
+      padding: AppStyles.cardPadding,
+      margin: EdgeInsets.only(bottom: AppStyles.spacingL),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(24),
+        border: Border.all(
+          color: AppStyles.infoBlue.withValues(alpha: 0.55),
+          width: 1.5,
+        ),
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Icon(icon, color: AppStyles.infoBlue, size: 24),
+          AppStyles.spacingMHorizontal,
+          Expanded(
+            child: Text(
+              text,
+              style: AppStyles.bodyStyle.copyWith(color: AppStyles.textDark),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildStripeExpansionCard({
+    required BuildContext context,
+    required String title,
+    required String body,
+    required Color stripeColor,
+    required Color iconAccent,
+  }) {
+    return Card(
+      margin: EdgeInsets.only(bottom: AppStyles.spacingM),
+      elevation: 0,
+      color: Colors.white,
+      shape: AppStyles.cardShape,
+      clipBehavior: Clip.antiAlias,
+      child: IntrinsicHeight(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Container(width: 4, color: stripeColor),
+            Expanded(
+              child: Theme(
+                data: ThemeData().copyWith(dividerColor: Colors.transparent),
+                child: ExpansionTile(
+                  tilePadding: EdgeInsets.symmetric(
+                    horizontal: AppStyles.spacingL,
+                    vertical: AppStyles.spacingS,
+                  ),
+                  childrenPadding: EdgeInsets.fromLTRB(
+                    AppStyles.spacingL,
+                    0,
+                    AppStyles.spacingL,
+                    AppStyles.spacingL,
+                  ),
+                  iconColor: iconAccent,
+                  collapsedIconColor: AppStyles.textMuted,
+                  title: Text(
+                    title,
+                    style: AppStyles.subTitleStyle.copyWith(
+                      fontSize: 17,
+                      color: AppStyles.textDark,
+                      fontWeight: AppStyles.fontWeightSemiBold,
+                    ),
+                  ),
+                  children: [
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        body,
+                        style: AppStyles.bodyStyle.copyWith(
+                          fontSize: 17,
+                          height: 1.6,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -185,18 +293,28 @@ class GlossarFaqSeite extends StatelessWidget {
     final sortedTerms = [...terms]
       ..sort((a, b) => (a['term'] ?? '').compareTo(b['term'] ?? ''));
 
-    return ListView.separated(
+    return ListView(
       padding: AppStyles.listPadding,
-      itemCount: sortedTerms.length,
-      separatorBuilder: (context, index) => AppStyles.spacingMBox,
-      itemBuilder: (context, index) {
-        final item = sortedTerms[index];
-        return _buildExpansionCard(
-          context: context,
-          title: item['term']!,
-          body: item['def']!,
-        );
-      },
+      children: [
+        _buildIntro(
+          icon: Icons.menu_book_outlined,
+          text:
+              'Kurze Definitionen zum Nachschlagen. Die Einträge sind alphabetisch sortiert.',
+        ),
+        ...sortedTerms.asMap().entries.map((e) {
+          final index = e.key;
+          final item = e.value;
+          final farbe = _akzentFarben[index % _akzentFarben.length]();
+          return _buildStripeExpansionCard(
+            context: context,
+            title: item['term']!,
+            body: item['def']!,
+            stripeColor: farbe,
+            iconAccent: AppStyles.primaryOrange,
+          );
+        }),
+        const SizedBox(height: 80),
+      ],
     );
   }
 
@@ -289,53 +407,28 @@ class GlossarFaqSeite extends StatelessWidget {
       },
     ];
 
-    return ListView.separated(
-      padding: AppStyles.listPadding,
-      itemCount: faqs.length,
-      separatorBuilder: (context, index) => AppStyles.spacingMBox,
-      itemBuilder: (context, index) {
-        final item = faqs[index];
-        return _buildExpansionCard(
-          context: context,
-          title: item['q']!,
-          body: item['a']!,
-        );
-      },
-    );
-  }
+    final faqBlue = AppStyles.infoBlue;
 
-  Widget _buildExpansionCard({
-    required BuildContext context,
-    required String title,
-    required String body,
-  }) {
-    return Container(
-      decoration: BoxDecoration(
-        color: AppStyles.successGreen.withValues(alpha: 0.08),
-        borderRadius: BorderRadius.circular(AppStyles.borderRadius),
-        border: Border.all(
-          color: AppStyles.successGreen.withValues(alpha: 0.2),
+    return ListView(
+      padding: AppStyles.listPadding,
+      children: [
+        _buildIntro(
+          icon: Icons.help_outline,
+          text:
+              'Antworten auf häufige Fragen aus dem Kursalltag. Kein Ersatz für persönliche Beratung bei akuter Belastung.',
         ),
-      ),
-      child: Theme(
-        data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
-        child: ExpansionTile(
-          tilePadding: EdgeInsets.symmetric(
-            horizontal: AppStyles.spacingL,
-            vertical: AppStyles.spacingS,
-          ),
-          childrenPadding: EdgeInsets.fromLTRB(
-            AppStyles.spacingL,
-            0,
-            AppStyles.spacingL,
-            AppStyles.spacingL,
-          ),
-          iconColor: AppStyles.textDark,
-          collapsedIconColor: AppStyles.textDark.withValues(alpha: 0.9),
-          title: Text(title, style: AppStyles.subTitleStyle),
-          children: [Text(body, style: AppStyles.bodyStyle)],
-        ),
-      ),
+        ...faqs.asMap().entries.map((e) {
+          final item = e.value;
+          return _buildStripeExpansionCard(
+            context: context,
+            title: item['q']!,
+            body: item['a']!,
+            stripeColor: faqBlue,
+            iconAccent: faqBlue,
+          );
+        }),
+        const SizedBox(height: 80),
+      ],
     );
   }
 }
