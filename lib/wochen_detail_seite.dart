@@ -1994,8 +1994,10 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
         '${AppConfig.appwriteEndpoint}/storage/buckets/${AppConfig.pdfsBucketId}/files/$appwriteId/view?project=${AppConfig.appwriteProjectId}';
     final isArbeitsblatt =
         AppDaten.pdfKindOf(pdf) == AppDaten.pdfKindArbeitsblatt;
+    final blattInfo = pdf['blattInfo']?.trim();
+    final hasBlattInfo = blattInfo != null && blattInfo.isNotEmpty;
 
-    return PdfLinkCard(
+    final card = PdfLinkCard(
       title: title,
       onTap: () => launchUrl(Uri.parse(url)),
       isPending: false,
@@ -2008,7 +2010,25 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
       readyTrailingIcon: Icons.open_in_new,
       pendingTrailingIcon: Icons.schedule,
       layout: PdfCardLayout.row,
-      margin: const EdgeInsets.only(bottom: 16),
+      margin: EdgeInsets.only(bottom: hasBlattInfo ? 10 : 16),
+    );
+
+    if (!hasBlattInfo) {
+      return card;
+    }
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        card,
+        Padding(
+          padding: const EdgeInsets.only(bottom: 16),
+          child: Text(
+            blattInfo,
+            style: AppStyles.smallTextStyle.copyWith(height: 1.5),
+          ),
+        ),
+      ],
     );
   }
 }

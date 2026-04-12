@@ -127,32 +127,56 @@ class AppDaten {
   ///
   /// **Audio zuordnen** (eine Variante):
   /// - [mediathek_title]: Titel wie in [mediathekAudios] — nutzt dieselbe `appwrite_id`.
-  /// - Oder direkt [title], [duration], [appwrite_id] (und optional [description]) für reine SOS-Dateien.
+  /// - Oder direkt [title], [duration], [appwrite_id] (und optional [description]) für SOS-Audios
+  ///   (Skripte: `skripte_anleitungen/skripte_sondernformate/Hahn_2026_SOS_*min.md`).
   ///
   /// Platzhalter: [upload_status] = `pending` bis die Datei in Appwrite liegt.
   ///
   /// [icon]: `timer` · `self_improvement` · `favorite_outline` · `waves` (Standard: `timer`).
   static const List<Map<String, String>> notfallKofferMeditationen = [
     {
-      'mediathek_title': 'Ankommen (Laura)',
-      'card_title': 'Kurzes Ankommen (ca. 3 Min)',
+      'card_title': 'SOS (1 Min)',
       'card_description':
-          'Eine kurze Pause zum Sammeln — die geführte Übung startet sofort.',
+          'Kurz innehalten: bequeme Haltung, ein paar lange Atemzüge und beim Ausatmen '
+          'loslassen. Nichts weiter zu tun — deine Aufmerksamkeit ist schon da. Körper und Geist '
+          'kommen zur Ruhe; zum Schluss ein paar lange Atemzüge.',
+      'title': 'SOS (1 Min)',
+      'duration': '1 Min',
+      'description':
+          'Nimm dir einen Moment. Finde eine bequeme Haltung, lange Atemzüge — beim Ausatmen '
+          'loslassen. Einfach da sein; die Übung mit langen Atemzügen beenden.',
+      'appwrite_id': '69dbab15000404f8d9ff',
       'icon': 'timer',
     },
     {
-      'card_title': 'Zweite Kurzmeditation',
+      'card_title': 'SOS (3 Min)',
       'card_description':
-          'Platzhalter — später hier zweite Übung eintragen ([mediathek_title] oder [appwrite_id]).',
+          'Pause, egal wo du bist: Füße auf dem Boden spüren, Hände und Kontakt. Gewahrsein '
+          'für Gedanken, Körperempfindungen, Stimmung — nur wahrnehmen. Optional der Atem als '
+          'Anker; wenn nicht, bei den Füßen bleiben. Raum, Haltung, Kiefer, Hände — dann '
+          'weitermachen, wenn es passt.',
+      'title': 'SOS (3 Min)',
+      'duration': '3 Min',
+      'description':
+          'Füße, Hände, was gerade da ist. Atembewegung optional. Aufmerksamkeit weiten: Raum, '
+          'Geräusche, Temperatur.',
+      'appwrite_id': '69dbafbb000a33b86aa6',
       'icon': 'self_improvement',
-      'upload_status': 'pending',
     },
     {
-      'card_title': 'Dritte Kurzmeditation',
+      'card_title': 'SOS (5 Min)',
       'card_description':
-          'Platzhalter — später hier dritte Übung eintragen ([mediathek_title] oder [appwrite_id]).',
+          'Ein paar Minuten nur für dich: Kontakt mit Boden und Berührung, wahrnehmen wo du '
+          'bist (sehen, hören). Was ist gerade da — Gedanken, Körper, Stimmung. Optional der '
+          'Atem; wenn nicht, bei den Füßen bleiben. Körper und Raum weiten; Gedanken warten, '
+          'bis du sie wieder brauchst. Sanft öffnen für das, was als Nächstes kommt.',
+      'title': 'SOS (5 Min)',
+      'duration': '5 Min',
+      'description':
+          'Kurze Pause: Boden, Umgebung, Atembewegung optional. Ganzer Körper, Raum, '
+          'Gewicht — dann die Aufmerksamkeit fürs Weitere öffnen.',
+      'appwrite_id': '69dba9f600093aef6cb7',
       'icon': 'favorite_outline',
-      'upload_status': 'pending',
     },
   ];
 
@@ -184,6 +208,22 @@ class AppDaten {
     }
     return {};
   }
+
+  /// Kurzerklärung zum Arbeitsblatt „Kalender der angenehmen Erlebnisse“ (inhaltlich an MBCT-Beispieltext angelehnt).
+  static const String pdfBlattInfoKalenderAngenehm =
+      'Der Kalender fragt nach Art des Erlebnisses, körperlichen Empfindungen, '
+      'Stimmungen oder Gefühlen, Gedanken in der Situation und jetzt beim Aufschreiben. '
+      'Beschreib die Erfahrung gern ausführlich — Gedanken wörtlich oder innere Bilder; '
+      'notiere genau, welche körperlichen Empfindungen wo waren. Nutze das Aufschreiben, '
+      'um dir der Gedanken bewusst zu werden, die dir beim Schreiben durch den Kopf gehen.';
+
+  /// Kurzerklärung zum Arbeitsblatt „Kalender der unangenehmen Erlebnisse“ (inhaltlich an MBCT-Beispieltext angelehnt).
+  static const String pdfBlattInfoKalenderUnangenehm =
+      'Der Kalender fragt nach der beschriebenen Erfahrung, körperlichen Empfindungen im '
+      'Einzelnen, Stimmungen oder Gefühlen, Gedanken in der Situation und jetzt beim '
+      'Aufschreiben. Schreib deine Gedanken wörtlich auf oder beschreib innere Bilder; '
+      'notiere, welche Empfindungen wo im Körper waren. Nutze das Schreiben, um dir der '
+      'Gedanken bewusst zu werden, die dabei durch den Kopf gehen.';
 
   // Alle Wochen-Daten (formale Übungen über Mediathek; optional `audioRefs` nur noch für Datenpflege/Tests)
   static const List<Map<String, dynamic>> wochenDaten = [
@@ -309,6 +349,7 @@ class AppDaten {
           'title': 'Kalender der angenehmen Erlebnisse',
           'appwrite_id': '697d0fc1003193371a6a',
           'kind': 'arbeitsblatt',
+          'blattInfo': pdfBlattInfoKalenderAngenehm,
         },
       ],
       'wochenAufgaben': [
@@ -381,6 +422,7 @@ class AppDaten {
               'Kalender der unangenehmen Erlebnisse (Vorbereitung für Woche 4)',
           'appwrite_id': '697d0fba00014e013bd4',
           'kind': 'arbeitsblatt',
+          'blattInfo': pdfBlattInfoKalenderUnangenehm,
         },
       ],
       'wochenAufgaben': [
