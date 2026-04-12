@@ -1958,7 +1958,7 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
       out.add(
         Padding(
           padding: const EdgeInsets.only(bottom: 8),
-          child: _buildSectionHeader("KURSUNTERLAGEN"),
+          child: _buildSectionHeader("KURSHEFT"),
         ),
       );
       out.addAll(kurs.map((pdf) => _buildPdfCard(pdf)));

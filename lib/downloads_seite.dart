@@ -69,7 +69,7 @@ class DownloadsSeite extends StatelessWidget {
         child: ListView(
           padding: AppStyles.listPadding,
           children: [
-            Text('Alle Kursunterlagen & PDFs', style: AppStyles.subTitleStyle),
+            Text('Alle PDFs: Kursheft & Arbeitsblätter', style: AppStyles.subTitleStyle),
             AppStyles.spacingMBox,
             if (_rows.isEmpty)
               Text(

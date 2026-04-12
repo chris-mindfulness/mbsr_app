@@ -13,7 +13,7 @@ class AppDaten {
   /// Kurze Audio-Clips (ElevenLabs-Stimme), werden per Appwrite-ID geladen.
   static const Map<String, String> begruessung = {
     'title': 'Hallo und willkommen',
-    'appwrite_id': '',
+    'appwrite_id': '69dbb2fa000a68d16fa2',
     'duration': '0:30',
   };
 
@@ -137,44 +137,40 @@ class AppDaten {
     {
       'card_title': 'SOS (1 Min)',
       'card_description':
-          'Kurz innehalten: bequeme Haltung, ein paar lange Atemzüge und beim Ausatmen '
-          'loslassen. Nichts weiter zu tun — deine Aufmerksamkeit ist schon da. Körper und Geist '
-          'kommen zur Ruhe; zum Schluss ein paar lange Atemzüge.',
+          'Gut, wenn nur ein kurzer Cut-in reicht — unterwegs, zwischen zwei Dingen oder wenn '
+          'längeres Anleiten gerade zu viel wäre: bequeme Haltung, lange Atemzüge, beim Ausatmen '
+          'loslassen; mit langen Atemzügen ausklingen.',
       'title': 'SOS (1 Min)',
       'duration': '1 Min',
       'description':
-          'Nimm dir einen Moment. Finde eine bequeme Haltung, lange Atemzüge — beim Ausatmen '
-          'loslassen. Einfach da sein; die Übung mit langen Atemzügen beenden.',
+          'Haltung, Atem, loslassen; Schluss mit langen Atemzügen.',
       'appwrite_id': '69dbab15000404f8d9ff',
       'icon': 'timer',
     },
     {
       'card_title': 'SOS (3 Min)',
       'card_description':
-          'Pause, egal wo du bist: Füße auf dem Boden spüren, Hände und Kontakt. Gewahrsein '
-          'für Gedanken, Körperempfindungen, Stimmung — nur wahrnehmen. Optional der Atem als '
-          'Anker; wenn nicht, bei den Füßen bleiben. Raum, Haltung, Kiefer, Hände — dann '
-          'weitermachen, wenn es passt.',
+          'Gut für eine kurze Pause egal wo — zwei bis drei Minuten, dich über Füße und Hände '
+          'verankern, ohne viel Drumherum: was gerade da ist, nur wahrnehmen; optional Atem als '
+          'Anker, sonst Bodenkontakt, Raum mitnehmen.',
       'title': 'SOS (3 Min)',
       'duration': '3 Min',
       'description':
-          'Füße, Hände, was gerade da ist. Atembewegung optional. Aufmerksamkeit weiten: Raum, '
-          'Geräusche, Temperatur.',
+          'Kontakt, Gewahrsein; optional Atem; Raum kurz wahrnehmen.',
       'appwrite_id': '69dbafbb000a33b86aa6',
       'icon': 'self_improvement',
     },
     {
       'card_title': 'SOS (5 Min)',
       'card_description':
-          'Ein paar Minuten nur für dich: Kontakt mit Boden und Berührung, wahrnehmen wo du '
-          'bist (sehen, hören). Was ist gerade da — Gedanken, Körper, Stimmung. Optional der '
-          'Atem; wenn nicht, bei den Füßen bleiben. Körper und Raum weiten; Gedanken warten, '
-          'bis du sie wieder brauchst. Sanft öffnen für das, was als Nächstes kommt.',
+          'Gut, wenn du dir ein paar Minuten nur für dich nehmen kannst — stärker im Raum '
+          'ankommen (sehen, hören), den Körper ganz mitnehmen und mit mehr Ruhe wieder öffnen '
+          'für das, was als Nächstes kommt: Boden, Berührung, was da ist; optional Atem; Körper '
+          'und Raum weiten.',
       'title': 'SOS (5 Min)',
       'duration': '5 Min',
       'description':
-          'Kurze Pause: Boden, Umgebung, Atembewegung optional. Ganzer Körper, Raum, '
-          'Gewicht — dann die Aufmerksamkeit fürs Weitere öffnen.',
+          'Pause: Umgebung, optional Atem; ganzer Körper und Raum — dann weiter.',
       'appwrite_id': '69dba9f600093aef6cb7',
       'icon': 'favorite_outline',
     },
@@ -258,7 +254,7 @@ class AppDaten {
       'audioRefs': ['Ankommen (Laura)', 'Body-Scan kompakt (Laura)'],
       'pdfs': [
         {
-          'title': 'Kursunterlagen Woche 1',
+          'title': 'Kursheft Woche 1',
           'appwrite_id': '69d6644e002937403f0a',
           'kind': 'kursunterlage',
         },
@@ -271,8 +267,8 @@ class AppDaten {
       'wochenAufgaben': [
         'Body-Scan-Anleitungen findest du in der Mediathek in verschiedenen Längen. Kurze Einheiten an mehreren Tagen sind ein guter Einstieg.',
         'Nimm dir eine Mahlzeit in dieser Woche bewusst vor — ohne Bildschirm, ohne Lesen. Einfach schmecken.',
-        'Die Neun-Punkte-Übung liegt in den Kursunterlagen bereit. Probiere sie aus und beobachte, was dir dabei auffällt.',
-        'In den Kursunterlagen findest du die Geschichte vom Oberfluss und Unterfluss — sie gibt einen ersten Impuls zum Thema Achtsamkeit.',
+        'Die Neun-Punkte-Übung liegt im Kursheft bereit. Probiere sie aus und beobachte, was dir dabei auffällt.',
+        'Im Kursheft findest du die Geschichte vom Oberfluss und Unterfluss — sie gibt einen ersten Impuls zum Thema Achtsamkeit.',
       ],
       'readingSummary':
           'Kurze Impulse aus der Forschung — alltagsnah und mit ehrlicher Einordnung.',
@@ -341,7 +337,7 @@ class AppDaten {
       'audioRefs': ['Ankommen (Laura)', 'Body-Scan kompakt (Laura)'],
       'pdfs': [
         {
-          'title': 'Kursunterlagen Woche 2',
+          'title': 'Kursheft Woche 2',
           'appwrite_id': '69d6645e0033e35d88e3',
           'kind': 'kursunterlage',
         },
@@ -356,7 +352,7 @@ class AppDaten {
         'Der Body-Scan bleibt zentral: In der Mediathek gibt es mehrere Längen — mehrmals pro Woche ist ein gutes Maß.',
         'Wähle eine alltägliche Tätigkeit und führe sie mit Anfängergeist aus, als würdest du sie zum ersten Mal tun — Zähneputzen, Duschen, der Weg zur Arbeit.',
         'Richte zwischendurch für einige Minuten die Aufmerksamkeit auf deinen Atem. Kein besonderer Ort nötig.',
-        'Der Kalender der angenehmen Erlebnisse liegt in den Kursunterlagen — eine Gelegenheit, das Angenehme bewusster wahrzunehmen.',
+        'Der Kalender der angenehmen Erlebnisse liegt im Kursheft — eine Gelegenheit, das Angenehme bewusster wahrzunehmen.',
       ],
       'readingSummary': '',
       'archiveEligible': true,
@@ -413,7 +409,7 @@ class AppDaten {
       ],
       'pdfs': [
         {
-          'title': 'Kursunterlagen Woche 3',
+          'title': 'Kursheft Woche 3',
           'appwrite_id': '69d6646600090d83a9fb',
           'kind': 'kursunterlage',
         },
@@ -428,7 +424,7 @@ class AppDaten {
       'wochenAufgaben': [
         'Wechsle diese Woche zwischen Body-Scan und achtsamer Körperarbeit ab — beides findest du in der Mediathek.',
         'Beobachte zwischendurch im Alltag deinen Atem. Ein paar bewusste Atemzüge reichen.',
-        'Der Kalender der unangenehmen Erlebnisse liegt in den Kursunterlagen bereit — er ist eine Vorbereitung auf das Thema der nächsten Woche.',
+        'Der Kalender der unangenehmen Erlebnisse liegt im Kursheft bereit — er ist eine Vorbereitung auf das Thema der nächsten Woche.',
       ],
       'readingSummary': '',
       'archiveEligible': true,
@@ -486,7 +482,7 @@ class AppDaten {
       ],
       'pdfs': [
         {
-          'title': 'Kursunterlagen Woche 4',
+          'title': 'Kursheft Woche 4',
           'appwrite_id': '69d6646c0029b95501da',
           'kind': 'kursunterlage',
         },
@@ -557,7 +553,7 @@ class AppDaten {
       ],
       'pdfs': [
         {
-          'title': 'Kursunterlagen Woche 5',
+          'title': 'Kursheft Woche 5',
           'appwrite_id': '69d66473002cd88bf619',
           'kind': 'kursunterlage',
         },
@@ -571,7 +567,7 @@ class AppDaten {
       'wochenAufgaben': [
         'Die Sitzmeditation steht in der Mediathek bereit. Du kannst sie im Wechsel mit Body-Scan oder Körperarbeit nutzen.',
         'Beobachte in stressigen Momenten, welche Gedanken auftauchen — und was passiert, wenn du sie einfach wahrnimmst.',
-        'Der Kalender der schwierigen Kommunikation liegt in den Kursunterlagen — er ist eine Vorbereitung auf das Thema der nächsten Woche.',
+        'Der Kalender der schwierigen Kommunikation liegt im Kursheft — er ist eine Vorbereitung auf das Thema der nächsten Woche.',
       ],
       'readingSummary': '',
       'archiveEligible': true,
@@ -643,7 +639,7 @@ class AppDaten {
       ],
       'pdfs': [
         {
-          'title': 'Kursunterlagen Woche 6',
+          'title': 'Kursheft Woche 6',
           'appwrite_id': '69d664790037259099cd',
           'kind': 'kursunterlage',
         },
@@ -709,7 +705,7 @@ class AppDaten {
       ],
       'pdfs': [
         {
-          'title': 'Kursunterlagen Woche 7',
+          'title': 'Kursheft Woche 7',
           'appwrite_id': '69d664800021876d79b3',
           'kind': 'kursunterlage',
         },
@@ -776,7 +772,7 @@ class AppDaten {
       ],
       'pdfs': [
         {
-          'title': 'Kursunterlagen Woche 8',
+          'title': 'Kursheft Woche 8',
           'appwrite_id': '69d664860034bc621f93',
           'kind': 'kursunterlage',
         },

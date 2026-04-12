@@ -176,7 +176,7 @@ class ProfilSeite extends StatelessWidget {
             StandardActionCard(
               margin: EdgeInsets.only(bottom: AppStyles.spacingM),
               title: "Downloads",
-              subtitle: "Alle Kursunterlagen & PDFs",
+              subtitle: "Alle PDFs: Kursheft & Arbeitsblätter",
               leadingIcon: Icons.file_download_outlined,
               accentColor: AppStyles.primaryOrange,
               subtitleStyle: AppStyles.bodyStyle.copyWith(
