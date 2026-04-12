@@ -789,6 +789,7 @@ class AppDaten {
     {
       'n': '9',
       'nachDemKurs': true,
+      'inEntwicklung': true,
       'downloadsAusblenden': true,
       't': 'Nach dem Kurs – Vertiefung',
       'wochenKartenBadge': 'Block 1 von 2',
@@ -821,6 +822,7 @@ class AppDaten {
     {
       'n': '10',
       'nachDemKurs': true,
+      'inEntwicklung': true,
       'downloadsAusblenden': true,
       't': 'Nach dem Kurs – Vertiefung',
       'wochenKartenBadge': 'Block 2 von 2',
@@ -860,6 +862,38 @@ class AppDaten {
       if (v > max) max = v;
     }
     return max;
+  }
+
+  /// Wochen mit `inEntwicklung: true` sind in der Übersicht nicht öffnen- und in der Detailansicht per Vor/Zurück nicht ansteuerbar.
+  static bool wocheIstInEntwicklung(int weekNum) {
+    for (final w in wochenDaten) {
+      final n = int.tryParse('${w['n']}') ?? 0;
+      if (n == weekNum) {
+        return w['inEntwicklung'] == true;
+      }
+    }
+    return false;
+  }
+
+  /// Nächste Woche ab [current], die nicht [inEntwicklung] ist; sonst `null`.
+  static int? naechsteFreigegebeneWocheNach(int current) {
+    final max = hoechsteKurswocheNumerisch;
+    var t = current + 1;
+    while (t <= max && wocheIstInEntwicklung(t)) {
+      t++;
+    }
+    if (t > max) return null;
+    return t;
+  }
+
+  /// Vorherige Woche unter [current], die nicht [inEntwicklung] ist; sonst `null`.
+  static int? vorherigeFreigegebeneWocheVor(int current) {
+    var t = current - 1;
+    while (t >= 1 && wocheIstInEntwicklung(t)) {
+      t--;
+    }
+    if (t < 1) return null;
+    return t;
   }
 
   static const Map<String, dynamic> tagDerAchtsamkeit = {

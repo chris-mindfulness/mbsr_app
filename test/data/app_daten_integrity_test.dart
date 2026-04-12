@@ -154,6 +154,15 @@ void main() {
       }
     });
 
+    test('Nach-Kurs-Wochen in Entwicklung: Hilfslogik für Vor/Zurück', () {
+      expect(AppDaten.wocheIstInEntwicklung(9), isTrue);
+      expect(AppDaten.wocheIstInEntwicklung(10), isTrue);
+      expect(AppDaten.wocheIstInEntwicklung(8), isFalse);
+      expect(AppDaten.naechsteFreigegebeneWocheNach(8), isNull);
+      expect(AppDaten.vorherigeFreigegebeneWocheVor(9), 8);
+      expect(AppDaten.vorherigeFreigegebeneWocheVor(10), 8);
+    });
+
     test('Tag der Achtsamkeit enthält mindestens ein PDF mit ID', () {
       final tag = AppDaten.tagDerAchtsamkeit;
       final titel = tag['titel'] as String?;

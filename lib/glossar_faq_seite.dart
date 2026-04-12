@@ -68,10 +68,7 @@ class GlossarFaqSeite extends StatelessWidget {
     );
   }
 
-  Widget _buildIntro({
-    required IconData icon,
-    required String text,
-  }) {
+  Widget _buildIntro({required IconData icon, required String text}) {
     return Container(
       padding: AppStyles.cardPadding,
       margin: EdgeInsets.only(bottom: AppStyles.spacingL),

@@ -64,9 +64,7 @@ class GutZuWissenSeite extends StatelessWidget {
                 ],
               ),
             ),
-            ...karten.asMap().entries.map(
-              (e) => _buildCard(e.value, e.key),
-            ),
+            ...karten.asMap().entries.map((e) => _buildCard(e.value, e.key)),
             const SizedBox(height: 80),
           ],
         ),

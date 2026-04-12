@@ -707,8 +707,10 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
     final maxWoche = AppDaten.hoechsteKurswocheNumerisch;
     final useCleanCardsForWeeks =
         currentWeekIndex >= 1 && currentWeekIndex <= maxWoche;
-    final hasPrev = currentWeekIndex > 1;
-    final hasNext = currentWeekIndex < maxWoche;
+    final hasPrev =
+        AppDaten.vorherigeFreigegebeneWocheVor(currentWeekIndex) != null;
+    final hasNext =
+        AppDaten.naechsteFreigegebeneWocheNach(currentWeekIndex) != null;
     final screenWidth = MediaQuery.sizeOf(context).width;
     final horizontalPadding = _responsiveHorizontalPadding(screenWidth);
     final contentMaxWidth = _contentMaxWidth(screenWidth);
@@ -1283,12 +1285,11 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
   }
 
   void _navigateToWeek(int direction) {
-    final nextWeekIndex = _currentWeekIndex + direction;
+    final int? nextWeekIndex = direction > 0
+        ? AppDaten.naechsteFreigegebeneWocheNach(_currentWeekIndex)
+        : AppDaten.vorherigeFreigegebeneWocheVor(_currentWeekIndex);
 
-    if (nextWeekIndex < 1 ||
-        nextWeekIndex > AppDaten.hoechsteKurswocheNumerisch) {
-      return;
-    }
+    if (nextWeekIndex == null) return;
 
     final nextWeekData = AppDaten.wochenDaten.firstWhere(
       (w) => w['n'] == nextWeekIndex.toString(),
