@@ -42,7 +42,9 @@ migrate_working_dir/
 
 # Lokale Arbeitsdateien (nicht Teil der App)
 mbsr_audiofiles.xlsx
-import/teilnehmende.csv
+# Import-CSVs können personenbezogene Daten enthalten — alles ignorieren außer der Beispieldatei
+import/*.csv
+!import/teilnehmende.example.csv
 .env
 .env.*
 !.env.example
