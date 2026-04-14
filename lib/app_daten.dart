@@ -978,6 +978,62 @@ class AppDaten {
     return mediathekAudios;
   }
 
+  /// Vertiefungstext „Stress, Resilienz, Salutogenese“ für die Seite ResilienzVertiefungSeite.
+  /// Quelle: docs/RESILIENZ_VERTIEFUNGSSEITE.md
+  static final List<Map<String, Object?>> resilienzVertiefungAbschnitte = [
+    {
+      'title': 'Belastung als Normalfall',
+      'body':
+          'Belastende Lebensereignisse sind kein Ausnahmezustand, sondern Teil der meisten Biografien. Verluste, Erkrankungen, Trennungen, Konflikte, Überforderungsphasen: Schätzungen zufolge erlebt der überwiegende Teil der Menschen im Lauf des Lebens mindestens ein Ereignis, das potenziell traumatisch wirken kann. Die Forschung hat diese Zahlen in unterschiedlichen Kontexten erhoben, mit variierenden Definitionen – die Kernaussage ist aber konsistent: Krisen sind biografisch verbreitet, nicht seltener Ausnahmefall.\n\n'
+          'Wichtiger ist der zweite Befund. Die meisten Menschen, die ein solches Ereignis erleben, entwickeln daraus keine dauerhafte psychische Störung. Eine Posttraumatische Belastungsstörung (PTBS) tritt nach Schätzungen bei einer Minderheit der Betroffenen auf. Häufiger sind unspezifische Folgen wie Erschöpfungssyndrome, depressive Phasen, Schlafstörungen oder somatische Beschwerden ohne offensichtlichen psychischen Bezug. Diese Folgen sind ebenfalls ernst zu nehmen, fallen aber in eine andere diagnostische Kategorie.\n\n'
+          'Daraus ergibt sich die zentrale Frage der Resilienzforschung: Warum unterscheiden sich Menschen so stark in ihrer Fähigkeit, psychische Belastungen zu verarbeiten – und lässt sich diese Fähigkeit stärken? Die Antwort liegt weder allein in der Schwere der Ereignisse noch allein in stabilen Persönlichkeitsmerkmalen. Sie liegt im Zusammenspiel vieler Faktoren, von denen manche veränderbar sind.',
+      'aside':
+          'Hinweis: Wer anhaltend unter den Folgen eines belastenden Ereignisses leidet, sollte professionelle Unterstützung in Anspruch nehmen. MBSR ist ein Präventions- und Stressbewältigungsprogramm, kein Ersatz für Psychotherapie.',
+    },
+    {
+      'title': 'Was Resilienz meint – und was nicht',
+      'body':
+          'Der Begriff Resilienz stammt aus der Physik. Das lateinische Wort resilire bedeutet zurückspringen oder abprallen. Gemeint war ursprünglich die Eigenschaft eines Materials, nach Verformung wieder in die Ausgangsform zurückzukehren. Übertragen auf Systeme – biologische, soziale, psychische – bezeichnet Resilienz die Fähigkeit, nach einer Störung wieder in einen funktionsfähigen Zustand zurückzufinden, ohne dabei Struktur oder Identität dauerhaft zu verlieren.\n\n'
+          'Im psychologischen Kontext lässt sich Resilienz präziser fassen als Erhaltung oder zügige Wiederherstellung psychischer Gesundheit nach belastenden Erlebnissen oder unter anhaltend widrigen Bedingungen. Die Betonung liegt dabei auf dem Prozess, nicht auf einer stabilen Eigenschaft. Menschen sind nicht pauschal resilient oder nicht-resilient, sondern finden in unterschiedlichen Lebenslagen unterschiedlich gut in ihr Gleichgewicht zurück – abhängig von persönlichen Ressourcen, sozialen Bindungen und den äußeren Umständen.\n\n'
+          'Eine im Deutschen verbreitete Übersetzung lautet „Widerstandsfähigkeit“. Diese Wortwahl ist missverständlich. Sie suggeriert hartes Ankämpfen, ein Sichstemmen gegen widrige Umstände. Das physikalische Ursprungsbild meint genau das Gegenteil: sanfte Flexibilität, Rückfederungsvermögen. Die Psyche bleibt formbar, nicht starr. Für die Praxis bedeutet das, dass psychische Stärke nicht in Verhärtung entsteht, sondern in der Fähigkeit, beweglich zu bleiben und sich nach Belastung neu zu ordnen.\n\n'
+          'Das Konzept ist nicht auf die menschliche Psyche beschränkt. Analoge Prozesse lassen sich in Ökosystemen (ein Bach verdünnt Schadstoffe), technischen Materialien (Stahl nimmt Stoßenergie durch Verformung auf) oder sozialen Systemen (Gemeinschaften organisieren sich nach Krisen neu) beobachten. Diese Analogien helfen, Resilienz nicht als individuelle Leistung zu verstehen, sondern als Eigenschaft eines Zusammenspiels von Elementen.',
+    },
+    {
+      'title': 'Historische Linien',
+      'body':
+          'Das Nachdenken darüber, was Menschen psychisch stabil hält, ist nicht neu. In der antiken Philosophie formulierte die stoische Tradition um Seneca und Marc Aurel eine Haltung, die in modernen Resilienzkonzepten anklingt: Äußere Ereignisse lassen sich nur begrenzt kontrollieren, wohl aber die eigene Haltung ihnen gegenüber. Gelassenheit wird als kultivierbare Tugend verstanden, nicht als angeborener Charakterzug.\n\n'
+          'Die Psychologie des frühen 20. Jahrhunderts interessierte sich zunächst stärker für negative Langzeitfolgen belastender Kindheitserfahrungen. Die Bindungsforschung (Bowlby, Ainsworth) machte auf die Bedeutung früher Beziehungserfahrungen aufmerksam, tendierte aber dazu, Prägungen als weitgehend irreversibel darzustellen.\n\n'
+          'Der Perspektivwechsel kam in den 1970er und 1980er Jahren. Emmy Werner und Ruth Smith beobachteten in einer Längsschnittstudie Kinder aus sozial benachteiligten Verhältnissen auf der hawaiianischen Insel Kauai. Ein erheblicher Teil dieser Kinder – je nach Schätzung ein Drittel bis die Hälfte – wuchs trotz widriger Bedingungen ohne auffällige Verhaltens- oder Entwicklungsprobleme auf. Werner und Smith nannten sie resilient. Der zunächst daraus gezogene Begriff „unverwundbare Kinder“ erwies sich später als Überinterpretation. Diese Kinder waren nicht immun gegen Belastung, sondern verfügten über Schutzfaktoren, die sich später als veränderbar und trainierbar herausstellten.\n\n'
+          'Aaron Antonovsky erweiterte das Feld in den 1970ern um eine grundlegende Neuformulierung der Frage. Auf Basis seiner Forschung mit Überlebenden der Shoah entwickelte er das Konzept der Salutogenese. Die Leitfrage der Medizin und Psychologie verschob sich dadurch: nicht mehr „Was macht krank?“, sondern „Was hält gesund?“. Als Kernkonstrukt identifizierte Antonovsky das Kohärenzgefühl (Sense of Coherence), das aus drei Komponenten besteht:',
+      'bullets': <String>[
+        'Verstehbarkeit: Erlebnisse lassen sich einordnen und erklären, die Welt erscheint nicht chaotisch.',
+        'Handhabbarkeit: Das eigene Leben lässt sich aktiv gestalten, Ressourcen stehen zur Verfügung.',
+        'Sinnhaftigkeit: Anstrengungen und Herausforderungen erscheinen subjektiv sinnvoll.',
+      ],
+      'bodyAfterBullets':
+          'Ein hohes Kohärenzgefühl gilt in der Forschung als robuster Schutzfaktor für psychische Gesundheit.\n\n'
+          'Verwandt mit Resilienz ist das englische Konzept hardiness, im Deutschen in etwa als Robustheit übersetzbar. Die Forschung an Beschäftigten nach massiven Entlassungswellen in den 1980er und 1990er Jahren zeigte: Der Zusammenhang zwischen Belastung und Erkrankung ist kein direkter. Er wird durch Persönlichkeitsmerkmale, Verhaltensweisen, soziale Unterstützung und körperliche Aktivität moderiert. Die gleiche objektive Belastung kann für verschiedene Menschen sehr unterschiedliche gesundheitliche Folgen haben, je nachdem, wie gut die filternden Faktoren ausgeprägt sind.',
+    },
+    {
+      'title': 'Kritik am Resilienzkonzept',
+      'body':
+          'Resilienz ist heute ein Leitbegriff in Gesundheits-, Bildungs- und Unternehmensdiskursen. Diese Ausweitung ist nicht unproblematisch. Die einschlägige Kritik lässt sich auf drei Punkte bringen.\n\n'
+          'Erstens besteht die Gefahr der Individualisierung struktureller Probleme. Wenn Resilienz zur persönlichen Pflicht wird, verschiebt sich die Verantwortung für psychische Gesundheit vom gesellschaftlichen auf den individuellen Bereich. Viele Stressfaktoren im Alltag sind durch Arbeitsbedingungen, ökonomische Lagen oder politische Umstände bedingt – Bedingungen, gegen die der Einzelne mit Atemübungen und Gedankenprotokollen wenig ausrichten kann.\n\n'
+          'Zweitens kann das Konzept moralisch aufgeladen werden. Wer nach einem Verlust, einer Kündigung oder einer Krise nicht schnell wieder „funktioniert“, wird implizit als „nicht resilient genug“ bewertet – statt dass Rahmenbedingungen oder zeitliche Verarbeitungsprozesse hinterfragt werden. Trauer, Erschöpfung oder langsame Anpassung geraten so unter Rechtfertigungsdruck.\n\n'
+          'Drittens wird Resilienz besonders in Unternehmenskontexten häufig instrumentalisiert. Resilienztrainings zielen dort nicht selten primär auf den Erhalt von Leistungsfähigkeit, nicht auf das Wohlbefinden der Beschäftigten. Die Frage, ob Belastung reduziert werden könnte, wird durch die Frage ersetzt, wie Beschäftigte sie besser ertragen.\n\n'
+          'Diese Kritik entwertet das Konzept nicht, aber sie schärft seinen Gebrauch. Der Wunsch, die eigene Resilienz zu stärken, ist legitim. Präventionsprogramme, besonders für Kinder und Jugendliche, sind sinnvoll und notwendig. Aber: Chronischer Stress und schwere Verluste werden immer belasten, unabhängig von Resilienzstrategien. Resilienz macht Schmerz nicht verschwinden. Und: Die Verantwortung für Traumaverarbeitung und dauerhafte Belastung darf nicht allein beim Individuum liegen. Gemeinschaft und strukturelle Bedingungen spielen eine wesentliche Rolle.',
+    },
+    {
+      'title': 'Bezug zu MBSR',
+      'body':
+          'MBSR und Resilienztraining werden im öffentlichen Diskurs oft in einem Atemzug genannt. Eine Differenzierung lohnt sich trotzdem.\n\n'
+          'Empirisch ist MBSR eines der am besten untersuchten Programme zur Stärkung dessen, was die Resilienzforschung misst. Metaanalysen belegen moderate Effekte auf Stress, Angst, depressive Symptome und Lebensqualität. Studien mit etablierten Resilienzskalen wie der Connor-Davidson Resilience Scale zeigen Zunahmen nach MBSR-Teilnahme. In diesem empirischen Sinn lässt sich MBSR ohne Weiteres als Resilienzintervention beschreiben.\n\n'
+          'Konzeptionell unterscheidet sich MBSR aber von klassischen Resilienzprogrammen wie dem Penn Resilience Program oder dem Master Resilience Training. Diese arbeiten kognitiv-behavioral: Sie identifizieren Resilienzfaktoren wie Selbstwirksamkeit, optimistischen Erklärungsstil oder Kontrollüberzeugung und trainieren sie direkt. MBSR setzt eine Ebene früher an. Nicht bestimmte Denkmuster werden trainiert, sondern die Wahrnehmung selbst. Veränderung entsteht nicht durch Umlenkung von Gedanken, sondern aus der Beobachtung heraus – aus dem differenzierten Wahrnehmen von Körper, Gefühl und Gedanke, das den automatischen Ablauf zwischen Reiz und Reaktion erweitert.\n\n'
+          'Die Brücke zwischen MBSR und der Resilienzforschung liegt in der salutogenetischen Perspektive. Beide fragen nicht in erster Linie, wie sich Symptome beseitigen lassen, sondern was psychische Gesundheit erhält und fördert. Antonovskys drei Dimensionen – Verstehbarkeit, Handhabbarkeit, Sinnhaftigkeit – werden in MBSR zwar nicht explizit benannt, aber indirekt berührt: Achtsamkeit macht Erfahrung verstehbarer (differenziertere Wahrnehmung), handhabbarer (mehr Wahlmöglichkeiten zwischen Reiz und Reaktion) und oft auch sinnhafter (Verbindung mit dem, was im eigenen Leben trägt).\n\n'
+          'Für die eigene Praxis lässt sich daraus eine einfache Orientierung ableiten. MBSR verspricht nicht, dass Belastung verschwindet. Es verspricht auch nicht, dass man nach acht Wochen Krisen mühelos abschüttelt. Was es in vielen Fällen leistet, ist eine graduelle Veränderung im Umgang mit Belastung: früher wahrnehmen, differenzierter reagieren, schneller in Kontakt mit tragenden Ressourcen kommen. In der Sprache der Resilienzforschung heißt das: Schutzfaktoren werden gestärkt. In der Sprache der Praxis heißt es: Wahrnehmung wird klarer.',
+    },
+  ];
+
   static const List<Map<String, String>> gutZuWissenKarten = [
     {
       'id': 'gzw-wirkung-zeit',
@@ -1050,6 +1106,14 @@ class AppDaten {
           'Nach einer Übung passiert oft eines von zwei Dingen: Du springst direkt in den nächsten Tagesordnungspunkt oder du bewertest, ob die Übung gut genug war. Beides überspringt einen Moment, der für das Lernen wichtig ist. Unmittelbar nach einer Handlung entscheidet sich, wie stark die neue Verknüpfung wird.\n\n'
           'Gemeint ist kein Selbstlob und kein Urteil über die Qualität der Übung. Gemeint ist ein kurzes Innehalten: Ich habe mir diese Zeit genommen. Das reicht. Verhaltensforschung zeigt, dass so ein kurzer Moment der Anerkennung dazu beitragen kann, dass das Verhalten am nächsten Tag wahrscheinlicher wird.\n\n'
           'Was nimmst du in den drei Sekunden nach dem Ende einer Übung wahr, bevor der Alltag wieder einsetzt?',
+    },
+    {
+      'id': 'gzw-resilienz-nicht-haerte',
+      'title': 'Resilienz ist nicht Härte',
+      'body':
+          'Resilienz wird im Alltag oft mit „Widerstandsfähigkeit“ übersetzt. Das klingt nach Zähnezusammenbeißen, nach Ankämpfen gegen die Umstände. Der ursprüngliche Begriff aus der Physik meint etwas anderes: die Fähigkeit, nach Verformung wieder in die Ausgangsform zurückzukehren. Nicht Starrheit, sondern Flexibilität.\n\n'
+          'Diese Unterscheidung ist praxisrelevant. Wer glaubt, stärker werden heiße härter werden, versteift sich in Übungen ebenso wie im Alltag. Die Achtsamkeitspraxis arbeitet in die andere Richtung: differenzierter wahrnehmen, weicher zulassen, klarer reagieren. Stabilität entsteht hier nicht durch Verhärtung, sondern durch geschmeidigeren Kontakt mit dem, was gerade ist.\n\n'
+          'Wo in deinem Alltag verwechselst du gerade Stärke mit Härte?',
     },
   ];
 

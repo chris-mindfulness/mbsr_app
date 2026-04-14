@@ -1,13 +1,13 @@
 # Plan: Nächste Schritte zur App-Optimierung
 
-Stand: 26.02.2026 (aktualisiert)
+Stand: April 2026 (aktualisiert)
 
 ## Wiedereinstieg nach Pause (kurz)
 
-1. Zuerst visuelle Feinabnahme in Wochen 1-8 (Karten sichtbar, ruhig, konsistent).
-2. Danach inhaltliche Ueberarbeitung von Woche 2 (gleiche Logik wie Woche 1).
-3. Appwrite-Basispruefung als separater Abschlussblock.
-4. Detail-Stand siehe `UEBERGABE_PAUSE_2026-02-26.md`.
+1. Zuerst visuelle Feinabnahme in Wochen 1–8 (Karten sichtbar, ruhig, konsistent).
+2. Danach inhaltliche Überarbeitung von Woche 2 (gleiche Logik wie Woche 1).
+3. Appwrite-Basisprüfung als separater Abschlussblock.
+4. Kontext und Meilensteine: `STATUS_HISTORIE_2026-02-26.md` (Kurzüberblick oben, Historie unten).
 
 ## Was bereits erledigt ist
 

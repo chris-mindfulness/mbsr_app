@@ -1,7 +1,8 @@
 # Schritt 2: Verbindlicher UI-Standard (mbsr_app)
 
-Stand: 26.02.2026
-Basis: Inventar aus `UI_INVENTAR_SCHRITT_1_2026-02-26.md`.
+Stand: 26.02.2026 — Regeln weiter gültig (Abgleich April 2026). Bei Konflikten mit dem Inventar zählt der Ist-Code in `lib/`.
+
+Basis: Inventar aus `UI_INVENTAR_SCHRITT_1_2026-02-26.md` (historischer Snapshot).
 Ziel: Verbindliche Regeln fuer Klarheit, Einheitlichkeit und stabile Wartbarkeit.
 
 ## 1) Geltungsbereich

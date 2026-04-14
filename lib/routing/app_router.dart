@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../kurs_uebersicht.dart';
 import '../literatur_seite.dart';
+import '../resilienz_vertiefung_seite.dart';
 import '../profil_seite.dart';
 import '../login_screen.dart';
 import '../reset_password_screen.dart';
@@ -19,6 +20,7 @@ class AppRouter {
   static const String mediathek = '/mediathek';
   static const String vertiefung = '/vertiefung';
   static const String literatur = '/literatur';
+  static const String vertiefungResilienz = '/vertiefung/wissenschaft/resilienz';
   static const String profil = '/profil';
   static const String login = '/login';
   static const String resetPassword = '/reset-password';
@@ -44,6 +46,8 @@ class AppRouter {
         return const KursUebersicht(initialIndex: 2);
       case literatur:
         return LiteraturSeite();
+      case vertiefungResilienz:
+        return const ResilienzVertiefungSeite();
       case profil:
         return const ProfilSeite();
       case login:
@@ -77,6 +81,7 @@ class AppRouter {
     mediathek,
     vertiefung,
     literatur,
+    vertiefungResilienz,
     profil,
     login,
     resetPassword,

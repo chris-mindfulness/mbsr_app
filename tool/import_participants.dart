@@ -310,6 +310,17 @@ Future<_CreateStatus> _createAuthUser({
     stdout.writeln('[DRY] Auth anlegen: ${participant.email}');
     return _CreateStatus.created;
   }
+  final normalizedEmail = participant.email.trim().toLowerCase();
+  if (await _authUserExistsByEmail(
+    endpoint: endpoint,
+    projectId: projectId,
+    apiKey: apiKey,
+    email: normalizedEmail,
+  )) {
+    stdout.writeln('Auth bereits vorhanden: ${participant.email}');
+    return _CreateStatus.existing;
+  }
+
   final response = await _appwriteRequest(
     method: 'POST',
     endpoint: endpoint,
@@ -331,9 +342,75 @@ Future<_CreateStatus> _createAuthUser({
     stdout.writeln('Auth angelegt: ${participant.email}');
     return _CreateStatus.created;
   }
+
+  // Manche Appwrite-Installationen liefern nach erfolgreichem Anlegen 5xx — dann ist
+  // der Nutzer oft trotzdem in Auth (Response bricht ab).
+  if (response.statusCode >= 500 &&
+      response.statusCode < 600 &&
+      await _authUserExistsByEmail(
+        endpoint: endpoint,
+        projectId: projectId,
+        apiKey: apiKey,
+        email: normalizedEmail,
+      )) {
+    stderr.writeln(
+      'Hinweis: Appwrite antwortete mit ${response.statusCode} für '
+      '${participant.email}, der Nutzer ist in Auth aber vorhanden — Import fährt fort.',
+    );
+    stdout.writeln('Auth angelegt (nach Nachprüfung): ${participant.email}');
+    return _CreateStatus.created;
+  }
+
   throw Exception(
     'Auth fehlgeschlagen für ${participant.email}: ${response.statusCode} ${response.body}',
   );
+}
+
+/// Appwrite-Query-JSON wie im SDK (`Query.equal` / `Query.limit`), ohne package:appwrite.
+String _queryEqualEmail(String email) => jsonEncode({
+      'method': 'equal',
+      'attribute': 'email',
+      'values': [email],
+    });
+
+String _queryLimit(int n) => jsonEncode({
+      'method': 'limit',
+      'values': [n],
+    });
+
+Future<bool> _authUserExistsByEmail({
+  required String endpoint,
+  required String projectId,
+  required String apiKey,
+  required String email,
+}) async {
+  final response = await _appwriteRequest(
+    method: 'GET',
+    endpoint: endpoint,
+    path: '/users',
+    projectId: projectId,
+    apiKey: apiKey,
+    queryParametersAll: {
+      'queries[]': [_queryEqualEmail(email), _queryLimit(1)],
+    },
+  );
+  if (response.statusCode < 200 || response.statusCode >= 300) {
+    throw Exception(
+      'Auth-Abfrage (Liste) fehlgeschlagen für $email: '
+      '${response.statusCode} ${response.body}',
+    );
+  }
+  final data = jsonDecode(response.body);
+  if (data is! Map<String, dynamic>) return false;
+  final users = data['users'];
+  if (users is! List) return false;
+  for (final u in users) {
+    if (u is Map<String, dynamic>) {
+      final e = u['email'];
+      if (e is String && e.toLowerCase() == email) return true;
+    }
+  }
+  return false;
 }
 
 Future<_CreateStatus> _createProfileRow({
@@ -434,8 +511,25 @@ Future<_HttpResponse> _appwriteRequest({
   required String projectId,
   required String apiKey,
   Map<String, dynamic>? body,
+  Map<String, List<String>>? queryParametersAll,
 }) async {
-  final uri = Uri.parse('${endpoint.replaceFirst(RegExp(r'/$'), '')}$path');
+  var uri = Uri.parse('${endpoint.replaceFirst(RegExp(r'/$'), '')}$path');
+  if (queryParametersAll != null && queryParametersAll.isNotEmpty) {
+    final sb = StringBuffer(uri.toString());
+    sb.write(uri.hasQuery ? '&' : '?');
+    var first = true;
+    for (final entry in queryParametersAll.entries) {
+      for (final v in entry.value) {
+        if (!first) sb.write('&');
+        first = false;
+        sb.write(
+          '${Uri.encodeQueryComponent(entry.key)}='
+          '${Uri.encodeQueryComponent(v)}',
+        );
+      }
+    }
+    uri = Uri.parse(sb.toString());
+  }
   final client = HttpClient();
   try {
     final request = await client.openUrl(method, uri);

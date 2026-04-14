@@ -1,6 +1,6 @@
 # Checkliste: Appwrite prüfen (einfach)
 
-Stand: 25.02.2026
+Stand: April 2026 (Inhalt geprüft)
 Ziel: Refresh soll eingeloggt bleiben und Profil soll gefunden werden.
 
 ## 1) Web-Plattform in Appwrite prüfen
@@ -12,11 +12,12 @@ Prüfen:
 - keine alte/falsche Test-Domain als einzige aktive URL
 
 ## 2) Endpoint und Projekt-ID prüfen
-Ort: `.env` in der App
+Ort: `lib/core/app_config.dart` (Werte kommen aus `--dart-define` beim Build/Run, siehe `README.md`; keine `.env` im Bundle).
 
 Prüfen:
-- `APPWRITE_ENDPOINT` zeigt auf das richtige Projekt
+- `APPWRITE_ENDPOINT` zeigt auf das richtige Projekt (lokal z. B. per `--dart-define=APPWRITE_ENDPOINT=...`)
 - `APPWRITE_PROJECT_ID` ist korrekt
+- Bei CI/Deploy: dieselben Defines wie in GitHub Actions / Cloudflare-Build
 
 ## 3) Profil-Daten prüfen
 Ort: `Database mbsr_database` -> `users`

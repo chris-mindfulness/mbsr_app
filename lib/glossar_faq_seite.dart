@@ -207,6 +207,16 @@ class GlossarFaqSeite extends StatelessWidget {
             'Aufmerksamkeit öffnet sich über den Anker hinaus für das, was gerade deutlich ist: Körperempfindungen, Gedanken, Gefühle, Geräusche.',
       },
       {
+        'term': 'Kohärenzgefühl (Sense of Coherence)',
+        'def':
+            'Antonovskys Kernkonstrukt. Ein hohes Kohärenzgefühl gilt als schützender Faktor für psychische Gesundheit und besteht aus drei Komponenten: Verstehbarkeit (Erlebnisse lassen sich einordnen), Handhabbarkeit (das eigene Leben lässt sich aktiv gestalten) und Sinnhaftigkeit (Anstrengungen erscheinen sinnvoll). Die drei Dimensionen eignen sich auch als Reflexionsraster in belastenden Phasen.',
+      },
+      {
+        'term': 'Posttraumatische Belastungsstörung (PTBS)',
+        'def':
+            'Psychische Folgestörung nach traumatischen Ereignissen, diagnostisch klar definiert. Auch wenn ein Großteil der Menschen mindestens einmal ein potenziell traumatisches Ereignis erlebt, entwickelt nur eine Minderheit eine PTBS. Häufiger sind unspezifische Folgen wie Erschöpfung, Schlafstörungen oder somatische Beschwerden. Bei Verdacht auf trauma-bezogene Belastung ist professionelle Abklärung wichtig; MBSR ist kein Ersatz für therapeutische Behandlung.',
+      },
+      {
         'term': 'Reaktivität',
         'def':
             'Schnelles automatisches Reagieren bei Stress, oft aus alten Mustern. Im Kurs übst du, den Moment zwischen Reiz und Reaktion wahrzunehmen.',
@@ -285,6 +295,16 @@ class GlossarFaqSeite extends StatelessWidget {
         'term': 'Identitätsbasierte Motivation',
         'def':
             'Verhalten wird stabiler, wenn es zum Selbstbild passt. Zum Beispiel: „Ich bin jemand, der freundlich und regelmäßig übt.“',
+      },
+      {
+        'term': 'Resilienz',
+        'def':
+            'Die Fähigkeit, psychische Gesundheit unter Belastung zu erhalten oder nach Krisen wiederherzustellen. Der Begriff kommt aus der Physik (lateinisch resilire, zurückspringen). In der Psychologie meint er keine Härte, sondern eher Flexibilität: Die Psyche bleibt formbar statt starr. Resilienz ist kein Persönlichkeitsmerkmal, sondern ein Zusammenspiel persönlicher und sozial vermittelter Ressourcen.',
+      },
+      {
+        'term': 'Salutogenese',
+        'def':
+            'Ein von Aaron Antonovsky in den 1970ern geprägtes Konzept. Die Leitfrage verschiebt sich: nicht „Was macht krank?“, sondern „Was hält gesund?“. Krankheit und Gesundheit werden nicht als Gegensatz verstanden, sondern als Kontinuum. Achtsamkeitsbasierte Verfahren passen gut in diese Perspektive, weil sie nicht Symptome bekämpfen, sondern gesundheitsförderliche Haltungen kultivieren.',
       },
     ];
     final sortedTerms = [...terms]
@@ -386,6 +406,11 @@ class GlossarFaqSeite extends StatelessWidget {
         'q': 'Ist MBSR eine Therapie?',
         'a':
             'MBSR ist ein strukturiertes Stressbewältigungs- und Achtsamkeitstraining. Bei akuten psychischen Krisen oder hohem Leidensdruck ist zusätzliche professionelle Behandlung wichtig.',
+      },
+      {
+        'q': 'Ist MBSR ein Resilienztraining?',
+        'a':
+            'Das hängt davon ab, wie eng man den Begriff fasst. Studien zeigen, dass MBSR nachweislich Resilienzmaße verbessert — in diesem Sinn ja. Konzeptionell unterscheidet sich MBSR aber von klassischen Resilienzprogrammen wie dem Penn Resilience Program: Diese arbeiten gezielt an Denkmustern und Bewertungen. MBSR setzt früher an, bei der Wahrnehmung selbst, und überlässt Veränderung den daraus entstehenden Einsichten. Beide Zugänge teilen die salutogenetische Perspektive nach Antonovsky.',
       },
       {
         'q': 'Kann Meditation Schlaf ersetzen?',

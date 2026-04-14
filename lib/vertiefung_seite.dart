@@ -3,6 +3,7 @@ import 'literatur_seite.dart';
 import 'glossar_faq_seite.dart';
 import 'text_archiv_seite.dart';
 import 'gut_zu_wissen_seite.dart';
+import 'resilienz_vertiefung_seite.dart';
 import 'app_daten.dart';
 import 'core/app_styles.dart';
 import 'widgets/decorative_blobs.dart';
@@ -99,6 +100,25 @@ class VertiefungSeite extends StatelessWidget {
                   wochenDaten: AppDaten.wochenDaten,
                   initialWeekNumber: 4,
                 ),
+              ),
+            ),
+            showShadow: true,
+          ),
+
+          SizedBox(height: AppStyles.spacingXL + AppStyles.spacingS), // 40px
+
+          _buildSectionHeader("WISSENSCHAFTLICHER HINTERGRUND"),
+          AppStyles.spacingMBox,
+
+          StandardActionCard(
+            title: "Stress, Resilienz, Salutogenese",
+            subtitle: "Wie die Forschung auf psychische Gesundheit blickt",
+            leadingIcon: Icons.psychology_outlined,
+            accentColor: AppStyles.accentCyan,
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const ResilienzVertiefungSeite(),
               ),
             ),
             showShadow: true,

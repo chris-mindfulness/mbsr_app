@@ -1,198 +1,65 @@
-# Status-Historie App (26.02.2026)
+# mbsr_app — Status & Entwicklungsgeschichte
 
-## Heute umgesetzt
+Diese Datei fasst **Meilensteine und Kontext** zusammen. Sie ersetzt kein `git log`. Vor Releases: `flutter analyze --no-pub` und `flutter test --no-pub` ausführen (konkrete Testanzahl variiert mit dem Repo).
 
-1. Wochentitel auf originalnahe Benennung angepasst:
-   - Woche 1: `Achtsamkeit`
-   - Woche 4: `Stress in Körper und Geist`
-   - Woche 5: `Achtsamkeit gegenüber stressverschärfenden Gedanken`
-   - Woche 6: `Achtsame Kommunikation`
-   - Woche 8: `Abschied und Neubeginn`
-2. Glossar-Begriff mitgezogen:
-   - `Schwierige Kommunikation` -> `Achtsame Kommunikation`
-3. Block umbenannt:
-   - `Deine Übungen` -> `Hinweise zu deinen Übungen dieser Woche`
-4. Reihenfolge in der Wochenansicht angepasst:
-   - `Titel/Teaser/Fokus -> Zitat -> Hinweise zu deinen Übungen dieser Woche -> Deine Praxis diese Woche`
-5. Notfall-Koffer in allen Wochenansichten ergänzt:
-   - direkter Einstieg pro Woche
-   - Bottom-Sheet mit Akut-Hilfen und Schnellstart `Ankommen`
-6. Woche 5-8 inhaltlich geschärft:
-   - je Woche kompakte Hilfekarte
-   - `Wenn es schwierig wird` mit kurzen, praxisnahen Leitpunkten
-7. Typografie-Abgleich zur Website umgesetzt:
-   - zentrale Tokens auf Website-Basis gesetzt (`17px`, `1.6`, `w400`, `#1E1F1D`)
-   - Muted-Token eingeführt (`#5F6662`) und in Kernbereichen genutzt
-   - Woche-4-Lesemodus auf globale Fließtext-Typografie zurückgeführt
-   - Web-Theme um Fontstack-Fallbacks erweitert (Sans + Heading)
-8. Neuer Design-Test ergänzt:
-   - `test/design/typografie_web_abgleich_tokens_test.dart`
-   - prüft typografische Basiswerte für beide Theme-Modi
-9. Regression-Absicherung für Refresh/Login ergänzt:
-   - neue Policy `lib/auth/session_refresh_policy.dart`
-   - in `AuthService.initialize()` eingebunden
-   - neuer Test `test/services/session_refresh_policy_test.dart`
-10. Regression-Absicherung für Vor-/Zurückspulen ergänzt:
-   - neue Seek-Policy `lib/audio/seek_policy.dart`
-   - in `KursUebersicht._seekRelative()` eingebunden
-   - neuer Test `test/audio/seek_policy_test.dart`
-11. Kleine UX-Konsolidierung bei textlastigen Flächen umgesetzt:
-   - Wochenansicht mit begrenzter Lesebreite auf großen Screens
-   - Zeilenhöhe in längeren Tipp-Blöcken vereinheitlicht (ruhigeres Lesen)
-12. Lokaler Host für visuelle Feinabnahme gestartet:
-   - `http://0.0.0.0:8080`
-13. Design-Pilot in `Vertiefung` umgesetzt (Website-Microcards):
-   - neue, nicht klickbare Feature-Zeile mit 4 Info-Karten
-   - Labels: `MBSR 8-Wochen-Kurs`, `Wissen & Hilfe`, `Textarchiv`, `Literatur & Forschung`
-14. Subtiler 3D-Effekt eingeführt:
-   - neue Token für ruhigen Kartenschatten + Feature-Chip-Abstände/Radius
-   - bestehende Vertiefungs-Hauptkarten mit leichtem, statischem Tiefeneffekt
-15. Neuer Widget-Test für den Pilot ergänzt:
-   - `test/widgets/vertiefung_feature_cards_pilot_test.dart`
-   - prüft: 4 Feature-Karten sichtbar, nicht klickbar, bestehende Hauptkarten weiterhin klickbar
-16. Wochenansicht (`Kurs`) auf Kartenlayout umgestellt:
-   - Wochen 1-8 als responsive Karten dargestellt (Desktop 2-spaltig, mobil 1-spaltig)
-   - zentrale Navigation in die Wochen-Detailseite über vereinheitlichte Öffnungslogik
-   - `Tag der Achtsamkeit` als eigene hervorgehobene Karte unterhalb des Wochenrasters
-17. Kartenstil korrekt getrennt:
-   - Wochenübersicht (`Kurs`) bleibt neutral und klar (weiße Karten)
-   - Transparenz/Farbflächen sind gezielt in der Wochen-Detailansicht der einzelnen Sitzungen umgesetzt
-   - dort nutzen zentrale Inhaltsblöcke nun den gleichen Kartencharakter mit leichter Tönung + subtiler Tiefe
-18. Render-Fix für leere Kursansicht (Web):
-   - Fallback für unendliche Layout-Breite im Wochenraster ergänzt
-   - verhindert, dass der Kurs-Block bei bestimmten Web-Layouts leer bleibt
-19. Root-Cause-Fix für leere Wochenübersicht + blockierte Navigation:
-   - Ursache: `Spacer` in einer `Column` mit unbeschränkter Höhe im Wochenkarten-Widget
-   - bestätigter Fehler: `RenderFlex children have non-zero flex but incoming height constraints are unbounded`
-   - Fix: `Spacer` entfernt, Karten-Column auf `mainAxisSize: min` mit statischem Abstand umgestellt
-20. Überarbeitung Woche 1 begonnen und umgesetzt (Inhalt):
-   - Teaser präzisiert (Ankommen, Autopilot, Körper als Anker, realistische Übungsdosis)
-   - Fokus klarer formuliert
-   - Alltagstipp konkreter und alltagsnäher gemacht
-   - Reflexionsfragen stärker auf Selbstbeobachtung und Rückkehr in Körperkontakt ausgerichtet
-   - Wochenaufgaben sprachlich geschärft (gleiches Ziel, klarere Handlungsanweisungen)
-21. Wochenansicht Woche 1 visuell beruhigt (Kartenstil):
-   - farbig-transparente Flächen in den zentralen Woche-1-Karten durch neutrale weiße Karten ersetzt
-   - beibehaltene Farbigkeit nur als Akzent (schmale linke Farbleiste + Icon/Titel-Farbe)
-   - umgesetzt für: Zitat, Hinweise zu Übungen, Notfall-Koffer, Alltagstipp, Praxis-Hinweis, Body-Scan-Tipps
-   - Ziel: bessere Lesbarkeit und ruhigerer Gesamteindruck bei gleichbleibender Orientierung
-22. Darstellungsfehler in Woche-1-Karten behoben:
-   - Ursache: zu komplexe Border-Variante in der neuen neutralen Karte führte im Web-Rendering zu unzuverlässiger Darstellung
-   - Fix: neutrale Karte technisch vereinfacht (solider Basisrahmen + innenliegende linke Akzentleiste)
-   - Ergebnis: Inhalte in den Karten wieder stabil sichtbar
-23. Folgeanpassung zur Stabilisierung:
-   - neutrale Karten erneut auf einfachste Struktur reduziert (weiße Karte + kleiner Akzentbalken oben + normaler Inhalt)
-   - Hintergrund: robustes Rendering priorisiert, um leere/unsichtbare Karteninhalte auszuschließen
-   - lokaler Web-Host danach komplett neu gestartet (kein Hot-Reload-Pfad)
-24. Kartenstil auf alle Kurswochen ausgerollt:
-   - neutraler Kartenstil nicht nur für Woche 1, sondern für Wochen 1-8 in den zentralen Inhaltskarten aktiv
-   - auch Woche-3/4/5-8-Tippkarten auf denselben Kartenmodus umgestellt
-   - Ziel: einheitlicher, ruhiger Look über alle Kurswochen hinweg
-25. Pause-Uebergabe dokumentiert:
-   - separate Uebergabe-Datei erstellt: `UEBERGABE_PAUSE_2026-02-26.md`
-   - enthaelt: aktueller Stand, offenes Paket, klarer Wiedereinstieg
-26. Pause-Aufraeumen ausgefuehrt:
-   - lokaler Flutter-Web-Server (Port 8080) beendet
-   - keine offenen Host-Prozesse fuer die Pause
-27. Sequenzarbeit Schritt 1 abgeschlossen:
-   - UI-Inventar als eigener Bericht erstellt (`UI_INVENTAR_SCHRITT_1_2026-02-26.md`)
-   - relevante Seiten, Duplikat-Bausteine, Token-Stand und offene Standardisierungspunkte erfasst
-28. Sequenzarbeit Schritt 2 abgeschlossen:
-   - verbindlicher UI-Standard als eigener Bericht erstellt (`UI_STANDARD_SCHRITT_2_2026-02-26.md`)
-   - Regeln fuer Typografie, Karten, Header, States, Akzentflaechen und Refactor-Ziele festgelegt
-29. Sequenzarbeit Schritt 3 abgeschlossen:
-   - Shared-Widgets eingefuehrt: `section_header_label.dart`, `surface_icon_button.dart`, `sos_item_card.dart`
-   - duplizierte Implementierungen in Wochen-Detail und Mediathek auf Shared-Komponenten umgestellt
-   - Section-Header in Wochen-Detail, Vertiefung, Literatur, Tag der Achtsamkeit und Profil auf einheitliche Komponente ausgerichtet
-   - Reading-Typografie im Textarchiv auf zentrale AppStyles-Werte vereinheitlicht (ohne Sonderfarben/Sondergewichte im Fliesstext)
-30. Nächste 2 Standardisierungspunkte umgesetzt:
-   - Audio-Karte als Shared-Widget eingeführt: `lib/widgets/audio_item_card.dart`
-   - Wochen-Detailseite und Mediathek nutzen jetzt dieselbe Audio-Kartenkomponente
-31. PDF-Karte als Shared-Widget umgesetzt:
-   - neue zentrale Komponente: `lib/widgets/pdf_link_card.dart`
-   - angebunden in Wochen-Detail, Downloads und Tag der Achtsamkeit
-   - zwei Layoutmodi (Row/ListTile) zur risikofreien Migration ohne Funktionsverlust
-32. Standard-Listenkarte zentralisiert:
-   - neue Komponente: `lib/widgets/standard_action_card.dart`
-   - vereinheitlichtes Pattern fuer `Icon + Titel + Meta/Untertitel + Trailing-Icon`
-   - optionaler subtiler Schatten integriert (Website-nahe Kartenanmutung)
-33. Standard-Listenkarte in Kernseiten ausgerollt:
-   - `Vertiefung`: Wissen & Hilfe, Textarchiv, Literatur & Forschung
-   - `Profil`: Statistiken, Downloads
-   - `Literatur`: Buecher- und Artikelkarten
+---
 
-## Update 25.03.2026 — Go-Live-Haertung
+## Was davon heute noch gültig ist (Kurzüberblick, Stand April 2026)
 
-34. AudioService gegen Netzwerkfehler abgesichert:
-   - `play()`, `pause()`, `stop()`, `seek()`, `resumeCurrent()` fangen jetzt alle Exceptions ab
-   - kein `rethrow` mehr — Fehler werden ueber Status-Stream propagiert
-35. Fehlende Stream-Error-Handler ergaenzt:
-   - `onError` auf Position-Stream in AudioService
-   - `onError` auf Auth-Stream in AuthWrapper
-36. Audio-Error-Status in UI sichtbar gemacht:
-   - `AudioItemCard` zeigt bei Fehler ein Refresh-Icon statt Play-Button
-   - `MiniPlayerBar` zeigt bei Fehler einen Retry-Button
-   - `isError`-Parameter in Mediathek, Wochen-Detail und AudioItemCard durchgereicht
-37. Mediathek: leere Suchergebnisse zeigen "Keine Uebungen gefunden"
-38. Lint-Warnungen behoben (fuehrende Unterstriche in auth_service.dart entfernt)
-39. Logout-Fehlermeldung bereinigt (generischer Text statt technischem Error-String)
-40. Kursinhalte in app_daten.dart aktualisiert (Cowork-Session)
+Die Tabelle beschreibt den **aktuellen Sollzustand**; die Chronologie unten vermerkt, wann die jeweiligen Pakete eingeführt wurden.
 
-## Update 28.03.2026 — Avatar-Audio-Clips
+| Bereich | Inhalt |
+|--------|--------|
+| **Kursinhalt & Navigation** | Originalnähere Wochentitel, feste Reihenfolge der Blöcke (u. a. Zitat → Hinweise zu Übungen → Praxis), Notfall-Koffer pro Woche |
+| **Layout** | Wochenübersicht als Kartenraster; Detailseiten mit einheitlichem neutralem Kartenstil (Wochen 1–8); „Tag der Achtsamkeit“ als eigene Karte |
+| **Vertiefung** | Website-nahe Microcards; Pilot mit Widget-Test abgesichert |
+| **Design** | Typografie über `AppStyles` / `theme_tokens` website-nah; Muted-Farbe; Design-Tests für Kern-Tokens |
+| **Stabilität** | `session_refresh_policy`, `seek_policy`; AudioService gegen Exceptions gehärtet (Go-Live März 2026); Fehler-UI in Mediathek/Miniplayer |
+| **Avatar-Audio** | `AvatarAudioClip`, gemeinsame Stop-Logik mit Mediathek; Seek-Bar; Kopf-Begrüßung (`AppDaten.begruessung`) mit Storage-ID; in `infoClips` pro Woche sind `begruessung` / `psychoedukation` teils noch ohne `appwrite_id` (Platzhalter bis finale Audios) |
+| **Mediathek** | Optionaler Download über Storage-`/download`; Hinweis bei instabilem Netz; Sprecher-Varianten im Titel `(Name)` konsistent zu `audioRefs` |
+| **Teilnehmende** | Batch-Import: `TEILNEHMENDEN_IMPORT.md`; Import-Skript verifiziert bei 5xx, ob der Auth-Nutzer angelegt wurde |
 
-41. Neues Widget `AvatarAudioClip` erstellt (`lib/widgets/avatar_audio_clip.dart`):
-   - kompakter Pillen-Player mit eigenem `AudioPlayer` (unabhaengig vom Haupt-AudioService)
-   - Begrüßungs-Clip im Kurskopf-Header eingebaut
-   - Wochen-Info-Clips (infoClips) in Wochen-Detailseite eingebaut
-42. Fix: Wiederholtes Abspielen nach Ende:
-   - vor erneutem `play()`: `seek(Duration.zero)` wenn `completed` oder Position nahe am Ende
-   - Listener bei `completed`: Loading/Progress sauber zuruecksetzen, kein async seek/pause im Listener
-43. Fix: Audio stoppt nicht mehr beim Aus-dem-Bild-Scrollen:
-   - `AutomaticKeepAliveClientMixin` eingebaut
-   - `wantKeepAlive` ist `true` solange Audio spielt oder laedt
-44. Fix: Nur ein Avatar-Clip gleichzeitig abspielbar:
-   - statische `_activeInstance`-Referenz koordiniert alle Clip-Instanzen
-   - beim Start eines neuen Clips wird der vorherige automatisch pausiert
-45. Interaktive Seek-Bar statt statischer Fortschrittslinie:
-   - `Slider` mit 6px Track und rundem Thumb (statt 3px `LinearProgressIndicator`)
-   - Nutzer kann per Drag oder Tap an beliebige Stelle springen (z.B. zum Anfang)
-   - Seek-Bar bleibt sichtbar sobald Player initialisiert (auch bei Pause nach Seitenwechsel)
-   - `_isSeeking`-Flag verhindert Positions-Ueberschreibung waehrend Drag
-   - Play/Pause-Tap nur auf obere Zeile, Slider darunter unabhaengig bedienbar
+**Weiterhin maßgebliche Referenzen:**
 
-## Update 07.04.2026 — Avatar-Clip-Logik und Platzhalterbetrieb
+- `UI_STANDARD_SCHRITT_2_2026-02-26.md` — verbindliche UI-Regeln für neue Arbeiten  
+- `UI_INVENTAR_SCHRITT_1_2026-02-26.md` — historisches Ist-Inventar (Februar 2026); Duplikate aus §3 sind größtenteils durch Shared Widgets abgebaut — Dokument dient der Nachvollziehbarkeit  
+- `PLAN_APP_OPTIMIERUNG_NAECHSTE_SCHRITTE.md` — Roadmap und offene, nicht kritische Punkte  
 
-46. Wochen-Info-Clip wieder eingebaut und neu positioniert:
-   - Wochen-Intro (`infoClips.begruessung`) sitzt jetzt direkt unter Bild/Zitat in der Wochen-Detailseite.
-   - alter Info-Clip-Block weiter unten in der Seite wurde entfernt.
-47. Begruessungs-Clip im Kurskopf sichtbar:
-   - `KursOverviewHeader` zeigt den Avatar-Clip direkt unter dem Header-Avatar.
-48. Audio-Ueberlappung behoben:
-   - Mediathek-/Notfall-Audios und Avatar-Clips stoppen sich jetzt gegenseitig.
-   - `AudioService` nutzt externe Stop-Listener, die vor `play()`/`resumeCurrent()` awaited werden.
-49. Typhaertung fuer Stop-Listener:
-   - Listener-Signatur auf `Future<void> Function()` umgestellt.
-   - dadurch kein Typkonflikt mit async Stop-Callbacks aus `AvatarAudioClip`.
-50. Platzhaltermodus fuer neu zu generierende Avatar-Audios aktiviert:
-   - Header-Begruessung (`AppDaten.begruessung.appwrite_id`) auf leer gesetzt.
-   - Wochen-Intro Woche 1 (`infoClips.begruessung.appwrite_id`) auf leer gesetzt.
-   - Psychoedukation bleibt vorerst ohne ID.
-51. Repo-Stand:
-   - Commits `acce968` und `61a2519` auf `main` gepusht.
+Die frühere Datei `UEBERGABE_PAUSE_2026-02-26.md` ist **nicht mehr vorhanden**; Wiedereinstieg und Stand sind hier und im Plan dokumentiert.
 
-## Geprüft
+---
 
-- `flutter analyze --no-pub`: ohne Befunde
-- `flutter test --no-pub`: alle Tests gruen (29/29)
-- Letzter Commit: `46ecf18` auf `main`, gepusht, Cloudflare-Deploy aktiv
+## Noch offen (übergeordnet, nicht blockierend)
 
-## Update 2026-04 (Kurz)
+1. Manuelle Browser-Prüfung: Avatar-Clips (Seek, Wiederholen, Scroll) und kurze visuelle Feinabnahme (z. B. Woche 4, Mediathek, Vertiefung).  
+2. Appwrite: Normalpfad und Session/Profil gelegentlich gegen `CHECKLISTE_APPWRITE_PRUEFEN.md` prüfen.  
 
-- Mediathek: optionaler Audio-Download ueber Appwrite `/download` (`AppwriteStorageUrls`), Hinweis bei instabilem Internet (`AppTexts.mediathekDownloadHint`).
-- Benennung: z. B. `Body-Scan standard (Chris)` bei Sprecher-Kennzeichnung; zugehoerige `audioRefs` in `app_daten.dart` angepasst.
+Detaillierte Akzeptanzkriterien: `PLAN_APP_OPTIMIERUNG_NAECHSTE_SCHRITTE.md`.
 
-## Offene naechste Schritte
+---
 
-1. Manueller Browser-Test der Avatar-Clips (Seek-Bar, Wiederabspielen, Scroll-Verhalten).
-2. Kurze visuelle Feinabnahme im Browser (Woche 4 + Mediathek + Vertiefung) abschliessen.
-3. Appwrite-Basispruefung manuell abschliessen (Stabilitaet ohne Fallback-Layer verifizieren).
+## Chronologische Historie (Archiv)
+
+### Februar 2026 — Hauptpaket (Kompakt)
+
+In einem größeren Block u. a.: Wochentitel und Glossar, Umbenennung und Reihenfolge der Wochenblöcke, Notfall-Koffer, inhaltliche Schärfung Woche 5–8, Typografie/Web-Theme, Session-Refresh- und Seek-Policies inkl. Tests, begrenzte Lesebreite, Vertiefungs-Pilot mit 3D-Schatten-Tokens, Wochenraster + Tag-der-Achtsamkeit-Karte, Trennung Kartenstil Übersicht vs. Detail, Render-Fixes für leere Web-Ansicht (u. a. `Spacer`/unbounded Height), inhaltliche und visuelle Überarbeitung Woche 1, Rollout neutraler Karten Woche 1–8. Anschließend UI-Inventar, UI-Standard und Einführung der Shared Widgets (Section Header, Surface-Icon, SOS, Audio-Karte, PDF-Karte, Standard-Listenkarte) mit Rollout auf Kernseiten.
+
+### Update 25.03.2026 — Go-Live-Härtung
+
+AudioService-Methoden abgesichert; `onError` auf relevanten Streams; Fehler sichtbar in `AudioItemCard` / `MiniPlayerBar`; leere Mediathek-Suche mit Hinweis; Lint/Logout-Texte; Kursinhalt (Cowork-Session) in `app_daten.dart`.
+
+### Update 28.03.2026 — Avatar-Audio-Clips
+
+Widget `AvatarAudioClip`; Wiederholen nach Ende; `AutomaticKeepAliveClientMixin` beim Scrollen; nur ein Clip aktiv; interaktive Seek-Leiste.
+
+### Update 07.04.2026 — Clip-Logik und Platzhalter
+
+Position der Wochen-Intro-Clips; Begrüßung im Kurskopf; gegenseitiges Stoppen Mediathek/Avatar; Typanpassung Stop-Listener; Platzhalter für noch fehlende Storage-IDs.
+
+### Update April 2026 — Mediathek & Benennung
+
+Optionaler Download; Sprecher-Kennzeichnung im Titel und passende `audioRefs`.
+
+### Import-Tool (April 2026)
+
+`tool/import_participants.dart`: Bei HTTP-5xx nach `POST /users` wird per List-API geprüft, ob der Nutzer dennoch existiert (Appwrite kann fälschlich 500 liefern, obwohl der Account angelegt wurde).

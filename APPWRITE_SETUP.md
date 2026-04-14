@@ -1,6 +1,6 @@
 # Appwrite Setup (aktuell, einfach)
 
-Stand: 25.02.2026
+Stand: April 2026 (Inhalt geprüft)
 
 Ziel: Die App soll stabil einloggen, Profil finden und Medien laden.
 
@@ -15,15 +15,16 @@ Ziel: Die App soll stabil einloggen, Profil finden und Medien laden.
 
 ## 1) Basis in der App prüfen
 
-Datei: `.env`
+Konfiguration: `lib/core/app_config.dart` — Werte per `String.fromEnvironment` (Standard: Produktions-Endpoint/Projekt-ID oben). Lokal überschreiben mit `--dart-define`, z. B.:
 
-```env
-APPWRITE_ENDPOINT=https://api.mindfulpractice.de/v1
-APPWRITE_PROJECT_ID=696befd00018180d10ff
+```bash
+--dart-define=APPWRITE_ENDPOINT=https://api.mindfulpractice.de/v1 \
+--dart-define=APPWRITE_PROJECT_ID=696befd00018180d10ff
 ```
 
 Wichtig:
 - Endpoint und Project ID müssen zum gleichen Appwrite-Projekt gehören.
+- Es gibt **keine** eingecheckte `.env` für die App; Build-Pipeline (z. B. GitHub Actions) setzt die Defines passend.
 
 ## 2) Web-Plattform in Appwrite prüfen
 
