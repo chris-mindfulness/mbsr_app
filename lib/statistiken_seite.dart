@@ -95,7 +95,9 @@ class _StatistikenSeiteState extends State<StatistikenSeite> {
                         AppStyles.spacingMHorizontal,
                         Expanded(
                           child: Text(
-                            'Deine Statistiken sind privat und nur für dich sichtbar. Sie werden lokal gespeichert.',
+                            'Deine Statistiken sind privat und nur für dich sichtbar. '
+                            'Sie werden lokal gespeichert. Bei Browser-Wechsel oder '
+                            'geleertem Cache kann Tracking verloren gehen.',
                             style: AppStyles.bodyStyle.copyWith(
                               fontSize: 13,
                               color: AppStyles.sageGreen,
