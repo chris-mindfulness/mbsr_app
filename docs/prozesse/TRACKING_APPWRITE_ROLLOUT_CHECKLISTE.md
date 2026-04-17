@@ -34,16 +34,27 @@ Die App nutzt **synchrone** Function-Ausfuehrung (`xasync: false`), damit Fehler
   - Code: `appwrite_functions/tracking_retention_cleanup/index.js`
   - zuerst Dry-Run (`APP_TRACKING_RETENTION_DRY_RUN=true`)
 
-## 2) Feature-Flag (standardmaessig AUS)
-In der App laeuft Remote-Tracking nur, wenn gesetzt:
+## 2) Feature-Flag (Release vs. lokal)
+
+**Release-Web-Build** (`flutter build web --release`): Wenn `APP_ENABLE_REMOTE_TRACKING`
+**nicht** gesetzt ist, ist Remote-Tracking **standard AN** (damit z. B. Cloudflare-Pages-
+Direktbuilds ohne `--dart-define` trotzdem Events senden).
+
+**Lokal / Debug / Tests:** Ohne Define ist Tracking **AUS**.
+
+**Explizit ausschalten** (auch im Release):
+
+```bash
+--dart-define=APP_ENABLE_REMOTE_TRACKING=false
+```
+
+**Empfohlen** weiterhin explizit setzen (CI / Dokumentation):
 
 ```bash
 --dart-define=APP_ENABLE_REMOTE_TRACKING=true
 --dart-define=APP_TRACKING_FUNCTION_ID=track_80_event
 --dart-define=APP_TRACKING_TIMEZONE=Europe/Berlin
 ```
-
-Ohne Flag bleibt Verhalten wie bisher lokal.
 
 ## 3) Pflichtchecks vor Aktivierung
 - `flutter analyze --no-pub`

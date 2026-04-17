@@ -1,7 +1,15 @@
+import 'package:flutter/foundation.dart' show kReleaseMode;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mbsr_app/core/app_config.dart';
 
 void main() {
+  test(
+    'enableRemoteTracking ohne Define folgt kReleaseMode (Debug aus, Release an)',
+    () {
+      expect(AppConfig.enableRemoteTracking, kReleaseMode);
+    },
+  );
+
   test(
     'passwordResetRedirectUrl ist gesetzt und zeigt auf Produktionspfad wenn kein define',
     () {

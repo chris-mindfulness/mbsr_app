@@ -1,3 +1,5 @@
+import 'package:flutter/foundation.dart' show kReleaseMode;
+
 /// Zentrale App-Konfiguration
 ///
 /// Enthält alle sensiblen Daten und Endpoints
@@ -12,10 +14,27 @@ class AppConfig {
     'APPWRITE_PROJECT_ID',
     defaultValue: '696befd00018180d10ff',
   );
-  static const bool enableRemoteTracking = bool.fromEnvironment(
-    'APP_ENABLE_REMOTE_TRACKING',
-    defaultValue: false,
-  );
+  /// Remote-Tracking (Appwrite Function `track_80_event`).
+  ///
+  /// - `APP_ENABLE_REMOTE_TRACKING=false` (oder `0`/`no`/`off`): aus.
+  /// - `true`/`1`/`yes`/`on`: an.
+  /// - **Nicht gesetzt:** im **Release**-Build standard **an**, damit z. B.
+  ///   Cloudflare-Pages-Direktbuilds ohne `--dart-define` trotzdem tracken.
+  ///   In **Debug/Profil** (lokal, Tests) standard **aus**.
+  static bool get enableRemoteTracking {
+    const raw = String.fromEnvironment(
+      'APP_ENABLE_REMOTE_TRACKING',
+      defaultValue: '',
+    );
+    final s = raw.trim().toLowerCase();
+    if (s == 'false' || s == '0' || s == 'no' || s == 'off') {
+      return false;
+    }
+    if (s == 'true' || s == '1' || s == 'yes' || s == 'on') {
+      return true;
+    }
+    return kReleaseMode;
+  }
   static const String trackingFunctionId = String.fromEnvironment(
     'APP_TRACKING_FUNCTION_ID',
     defaultValue: 'track_80_event',
