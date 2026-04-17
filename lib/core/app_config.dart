@@ -12,6 +12,18 @@ class AppConfig {
     'APPWRITE_PROJECT_ID',
     defaultValue: '696befd00018180d10ff',
   );
+  static const bool enableRemoteTracking = bool.fromEnvironment(
+    'APP_ENABLE_REMOTE_TRACKING',
+    defaultValue: false,
+  );
+  static const String trackingFunctionId = String.fromEnvironment(
+    'APP_TRACKING_FUNCTION_ID',
+    defaultValue: 'track_80_event',
+  );
+  static const String trackingTimezone = String.fromEnvironment(
+    'APP_TRACKING_TIMEZONE',
+    defaultValue: 'Europe/Berlin',
+  );
 
   /// Ziel-URL nach Passwort-Reset (Appwrite `createRecovery`).
   ///
@@ -28,6 +40,10 @@ class AppConfig {
   // Collection IDs
   static const String usersCollectionId = 'users';
   static const String kursDatenCollectionId = 'kurs_daten';
+  static const String audioDailyAggregateTableId = 'audio_daily_aggregate';
+  static const String slotDailyAggregateTableId = 'slot_daily_aggregate';
+  static const String weeklyDistributionAggregateTableId =
+      'weekly_distribution_aggregate';
 
   // Storage Bucket IDs
   static const String contentBucketId = 'mbsr_content';

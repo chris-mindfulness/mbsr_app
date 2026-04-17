@@ -4,6 +4,7 @@ import 'package:just_audio/just_audio.dart';
 import 'nutzungs_tracker.dart';
 import 'audio/audio_state.dart';
 import 'core/appwrite_storage_urls.dart';
+import 'services/tracking_remote_service.dart';
 
 // Export AudioServiceStatus für Rückwärtskompatibilität
 export 'audio/audio_state.dart' show AudioServiceStatus;
@@ -407,8 +408,31 @@ class AudioService {
           audioTitle: _currentTitle!,
           gehoerteSekunden: realisticTime,
         );
+        _trackRemote80Event(
+          audioId: _currentAudio!['appwrite_id'] ?? '',
+          audioTitle: _currentTitle!,
+          heardSeconds: realisticTime,
+          totalSeconds: totalDuration.inSeconds,
+        );
       }
     }
+  }
+
+  void _trackRemote80Event({
+    required String audioId,
+    required String audioTitle,
+    required int heardSeconds,
+    required int totalSeconds,
+  }) {
+    // Fire-and-forget: Remote-Tracking darf den Audio-Flow nie blockieren.
+    unawaited(
+      TrackingRemoteService().track80Event(
+        audioId: audioId,
+        audioTitle: audioTitle,
+        heardSeconds: heardSeconds,
+        totalSeconds: totalSeconds,
+      ),
+    );
   }
 
   void _saveCurrentStats() {
