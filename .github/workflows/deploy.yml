@@ -23,7 +23,11 @@ jobs:
         run: flutter pub get
 
       - name: Build Flutter Web
-        run: flutter build web --release --base-href "/"
+        run: |
+          flutter build web --release --base-href "/" \
+            --dart-define=APP_ENABLE_REMOTE_TRACKING=true \
+            --dart-define=APP_TRACKING_FUNCTION_ID=track_80_event \
+            --dart-define=APP_TRACKING_TIMEZONE=Europe/Berlin
 
       - name: Publish to Cloudflare Pages
         uses: cloudflare/pages-action@v1
