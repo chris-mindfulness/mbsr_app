@@ -5,6 +5,17 @@ Stand: April 2026
 ## 0) Ziel
 Remote-Tracking nur als Zusatz aktivieren, ohne Playback- oder UI-Risiko.
 
+## 0b) Symptom: In Appwrite „Execution test“ geht, aus der Web-App kommt nichts
+
+Typische Ursachen (in dieser Reihenfolge pruefen):
+
+1. **Function → Settings / Ausfuehrung:** Eingeloggte Nutzer duerfen die Function starten (je nach Appwrite-Version z. B. **Execute access: Users** oder **any** mit Session — nicht nur Server/Console). Der Test in der Konsole nutzt oft **Admin/API-Kontext**, die App nutzt die **Teilnehmer-Session**.
+2. **Function-ID in der App:** `APP_TRACKING_FUNCTION_ID` muss die **$id** der Function in Appwrite sein (nicht zwingend der Anzeigename). Stimmt die ID mit dem Eintrag unter Functions ueberein?
+3. **Web-Build:** Remote-Tracking nur aktiv mit `APP_ENABLE_REMOTE_TRACKING=true` (siehe Abschnitt 2 / CI-Deploy). Ohne Flag sendet die App **gar nichts**.
+4. **Executions-Liste** in Appwrite filtern nach **Trigger** aus der App (nicht nur manuelle Tests): tauchen **fehlgeschlagene** Laeufe auf? Logs oeffnen.
+
+Die App nutzt **synchrone** Function-Ausfuehrung (`xasync: false`), damit Fehler und Response in der Antwort stehen (bei rein async war die App „stumm“).
+
 ## 1) Vorbereitung (Backend zuerst)
 - Tabellen und Rechte gem. `docs/prozesse/TRACKING_APPWRITE_SCHEMA_UND_RECHTE.md` anlegen.
 - Function `track_80_event` deployen:

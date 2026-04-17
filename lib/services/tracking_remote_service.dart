@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:appwrite/appwrite.dart';
+import 'package:appwrite/enums.dart' show ExecutionStatus;
 import 'package:flutter/foundation.dart';
 import 'auth_service.dart';
 import '../core/app_config.dart';
@@ -19,7 +20,8 @@ class TrackingRemoteService {
     : _functions = Functions(AppwriteClient().client);
 
   final Functions _functions;
-  static const Duration _defaultTimeout = Duration(seconds: 3);
+  /// Synchrone Ausführung kann bei kaltem Start etwas dauern; zu kurz = stilles Timeout.
+  static const Duration _defaultTimeout = Duration(seconds: 20);
 
   bool get isEnabled => AppConfig.enableRemoteTracking;
 
@@ -48,13 +50,31 @@ class TrackingRemoteService {
     };
 
     try {
-      await _functions
+      final execution = await _functions
           .createExecution(
             functionId: AppConfig.trackingFunctionId,
             body: jsonEncode(payload),
-            xasync: true,
+            // Synchron: Response-Body/Status stehen in der Antwort (async liefert
+            // bei Client oft leere responseBody; Fehler in der Worker-Pipeline
+            // bleiben unsichtbar).
+            xasync: false,
           )
           .timeout(_defaultTimeout);
+      if (kDebugMode) {
+        if (execution.status == ExecutionStatus.failed) {
+          debugPrint(
+            'TrackingRemoteService: Execution failed — '
+            'status=${execution.status.value} '
+            'response=${execution.responseStatusCode} '
+            'body=${execution.responseBody} errors=${execution.errors}',
+          );
+        } else if (execution.responseStatusCode >= 400) {
+          debugPrint(
+            'TrackingRemoteService: Execution HTTP ${execution.responseStatusCode} '
+            'body=${execution.responseBody}',
+          );
+        }
+      }
     } on TimeoutException catch (_) {
       if (kDebugMode) {
         debugPrint('TrackingRemoteService: Timeout bei Function-Aufruf');
