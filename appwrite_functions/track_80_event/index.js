@@ -195,9 +195,13 @@ function validatePayload(payload) {
   if (!isFinitePositive(payload.total_seconds)) {
     return { ok: false, message: "total_seconds invalid" };
   }
-  const ratio = Number(payload.heard_seconds) / Number(payload.total_seconds);
-  if (ratio < 0.8) {
-    return { ok: false, message: "event is below 80 percent threshold" };
+  // Kein starres "heard/total >= 0.8": Die App sendet reale Hörsekunden (Integer),
+  // Rundung und kurze Tracks wuerden sonst gueltige Events ablehnen.
+  // Plausibilitaet: nicht deutlich laenger als die Datei.
+  const heard = Number(payload.heard_seconds);
+  const total = Number(payload.total_seconds);
+  if (heard > total + 5) {
+    return { ok: false, message: "heard_seconds implausible" };
   }
   if (!isNonEmptyString(payload.event_timestamp_utc)) {
     return { ok: false, message: "event_timestamp_utc missing" };

@@ -22,7 +22,7 @@
 ```
 
 ## Validierung
-- `heard_seconds / total_seconds >= 0.8`
+- `heard_seconds` darf nicht deutlich groesser als `total_seconds` sein (Puffer 5 s)
 - Pflichtfelder muessen gesetzt sein
 - Zeitstempel muss gueltiges ISO-UTC sein
 - `participant_ref` wird serverseitig mit Salt zu `participant_hash` gehasht
