@@ -40,6 +40,10 @@ migrate_working_dir/
 # Cursor / Claude Code lokale Metadaten
 .claude/
 
+# Appwrite Function Deployments (lokal gebaute Archive)
+appwrite_functions/track_80_event/*.zip
+appwrite_functions/track_80_event/*.tar.gz
+
 # Lokale Arbeitsdateien (nicht Teil der App)
 mbsr_audiofiles.xlsx
 # Import-CSVs können personenbezogene Daten enthalten — alles ignorieren außer der Beispieldatei
