@@ -10,7 +10,7 @@ Remote-Tracking nur als Zusatz aktivieren, ohne Playback- oder UI-Risiko.
 Typische Ursachen (in dieser Reihenfolge pruefen):
 
 1. **Function → Settings / Ausfuehrung:** Eingeloggte Nutzer duerfen die Function starten (je nach Appwrite-Version z. B. **Execute access: Users** oder **any** mit Session — nicht nur Server/Console). Der Test in der Konsole nutzt oft **Admin/API-Kontext**, die App nutzt die **Teilnehmer-Session**.
-2. **Function-ID in der App:** `APP_TRACKING_FUNCTION_ID` muss die **$id** der Function in Appwrite sein (nicht zwingend der Anzeigename). Stimmt die ID mit dem Eintrag unter Functions ueberein?
+2. **Function-ID in der App:** `APP_TRACKING_FUNCTION_ID` muss die **$id** aus **Functions → track_80_event → Settings** sein (Feld **Function ID** / `$id`, z. B. `69e238000035a8d4295f`) — **nicht** nur der Name `track_80_event`.
 3. **Web-Build:** Remote-Tracking nur aktiv mit `APP_ENABLE_REMOTE_TRACKING=true` (siehe Abschnitt 2 / CI-Deploy). Ohne Flag sendet die App **gar nichts**.
 4. **Executions-Liste** in Appwrite filtern nach **Trigger** aus der App (nicht nur manuelle Tests): tauchen **fehlgeschlagene** Laeufe auf? Logs oeffnen.
 
@@ -52,7 +52,7 @@ Direktbuilds ohne `--dart-define` trotzdem Events senden).
 
 ```bash
 --dart-define=APP_ENABLE_REMOTE_TRACKING=true
---dart-define=APP_TRACKING_FUNCTION_ID=track_80_event
+--dart-define=APP_TRACKING_FUNCTION_ID=69e238000035a8d4295f
 --dart-define=APP_TRACKING_TIMEZONE=Europe/Berlin
 ```
 

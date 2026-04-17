@@ -37,5 +37,5 @@ jobs:
         run: |
           flutter build web --release --base-href "/" \
             --dart-define=APP_ENABLE_REMOTE_TRACKING=true \
-            --dart-define=APP_TRACKING_FUNCTION_ID=track_80_event \
+            --dart-define=APP_TRACKING_FUNCTION_ID=69e238000035a8d4295f \
             --dart-define=APP_TRACKING_TIMEZONE=Europe/Berlin

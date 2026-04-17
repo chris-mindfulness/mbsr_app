@@ -35,9 +35,10 @@ class AppConfig {
     }
     return kReleaseMode;
   }
+  /// Appwrite **$id** der Function (unter Settings sichtbar), nicht zwingend der Name.
   static const String trackingFunctionId = String.fromEnvironment(
     'APP_TRACKING_FUNCTION_ID',
-    defaultValue: 'track_80_event',
+    defaultValue: '69e238000035a8d4295f',
   );
   static const String trackingTimezone = String.fromEnvironment(
     'APP_TRACKING_TIMEZONE',
