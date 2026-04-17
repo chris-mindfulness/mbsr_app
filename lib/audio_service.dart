@@ -38,6 +38,13 @@ class AudioService {
           if (_status != AudioServiceStatus.playing) {
             _updateStatus(AudioServiceStatus.loading);
           }
+        } else if (playerState.processingState == ProcessingState.completed) {
+          // Track zu Ende: just_audio liefert "completed", nicht "ready" + !playing.
+          // Ohne diesen Zweig bliebe der UI-Status fälschlich auf "playing" (Pause-Symbol).
+          _shouldBePlaying = false;
+          _clearBufferingTimer();
+          _saveCurrentStats();
+          _updateStatus(AudioServiceStatus.paused);
         } else if (playerState.processingState == ProcessingState.ready &&
             !playerState.playing) {
           _updateStatus(AudioServiceStatus.paused);
