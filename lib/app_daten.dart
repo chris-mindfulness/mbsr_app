@@ -229,7 +229,7 @@ class AppDaten {
     {
       'n': '1',
       't': 'Achtsamkeit',
-      'avatarImage': 'assets/images/avatar/mbsr_avatar_autopilot_w1.png',
+      'avatarImage': 'assets/images/avatar/ava_woche1.png',
       'teaser':
           'Ankommen und den Autopiloten bemerken. Der Körper wird dein erster Aufmerksamkeitsanker.',
       'einfuehrung':
@@ -318,7 +318,7 @@ class AppDaten {
     {
       'n': '2',
       't': 'Wie wir die Welt wahrnehmen',
-      'avatarImage': 'assets/images/avatar/mbsr_avatar_perception_w2.png',
+      'avatarImage': 'assets/images/avatar/ava_woche2.png',
       'teaser':
           'Wie Gewohnheiten und Bewertungen unsere Wahrnehmung formen — und was sich zeigt, wenn wir genauer hinschauen.',
       'einfuehrung':
@@ -386,7 +386,7 @@ class AppDaten {
     {
       'n': '3',
       't': 'Im Körper beheimatet sein',
-      'avatarImage': 'assets/images/avatar/mbsr_avatar_yoga_w3.png',
+      'avatarImage': 'assets/images/avatar/ava_woche3.png',
       'teaser':
           'Den Körper in Bewegung spüren, eigene Grenzen wahrnehmen und angenehme Erfahrungen bewusster erleben.',
       'einfuehrung':
@@ -458,7 +458,7 @@ class AppDaten {
     {
       'n': '4',
       't': 'Stress in Körper und Geist',
-      'avatarImage': 'assets/images/avatar/mbsr_avatar_stress_w4.png',
+      'avatarImage': 'assets/images/avatar/ava_woche4.png',
       'teaser':
           'Wie Stress entsteht — und warum unsere Bewertung dabei eine Schlüsselrolle spielt.',
       'einfuehrung':
@@ -530,7 +530,7 @@ class AppDaten {
     {
       'n': '5',
       't': 'Achtsamkeit gegenüber stressverschärfenden Gedanken',
-      'avatarImage': 'assets/images/avatar/mbsr_avatar_meditation_w5.png',
+      'avatarImage': 'assets/images/avatar/ava_woche5.png',
       'teaser':
           'Gedanken beobachten, ohne ihnen zu folgen. Den Raum zwischen Reiz und Reaktion erkunden.',
       'einfuehrung':
@@ -615,7 +615,7 @@ class AppDaten {
     {
       'n': '6',
       't': 'Achtsame Kommunikation',
-      'avatarImage': 'assets/images/avatar/mbsr_avatar_listening_w6.png',
+      'avatarImage': 'assets/images/avatar/ava_woche6.png',
       'teaser':
           'Zuhören, ohne zu antworten. Sprechen, ohne zu reagieren. Achtsamkeit in der Begegnung.',
       'einfuehrung':
@@ -681,7 +681,7 @@ class AppDaten {
     {
       'n': '7',
       't': 'Selbstfürsorge',
-      'avatarImage': 'assets/images/avatar/mbsr_avatar_selfcare_w7.png',
+      'avatarImage': 'assets/images/avatar/ava_woche7.png',
       'teaser':
           'Den Blick nach innen richten: Was nährt mich, was zehrt an mir? Selbstfürsorge als bewusste Haltung.',
       'einfuehrung':
@@ -747,7 +747,7 @@ class AppDaten {
     {
       'n': '8',
       't': 'Abschied und Neubeginn',
-      'avatarImage': 'assets/images/avatar/mbsr_avatar_goon_w8.png',
+      'avatarImage': 'assets/images/avatar/ava_woche8png.png',
       'teaser':
           'Rückblick und Ausblick. Den eigenen Weg mit Achtsamkeit weitergehen.',
       'einfuehrung':
@@ -840,7 +840,7 @@ class AppDaten {
       'einfuehrung':
           'Der achtwöchige Kurs ist inhaltlich abgeschlossen. Dieser Block ist kein weiterer Präsenztermin, sondern eine freiwillige Begleitung zum Selbststudium: kurze Impulse und Raum für Übung – in deinem Tempo, ohne Druck.\n\n'
           'Konkrete Inhalte für diesen Block können ergänzt werden, sobald sie feststehen.',
-      'avatarImage': 'assets/images/avatar/mbsr_avatar_vertiefung1.png',
+      'avatarImage': 'assets/images/avatar/ava_vertiefung1.png',
       'fokus': 'Weiter üben nach dem Kurs',
       'zitat': null,
       'zitatAutor': null,
@@ -873,7 +873,7 @@ class AppDaten {
       'einfuehrung':
           'Du bist im zweiten Begleitblock nach dem Kurs – weiterhin ohne zusätzlichen Präsenztermin. Nutze den Raum, um deine Praxis zu festigen oder sanft zu variieren: Es geht um Kontinuität, nicht um Leistung.\n\n'
           'Konkrete Inhalte für diesen Block können ergänzt werden, sobald sie feststehen.',
-      'avatarImage': 'assets/images/avatar/mbsr_avatar_vertiefung2.png',
+      'avatarImage': 'assets/images/avatar/ava_vertiefung2.png',
       'fokus': 'Praxis festigen',
       'zitat': null,
       'zitatAutor': null,
