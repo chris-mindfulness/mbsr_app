@@ -9,6 +9,8 @@ class AppStyles {
   static AppThemeTokens get _tokens => ThemeModeController.instance.tokens;
   static const Color brandTeal = Color(0xFF1F8A84);
   static const Color brandTealDark = Color(0xFF176B66);
+  static const Color brandTerracotta = Color(0xFFC96F4A);
+  static const Color brandTerracottaDark = Color(0xFFAF5F3F);
 
   // Global Colors (dynamisch über Theme-Modus)
   static Color get bgColor => _tokens.bgColor;
