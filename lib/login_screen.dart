@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'services/auth_service.dart';
 import 'kurs_uebersicht.dart';
 import 'core/app_styles.dart';
+import 'widgets/branding_header.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -162,27 +163,7 @@ class _LoginScreenState extends State<LoginScreen> {
             children: [
               SizedBox(height: AppStyles.spacingL - AppStyles.spacingS), // 20px
               Center(
-                child: Column(
-                  children: [
-                    SizedBox(
-                      width: 112,
-                      child: Image.asset(
-                        'assets/images/branding/submark_teal_anthrazit_512.png',
-                        fit: BoxFit.contain,
-                      ),
-                    ),
-                    SizedBox(height: AppStyles.spacingS),
-                    Text(
-                      "Dr. Christian Hahn · Achtsamkeitstraining",
-                      textAlign: TextAlign.center,
-                      style: AppStyles.bodyStyle.copyWith(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
-                        color: AppStyles.softBrown,
-                      ),
-                    ),
-                  ],
-                ),
+                child: const BrandingHeader(),
               ),
               SizedBox(
                 height: AppStyles.spacingXL,

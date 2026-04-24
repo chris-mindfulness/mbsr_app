@@ -109,6 +109,7 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
     final path = widget.avatarImage ?? AppDaten.defaultWeekAvatarAsset;
     final quote = widget.zitat;
     final hasQuote = quote != null && quote.trim().isNotEmpty;
+    final useHeroOverlayBanner = hasQuote;
 
     Widget imageArea({required double height, required bool roundTopOnly}) {
       final radius = BorderRadius.vertical(
@@ -167,7 +168,7 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
       );
     }
 
-    final cardMaxW = math.min(layoutWidth, 520.0);
+    final cardMaxW = math.min(layoutWidth, useHeroOverlayBanner ? 920.0 : 520.0);
     final sideBySide = layoutWidth >= _weekBannerQuoteBreakpoint;
 
     final quoteStripColor = neutralSurface
@@ -246,7 +247,109 @@ class _WochenDetailSeiteState extends State<WochenDetailSeite> {
             boxShadow: AppStyles.softCardShadow,
           );
 
-    final Widget bannerCore = sideBySide
+    final Widget bannerCore = useHeroOverlayBanner
+        ? LayoutBuilder(
+            builder: (context, constraints) {
+              final maxWidth = constraints.maxWidth;
+              final aspectRatio = maxWidth >= 760 ? (16 / 7) : (4 / 3);
+              return AspectRatio(
+                aspectRatio: aspectRatio,
+                child: Stack(
+                  fit: StackFit.expand,
+                  children: [
+                    DecoratedBox(
+                      decoration: BoxDecoration(
+                        color: AppStyles.softBrown.withValues(alpha: 0.08),
+                      ),
+                      child: Image.asset(
+                        path,
+                        fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) {
+                          return Center(
+                            child: Icon(
+                              Icons.self_improvement_rounded,
+                              size: 74,
+                              color: AppStyles.softBrown.withValues(alpha: 0.35),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                    const DecoratedBox(
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [
+                            Color(0x00000000),
+                            Color(0x22000000),
+                            Color(0xA0000000),
+                          ],
+                          stops: [0.4, 0.72, 1.0],
+                        ),
+                      ),
+                    ),
+                    Positioned(
+                      left: maxWidth >= 760 ? 28 : 18,
+                      right: maxWidth >= 760 ? 28 : 18,
+                      bottom: maxWidth >= 760 ? 20 : 14,
+                      child: Container(
+                        padding: EdgeInsets.fromLTRB(
+                          maxWidth >= 760 ? 22 : 16,
+                          maxWidth >= 760 ? 18 : 14,
+                          maxWidth >= 760 ? 22 : 16,
+                          maxWidth >= 760 ? 18 : 14,
+                        ),
+                        decoration: BoxDecoration(
+                          color: Colors.black.withValues(alpha: 0.42),
+                          borderRadius: BorderRadius.circular(16),
+                          border: Border.all(
+                            color: Colors.white.withValues(alpha: 0.26),
+                            width: 1.0,
+                          ),
+                        ),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Icon(
+                              Icons.format_quote_rounded,
+                              color: Colors.white.withValues(alpha: 0.92),
+                              size: maxWidth >= 760 ? 28 : 24,
+                            ),
+                            SizedBox(height: AppStyles.spacingS),
+                            Text(
+                              quote.trim(),
+                              textAlign: TextAlign.center,
+                              style: AppStyles.decorativeTextStyle.copyWith(
+                                fontSize: maxWidth >= 760 ? 30 : 18,
+                                height: 1.45,
+                                color: Colors.white.withValues(alpha: 0.98),
+                                fontStyle: FontStyle.italic,
+                              ),
+                              maxLines: maxWidth >= 760 ? 4 : 5,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            if (widget.zitatAutor != null) ...[
+                              SizedBox(height: AppStyles.spacingM),
+                              Text(
+                                '— ${widget.zitatAutor}',
+                                textAlign: TextAlign.center,
+                                style: AppStyles.smallTextStyle.copyWith(
+                                  fontWeight: AppStyles.fontWeightSemiBold,
+                                  color: Colors.white.withValues(alpha: 0.92),
+                                ),
+                              ),
+                            ],
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            },
+          )
+        : sideBySide
         ? SizedBox(
             height: 232,
             child: Row(

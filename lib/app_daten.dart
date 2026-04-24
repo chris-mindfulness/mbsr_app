@@ -11,7 +11,8 @@ class AppDaten {
       'assets/images/avatar/mbsr_avatar_profil.png';
 
   /// Kurzer Slogan in der App-Bar des Kursbereichs (der Content nutzt „Dein MBSR-Kurs“).
-  static const String kursbereichAppBarSlogan = 'Atmen. Spüren. Loslassen.';
+  static const String kursbereichAppBarSlogan =
+      'Präsenz. Mitgefühl. Verbundenheit';
 
   /// Kurze Audio-Clips (ElevenLabs-Stimme), werden per Appwrite-ID geladen.
   static const Map<String, String> begruessung = {
@@ -246,7 +247,7 @@ class AppDaten {
       },
       'fokus': 'Ankommen, Autopilot bemerken, Körper als Anker.',
       'zitat':
-          'The present moment is the only moment available to us, and it is the door to all moments.',
+          'Der gegenwärtige Augenblick ist der einzige Augenblick, der uns zur Verfügung steht, und er ist die Tür zu allen Augenblicken.',
       'zitatAutor': 'Thich Nhat Hanh',
       'alltagsTipp':
           'Lege heute zwei kurze Stopps ein: je 3 bewusste Atemzüge, zum Beispiel vor dem Start in den Tag und vor einer Mahlzeit.',
@@ -397,7 +398,7 @@ class AppDaten {
       },
       'fokus': 'Grenzen spüren und respektieren',
       'zitat':
-          'Feelings come and go like clouds in a windy sky. Conscious breathing is my anchor.',
+          'Gefühle kommen und gehen wie Wolken an einem windigen Himmel. Der bewusste Atem ist mein Anker.',
       'zitatAutor': 'Thich Nhat Hanh',
       'alltagsTipp':
           'Spüre beim Gehen ganz bewusst den Kontakt deiner Füße zum Boden.',
@@ -692,7 +693,7 @@ class AppDaten {
       },
       'fokus': 'Was nährt mich, was zehrt an mir?',
       'zitat':
-          'If your compassion does not include yourself, it is incomplete.',
+          'Wenn dein Mitgefühl dich selbst nicht einschließt, ist es unvollständig.',
       'zitatAutor': 'Jack Kornfield',
       'alltagsTipp': 'Tue heute bewusst etwas, das dir gut tut – nur für dich.',
       'reflexionsFragen': [
