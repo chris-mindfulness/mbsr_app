@@ -161,14 +161,32 @@ class _LoginScreenState extends State<LoginScreen> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               SizedBox(height: AppStyles.spacingL - AppStyles.spacingS), // 20px
-              Image.asset(
-                'assets/images/branding/logo_primary.png',
-                width: 320,
-                fit: BoxFit.contain,
+              Center(
+                child: Column(
+                  children: [
+                    SizedBox(
+                      width: 112,
+                      child: Image.asset(
+                        'assets/images/branding/submark_teal_anthrazit_512.png',
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+                    SizedBox(height: AppStyles.spacingS),
+                    Text(
+                      "Dr. Christian Hahn · Achtsamkeitstraining",
+                      textAlign: TextAlign.center,
+                      style: AppStyles.bodyStyle.copyWith(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                        color: AppStyles.softBrown,
+                      ),
+                    ),
+                  ],
+                ),
               ),
               SizedBox(
-                height: AppStyles.spacingXL + AppStyles.spacingS,
-              ), // 40px
+                height: AppStyles.spacingXL,
+              ), // 32px
               Text(
                 "Willkommen zurück",
                 style: AppStyles.titleStyle,

@@ -264,6 +264,30 @@ class ProfilSeite extends StatelessWidget {
                 ),
               ),
             ),
+            SizedBox(height: AppStyles.spacingL),
+            Center(
+              child: Column(
+                children: [
+                  SizedBox(
+                    width: 26,
+                    height: 26,
+                    child: Image.asset(
+                      'assets/images/branding/submark_teal_anthrazit_512.png',
+                      fit: BoxFit.contain,
+                    ),
+                  ),
+                  SizedBox(height: AppStyles.spacingXS),
+                  Text(
+                    'Dr. Christian Hahn · mindfulpractice',
+                    textAlign: TextAlign.center,
+                    style: AppStyles.bodyStyle.copyWith(
+                      fontSize: 12,
+                      color: AppStyles.softBrown.withValues(alpha: 0.55),
+                    ),
+                  ),
+                ],
+              ),
+            ),
             SizedBox(height: AppStyles.spacingXL + AppStyles.spacingS), // 40px
           ],
         ),
