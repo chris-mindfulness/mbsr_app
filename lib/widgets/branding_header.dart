@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import '../core/app_styles.dart';
 
-/// Wiederverwendbarer Branding-Block: Spa-Icon, Titel, Name, Claim.
-/// Wird auf dem Splash-Screen und der Willkommen-Seite identisch genutzt,
-/// damit der Übergang visuell nahtlos ist.
+/// Wiederverwendbarer Branding-Block mit reiner Logo-Darstellung.
+/// Wird auf dem Splash-Screen und der Willkommen-Seite identisch genutzt.
 class BrandingHeader extends StatelessWidget {
   const BrandingHeader({super.key});
 
@@ -16,16 +14,6 @@ class BrandingHeader extends StatelessWidget {
           'assets/images/branding/logo_primary.png',
           width: 320,
           fit: BoxFit.contain,
-        ),
-        SizedBox(height: AppStyles.spacingL),
-        Text(
-          'Präsenz • Verbundenheit • Mitgefühl',
-          style: TextStyle(
-            fontSize: 14,
-            fontStyle: FontStyle.italic,
-            color: AppStyles.textDark.withValues(alpha: 0.7),
-            letterSpacing: 0.5,
-          ),
         ),
       ],
     );
