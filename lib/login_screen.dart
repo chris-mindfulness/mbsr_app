@@ -228,7 +228,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: Text(
                     "Passwort vergessen?",
                     style: AppStyles.bodyStyle.copyWith(
-                      color: AppStyles.primaryOrange,
+                      color: AppStyles.brandTeal,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -241,7 +241,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ElevatedButton(
                 onPressed: _isLoading ? null : _login,
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: AppStyles.primaryOrange,
+                  backgroundColor: AppStyles.brandTeal,
                   foregroundColor: Colors.white,
                   padding: EdgeInsets.symmetric(
                     vertical: AppStyles.spacingL - AppStyles.spacingS,
@@ -327,7 +327,7 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(24),
-          borderSide: BorderSide(color: AppStyles.primaryOrange, width: 1.5),
+          borderSide: BorderSide(color: AppStyles.brandTealDark, width: 1.5),
         ),
       ),
     );

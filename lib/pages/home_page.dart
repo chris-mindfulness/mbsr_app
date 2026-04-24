@@ -52,7 +52,7 @@ class MBSRHomePage extends StatelessWidget {
                       );
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: AppStyles.primaryOrange,
+                      backgroundColor: AppStyles.brandTeal,
                       foregroundColor: Colors.white,
                       padding: EdgeInsets.symmetric(
                         vertical: AppStyles.spacingL + AppStyles.spacingXS,
