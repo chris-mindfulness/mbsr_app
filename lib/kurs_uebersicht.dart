@@ -544,17 +544,21 @@ class _KursUebersichtState extends State<KursUebersicht> {
                       SizedBox(
                         width: 118,
                         child: Center(
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(12),
-                            child: ConstrainedBox(
-                              constraints: const BoxConstraints(
-                                maxWidth: 118,
-                                maxHeight: 118,
+                          child: Container(
+                            width: 118,
+                            height: 118,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                color: accentColor.withValues(alpha: 0.22),
+                                width: 1.2,
                               ),
+                            ),
+                            child: ClipOval(
                               child: Image.asset(
                                 (woche['avatarImage'] as String?) ??
                                     AppDaten.defaultWeekAvatarAsset,
-                                fit: BoxFit.contain,
+                                fit: BoxFit.cover,
                                 errorBuilder: (context, error, stackTrace) {
                                   return Icon(
                                     Icons.self_improvement_rounded,

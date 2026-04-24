@@ -5,6 +5,8 @@ import 'avatar_audio_clip.dart';
 
 class KursOverviewHeader extends StatelessWidget {
   const KursOverviewHeader({super.key});
+  static const String _overviewAvatarAsset =
+      'assets/images/avatar/profil_chris_aquarel.png';
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +27,7 @@ class KursOverviewHeader extends StatelessWidget {
                 maxHeight: 140,
               ),
               child: Image.asset(
-                AppDaten.welcomeHelloAvatarAsset,
+                _overviewAvatarAsset,
                 fit: BoxFit.contain,
                 errorBuilder: (context, error, stackTrace) {
                   return Container(
