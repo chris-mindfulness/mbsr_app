@@ -470,8 +470,8 @@ class AppDaten {
       },
       'fokus': 'Stressreaktion verstehen',
       'zitat':
-          'Nicht die Dinge selbst beunruhigen die Menschen, sondern ihre Meinungen über die Dinge.',
-      'zitatAutor': 'Epiktet',
+          'Achtsamkeit nimmt den Stress nicht weg, aber sie verändert den Umgang damit.',
+      'zitatAutor': 'Unbekannt',
       'alltagsTipp':
           'Wenn du Stress spürst: Halte kurz inne und atme 3 Mal tief durch.',
       'reflexionsFragen': [
