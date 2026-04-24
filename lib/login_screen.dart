@@ -161,10 +161,10 @@ class _LoginScreenState extends State<LoginScreen> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               SizedBox(height: AppStyles.spacingL - AppStyles.spacingS), // 20px
-              Icon(
-                Icons.lock_outline,
-                size: 80,
-                color: AppStyles.primaryOrange,
+              Image.asset(
+                'assets/images/branding/logo_primary.png',
+                width: 320,
+                fit: BoxFit.contain,
               ),
               SizedBox(
                 height: AppStyles.spacingXL + AppStyles.spacingS,
