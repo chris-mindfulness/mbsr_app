@@ -16,12 +16,12 @@ class ZyklusDenkenFuehlenSeite extends StatefulWidget {
 
 class _ZyklusDenkenFuehlenSeiteState extends State<ZyklusDenkenFuehlenSeite> {
   static const String _reflectionStorageKey = 'modell_zyklus_reflection_v1';
-  static const List<_CycleStep> _steps = [
-    _CycleStep(type: 'Situation', text: 'Negative Bewertung bei der Arbeit'),
-    _CycleStep(type: 'Gefühl', text: 'Frustration'),
-    _CycleStep(type: 'Gedanke', text: 'Ich bin nicht gut genug'),
-    _CycleStep(type: 'Gefühl', text: 'Scham'),
-    _CycleStep(type: 'Gedanke', text: 'Warum passiert mir das immer?'),
+  static const List<String> _steps = [
+    'Situation',
+    'Gefühl',
+    'Gedanke',
+    'Gefühl',
+    'Gedanke',
   ];
 
   final TextEditingController _reflectionController = TextEditingController();
@@ -78,6 +78,8 @@ class _ZyklusDenkenFuehlenSeiteState extends State<ZyklusDenkenFuehlenSeite> {
             AppStyles.spacingLBox,
             _buildCycleCard(),
             AppStyles.spacingMBox,
+            _buildEvidenceHintCard(),
+            AppStyles.spacingMBox,
             _buildExampleCard(),
             AppStyles.spacingMBox,
             _buildPracticeCard(),
@@ -114,7 +116,8 @@ class _ZyklusDenkenFuehlenSeiteState extends State<ZyklusDenkenFuehlenSeite> {
               AppStyles.spacingMHorizontal,
               Expanded(
                 child: Text(
-                  'Belastende Situationen können einen automatischen Kreislauf aus Gefühl und Gedanke auslösen. Das ist normal. Ziel ist nicht, Gedanken wegzudrücken, sondern das Muster früh zu bemerken.',
+                  'Bei Stress passiert oft automatisch: Gefühl -> Gedanke -> neues Gefühl. '
+                  'Das ist normal. Hier übst du, den Kreislauf früher zu bemerken.',
                   style: AppStyles.bodyStyle.copyWith(
                     color: AppStyles.textDark,
                     height: 1.55,
@@ -139,9 +142,25 @@ class _ZyklusDenkenFuehlenSeiteState extends State<ZyklusDenkenFuehlenSeite> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Modell',
+              'Das Muster in kurz',
               style: AppStyles.subTitleStyle.copyWith(
                 fontWeight: AppStyles.fontWeightSemiBold,
+              ),
+            ),
+            AppStyles.spacingSBox,
+            Text(
+              'Situation -> Gefühl -> Gedanke -> Gefühl ...',
+              style: AppStyles.smallTextStyle.copyWith(
+                color: AppStyles.textMuted,
+                height: 1.4,
+              ),
+            ),
+            AppStyles.spacingSBox,
+            Text(
+              'Hinweis: Das ist eine Veranschaulichung. Du simulierst den Ablauf, um ihn im Alltag schneller zu erkennen.',
+              style: AppStyles.smallTextStyle.copyWith(
+                color: AppStyles.textMuted,
+                height: 1.4,
               ),
             ),
             AppStyles.spacingMBox,
@@ -149,21 +168,13 @@ class _ZyklusDenkenFuehlenSeiteState extends State<ZyklusDenkenFuehlenSeite> {
               spacing: AppStyles.spacingS,
               runSpacing: AppStyles.spacingS,
               children: [
-                _CycleChip(
-                  text: 'Situation',
-                  active: _running && _activeStep == 0,
-                ),
-                _ArrowChip(),
-                _CycleChip(text: 'Gefühl', active: _running && _activeStep == 1),
-                _ArrowChip(),
-                _CycleChip(text: 'Gedanke', active: _running && _activeStep == 2),
-                _ArrowChip(),
-                _CycleChip(text: 'Gefühl', active: _running && _activeStep == 3),
-                _ArrowChip(),
-                _CycleChip(
-                  text: 'Gedanke ...',
-                  active: _running && _activeStep == 4,
-                ),
+                for (var i = 0; i < _steps.length; i++) ...[
+                  _CycleChip(
+                    text: '${i + 1}. ${_steps[i]}',
+                    active: _running && _activeStep == i,
+                  ),
+                  if (i < _steps.length - 1) const _ArrowChip(),
+                ],
               ],
             ),
             AppStyles.spacingMBox,
@@ -181,17 +192,49 @@ class _ZyklusDenkenFuehlenSeiteState extends State<ZyklusDenkenFuehlenSeite> {
               children: [
                 FilledButton(
                   onPressed: _running ? null : _startCycle,
-                  child: const Text('Start Zyklus'),
+                  child: const Text('Simulation starten'),
                 ),
                 FilledButton.tonal(
                   onPressed: _running ? _noticeCycle : null,
-                  child: const Text('Ich bemerke den Zyklus'),
+                  child: const Text('Stopp: Hier bemerke ich es'),
                 ),
                 OutlinedButton(
                   onPressed: _resetCycle,
                   child: const Text('Zurücksetzen'),
                 ),
               ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildEvidenceHintCard() {
+    return Card(
+      elevation: 0,
+      color: Colors.white,
+      shape: AppStyles.cardShape,
+      child: Padding(
+        padding: AppStyles.cardPadding,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Warum das helfen kann',
+              style: AppStyles.subTitleStyle.copyWith(
+                fontWeight: AppStyles.fontWeightSemiBold,
+              ),
+            ),
+            AppStyles.spacingSBox,
+            Text(
+              'Forschung zeigt: Achtsamkeitsübungen können Grübeln senken und helfen, '
+              'Gedanken mehr als Gedanken zu sehen (weniger Verstrickung). '
+              'Schon kurze Übungen im Alltag können spürbar entlasten.',
+              style: AppStyles.bodyStyle.copyWith(
+                color: AppStyles.textDark,
+                height: 1.55,
+              ),
             ),
           ],
         ),
@@ -251,7 +294,9 @@ class _ZyklusDenkenFuehlenSeiteState extends State<ZyklusDenkenFuehlenSeite> {
             Text(
               '1) Pause\n'
               '2) Drei ruhige Atemzüge\n'
-              '3) Benennen: "Da ist ein Gefühl, da ist ein Gedanke."',
+              '3) Benennen: "Da ist ein Gefühl, da ist ein Gedanke."\n\n'
+              'So kannst du es im Alltag nutzen: Sobald du Grübeln bemerkst, '
+              'kurz stoppen, atmen, benennen, dann bewusst weitergehen.',
               style: AppStyles.bodyStyle.copyWith(
                 color: AppStyles.textDark,
                 height: 1.55,
@@ -282,11 +327,11 @@ class _ZyklusDenkenFuehlenSeiteState extends State<ZyklusDenkenFuehlenSeite> {
                   FilledButton.tonal(
                     onPressed: _running || _breathCount >= 3 ? null : _runBreathStep,
                     child: Text(
-                    _breathCount >= 3
-                        ? 'Fertig'
-                        : _breathCount == 0
-                        ? 'Atemzug starten'
-                        : 'Nächster Atemzug',
+                      _breathCount >= 3
+                          ? 'Fertig'
+                          : _breathCount == 0
+                          ? 'Atemzug starten'
+                          : 'Nächster Atemzug',
                     ),
                   ),
                 ],
@@ -360,7 +405,7 @@ class _ZyklusDenkenFuehlenSeiteState extends State<ZyklusDenkenFuehlenSeite> {
       _breathCount = 0;
       _breathStatus = 'Bereit für den ersten Atemzug';
       _statusText =
-          'Automatischer Kreislauf läuft. Beobachte, wie Gefühl und Gedanke sich verstärken.';
+          'Die Simulation läuft. Schau nur zu: Was passiert als Nächstes?';
     });
 
     _cycleTimer = Timer.periodic(const Duration(milliseconds: 900), (_) {
@@ -376,7 +421,7 @@ class _ZyklusDenkenFuehlenSeiteState extends State<ZyklusDenkenFuehlenSeite> {
     setState(() {
       _running = false;
       _statusText =
-          'Unterbrechung: Du hast den Zyklus bemerkt. Nicht bekämpfen, sondern beobachten.';
+          'Gut. In echten Situationen wäre das der Moment für Pause und Atem.';
     });
   }
 
@@ -387,7 +432,8 @@ class _ZyklusDenkenFuehlenSeiteState extends State<ZyklusDenkenFuehlenSeite> {
       _running = false;
       _activeStep = 0;
       _breathCount = 0;
-      _statusText = 'Der Zyklus startet, wenn du auf "Start Zyklus" klickst.';
+      _statusText =
+          'Die Simulation startet, wenn du auf "Simulation starten" klickst.';
       _breathStatus = 'Bereit für den ersten Atemzug';
     });
   }
@@ -482,11 +528,4 @@ class _ArrowChip extends StatelessWidget {
       ),
     );
   }
-}
-
-class _CycleStep {
-  final String type;
-  final String text;
-
-  const _CycleStep({required this.type, required this.text});
 }
