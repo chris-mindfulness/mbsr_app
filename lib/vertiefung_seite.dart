@@ -4,6 +4,7 @@ import 'glossar_faq_seite.dart';
 import 'text_archiv_seite.dart';
 import 'gut_zu_wissen_seite.dart';
 import 'resilienz_vertiefung_seite.dart';
+import 'zyklus_denken_fuehlen_seite.dart';
 import 'app_daten.dart';
 import 'core/app_styles.dart';
 import 'widgets/decorative_blobs.dart';
@@ -23,6 +24,8 @@ class VertiefungSeite extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final hasZusatzUebungen = zusatzUebungen.isNotEmpty;
+    final hasModelle = AppDaten.vertiefungModelle.isNotEmpty;
+    final zyklusModell = hasModelle ? AppDaten.vertiefungModelle.first : null;
 
     return DecorativeBlobs(
       child: ListView(
@@ -123,6 +126,27 @@ class VertiefungSeite extends StatelessWidget {
             ),
             showShadow: true,
           ),
+
+          if (hasModelle) ...[
+            SizedBox(height: AppStyles.spacingXL + AppStyles.spacingS), // 40px
+            _buildSectionHeader("MODELLE"),
+            AppStyles.spacingMBox,
+            StandardActionCard(
+              title: zyklusModell?['title'] ?? 'Modelle',
+              subtitle:
+                  zyklusModell?['summary'] ??
+                  'Visuelle Lernhilfen für die Vertiefung',
+              leadingIcon: Icons.model_training_outlined,
+              accentColor: AppStyles.accentOrange,
+              onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const ZyklusDenkenFuehlenSeite(),
+                ),
+              ),
+              showShadow: true,
+            ),
+          ],
 
           SizedBox(height: AppStyles.spacingXL + AppStyles.spacingS), // 40px
 

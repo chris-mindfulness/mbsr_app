@@ -1035,6 +1035,20 @@ class AppDaten {
     },
   ];
 
+  /// Modelle in der Vertiefung (Pilotliste für visualisierte Lernhilfen).
+  /// Der Eintrag ist bewusst zunächst nur Datenbasis, noch ohne UI-Anbindung.
+  static const List<Map<String, String>> vertiefungModelle = [
+    {
+      'id': 'modell-zyklus-denken-fuehlen',
+      'title': 'Der Zyklus von Denken und Fühlen',
+      'summary':
+          'Situation -> Gefühl -> Gedanke -> Gefühl: Den automatischen Kreislauf erkennen und durch achtsames Bemerken unterbrechen.',
+      'category': 'modelle',
+      'contentType': 'interaktiv',
+      'status': 'pilot',
+    },
+  ];
+
   static const List<Map<String, String>> gutZuWissenKarten = [
     {
       'id': 'gzw-wirkung-zeit',

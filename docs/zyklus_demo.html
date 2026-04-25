@@ -1,0 +1,505 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zyklus von Denken und Fühlen</title>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --card: #ffffff;
+      --text: #1e1f1d;
+      --muted: #5f6662;
+      --accent: #e06e5a;
+      --accent-dark: #af5f3f;
+      --accent-teal: #1f8a84;
+      --accent-teal-dark: #176b66;
+      --accent-soft: #f9ece8;
+      --ok: #5d988f;
+      --ok-soft: #ecf5f3;
+      --line: #d9dee2;
+      --shadow: rgba(0, 0, 0, 0.08);
+    }
+    body {
+      margin: 0;
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+    .wrap {
+      max-width: 900px;
+      margin: 32px auto;
+      padding: 0 16px;
+    }
+    .card {
+      background: var(--card);
+      border: 1.4px solid rgba(217, 222, 226, 0.75);
+      border-radius: 28px;
+      padding: 24px;
+      box-shadow: 0 10px 28px -18px var(--shadow);
+      margin-bottom: 16px;
+    }
+    h1 {
+      font-family: "Lora", Georgia, serif;
+      font-size: 1.62rem;
+      line-height: 1.25;
+      margin: 0 0 10px;
+      letter-spacing: -0.2px;
+    }
+    p {
+      margin: 0 0 12px;
+      line-height: 1.58;
+      color: var(--muted);
+      font-size: 1.02rem;
+    }
+    .small {
+      font-size: 0.92rem;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+    .context-box {
+      border: 1px solid var(--line);
+      background: #fbfbfb;
+      border-radius: 16px;
+      padding: 14px;
+      margin: 12px 0 14px;
+    }
+    .context-box p {
+      margin: 0 0 8px;
+      font-size: 0.96rem;
+      line-height: 1.5;
+    }
+    .context-box p:last-child {
+      margin-bottom: 0;
+    }
+    .context-title {
+      color: var(--text);
+      font-weight: 700;
+    }
+    .cycle {
+      display: grid;
+      grid-template-columns: repeat(9, 1fr);
+      gap: 8px;
+      align-items: center;
+      margin: 16px 0;
+    }
+    .node {
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 12px;
+      min-height: 68px;
+      background: #fff;
+      transition: all 0.2s ease;
+      font-size: 0.95rem;
+      box-shadow: 0 4px 10px -9px rgba(30, 31, 29, 0.35);
+    }
+    .node .type {
+      font-size: 0.72rem;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+    .node.active {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+      transform: translateY(-2px);
+    }
+    .arrow {
+      text-align: center;
+      color: var(--muted);
+      font-size: 1.1rem;
+      user-select: none;
+    }
+    .controls {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
+    button {
+      border: 0;
+      border-radius: 16px;
+      padding: 12px 16px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 0.96rem;
+      transition: transform 0.15s ease, filter 0.2s ease;
+    }
+    button:hover:not(:disabled) {
+      transform: translateY(-1px);
+      filter: brightness(0.98);
+    }
+    button:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+    }
+    .btn-start {
+      background: var(--accent);
+      color: white;
+    }
+    .btn-break {
+      background: var(--accent-teal);
+      color: white;
+    }
+    .btn-reset {
+      background: #f3f5f7;
+      color: var(--text);
+      border: 1px solid var(--line);
+    }
+    .btn-start:hover:not(:disabled) {
+      background: var(--accent-dark);
+    }
+    .btn-break:hover:not(:disabled) {
+      background: var(--accent-teal-dark);
+    }
+    .out {
+      margin-top: 14px;
+      padding: 12px;
+      border-radius: 16px;
+      background: #f9fafb;
+      border: 1px solid var(--line);
+      color: var(--text);
+      font-size: 0.95rem;
+    }
+    .out.break {
+      background: var(--ok-soft);
+      border-color: #99f6e4;
+      color: var(--ok);
+      font-weight: 600;
+    }
+    .exercise {
+      display: none;
+      margin-top: 12px;
+      border-top: 1px dashed #d1d5db;
+      padding-top: 12px;
+    }
+    .exercise.show {
+      display: block;
+    }
+    textarea {
+      width: 100%;
+      min-height: 90px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 10px;
+      resize: vertical;
+      font: inherit;
+    }
+    .hint {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-top: 6px;
+    }
+    .editor {
+      margin-top: 12px;
+      border-top: 1px dashed #d1d5db;
+      padding-top: 12px;
+    }
+    .editor-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 8px;
+      margin-top: 8px;
+    }
+    .row {
+      display: grid;
+      grid-template-columns: 130px 1fr;
+      gap: 8px;
+      align-items: center;
+    }
+    .row label {
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+    input[type="text"] {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 8px 10px;
+      font: inherit;
+    }
+    .breath-box {
+      margin-top: 10px;
+      padding: 10px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: #f9fafb;
+      display: none;
+    }
+    input[type="text"]:focus,
+    textarea:focus {
+      outline: none;
+      border-color: var(--accent-teal);
+      box-shadow: 0 0 0 3px rgba(31, 138, 132, 0.14);
+    }
+    .breath-box.show {
+      display: block;
+    }
+    .breath-status {
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+    .saved {
+      margin-top: 8px;
+      font-size: 0.85rem;
+      color: var(--ok);
+      display: none;
+    }
+    .saved.show {
+      display: block;
+    }
+    @media (max-width: 860px) {
+      .cycle {
+        grid-template-columns: 1fr;
+      }
+      .arrow {
+        transform: rotate(90deg);
+      }
+      .row {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <h1>Der Zyklus von Denken und Fühlen</h1>
+      <div class="small">Ablauf: 1) Beispiel starten 2) Zyklus bemerken 3) 3 Atemzüge 4) Eigenen Zyklus eintragen</div>
+      <div class="context-box">
+        <p><span class="context-title">Worum es hier geht:</span> Viel Verhalten läuft automatisch ab. Bei Belastung kippen wir leicht in Reaktivität: Situation -> Gefühl -> Gedanke -> neues Gefühl.</p>
+        <p><span class="context-title">Warum das wichtig ist:</span> So entsteht schnell eine Spirale aus Sorgen und Grübeln. Das ist normal und kein Fehler.</p>
+        <p><span class="context-title">Der Ansatz:</span> Nicht den Gedanken wegdrücken. Erst beobachten. Genau dieses Bemerken schafft den Raum für eine bewusstere Antwort.</p>
+        <p class="hint">Basis: Mindfulness-X Session 2 (Automaticity), Fig. 3-4.</p>
+      </div>
+      <p>Beispiel: Negative Bewertung bei der Arbeit -> Frustration -> "Ich bin nicht gut genug" -> Scham -> "Warum passiert mir das immer?"</p>
+      <div class="cycle" id="cycle"></div>
+      <div class="controls">
+        <button class="btn-start" id="startBtn">Start Zyklus</button>
+        <button class="btn-break" id="breakBtn">Ich bemerke den Zyklus</button>
+        <button class="btn-reset" id="resetBtn">Zurücksetzen</button>
+      </div>
+      <div class="out" id="status">
+        Der Zyklus startet, wenn du auf "Start Zyklus" klickst.
+      </div>
+      <div class="exercise" id="exercise">
+        <p><strong>Kurzübung (30-60 Sek.):</strong> Pause -> 3 Atemzüge -> Benennen, was da ist.</p>
+        <div class="breath-box" id="breathBox">
+          <div class="breath-status" id="breathStatus">Bereit fuer den ersten Atemzug</div>
+          <button class="btn-start" id="breathBtn" type="button">Atemzug starten</button>
+        </div>
+        <textarea placeholder="Zeichne deinen letzten Zyklus nach: Situation -> Emotion -> Gedanke -> ..."></textarea>
+        <div class="hint">Wichtig: Nicht aendern. Erst nur bemerken.</div>
+      </div>
+      <div class="editor">
+        <p><strong>Eigener Zyklus (editierbar):</strong> Passe die 5 Schritte an und speichere sie lokal in diesem Browser.</p>
+        <div class="editor-grid" id="editorGrid"></div>
+        <div class="controls">
+          <button class="btn-reset" id="loadExampleBtn" type="button">Beispiel laden</button>
+          <button class="btn-start" id="saveBtn" type="button">Meinen Zyklus speichern</button>
+        </div>
+        <div class="saved" id="savedMsg">Gespeichert. Beim nächsten Öffnen bleibt dein Zyklus erhalten.</div>
+      </div>
+    </div>
+  </div>
+  <script>
+    const exampleSteps = [
+      { type: "Situation", text: "Negative Bewertung bei der Arbeit" },
+      { type: "Emotion", text: "Frustration" },
+      { type: "Gedanke", text: "Ich bin nicht gut genug" },
+      { type: "Emotion", text: "Scham" },
+      { type: "Gedanke", text: "Warum passiert mir das immer?" }
+    ];
+    let steps = [];
+
+    const cycleEl = document.getElementById("cycle");
+    const statusEl = document.getElementById("status");
+    const exerciseEl = document.getElementById("exercise");
+    const breathBox = document.getElementById("breathBox");
+    const breathStatus = document.getElementById("breathStatus");
+    const breathBtn = document.getElementById("breathBtn");
+    const editorGrid = document.getElementById("editorGrid");
+    const saveBtn = document.getElementById("saveBtn");
+    const loadExampleBtn = document.getElementById("loadExampleBtn");
+    const savedMsg = document.getElementById("savedMsg");
+    const startBtn = document.getElementById("startBtn");
+    const breakBtn = document.getElementById("breakBtn");
+    const resetBtn = document.getElementById("resetBtn");
+    const STORAGE_KEY = "zyklusDemoStepsV1";
+
+    let active = 0;
+    let timer = null;
+    let breathTimer = null;
+    let running = false;
+    let breathCount = 0;
+
+    function cloneSteps(source) {
+      return source.map((item) => ({ type: item.type, text: item.text }));
+    }
+
+    function safeLoadSteps() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return cloneSteps(exampleSteps);
+        const parsed = JSON.parse(raw);
+        if (!Array.isArray(parsed) || parsed.length !== 5) return cloneSteps(exampleSteps);
+        return parsed.map((item, i) => ({
+          type: item && item.type ? String(item.type) : exampleSteps[i].type,
+          text: item && item.text ? String(item.text) : exampleSteps[i].text
+        }));
+      } catch (error) {
+        return cloneSteps(exampleSteps);
+      }
+    }
+
+    function renderEditor() {
+      editorGrid.innerHTML = "";
+      steps.forEach((step, index) => {
+        const row = document.createElement("div");
+        row.className = "row";
+
+        const label = document.createElement("label");
+        label.setAttribute("for", `step-${index}`);
+        label.textContent = `${index + 1}. ${step.type}`;
+
+        const input = document.createElement("input");
+        input.type = "text";
+        input.id = `step-${index}`;
+        input.value = step.text;
+        input.maxLength = 140;
+        input.addEventListener("input", (event) => {
+          steps[index].text = event.target.value.trimStart();
+          render();
+        });
+
+        row.appendChild(label);
+        row.appendChild(input);
+        editorGrid.appendChild(row);
+      });
+    }
+
+    function saveOwnSteps() {
+      steps = steps.map((step, index) => {
+        const cleanText = String(step.text || "").trim();
+        return {
+          type: step.type,
+          text: cleanText.length > 0 ? cleanText : `Eigener Schritt ${index + 1}`
+        };
+      });
+      renderEditor();
+      render();
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(steps));
+      savedMsg.classList.add("show");
+      window.setTimeout(() => savedMsg.classList.remove("show"), 2200);
+    }
+
+    function updateButtonStates() {
+      startBtn.disabled = running;
+      breakBtn.disabled = !running;
+    }
+
+    function render() {
+      cycleEl.innerHTML = "";
+      steps.forEach((s, i) => {
+        const node = document.createElement("div");
+        node.className = "node" + (i === active && running ? " active" : "");
+        node.innerHTML = `<div class="type">${s.type}</div><div>${s.text}</div>`;
+        cycleEl.appendChild(node);
+        if (i < steps.length - 1) {
+          const arrow = document.createElement("div");
+          arrow.className = "arrow";
+          arrow.textContent = "->";
+          cycleEl.appendChild(arrow);
+        }
+      });
+      updateButtonStates();
+    }
+
+    function startCycle() {
+      if (running) return;
+      running = true;
+      breathCount = 0;
+      clearTimeout(breathTimer);
+      breathTimer = null;
+      exerciseEl.classList.remove("show");
+      breathBox.classList.remove("show");
+      statusEl.className = "out";
+      statusEl.textContent = "Automatischer Kreislauf läuft... beobachte, wie Emotion und Gedanke sich gegenseitig verstärken.";
+      render();
+      timer = setInterval(() => {
+        active = (active + 1) % steps.length;
+        render();
+      }, 1000);
+    }
+
+    function breakCycle() {
+      if (!running) return;
+      running = false;
+      clearInterval(timer);
+      timer = null;
+      statusEl.className = "out break";
+      statusEl.textContent = "Unterbrechung: Du hast den Zyklus bemerkt. Ausstieg durch Beobachten, nicht durch Kampf.";
+      exerciseEl.classList.add("show");
+      breathBox.classList.add("show");
+      breathStatus.textContent = "Atemzug 1 von 3: Einatmen 4s, ausatmen 6s.";
+      breathBtn.textContent = "Atemzug starten";
+      render();
+    }
+
+    function runBreathStep() {
+      if (breathCount >= 3) return;
+      const next = breathCount + 1;
+      breathBtn.disabled = true;
+      breathStatus.textContent = `Atemzug ${next} von 3 läuft... ruhig ein, langsam aus.`;
+      clearTimeout(breathTimer);
+      breathTimer = window.setTimeout(() => {
+        breathCount = next;
+        if (breathCount < 3) {
+          breathStatus.textContent = `Gut. Atemzug ${breathCount + 1} von 3 ist bereit.`;
+          breathBtn.textContent = "Naechsten Atemzug";
+          breathBtn.disabled = false;
+        } else {
+          breathStatus.textContent = "Drei Atemzüge abgeschlossen. Benenne jetzt Gefühl und Gedanken in einem Satz.";
+          breathBtn.textContent = "Fertig";
+          breathBtn.disabled = true;
+        }
+      }, 2500);
+    }
+
+    function resetCycle() {
+      running = false;
+      clearInterval(timer);
+      timer = null;
+      clearTimeout(breathTimer);
+      breathTimer = null;
+      active = 0;
+      breathCount = 0;
+      statusEl.className = "out";
+      statusEl.textContent = "Der Zyklus startet, wenn du auf \"Start Zyklus\" klickst.";
+      exerciseEl.classList.remove("show");
+      breathBox.classList.remove("show");
+      breathBtn.disabled = false;
+      breathBtn.textContent = "Atemzug starten";
+      render();
+    }
+
+    function loadExample() {
+      steps = cloneSteps(exampleSteps);
+      renderEditor();
+      render();
+    }
+
+    steps = safeLoadSteps();
+    renderEditor();
+    startBtn.addEventListener("click", startCycle);
+    breakBtn.addEventListener("click", breakCycle);
+    resetBtn.addEventListener("click", resetCycle);
+    breathBtn.addEventListener("click", runBreathStep);
+    saveBtn.addEventListener("click", saveOwnSteps);
+    loadExampleBtn.addEventListener("click", loadExample);
+
+    render();
+  </script>
+</body>
+</html>
